@@ -1,0 +1,300 @@
+\hojaejercicio{Teorema de Rouché y funciones armónicas}{}
+%ejercicio1
+\ejercicio{Usa el Principio del Argumento para calcular $\displaystyle \int_{C(0;\pi)} \frac{f'(z)}{f(z)} \, dz$ para:\\ a) $f(z)=\sin(\pi z)$; \quad b) $f(z)=\tan(\pi z)$}{
+  Tenemos que $\text{sen}(\pi z) \in H(\mathbb{C})$.
+La curva $C(0, \pi)$ es cerrada simple en $\mathbb{C}$ (es simplemente conexo). Por el Principio del Argumento:
+\[
+\int_{C(0, \pi)} \frac{f'(z)}{f(z)} dz = 2\pi i \left( \sum_{z_k \in \text{Int}} \text{Ind}(z_k) \cdot \text{mult}(z_k) \right)
+\]
+siendo los ceros contados repetidos tantas veces como su multiplicidad.
+
+Los ceros de $\text{sen}(\pi z)$ son $z$ tal que $\pi z = k\pi$ con $k \in \mathbb{Z} \implies z = k$.
+Son los $z \in \mathbb{Z}$.
+En la circunferencia $C(0, \pi)$ (radio $\approx 3.14$), los valores enteros interiores son:
+\[
+z \in \{ -3, -2, -1, 0, 1, 2, 3 \}
+\]
+Existen 7 valores. Son polos simples (multiplicidad 1).
+
+\[
+\implies \int_{C(0, \pi)} \frac{f'(z)}{f(z)} dz = 2\pi i \sum \text{mult}(z_k) = 2\pi i \cdot 7 = 14\pi i
+\]
+}
+
+%ejercicio2
+\ejercicio{Calcula $\displaystyle \int_{\gamma} \frac{f'(z)}{f(z)} \, dz$, siendo $f(z)=\frac{(z^2+1)^2}{(z^2+2z+2)^3}$ y $\gamma$ un camino simple cerrado que contiene en su interior a $D(0;4)$.}{}
+
+%ejercicio3
+\ejercicio{Demuestra que todos los ceros del polinomio $z^{10}-5z+7$ están en $\{z / 1 \leq |z| \leq \frac{3}{2}\}$.}{
+Sea $g(z) = z^{10} - 5z + 7 \in H(\mathbb{C})$.
+
+\textbf{1)} Para $C(0, 1)$:
+Tomamos $f(z) = 7 \in H(\mathbb{C})$.
+\[
+|f(z) - g(z)| = |7 - (z^{10} - 5z + 7)| = |-z^{10} + 5z| \le |z|^{10} + 5|z|
+\]
+En $|z| = 1$:
+\[
+\le 1^{10} + 5(1) = 6 < 7 = |f(z)|
+\]
+Es decir, $|f(z) - g(z)| < |f(z)| \quad \forall z \in C(0, 1)$.
+$\implies$ nº ceros de $g$ en Int($C(0, 1)$) = nº ceros de $f$ en Int($C(0, 1)$) = 0.
+(Esta ecuación es debida a la ausencia de polos en $\mathbb{C}$ de ambas funciones).
+
+\textbf{2)} Por otro lado para $C(0, \frac{3}{2})$:
+\[
+\begin{cases}
+f(z) = z^{10} \in H(\mathbb{C}) \\
+g(z) = z^{10} - 5z + 7 \in H(\mathbb{C})
+\end{cases}
+\]
+\[
+|f(z) - g(z)| = |z^{10} - z^{10} + 5z - 7| = |5z - 7| \le 5|z| + 7
+\]
+En $|z| = \frac{3}{2}$:
+\[
+= 5\cdot\frac{3}{2} + 7 = \frac{15}{2} + 7 = \frac{29}{2} = 14.5
+\]
+\[
+|f(z)| = |z|^{10} = \left(\frac{3}{2}\right)^{10} \approx 57.6
+\]
+\[
+\frac{29}{2} < \left(\frac{3}{2}\right)^{10} \implies |f(z) - g(z)| < |f(z)|
+\]
+Por lo tanto, $f$ y $g$ tienen la misma cantidad de ceros en el disco, es decir, 10.
+
+Entonces, todos los ceros de $z^{10} - 5z + 7$ están en $\text{Int}(C(0, \frac{3}{2})) \setminus C(0, 1)$.
+}
+
+%ejercicio4
+\ejercicio{Prueba que $2+z^2-e^{iz}$ tiene exactamente un cero en $\{z / \text{Im}\, z > 0\}$.}{
+ Cogemos la curva $\Gamma_R = [-R, R] \cup C_R^+$ siendo $C_R^+$ la semicircunferencia en el plano $\text{Im}(z) \ge 0$ centrada en 0 de radio $R > 2$.
+
+Entonces tenemos, sea $g(z) = 2 + z^2 - e^{iz} \in H(\mathbb{C})$.
+Consideramos $f(z) = 2 + z^2 \in H(\mathbb{C})$.
+
+Como son holomorfas en $\mathbb{C}$, no tienen polos en $\mathbb{C}$. Se tiene que entonces, si $z \in \Gamma_R$, se cumplen:
+
+\begin{itemize}
+    \item Si $z \in [-R, R]$, entonces $z = x + iy$ con $y=0$.
+    \[
+    |f(z) - g(z)| = |e^{iz}| = |e^{i(x+iy)}| = |e^{-y} e^{ix}| = e^{-y} = e^0 = 1
+    \]
+    \[
+    |f(z)| = |2 + z^2| = |2 + x^2|
+    \]
+    Para $R > 2$,  así que $|2 + x^2| > 1$.
+    \[
+    |f(z) - g(z)| = 1 < |2 + z^2| = |f(z)|
+    \]
+
+    \item Si $z \in C_R^+$, entonces $z = Re^{it}$ para algún $t \in [0, \pi]$.
+    \[
+    |f(z) - g(z)| = |e^{iz}| = |e^{i(R \cos t + i R \sin t)}| = |e^{-R \sin t + i R \cos t}| = e^{-R \sin t}
+    \]
+    Como $t \in [0, \pi]$, $\sin t \ge 0 \implies -R \sin t \le 0 \implies e^{-R \sin t} \le 1$.
+    \[
+    |f(z) - g(z)| \le 1
+    \]
+    Por otro lado:
+    \[
+    |f(z)| = |2 + z^2| \ge |z|^2 - 2 = R^2 - 2
+    \]
+    Para $R > 2$ suficientemente grande, $R^2 - 2 > 1$.
+    \[
+    |f(z) - g(z)| < |f(z)| \quad \forall z \in C_R^+
+    \]
+\end{itemize}
+
+Por el Teorema de Rouché, cualquier cero de $2 + z^2 - e^{iz}$ en $\text{Int}(\Gamma_R)$ estará contenido en una curva $\Gamma_R$ con un $R > 2$ suficientemente grande.
+Como se ha probado que $f$ y $g$ tienen la misma cantidad de ceros en $\text{Int}(\Gamma_R)$.
+
+El texto concluye: $g$ se anula solo una vez en $\{z : \text{Im}(z) > 0\}$, por lo tanto $f$ también se anula una vez.
+}
+
+%ejercicio5
+\ejercicio{Sea $\lambda > 1$. Demuestra que la ecuación $\lambda - z - e^{-z} = 0$ tiene exactamente una solución en $\{z / \text{Re}\, z > 0\}$. Prueba que esa solución es real. ?`Qué le ocurre a la solución cuando $\lambda \to 1$?}{
+
+Sea la curva $P_R = [Ri, -Ri] \cup C_R^+$ siendo la semicircunferencia orientada positivamente centrada en 0 de radio $R$ tal que $\text{Re}(z) > 0$.
+
+Sea ahora:
+\[
+\begin{cases}
+f(z) = \lambda - z \in H(\mathbb{C}) \\
+g(z) = \lambda - z - e^{-z} \in H(\mathbb{C})
+\end{cases}
+\]
+Son meromorfas en $\mathbb{C}$ (al ser holomorfas).
+\[
+|f(z) - g(z)| = |-e^{-z}| = |e^{-(x+iy)}| = |e^{-x} e^{-iy}| = e^{-x}
+\]
+siendo $x = \text{Re}(z)$.
+
+\begin{itemize}
+    \item Si $z \in [Ri, -Ri]$ entonces $\text{Re}(z) = 0 \implies |f(z) - g(z)| = e^0 = 1$.
+    \[
+    1 < \sqrt{\lambda^2 + y^2} = |\lambda - iy| = |\lambda - z| = |f(z)|
+    \]
+    (ya que $\lambda > 1$).
+
+    \item Si $z \in C_R^+$ entonces $z = Re^{it}$ para algún $t \in [-\pi/2, \pi/2]$, por lo que $\text{Re}(z) \ge 0$.
+    \[
+    |f(z) - g(z)| = |e^{-z}| = e^{-R \cos t} \le 1 \quad (\text{pues } \cos t \ge 0)
+    \]
+    \[
+    |f(z)| = |\lambda - z| = |\lambda - Re^{it}| \ge |Re^{it}| - \lambda = R - \lambda
+    \]
+    Si cogemos $R$ suficientemente grande tal que $R - \lambda > 1$:
+    \[
+    \implies |f(z) - g(z)| \le 1 < R - \lambda \le |f(z)|
+    \]
+\end{itemize}
+
+Por el Teorema de Rouché, la cantidad de ceros de $f$ y $g$ en el interior de $P_R$ es la misma.
+Concluimos, análogamente a $f$, que tiene 1 cero. Es decir, $g$ tiene un cero en $\{z : \text{Re}(z) > 0\}$.
+
+Probemos que tiene al menos una solución real.
+Consideramos la función real $g(x) = \lambda - x - e^{-x}$ cuando $x \in \mathbb{R}^+$. $g(x)$ es continua en $[0, +\infty)$.
+\[
+\lim_{x \to \infty} g(x) = -\infty 
+\]
+Evaluamos:
+\[
+g(0) = \lambda - 1 > 0 \quad (\text{pues } \lambda > 1)
+\]
+\[
+g(\lambda) = \lambda - \lambda - e^{-\lambda} = -e^{-\lambda} < 0
+\]
+Por el Teorema de Bolzano, existe $x_0 \in (0, \lambda)$ tal que $g(x_0) = 0$. Este $x_0$ es el que buscamos y es real.}
+
+
+%ejercicio6
+\ejercicio{Indica cuántas soluciones tienen las ecuaciones siguientes:\\ a) $z^7-2z^5+6z^3-z+1=0$ en $D(0;1)$;\\ b) $z^4-6z+3=0$ en $\{z / 1 \leq |z| \leq 2\}$;\\ c) $z^4+8z^3+3z^2+8z+3=0$ en $\{z / \text{Re}\, z > 0\}$.}{}
+
+%ejercicio7
+\ejercicio{Demuestra que si $u_1$ y $u_2$ son armónicas en un abierto $\Omega \subset \mathbb{C}$, entonces $u_1+u_2$ y $\alpha u_1$ (con $\alpha \in \mathbb{R}$) son armónicas en $\Omega$.}{
+  Si $u_1, u_2$ son armónicas en $\Omega \subset \mathbb{C}$ entonces considerando $\Omega$ como un subconjunto de $\mathbb{R}^2$, se da que:
+
+\[ \frac{\partial^2 u_i}{\partial x^2}(x,y) + \frac{\partial^2 u_i}{\partial y^2}(x,y) = 0 \quad \forall (x,y) \in \Omega, \quad \forall i \in \{1,2\} \]
+
+Entonces:
+
+$(u_1 + u_2): \Omega \longrightarrow \mathbb{R}$ tienen las siguientes derivadas parciales:
+
+\[ \frac{\partial^2}{\partial x^2}(u_1 + u_2) = \frac{\partial^2 u_1}{\partial x^2} + \frac{\partial^2 u_2}{\partial x^2} \]
+
+\[ \frac{\partial^2}{\partial y^2}(u_1 + u_2) = \frac{\partial^2 u_1}{\partial y^2} + \frac{\partial^2 u_2}{\partial y^2} \]
+
+\[ \Rightarrow \frac{\partial^2}{\partial x^2}(u_1 + u_2) + \frac{\partial^2}{\partial y^2}(u_1 + u_2) = \left( \frac{\partial^2 u_1}{\partial x^2} + \frac{\partial^2 u_1}{\partial y^2} \right) + \left( \frac{\partial^2 u_2}{\partial x^2} + \frac{\partial^2 u_2}{\partial y^2} \right) = \]
+
+\[ 0 + 0 = 0 \quad \text{en } \Omega. \Rightarrow \text{es armónica.} \]
+
+trivialmente entonces, para $\alpha u_1: \Omega \longrightarrow \mathbb{R}$:
+
+\[ \frac{\partial^2}{\partial x^2} \alpha u_1 = \alpha \frac{\partial^2}{\partial x^2} u_1 \]
+
+\[ \frac{\partial^2}{\partial y^2} \alpha u_1 = \alpha \frac{\partial^2}{\partial y^2} u_1 \]
+
+\[ \Rightarrow \frac{\partial^2}{\partial x^2} \alpha u_1 + \frac{\partial^2}{\partial y^2} \alpha u_1 = \alpha \left( \frac{\partial^2 u_1}{\partial x^2} + \frac{\partial^2 u_1}{\partial y^2} \right) = \alpha(0) = 0 \]
+}
+
+%ejercicio8
+\ejercicio{a) Si $u$ y $v$ son armónicas conjugadas en un abierto $\Omega \subset \mathbb{C}$, demuestra que $-v$ y $u$ también son armónicas conjugadas en $\Omega$.\\ b) Si $u$ es armónica en un dominio $\Omega \subset \mathbb{C}$ y $v_1$ y $v_2$ son conjugadas armónicas de $u$ en $\Omega$, demuestra que $v_1-v_2$ es constante.}{
+  a) $u, v$ son armónicas conjugadas $\Rightarrow$ \[f(x+iy) = u(x,y) + iv(x,y) \in H(\Omega)\] visto $\Omega$ como un subconjunto de $\mathbb{C}$.
+
+\[\Rightarrow i f \in H(\Omega) \Rightarrow i f(x+iy) = -v(x,y) + i u(x,y) \in H(\Omega)\]
+
+y por ello $-v, u$ son armónicas conjugadas en $\Omega$.
+
+b) $u$ armónica en $\Omega \rightarrow u_{xx} + u_{yy} = 0$ en $\Omega$.
+
+\[v_1 \quad y v_2 \text{ son conjugadas armónicas } \rightarrow \begin{cases} f_1(x+iy) = u(x,y) + i v_1(x,y) \in H(\Omega) \\ f_2(x+iy) = u(x,y) + i v_2(x,y) \in H(\Omega) \end{cases}\]
+
+$\Rightarrow v_1 - v_2 \text{ cte en } \Omega \iff f_1 - f_2 = i(v_1 - v_2) \text{ cte en } \Omega$.
+
+$f_1 - f_2 \in H(\Omega)$ (por ser resta de holomorfas) $\Rightarrow$
+
+\[\text{tiene que cumplir Cauchy-Riemann } \Rightarrow \begin{cases} \frac{\partial (v_1 - v_2)}{\partial y}(x,y) = 0 \\ \frac{\partial (v_1 - v_2)}{\partial x}(x,y) = 0 \end{cases} \forall (x,y) \in \Omega\]
+
+que es abierto conexo $\Rightarrow (f_1 - f_2)'(x+iy) = 0 \quad \forall (x,iy) \in \Omega$
+
+$\Rightarrow \text{como } \Omega \text{ dominio } \Rightarrow f_1 - f_2 \text{ cte en } \Omega \Rightarrow v_1 - v_2 \text{ cte en } \Omega$.
+}
+
+%ejercicio9
+\ejercicio{Sea $u$ armónica en $\mathbb{C}$ y acotada superiormente. Prueba que $u$ es constante.}{
+  Sea $u: \mathbb{R}^2 \longrightarrow \mathbb{R}$ armónica en $\mathbb{C} \Rightarrow u_{xx} + u_{yy} = 0$ en $\mathbb{R}^2$.
+
+Entonces, como es armónica en $\mathbb{R}^2$ podemos asegurar que es la parte real de una función holomorfa en $\mathbb{C}$ tq \[f(x+iy) = u(x,y) + i v(x,y) \quad \forall (x,y) \in \Omega\]
+ siendo en este caso $v$ su conjugada armónica.
+
+Tenemos que \[u(x,y) \le M \quad \forall (x,y) \in \mathbb{R}^2\] así pues, consideramos
+\[g: \mathbb{C} \longrightarrow \mathbb{C}\] tq \[g(x+iy) = e^{f(x+iy)} \quad \forall (x,y) \in \mathbb{R}^2\] que es una función holomorfa en $\mathbb{C}$ (es composición de holomorfas en $\mathbb{C}$).
+
+Además:
+\[ |g(x+iy)| = |e^{f(x+iy)}| = |e^{u(x,y) + i v(x,y)}| = e^{u(x,y)} \le e^M \]
+
+es decir, $g$ está acotada en $\mathbb{C}$ y es holomorfa en $\mathbb{C} \Rightarrow$ Por el teorema de Liouville es cte en $\mathbb{C}$. Concluimos entonces que para algún $\alpha \in \mathbb{C} \quad \alpha \neq 0$
+
+\[ e^{u(x,y) + i v(x,y)} = \alpha \]
+
+\[ \Rightarrow |e^{u(x,y) + i v(x,y)}| = |\alpha| \Rightarrow e^{u(x,y)} = |\alpha| \Rightarrow u(x,y) = \ln|\alpha| \quad \forall (x,y) \in \mathbb{R}^2 \]
+
+\[ \Rightarrow u \text{ es cte en } \mathbb{R}^2 \]
+}
+
+%ejercicio10
+\ejercicio{
+  Encuentra una función armónica en $D(0;1)$ y continua en $\overline{D}(0;1)$ tal que:\\ a) $u(x,y)=x^2 \quad \forall(x,y) \in C(0;1) \quad (\text{ind.: } \text{Re}\, z^2 = x^2-y^2 = 2x^2-1 \text{ si } z=x+iy \in C(0;1))$\\ b) $u(x,y)=x^3 \quad \forall(x,y) \in C(0;1)$
+}{
+  Buscamos una función $u(x,y)$ armónica en $D(0;1)$ tal que coincida con los valores dados en la frontera $C(0;1)$. Utilizaremos la propiedad de que la parte real de una función analítica es armónica.
+
+  \begin{itemize}
+    \item \textbf{Caso $u(x,y)=x^2$ en la frontera}\\
+    La indicación sugiere utilizar la parte real de $z^2$. Sea $f(z) = z^2$. Calculamos su parte real para $z = x+iy$:
+    \[
+    z^2 = (x+iy)^2 = x^2 - y^2 + 2ixy \implies \text{Re}(z^2) = x^2 - y^2
+    \]
+    Analizamos el comportamiento en la frontera $C(0;1)$, donde se cumple la condición $x^2 + y^2 = 1$, lo que implica $y^2 = 1 - x^2$:
+    \begin{align*}
+    \text{Re}(z^2)\big|_{C(0;1)} &= x^2 - (1 - x^2) = 2x^2 - 1
+    \end{align*}
+    Despejamos $x^2$ de esta relación para construir la función armónica $u(x,y)$:
+    \[
+    2x^2 = \text{Re}(z^2) + 1 \implies x^2 = \frac{1}{2}\text{Re}(z^2) + \frac{1}{2}
+    \]
+    Dado que $\text{Re}(z^2)$ es armónica y las constantes son armónicas, definimos $u(x,y)$ en todo el dominio sustituyendo $\text{Re}(z^2)$ por $x^2 - y^2$:
+    \[
+    \boxed{u(x,y) = \frac{1}{2}(x^2 - y^2) + \frac{1}{2}}
+    \]
+    \item \textbf{Caso $u(x,y)=x^3$ en la frontera}\\
+    Consideramos la función analítica $f(z) = z^3$. Calculamos su parte real:
+    \begin{align*}
+    z^3 &= (x+iy)^3 = x^3 + 3x^2(iy) + 3x(iy)^2 + (iy)^3 \\
+    &= (x^3 - 3xy^2) + i(3x^2y - y^3)
+    \end{align*}
+    Por lo tanto, $\text{Re}(z^3) = x^3 - 3xy^2$.
+
+    Analizamos el comportamiento en la frontera sustituyendo nuevamente $y^2 = 1 - x^2$:
+    \begin{align*}
+    \text{Re}(z^3)\big|_{C(0;1)} &= x^3 - 3x(1 - x^2) \\
+    &= x^3 - 3x + 3x^3 \\
+    &= 4x^3 - 3x
+    \end{align*}
+    Despejamos el término objetivo $x^3$:
+    \[
+    4x^3 = \text{Re}(z^3) + 3x \implies x^3 = \frac{1}{4}\text{Re}(z^3) + \frac{3}{4}x
+    \]
+    Sabemos que $x = \text{Re}(z)$ es una función armónica. Por tanto, la combinación lineal es armónica. Sustituyendo la expresión general:
+    \[
+    u(x,y) = \frac{1}{4}(x^3 - 3xy^2) + \frac{3}{4}x
+    \]
+    Simplificando:
+    \[
+    \boxed{u(x,y) = \frac{1}{4}x^3 - \frac{3}{4}xy^2 + \frac{3}{4}x}
+    \] 
+  \end{itemize}
+}
+
+%ejercicio11
+\ejercicio{Sea $f$ holomorfa en un dominio $\Omega \subset \mathbb{C}$. Prueba que $\log|f|$ es armónica en el dominio $\Omega \setminus \{z / f(z)=0\}$.}{}

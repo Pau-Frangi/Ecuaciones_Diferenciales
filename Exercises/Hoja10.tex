@@ -1,0 +1,751 @@
+\hojaejercicio{Teorema de los Residuos}
+%ejercicio1
+\ejercicio{Sean $f, g \in H(D'(z_0, r))$, con $g \neq 0$, tales que:
+\[
+\lim_{z \to z_0} f(z) = \lim_{z \to z_0} g(z) = 0
+\]
+Entonces, o bien:
+\[
+\lim_{z \to z_0} \frac{f(z)}{g(z)} = \lim_{z \to z_0} \frac{f'(z)}{g'(z)} = L \in \mathbb{C}, \quad \text{o bien} \quad \lim_{z \to z_0} \frac{f(z)}{g(z)} = \lim_{z \to z_0} \frac{f'(z)}{g'(z)} = \infty
+\]}{
+\noindent Tenemos que $f, g \in H(D'(z_0, r))$. Como existen los límites $\lim_{z \to z_0} f(z)$ y $\lim_{z \to z_0} g(z)$ y son finitos (son 0), 
+tenemos que por el \textbf{Teorema de Prolongación Analítica}, $f$ y $g$ admiten una extensión holomorfa en $D(z_0, r)$. 
+\\
+Es decir, $f, g \in H(D(z_0, r))$ definiendo $f(z_0) = g(z_0) = 0$.
+
+\noindent Como $g \neq 0$, tenemos que $z_0$ es un cero aislado de $g$ en $D(z_0, r_1)$. Para algún $r_1$ con $0 < r_1 \leq r$.
+
+\noindent Se dan dos casos para $f$:
+
+\begin{enumerate}
+    \item \textbf{Si} $f \equiv 0$ en $D(z_0, r_1)$:
+    \[
+    \lim_{z \to z_0} \frac{f(z)}{g(z)} = 0 = \lim_{z \to z_0} \frac{f'(z)}{g'(z)}
+    \]
+    ya que como $f \equiv 0 \implies f' \equiv 0$ en $D(z_0, r_1)$ y si $g'$ se anula en $z_0$, entonces es un cero aislado porque $g' \not\equiv 0$ (sino g sería constante y g=0);
+
+    \item \textbf{Si} $f \not\equiv 0$:
+    Por la misma razón que con $g$, $z_0$ es un cero aislado de $f$ en $D(z_0, r_1)$.
+\end{enumerate}
+
+\noindent Hemos visto que $z_0$ es un cero aislado de $g$ en $D(z_0, r_1)$, entonces $\exists h_1 \in H(D(z_0, r_1))$ y $m \in \mathbb{N}$ con $h_1(z) \neq 0, \forall z \in D(z_0, r_1)$ tal que:
+\[
+g(z) = (z-z_0)^m h_1(z) \quad \forall z \in D(z_0, r_1)
+\]
+
+\noindent Análogamente para $f$, $\exists h_2 \in H(D(z_0, r_1))$ con $h_2(z) \neq 0$ y $n \in \mathbb{N}$ tal que:
+\[
+f(z) = (z-z_0)^n h_2(z) \quad \forall z \in D(z_0, r_1)
+\]
+
+\noindent Calculamos el límite original:
+\[
+\lim_{z \to z_0} \frac{f(z)}{g(z)} = \lim_{z \to z_0} \frac{(z-z_0)^n h_2(z)}{(z-z_0)^m h_1(z)} = \lim_{z \to z_0} (z-z_0)^{n-m} \frac{h_2(z)}{h_1(z)}
+\]
+
+\noindent Calculamos el límite con las derivadas:
+\[
+g'(z) = m(z-z_0)^{m-1} h_1(z) + h_1'(z)(z-z_0)^m = (z-z_0)^{m-1} \left( m h_1(z) + h_1'(z)(z-z_0) \right)
+\]
+\[
+f'(z) = n(z-z_0)^{n-1} h_2(z) + h_2'(z)(z-z_0)^n = (z-z_0)^{n-1} \left( n h_2(z) + h_2'(z)(z-z_0) \right)
+\]
+
+\noindent Formamos el cociente:
+\[
+\frac{f'(z)}{g'(z)} = \frac{(z-z_0)^{n-1} \left[ n h_2(z) + h_2'(z)(z-z_0) \right]}{(z-z_0)^{m-1} \left[ m h_1(z) + h_1'(z)(z-z_0) \right]}
+\]
+\[
+= (z-z_0)^{(n-1)-(m-1)} \frac{n h_2(z) + h_2'(z)(z-z_0)}{m h_1(z) + h_1'(z)(z-z_0)}
+\]
+\[
+= (z-z_0)^{n-m} \frac{n h_2(z) + h_2'(z)(z-z_0)}{m h_1(z) + h_1'(z)(z-z_0)}
+\]
+
+\noindent Tomando el límite cuando $z \to z_0$, la segunda parte (la fracción de $h$) está acotada y tiende a:
+\[
+\lim_{z \to z_0} \frac{n h_2(z) + h_2'(z)(z-z_0)}{m h_1(z) + h_1'(z)(z-z_0)} = \frac{n h_2(z_0)}{m h_1(z_0)}
+\]
+
+
+
+\begin{itemize}
+    \item Si $n > m$:
+    \[
+    \lim_{z \to z_0} (z-z_0)^{n-m} \frac{n h_2(z) + \dots}{m h_1(z) + \dots} = 0
+    \]
+    Coincide con el límite original: $\lim (z-z_0)^{n-m} \frac{h_2}{h_1} = 0$.
+
+    \item Si $n < m$:
+    \[
+    \lim_{z \to z_0} (z-z_0)^{n-m} (\dots) = \infty
+    \]
+    Coincide con el límite original.
+
+    \item Si $n = m$:
+    \[
+    \lim_{z \to z_0} \frac{f'(z)}{g'(z)} = 1 \cdot \frac{n h_2(z_0)}{m h_1(z_0)} = \frac{n}{n} \frac{h_2(z_0)}{h_1(z_0)} = \frac{h_2(z_0)}{h_1(z_0)}
+    \]
+    Coincide con el límite original: $\lim \frac{h_2(z)}{h_1(z)} = \frac{h_2(z_0)}{h_1(z_0)}$.
+\end{itemize}
+Haciendo lo mismo para ambos límites, nos queda que:
+\[
+\lim_{z \to z_0} \frac{f(z)}{g(z)} = \lim_{z \to z_0} \frac{f'(z)}{g'(z)}
+\]
+}
+%ejercicio2
+\ejercicio{Determinar las singularidades aisladas y calcular los residuos de las siguientes funciones}{
+a) $f(z) = \frac{1}{(z-1)^2}$
+\noindent Tenemos que $f \in H(\mathbb{C} \setminus \{1\})$, por lo tanto $z=1$ es una singularidad aislada.
+\noindent Teniendo en cuenta que:
+\[
+\lim_{z \to 1} (z-1)^2 f(z) = 1
+\]
+se trata de un polo de orden 2.
+
+\noindent Por lo tanto, el residuo es:
+\[
+\text{Res}(f, 1) = \lim_{z \to 1} \frac{1}{1!} \frac{d}{dz} \left[ (z-1)^2 f(z) \right] = \lim_{z \to 1} \frac{d}{dz}[1] = 0
+\]
+
+\subsection*{b) $f(z) = \frac{1-\cos z}{z^2}$}
+\noindent Tenemos que $f \in H(\mathbb{C} \setminus \{0\}) \implies z=0$ es singularidad aislada.
+
+\noindent Por la regla de L'Hôpital:
+\[
+\lim_{z \to 0} f(z) = \lim_{z \to 0} \frac{\text{sen } z}{2z} = \lim_{z \to 0} \frac{\cos z}{2} = \frac{1}{2}
+\]
+\noindent Por lo tanto es una singularidad evitable $\implies \text{Res}(f, 0) = 0$.
+
+\subsection*{f) $f(z) = \frac{1}{(z^2+1)\text{sen}(\pi z)} = \frac{1}{(z+i)(z-i)\text{sen}(\pi z)}$}
+\noindent $\implies f \in H(\mathbb{C} \setminus A)$ siendo $A = \{i, -i\} \cup \{z \in \mathbb{C} : z=k, \text{ con } k \in \mathbb{Z}\}$.
+\noindent $A$ es un conjunto de singularidades aisladas ($\mathbb{C} \setminus A$ es abierto). Entonces:
+
+\noindent \textbf{Análisis de los polos imaginarios:}
+\[
+\lim_{z \to i} |f(z)| = \lim_{z \to i} \frac{1}{|z-i| \cdot |(z+i)\text{sen}(\pi z)|} = \infty \implies z=i \text{ es un polo.}
+\]
+\[
+\lim_{z \to -i} |f(z)| = \infty \implies z=-i \text{ es un polo.}
+\]
+
+\noindent \textbf{Análisis de los polos reales (enteros):}
+\[
+|f(z)| = \frac{1}{|z-i||z+i||\text{sen}(\pi z)|} \xrightarrow{z \to k} \infty \quad \forall k \in \mathbb{Z} \implies z=k \text{ es polo } \forall k \in \mathbb{Z}.
+\]
+
+\noindent \textbf{Cálculo de Residuos:}
+
+\noindent Como $z=i$ y $z=-i$ son simples, tenemos:
+\[
+\text{Res}(f, i) = \lim_{z \to i} (z-i) \frac{1}{(z-i)(z+i)\text{sen}(\pi z)} = \lim_{z \to i} \frac{1}{(z+i)\text{sen}(\pi z)} = \frac{1}{2i \text{ sen}(\pi i)}
+\]
+\[
+\text{Res}(f, -i) = \lim_{z \to -i} (z+i) \frac{1}{(z-i)(z+i)\text{sen}(\pi z)} = \lim_{z \to -i} \frac{1}{-2i \text{ sen}(-\pi i)}
+\]
+
+\noindent Sea $k \in \mathbb{Z}$:
+\[
+\text{Res}(f, k) = \lim_{z \to k} (z-k) \frac{1}{(z-i)(z+i)\text{sen}(\pi z)}
+\]
+\noindent Aplicando L'Hôpital al límite:
+\[
+\lim_{z \to k} \frac{1}{(z^2+1)'\text{sen}(\pi z) + (z^2+1)(\text{sen}(\pi z))'} = \lim_{z \to k} \frac{1}{2z \text{ sen}(\pi z) + (z^2+1)\pi \cos(\pi z)}
+\]
+
+\noindent Evaluando en $z=k$:
+\begin{itemize}
+    \item $\text{sen}(\pi k) = 0$
+    \item $\cos(\pi k) = (-1)^k$
+\end{itemize}
+
+\[
+= \frac{1}{0 + (k^2+1)\pi (-1)^k}
+\]
+
+\noindent Como el límite es distinto de 0, es un polo simple.
+\[
+\implies \text{Res}(f, k) = \frac{(-1)^k}{\pi(k^2+1)} \quad \text{con } k \in \mathbb{Z}
+\]
+}
+%ejercicio3
+\ejercicio{Calcula:     \[
+\int_{C(0,4)} \frac{e^z}{(z^2+\pi^2)^2} \, dz
+\]}{
+
+
+\noindent Tenemos que:
+\[
+\frac{e^z}{(z^2+\pi^2)^2} = \frac{e^z}{[(z-i\pi )(z+i\pi )]^2} = f(z) \in H(\mathbb{C} \setminus \{\pm i\pi \})
+\]
+
+\noindent Se comprueba fácilmente que:
+\[
+\begin{cases}
+\displaystyle \lim_{z \to i\pi } f(z)(z-i\pi )^2 = L \in \mathbb{C} \\
+\displaystyle \lim_{z \to -i\pi } f(z)(z+i\pi )^2 = L' \in \mathbb{C}
+\end{cases}
+\quad \text{con } L, L' \neq 0.
+\]
+\noindent Por lo tanto son polos de orden 2.
+
+\noindent Por el teorema de los residuos, siendo $S = \{i\pi , -i\pi \}$, entonces como $|i\pi |=|-i\pi | < 4 \implies S \subset D(0,4)$, la curva es cerrada y homóloga a 0 en $\mathbb{C}$. Podemos aplicar el teorema:
+\[
+\int_{C(0,4)} f(z) \, dz = 2\pi i \sum_{z \in S} \text{Ind}_\gamma(z) \cdot \text{Res}(f, z) = 2\pi i \sum_{z \in S} \text{Res}(f, z)
+\]
+
+\noindent \textbf{Cálculo de residuos:}
+
+\[
+\text{Res}(f, i\pi ) = \lim_{z \to i\pi } \frac{1}{1!} \frac{d}{dz} \left[ (z-i\pi )^2 \frac{e^z}{(z-i\pi )^2(z+i\pi )^2} \right]
+\]
+\[
+= \lim_{z \to i\pi } \frac{e^z(z+i\pi )^2 - 2(z+i\pi )e^z}{(z+i\pi )^4} = \frac{4\pi^2  + 4\pi }{16\pi^4} = \frac{\pi +1}{4\pi^3}
+\]
+
+\[
+\text{Res}(f, -i\pi ) = \lim_{z \to -i\pi } \frac{1}{1!} \frac{d}{dz} \left[ \frac{e^z}{(z-i\pi )^2} \right]
+\]
+\[
+= \lim_{z \to -i\pi } \frac{e^z(z-i\pi )^2 - 2e^z(z-i\pi )}{(z-i\pi )^4} = \frac{-4\pi^2  - 4\pi }{16\pi^4 }
+\]
+
+\noindent Por lo tanto:
+\[
+\implies \int_{C(0,4)} f(z) \, dz = 2\pi i(\text{Res}(f, i\pi) + \text{Res}(f, -i\pi)) = 0
+\]
+}
+%ejercicio4
+\ejercicio{Calcula \[ \int_{0}^{\pi/2} \frac{1}{a+\sin^2 x} \, dx \quad \text{con } |a|>1 \]}{
+    Tenemos que $\sin x$ es simétrica respecto de $x=\frac{\pi}{2} \implies \sin^2 x$ es simétrica respecto de $x=\frac{\pi}{2}$. Por lo tanto, la función $\frac{1}{a+\sin^2 x}$ es simétrica respecto a $x=\frac{\pi}{2}$.
+
+\[
+\int_{0}^{\pi/2} \frac{1}{a+\sin^2 x} \, dx = \frac{1}{2} \int_{0}^{\pi} \frac{1}{a+\sin^2 x} \, dx
+\]
+
+Como $\sin^2 x$ es simétrica respecto de $x=0$, entonces, análogamente:
+\[
+\frac{1}{4} \int_{-\pi}^{\pi} \frac{1}{a+\sin^2 x} \, dx
+\]
+
+Haciendo el cambio de variable $x = u - \pi \implies dx = du$ y utilizando que la función es periódica:
+\[
+\frac{1}{4} \int_{0}^{2\pi} \frac{1}{a+\sin^2(u-\pi)} \, du
+\]
+Pero como $\sin^2 x$ es periódica de periodo $\pi$ (y por lo tanto de periodo $2\pi$):
+\[
+\circledast = \frac{1}{4} \int_{0}^{2\pi} \frac{1}{a+\sin^2 u} \, du
+\]
+
+\subsection*{2. Cambio a Variable Compleja}
+
+Usamos el cambio $z = e^{it}$, donde $dz = i e^{it} dt \implies dt = \frac{dz}{iz}$. Además, $\sin u = \frac{z - 1/z}{2i}$.
+
+\[
+\int_{0}^{2\pi} \frac{1}{a+\sin^2 u} \, du = \int_{0}^{2\pi} \frac{1}{a + \left(\frac{e^{it}-e^{-it}}{2i}\right)^2} \, dt
+\]
+
+Sustituyendo en la integral de contorno sobre $C(0,1)$:
+\[
+\int_{C(0,1)} \frac{1}{a + \left(\frac{z - \frac{1}{z}}{2i}\right)^2} \cdot \frac{dz}{iz} = \int_{C(0,1)} \frac{1}{a + \frac{z^2 + \frac{1}{z^2} - 2}{-4}} \cdot \frac{dz}{iz}
+\]
+
+Simplificando la expresión algebraica:
+\[
+= 4i \int_{C(0,1)} \frac{1}{\frac{-4az^2 + z^4 + 1 - 2z^2}{z}} \, dz = 4i \int_{C(0,1)} \frac{z}{z^4 + (-4a-2)z^2 + 1} \, dz \quad \circledast
+\]
+
+\subsection*{3. Cálculo de las Raíces}
+
+Vemos que el denominador es $z^4 + (-4a-2)z^2 + 1 = 0$. Hacemos el cambio $t = z^2$:
+\[
+t^2 + (-4a-2)t + 1 = 0
+\]
+Resolvemos la ecuación de segundo grado para $t$:
+\[
+t = \frac{4a+2 \pm \sqrt{(4a+2)^2 - 4}}{2} = \frac{4a+2 \pm \sqrt{16a^2 + 16a + 4 - 4}}{2} = \frac{4a+2 \pm 4\sqrt{a(a+1)}}{2}
+\]
+\[
+t = (2a+1) \pm 2\sqrt{a(a+1)} \implies z^2 = (2a+1) \pm 2\sqrt{a(a+1)}
+\]
+
+Nos preocupan las raíces que estén dentro de $C(0,1)$.
+Si tomamos la raíz con el signo positivo: $t = (2a+1) + 2\sqrt{a(a+1)}$, entonces $|t|>1 \iff |z|^2 > 1 \iff |z|>1$. Estas raíces quedan fuera.
+
+Sea $t_1 = (2a+1) - 2\sqrt{a(a+1)}$. Podemos reescribirlo como:
+\[
+t_1 = 2(a - \sqrt{a(a+1)}) + 1
+\]
+Tenemos que $|t_1| < 1 \implies |z|^2 < 1 \implies |z| < 1$. Por lo tanto, las raíces generadas por $t_1$ están dentro de $C(0,1)$.
+\[
+\begin{cases} z_1 = \sqrt{t_1} \\ z_2 = -\sqrt{t_1} \end{cases} \quad \text{son las raíces buscadas dentro de } C(0,1).
+\]
+Llamemos $z_3$ y $z_4$ a las otras dos raíces (las que están fuera).
+
+\subsection*{4. Aplicación del Teorema de los Residuos}
+
+Retomando la integral $\circledast$:
+\[
+\circledast = 4i \int_{C(0,1)} \frac{z}{(z-z_1)(z-z_2)(z-z_3)(z-z_4)} \, dz
+\]
+Aplicando el Teorema de los Residuos para los polos simples $z_1$ y $z_2$:
+\[
+\int_{C(0,1)} f(z) \, dz = 2\pi i (\text{Res}(f, z_1) + \text{Res}(f, z_2))
+\]
+
+\textbf{Cálculo del Residuo en $z_1$:}
+\[
+\text{Res}(f, z_1) = \frac{z_1}{\frac{d}{dz}(z^4 + (-4a-2)z^2 + 1)\big|_{z_1}} = \frac{z_1}{4z_1^3 + 2(-4a-2)z_1} = \frac{1}{4z_1^2 + 2(-4a-2)}
+\]
+Sustituyendo $z_1^2 = t_1 = (2a+1) - 2\sqrt{a(a+1)}$:
+\[
+= \frac{1}{4\left[(2a+1) - 2\sqrt{a(a+1)}\right] - 8a - 4} = \frac{1}{8a + 4 - 8\sqrt{a(a+1)} - 8a - 4}
+\]
+\[
+\text{Res}(f, z_1) = \frac{1}{-8\sqrt{a(a+1)}}
+\]
+
+Por simetría, el residuo en $z_2$ es idéntico:
+\[
+\text{Res}(f, z_2) = \frac{1}{-8\sqrt{a(a+1)}}
+\]
+
+\subsection*{5. Resultado Final}
+
+La integral original es:
+\[
+\int_{0}^{\pi/2} \frac{1}{a+\sin^2 x} \, dx =\frac{1}{4} \cdot(\left( 4i \right) \cdot \left( 2\pi i \right) \cdot \left( \frac{1}{-8\sqrt{a(a+1)}} + \frac{1}{-8\sqrt{a(a+1)}} \right))
+\]
+Simplificando:
+\[
+= -(2\pi) \left( \frac{1}{-4\sqrt{a(a+1)}} \right)  
+\]
+
+\[
+\boxed{ \int_{0}^{\pi/2} \frac{1}{a+\sin^2 x} \, dx =  \frac{\pi}{2\sqrt{a(a+1)}} }
+\]
+}
+%ejercicio5
+\ejercicio{Calcula \[ \int_{0}^{2\pi} \frac{dx}{\sqrt{5} + \cos(x)} \]}{
+\subsection*{1. Cambio de Variable}
+
+Usamos la definición del coseno en variable compleja:
+\[
+\int_{0}^{2\pi} \frac{1}{\sqrt{5} + \frac{e^{ix} + e^{-ix}}{2}} \, dx
+\]
+
+Aplicamos el cambio $z = e^{ix}$, de donde $dx = \frac{dz}{iz}$:
+\[
+\int_{0}^{2\pi} \frac{i e^{ix}}{i e^{ix} \left(\sqrt{5} + \frac{e^{ix} + e^{-ix}}{2}\right)} \, dx = \int_{C(0,1)} \frac{1}{iz \left(\sqrt{5} + \frac{z + \frac{1}{z}}{2}\right)} \, dz
+\]
+
+Simplificando la expresión:
+\[
+-2i \int_{C(0,1)} \frac{1}{2\sqrt{5}z + z^2 + 1} \, dz
+\]
+
+\subsection*{2. Cálculo de las Raíces}
+
+Sacamos las raíces del polinomio complejo del denominador:
+\[
+z^2 + 2\sqrt{5}z + 1 = 0 \iff z = \frac{-2\sqrt{5} \pm \sqrt{20 - 4}}{2} = \frac{-2\sqrt{5} \pm 4}{2}
+\]
+
+En este caso tenemos:
+\[
+z_1 = \frac{-2\sqrt{5} + 4}{2} = -\sqrt{5} + 2
+\]
+\[
+z_2 = \frac{-2\sqrt{5} - 4}{2} = -\left( \frac{2\sqrt{5} + 4}{2} \right) = -\sqrt{5} - 2
+\]
+
+\subsection*{3. Comprobación de Singularidades en $C(0,1)$}
+
+¿$z_1, z_2 \in C(0,1)$? Lo vemos aproximando:
+\[
+3 > \sqrt{5} > 2 \implies -6 < -2\sqrt{5} < -4 \iff -2 < -2\sqrt{5} + 4 < 0
+\]
+\[
+\implies -1 < \frac{-2\sqrt{5} + 4}{2} < 0 \implies z_1 \in C(0,1).
+\]
+
+Para $z_2$:
+\[
+|z_2| = \left| -\frac{2\sqrt{5} + 4}{2} \right| = \left| \frac{2\sqrt{5} + 4}{2} \right|
+\]
+Entonces:
+\[
+\sqrt{5} > 2 \implies 2\sqrt{5} > 4 \iff 2\sqrt{5} + 4 > 8 \implies \frac{2\sqrt{5} + 4}{2} > 4
+\]
+\[
+\implies |z_2| > 4 > 1. \quad \text{Por tanto, } z_2 \notin C(0,1).
+\]
+
+\subsection*{4. Aplicación del Teorema de los Residuos}
+
+Por tanto, por el Teorema de los Residuos:
+\[
+\int_{C(0,1)} \frac{1}{2\sqrt{5}z + z^2 + 1} \, dz = 2\pi i \, \text{Res}(f, z_1)
+\]
+
+Como $z_1$ es un polo simple:
+\[
+\text{Res}(f, z_1) = \frac{1}{2z_1 + 2\sqrt{5}}
+\]
+Sustituyendo $z_1 = -\sqrt{5} + 2$:
+\[
+= \frac{1}{2(-\sqrt{5} + 2) + 2\sqrt{5}} = \frac{1}{-2\sqrt{5} + 4 + 2\sqrt{5}} = \frac{1}{4}
+\]
+
+\subsection*{5. Resultado Final}
+
+Retomamos la integral completa (con el factor $2i$ que teníamos fuera):
+\[
+\int_{0}^{2\pi} \frac{dx}{\sqrt{5} + \cos(x)} = -2i \int_{C(0,1)} \frac{1}{2\sqrt{5}z + z^2 + 1} \, dz
+\]
+\[
+= -2i \cdot (2\pi i) \cdot \frac{1}{4} = -4\pi i^2 \cdot \frac{1}{4} = \pi
+\]
+
+\[
+\boxed{ = \pi }
+\]
+c) Calcula la integral:
+\[
+\int_{-\infty}^{\infty} \frac{x^2+3}{(x^2+1)(x^2+4)} \, dx = \int_{-\infty}^{\infty} f(x) \, dx
+\]
+
+\subsection*{1. Análisis de Convergencia}
+
+Como $f(x)$ es de la forma $\frac{q(x)}{p(x)}$ con $\deg(p(x)) \ge \deg(q(x)) + 2$ (grado 4 en el denominador vs grado 2 en el numerador) y además $p(x)$ no tiene ceros reales, 
+en este caso concreto podemos asegurar que la integral converge y podemos aplicar la técnica vista en clase
+
+Aplicamos el Teorema de los Residuos:
+\[
+\int_{-\infty}^{\infty} \frac{x^2+3}{(x^2+1)(x^2+4)} \, dx = 2\pi i \sum_{z \in S^+} \text{Res}(f, z)
+\]
+siendo $S^+$ el conjunto de ceros de $p(z)$ en el semiplano superior.
+
+\subsection*{2. Cálculo de Polos}
+
+Factorizamos el denominador:
+\[
+p(z) = (z^2+1)(z^2+4) = (z-i)(z+i)(z-2i)(z+2i)
+\]
+Por lo tanto, las singularidades son:
+\[
+z_1 = i, \quad z_2 = -i, \quad z_3 = 2i, \quad z_4 = -2i
+\]
+Todos son polos simples de $f(z)$.
+
+Identificamos los que pertenecen al semiplano superior ($S^+$):
+\[
+\text{Sólo } z_1 = i \text{ y } z_3 = 2i \in S^+
+\]
+
+\subsection*{3. Cálculo de los Residuos}
+
+Utilizamos la fórmula para polos simples $\text{Res}(f, z_0) = \frac{q(z_0)}{p'(z_0)}$.
+Dado que $p(z) = z^4 + 5z^2 + 4 \implies p'(z) = 4z^3 + 10z$.
+
+**Para $z_1 = i$:**
+\[
+\text{Res}(f, z_1) = \frac{q(z_1)}{p'(z_1)} = \frac{z_1^2 + 3}{4z_1^3 + 10z_1} = \frac{-1 + 3}{-4i + 10i} = \frac{2}{6i} = -\frac{1}{3}i
+\]
+
+**Para $z_3 = 2i$:**
+\[
+\text{Res}(f, z_3) = \frac{z_3^2 + 3}{4z_3^3 + 10z_3} = \frac{-4 + 3}{-32i + 20i} = \frac{-1}{-12i} = -\frac{1}{12}i
+\]
+
+\subsection*{4. Resultado Final}
+
+Sustituimos en la fórmula inicial:
+\[
+\int_{-\infty}^{\infty} f(x) \, dx = 2\pi i \sum_{z \in S^+} \text{Res}(f, z)
+\]
+\[
+= 2\pi i \left( -\frac{1}{3}i - \frac{1}{12}i \right) = 2\pi i \left( -\frac{1}{3} - \frac{1}{12} \right)i
+\]
+Sumamos las fracciones ($-\frac{4}{12} - \frac{1}{12} = -\frac{5}{12}$):
+\[
+= 2\pi i \left( -\frac{5}{12} i \right) = 2\pi \cdot \frac{5}{12} \cdot (-i^2)
+\]
+Como $-i^2 = -(-1) = 1$:
+\[
+= 2\pi \cdot \frac{5}{12} = \frac{10\pi}{12} = \frac{5}{6}\pi
+\]
+
+\[
+\boxed{ \int_{-\infty}^{\infty} \frac{x^2+3}{(x^2+1)(x^2+4)} \, dx = \frac{5\pi}{6} }
+\]
+}
+%ejercicio6
+\ejercicio{}{
+ Una función entera, por definición, es holomorfa en $\mathbb{C}$. Si extendemos a $\overline{\mathbb{C}}$, eso quiere decir que $f \in H(\mathbb{C} \setminus \{a\})$, por lo tanto teniendo una "singularidad aislada".
+
+\subsection*{a)}
+Una singularidad es evitable si existe el límite en el punto singular.
+\[
+\exists \lim_{z \to a} f(z) = k \implies \text{Si } |z| < M \text{ entonces } |f(z) - k| < \epsilon
+\]
+Sea pues $\epsilon = 1$, $\exists M$ si $|z| < \epsilon$ entonces $|f(z) - k| < 1$, es decir, $f(z) \in D(k, 1)$ (acotada).
+
+Si $|z| \le M$ entonces ver $\overline{D}(0, M)$ un compacto y $f$ una función continua. $f(\overline{D}(0, M))$ es compacto y por lo tanto $f(z)$ está acotada. $f$ está acotada para $|z| \le M$ y $|z| \ge M$. $f$ acotada en $\mathbb{C}$.
+
+Como $f$ es holomorfa en $\mathbb{C}$, por el Teorema de Liouville, $f$ es constante.
+
+\subsection*{b)}
+Si $f$ tiene un polo en infinito, consideremos $g: \mathbb{C} \setminus \{0\} \to \mathbb{R}$ tal que $g(w) = f\left(\frac{1}{w}\right)$, con $g \in H(\mathbb{C} \setminus \{0\})$.
+\[
+\lim_{z \to \infty} f(z) = \lim_{w \to 0} g(w) = \infty
+\]
+Tiene un polo en $z=0$ de orden $k$.
+
+Sabiendo que $f$ es holomorfa en $\mathbb{C}$, por el Teorema de Taylor:
+\[
+f(z) = \sum_{n=0}^{\infty} c_n z^n
+\]
+centrado en 0.
+\[
+g(w) = f\left(\frac{1}{w}\right) = \sum_{n=0}^{\infty} \frac{c_n}{w^n} \quad \forall w \in \mathbb{C} \setminus \{0\}
+\]
+es el desarrollo de Laurent de $g$ centrado en 0.
+
+Como tiene un polo de orden $k$ en $0 \implies c_n = 0$ para $n > k$.
+\[
+g(w) = \sum_{n=0}^{k} \frac{c_n}{w^n} \quad \forall w \in \mathbb{C} \setminus \{0\} \implies f(z) = g\left(\frac{1}{z}\right) = \sum_{n=0}^{k} c_n z^n \quad \forall z \in \mathbb{C}
+\]
+Sabiendo que $c_k \neq 0$, $f(z)$ es un polinomio de grado $k$.
+\[
+f(z) = a_0 + \dots + a_k z^k
+\]
+Definimos $g: \mathbb{C} \setminus \{0\} \to \mathbb{C}$ que es el desarrollo de Laurent de $f(1/w)$:
+\[
+g(w) = f\left(\frac{1}{w}\right) = a_0 + \frac{a_1}{w} + \dots + a_k \frac{1}{w^k}
+\]
+Vemos que $c_{-k} = a_k$ y $c_{-n} = 0$ para $n > k$. Por lo tanto, tiene un polo de orden $k$ en 0.
+$\implies f$ tiene un polo de orden $k$ en $\infty$.
+}
+
+\ejercicio{Calcula \[ \int_{-\infty}^{\infty} \frac{\cos(x)}{x^2+a^2} \, dx \quad \text{con } a>0. \]}{\subsection*{1. Análisis de Convergencia}
+
+Veamos primero que converge.
+Tenemos que es una función continua en $\mathbb{R}$ y por lo tanto integrable en $[0,t]$ y $[-t,0]$ $\forall t>0$.
+Además es simétrica respecto de $x=0$, por lo que:
+\[
+\int_{-t}^{0} \frac{\cos(x)}{x^2+a^2} \, dx = \int_{0}^{t} \frac{\cos(x)}{x^2+a^2} \, dx
+\]
+Entonces estudiamos si converge $\int_{0}^{\infty} \frac{\cos x}{x^2+a^2} \, dx$ (entonces $\int_{-\infty}^{\infty} \dots = 2 \int_{0}^{\infty} \dots$ converge).
+
+Se da que:
+\[
+\left| \frac{\cos x}{x^2+a^2} \right| \le \frac{1}{x^2+a^2} \le \frac{1}{x^2} \quad \forall x \in [1, \infty)
+\]
+
+Por el criterio de comparación, $\int_{1}^{\infty} \frac{|\cos x|}{|x^2+a^2|} \, dx$ converge.
+Es decir, $\int_{1}^{\infty} \frac{\cos x}{x^2+a^2} \, dx$ converge absolutamente $\implies$ converge.
+
+\[
+\implies \int_{0}^{\infty} \frac{\cos x}{x^2+a^2} \, dx \text{ converge } \implies \int_{-\infty}^{\infty} \frac{\cos x}{x^2+a^2} \, dx \text{ converge.}
+\]
+
+\subsection*{2. Definición de la Función Compleja}
+
+Si cogemos:
+\[
+f(z) = \frac{e^{iz}}{z^2+a^2} \, dz
+\]
+Tenemos que $z^2+a^2 = (z-ai)(z+ai)$ con $a>0$. Por lo tanto, sea $R>a$, definimos $\gamma_R = [-R, R] \cup C_R^+$ (semicírculo superior).
+
+Tenemos que, como $e^{iz}$ no se anula en la recta imaginaria $\implies z_1 = ai$, $z_2 = -ai$ son polos simples de $f$ en $\mathbb{C}/\{z_1, z_2\}$.
+Como $f \in H(\mathbb{C}/\{z_1, z_2\})$ y $\gamma$ es homíotopa a $0$ en $\mathbb{C}$, y además $\gamma_R$ no pasa por los polos de $f$, utilizamos el Teorema de los Residuos.
+
+\subsection*{3. Cálculo del Residuo}
+
+El único polo dentro de $\gamma_R$ (en el semiplano superior) es $z_1 = ai$.
+
+\[
+\int_{\gamma_R} f(z) \, dz = 2\pi i \, \text{Res}(f, z_1) = 2\pi i \frac{e^{iz_1}}{2z_1}
+\]
+Sustituyendo $z_1 = ai$:
+\[
+= 2\pi i \frac{e^{i(ai)}}{2(ai)} = 2\pi i \frac{e^{-a}}{2ai} = 2\pi \frac{e^{-a}}{2a} = \frac{\pi}{a e^a}
+\]
+
+\subsection*{4. Paso al Límite e Integral Real}
+
+Tenemos entonces que si demostramos que:
+\[
+\int_{C_R^+} f(z) \, dz \xrightarrow{R \to \infty} 0
+\]
+entonces nos queda que:
+\[
+\int_{\gamma_R} f(z) \, dz = \int_{[-R,R]} f(z) \, dz + \int_{C_R^+} f(z) \, dz = \int_{[-R,R]} \frac{\cos x}{x^2+a^2} \, dx + i \int_{[-R,R]} \frac{\sin x}{x^2+a^2} \, dx + \int_{C_R^+} f(z) \, dz
+\]
+
+Como $\int_{\gamma_R} f(z) \, dz = \frac{\pi}{e^a a} \in \mathbb{R}$ y $\int_{[-R,R]} \frac{\sin x}{x^2+a^2} \, dx = 0$ (ya que $\frac{\sin x}{x^2+a^2}$ es impar y el intervalo es simétrico), tenemos:
+
+\[
+\frac{\pi}{e^a a} = \lim_{R \to \infty} \int_{\gamma_R} f(z) \, dz = \lim_{R \to \infty} \int_{[-R,R]} \frac{\cos x}{x^2+a^2} \, dx + \lim_{R \to \infty} \int_{C_R^+} f(z) \, dz
+\]
+\[
+= \int_{-\infty}^{\infty} \frac{\cos x}{x^2+a^2} \, dx
+\]
+(Asumiendo que la integral del arco tiende a 0).
+
+\subsection*{5. Acotación del Arco }
+
+Veamos que $\int_{C_R^+} f(z) \, dz \xrightarrow{R \to \infty} 0$.
+Usando la parametrización $z(t) = R e^{it}$ con $t \in [0, \pi]$:
+
+\[
+\left| \int_{C_R^+} f(z) \, dz \right| = \left| \int_{0}^{\pi} \frac{e^{i R e^{it}}}{(R e^{it})^2 + a^2} \cdot i R e^{it} \, dt \right| \le \int_{0}^{\pi} \frac{|e^{i(R e^{it})}| \cdot |R|}{|(R e^{it})^2 + a^2|} \, dt
+\]
+Sabemos que $|e^{i(x+iy)}| = e^{-y}$, y en el semicírculo superior $y \ge 0$, por lo que el numerador está acotado por 1 (o decae). Y para el denominador usamos la desigualdad triangular inversa: $|z^2+a^2| \ge |z|^2 - |a|^2 = R^2 - a^2$.
+
+\[
+\le \int_{0}^{\pi} \frac{R}{R^2 - a^2} \, dt \quad \circledast
+\]
+
+\[
+\circledast \le \frac{\pi R}{R^2 - a^2} \xrightarrow{R \to \infty} 0
+\]
+
+Queda probado que:
+\[
+\boxed{ \int_{-\infty}^{\infty} \frac{\cos x}{x^2+a^2} \, dx = \frac{\pi}{a e^a} }
+\]}
+\ejercicio{}{}
+\ejercicio{Calcula \[ \int_{-\infty}^{\infty} \frac{x \sin x}{(x^2+1)^2} \, dx = \int_{-\infty}^{\infty} f(x) \, dx \]}{
+donde $f(x)$ es de la forma $\frac{p(x)}{q(x)} \sin x$ donde $\deg(p(x)) + 1 \le \deg(q(x))$ y $q(x)$ no tiene raíces reales. Aplicamos la técnica del ejercicio 7.
+
+\subsection*{1. Planteamiento en Variable Compleja}
+
+Sea \[ f(z) = \frac{z e^{iz}}{(z^2+1)^2} \]
+entonces $f$ tiene polos de orden 2 en $z_1 = i$ y $z_2 = -i$.
+Definimos el contorno $\Gamma_R = [-R, R] \cup C_R^+$ con $R > 1$.
+
+Entonces: $f \in H(\mathbb{C}/\{i, -i\})$, $\Gamma_R \sim 0$ en $\mathbb{C}$. $z_1, z_2$ son singularidades aisladas.
+Aplicamos el Teorema de los Residuos:
+\[
+\int_{\Gamma_R} f(z) \, dz = 2\pi i \, \text{Res}(f, i) \quad (\text{porque } \text{Ind}_{\Gamma_R}(-i) = 0).
+\]
+
+\subsection*{2. Cálculo del Residuo}
+
+$z_1 = i$ es un polo de orden 2 $\implies \text{Res}(f, i) = \lim_{z \to i} \frac{1}{1!} \frac{d}{dz} \left[ (z-i)^2 \frac{z e^{iz}}{(z^2+1)^2} \right]$
+\[
+= \lim_{z \to i} \frac{d}{dz} \left[ \frac{z e^{iz}}{(z+i)^2} \right]
+\]
+Derivando :
+\[
+= \lim_{z \to i} \frac{(e^{iz} + i z e^{iz})(z+i)^2 - 2(z+i) z e^{iz}}{(z+i)^4}
+\]
+Evaluando en $z = i$:
+\[
+= \frac{(e^{-1} - e^{-1})(2i)^2 - 2(2i)(i)e^{-1}}{(2i)^4} = \frac{0 - 4i^2 e^{-1}}{16} = \frac{4 e^{-1}}{16} = \frac{1}{4e}
+\]
+Por lo tanto:
+\[
+\int_{\Gamma_R} f(z) \, dz = 2\pi i \cdot \frac{1}{4e} = \frac{\pi}{2e} i
+\]
+
+\subsection*{3. Descomposición de la Integral}
+
+Siguiendo un razonamiento análogo al ejercicio 7:
+\[
+\int_{\Gamma_R} f(z) \, dz = \int_{[-R,R]} \frac{x \cos x}{(x^2+1)^2} \, dx + i \int_{[-R,R]} \frac{x \sin x}{(x^2+1)^2} \, dx + \int_{C_R^+} f(z) \, dz
+\]
+
+Vemos en este caso que:
+\[
+\int_{[-R,R]} \frac{x \cos x}{(x^2+1)^2} \, dx = 0
+\]
+(justificación similar a ejercicios anteriores).
+
+\subsection*{4. Acotación del Arco}
+
+Demostremos que $\int_{C_R^+} f(z) \, dz \xrightarrow{R \to \infty} 0$.
+\[
+\left| \int_{C_R^+} f(z) \, dz \right| = \left| \int_{0}^{\pi} \frac{R e^{it} e^{i(R e^{it})} \cdot i R e^{it}}{((R e^{it})^2 + 1)^2} \, dt \right| \le \int_{0}^{\pi} \frac{R^2 |e^{i R (\cos t + i \sin t)}|}{|(R e^{it})^2 + 1|^2} \, dt
+\]
+Como $|e^{i(\dots) - R \sin t}| \le 1$ en el semiplano superior:
+\[
+\le \int_{0}^{\pi} \frac{R^2}{(|R|^2 - 1)^2} \, dt \quad (\text{Usando } |z^2+1| \ge |z|^2-1)
+\]
+\[
+= \frac{\pi R^2}{(R^2 - 1)^2} \xrightarrow{R \to \infty} 0.
+\]
+
+\subsection*{5. Conclusión}
+
+Concluimos que:
+\[
+\lim_{R \to \infty} \int_{\Gamma_R} f(z) \, dz = i \lim_{R \to \infty} \int_{[-R,R]} \frac{x \sin x}{(x^2+1)^2} \, dx = \frac{\pi}{2e} i
+\]
+Igualando las partes imaginarias (y dividiendo por $i$):
+
+\[
+\boxed{ \int_{-\infty}^{\infty} \frac{x \sin x}{(x^2+1)^2} \, dx = \frac{\pi}{2e} }
+\]
+}
+%ejercicio8
+\ejercicio{
+\textbf{Enunciado:} Prueba que $\displaystyle \int_{0}^{\infty} \frac{\sin x}{x} dx = \frac{\pi}{2}$. Para ello prueba que $\displaystyle \int_{\Gamma_R} \frac{e^{iz}-1}{z} dz = 0$ y deduce que:
+\[
+\left| \int_{-R}^{R} \frac{\sin x}{x} dx - \pi \right| \le \left| \int_{0}^{\pi} e^{-R\sin t} \cos(R\cos t) dt \right| \le \frac{\pi}{R}
+\]
+}
+{
+
+Tenemos que $\Gamma_R = [-R, R] \cup C_R^+$, curva cerrada homótopa a 0 en $\mathbb{C}$ que es un dominio. Además $f(z) \in H(\mathbb{C} \setminus \{0\})$. Vemos que:
+\[
+\lim_{z \to 0} \frac{e^{iz}-1}{z} \underset{L'Hop}{=} \lim_{z \to 0} \frac{ie^{iz}}{1} = i
+\]
+Es decir, $z=0$ es una \textbf{discontinuidad evitable}. 
+
+Entonces, al ser la función extendida holomorfa en $\mathbb{C}$ (con $\mathbb{C}$ simplemente conexo) y $\Gamma_R \subset \mathbb{C}$:
+\[
+\gamma \sim 0 \text{ en } \mathbb{C} \implies \oint_{\Gamma_R} \frac{e^{iz}-1}{z} dz = 0
+\]
+
+Desarrollamos la integral paramétricamente:
+\begin{align*}
+0 &= \int_{\Gamma_R} \frac{e^{iz}-1}{z} dz = \int_{-R}^{R} \frac{e^{it}-1}{t} dt + \int_{0}^{\pi} \frac{e^{iRe^{it}}-1}{e^{it} \cdot R} \cdot i R e^{it} dt \\
+  &= \int_{-R}^{R} \frac{e^{it}-1}{t} dt + i \int_{0}^{\pi} (e^{iRe^{it}} - 1) dt
+\end{align*}
+
+\textbf{Tomando la parte imaginaria} de la expresión:
+\begin{align*}
+0 &= \text{Im}\left( \int_{-R}^{R} \frac{\cos t + i\sin t - 1}{t} dt \right) + \text{Im}\left( i \int_{0}^{\pi} (e^{i(R\cos t + iR\sin t)} - 1) dt \right) \\
+0 &= \int_{-R}^{R} \frac{\sin t}{t} dt + \text{Re}\left( \int_{0}^{\pi} (e^{-R\sin t} e^{iR\cos t} - 1) dt \right) \\
+0 &= \int_{-R}^{R} \frac{\sin t}{t} dt + \int_{0}^{\pi} (e^{-R\sin t} \cos(R\cos t) - 1) dt \\
+0 &= \int_{-R}^{R} \frac{\sin t}{t} dt + \int_{0}^{\pi} e^{-R\sin t} \cos(R\cos t) dt - \int_{0}^{\pi} 1 dt
+\end{align*}
+
+Reordenando los términos ($\int_0^\pi 1 dt = \pi$):
+\[
+\int_{-R}^{R} \frac{\sin t}{t} dt - \pi = - \int_{0}^{\pi} e^{-R\sin t} \cos(R\cos t) dt
+\]
+Tomando valor absoluto:
+\[
+\left| \int_{-R}^{R} \frac{\sin t}{t} dt - \pi \right| = \left| \int_{0}^{\pi} e^{-R\sin t} \cos(R\cos t) dt \right|
+\]
+
+Acotamos la segunda integral (usando que $|\cos(\dots)| \le 1$ y simetría):
+\begin{align*}
+\left| \int_{0}^{\pi} e^{-R\sin t} \cos(R\cos t) dt \right| &\le \int_{0}^{\pi} |e^{-R\sin t}| dt = 2 \int_{0}^{\pi/2} e^{-R\sin t} dt
+\end{align*}
+Usando la desigualdad de Jordan ($\sin t \ge \frac{2}{\pi}t$ en $[0, \pi/2]$):
+\begin{align*}
+2 \int_{0}^{\pi/2} e^{-R\sin t} dt &\le 2 \int_{0}^{\pi/2} e^{-R \frac{2}{\pi} t} dt = 2 \left[ \frac{e^{-R\frac{2}{\pi}t}}{-R\frac{2}{\pi}} \right]_{0}^{\pi/2} \\
+&= \frac{2}{-R\frac{2}{\pi}} (e^{-R} - 1) = \frac{\pi}{R} (1 - e^{-R}) \le \frac{\pi}{R}
+\end{align*}
+
+\textbf{Conclusión:}
+Haciendo $R \to \infty$, el término $\frac{\pi}{R} \to 0$, por lo tanto:
+\[
+\lim_{R \to \infty} \int_{-R}^{R} \frac{\sin x}{x} dx = \pi \implies \int_{0}^{\infty} \frac{\sin x}{x} dx = \frac{\pi}{2}
+\]
+}

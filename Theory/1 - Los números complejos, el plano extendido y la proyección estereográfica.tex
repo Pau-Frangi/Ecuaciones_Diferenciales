@@ -1,0 +1,325 @@
+\section{Sistemas lineales generales: Teoría general}
+
+Dada la ecuación diferencial
+\[
+u' = A(t) u + B(t)
+\]
+donde \(u\) es una función vectorial de dimensión \(n\):
+\[
+    u(t) = \begin{pmatrix}
+    u_1(t) \\
+    \vdots \\
+    u_n(t)
+    \end{pmatrix}, \qquad \alpha, \beta \in \mathbb{R}, \ \alpha < \beta, \ t \in [\alpha, \beta]
+\]
+\(A(t)\) es una matriz de dimensión \(n \times n\) cuyas entradas son funciones continuas en el intervalo \([\alpha, \beta]\):
+\[
+    A(t) = \begin{pmatrix}
+    a_{11}(t) & \cdots & a_{1n}(t) \\
+    \vdots & \ddots & \vdots \\
+    a_{n1}(t) & \cdots & a_{nn}(t)
+    \end{pmatrix}, \quad a_{ij}(t) \in C([\alpha, \beta], \mathbb{K})
+\]
+y \(B(t)\) es una función vectorial de dimensión \(n\) (término independiente) con entradas continuas:
+\[
+    B(t) = \begin{pmatrix}
+    b_1(t) \\
+    \vdots \\
+    b_n(t)
+    \end{pmatrix}, \quad b_{i}(t) \in C([\alpha, \beta], \mathbb{K})
+\]
+al sistema $u' = A(t) u + B(t)$ se le denomina \textbf{sistema lineal general} o \textbf{sistema lineal inhomogéneo}. 
+
+Si consideramos el caso $B(t) \equiv 0$, obtenemos el sistema:
+\[
+u' = A(t) u
+\]
+al cual se le denomina \textbf{sistema lineal homogéneo}.
+
+Nos preguntamos cuáles son las soluciones en el intervalo \([\alpha, \beta]\) de estos sistemas. Definimos los conjuntos de soluciones como:
+\[
+    \Sigma_{B} = S_B = \{u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u' = A(t) u + B(t), \ t \in [\alpha, \beta]\}
+\]
+\[
+    \Sigma_{0} = S_0 = \{u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u' = A(t) u, \ t \in [\alpha, \beta]\}
+\]
+
+\subsubsection*{Propiedades generales de los espacios de soluciones}
+
+\begin{proposición}
+    El espacio de funciones
+    \[
+        E \equiv C^{1}([\alpha, \beta], \mathbb{K}^n)
+    \]
+    es un espacio vectorial sobre el cuerpo \(\mathbb{K}\).
+\end{proposición}
+\begin{proof}
+    Las operaciones de suma y producto por escalar se definen punto a punto. Si $u,v \in E$ y $\lambda \in \mathbb{K}$:
+    \[
+        (u+v)(t) = u(t) + v(t), \quad (\lambda u)(t) = \lambda u(t) \quad \forall t \in [\alpha, \beta].
+    \]
+    Dado que la suma de funciones derivables con continuidad es derivable con continuidad, la estructura es cerrada y cumple los axiomas de espacio vectorial.
+\end{proof}
+
+\begin{proposición}
+    El conjunto de soluciones del sistema homogéneo, $\Sigma_0$, es un subespacio vectorial de $E$. Es decir, para cada $\lambda, \mu \in \mathbb{K}$ y $h_1, h_2 \in \Sigma_0$, se cumple que $\lambda h_1 + \mu h_2 \in \Sigma_0$.
+\end{proposición}
+
+\begin{proof}
+    Sean $h_1, h_2 \in \Sigma_0$. Por definición, cumplen:
+    \[
+    h_1' = A(t) h_1, \quad h_2' = A(t) h_2, \quad \forall t \in [\alpha, \beta]
+    \]
+    Consideramos la combinación lineal $w = \lambda h_1 + \mu h_2$. Derivando y usando la linealidad de la matriz $A(t)$:
+    \[
+    w'(t) = (\lambda h_1 + \mu h_2)'(t) = \lambda h_1'(t) + \mu h_2'(t) 
+    \]
+    Sustituyendo las ecuaciones diferenciales:
+    \[
+    = \lambda A(t) h_1(t) + \mu A(t) h_2(t) = A(t) \left( \lambda h_1(t) + \mu h_2(t) \right) = A(t) w(t)
+    \]
+    Por lo tanto, $\lambda h_1 + \mu h_2$ es solución del sistema lineal homogéneo, lo que implica $\lambda h_1 + \mu h_2 \in \Sigma_0$.
+\end{proof}
+
+\begin{proposición}
+    El conjunto de soluciones del sistema general, $\Sigma_B$, es una subvariedad afín de $E$ paralela al subespacio $\Sigma_0$.
+\end{proposición}
+
+Esta estructura se demuestra mediante las dos propiedades siguientes:
+
+\begin{enumerate}
+    \item Si tomamos dos soluciones particulares $u_1, u_2 \in \Sigma_B$, su diferencia $u_2 - u_1$ es solución del sistema homogéneo.
+    \begin{proof}
+        \[
+            (u_2 - u_1)' = u_2' - u_1' = [A(t) u_2 + B(t)] - [A(t) u_1 + B(t)] = A(t) [u_2 - u_1].
+        \]
+        Luego, $u_2 - u_1 \in \Sigma_0$.
+    \end{proof}
+    
+    \item Dado un punto $u_0 \in \Sigma_B$ (solución particular) y un vector director $h \in \Sigma_0$ (solución homogénea), la suma $u_0 + h$ es solución del sistema general.
+    \begin{proof}
+        \[
+            (u_0 + h)' = u_0' + h' = [A(t) u_0 + B(t)] + A(t) h = A(t) [u_0 + h] + B(t).
+        \]
+        Luego, $u_0 + h \in \Sigma_B$.
+    \end{proof}
+\end{enumerate}
+
+\subsubsection*{Existencia y Unicidad}
+
+\begin{teorema} [Resolución del sistema lineal escalar, caso $n=1$]
+    Para cada $t_0 \in [\alpha, \beta]$ y $u_0 \in \mathbb{K}$, el problema escalar
+    \[
+        P : \begin{cases}
+            u' = a(t) u + b(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una única solución $u(t,t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K})$. La fórmula explícita viene dada por:
+    \[
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds, \quad \forall t \in [\alpha, \beta]
+    \]
+\end{teorema}
+
+\begin{proof}
+    La demostración se basa en el método de \textbf{variación de las constantes}.
+
+    Definimos la función auxiliar $h(t)$, que actúa como factor integrante, de la siguiente forma:
+    \[
+        h(t) := e^{\int_{t_0}^{t} a(s) ds}
+    \]
+    Observemos que $h(t_0) = e^0 = 1$. Además, aplicando el Teorema Fundamental del Cálculo y la regla de la cadena, su derivada es:
+    \[
+        h'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a(s) ds \right) e^{\int_{t_0}^{t} a(s) ds} = a(t) h(t)
+    \]
+    
+    Proponemos una solución de la forma $u(t) = h(t)v(t)$, donde $v(t)$ es una función a determinar. Derivando respecto a $t$ obtenemos:
+    \[
+        u'(t) = h'(t)v(t) + h(t)v'(t)
+    \]
+    Sustituyendo $u$ y $u'$ en la ecuación original $u' = a(t)u + b(t)$:
+    \[
+        h'(t)v(t) + h(t)v'(t) = a(t) \big( h(t)v(t) \big) + b(t)
+    \]
+    Dado que $h'(t) = a(t)h(t)$, los términos correspondientes se simplifican, resultando en:
+    \[
+        h(t)v'(t) = b(t) \implies v'(t) = \frac{b(t)}{h(t)}
+    \]
+    Esta operación es lícita pues la función exponencial $h(t)$ no se anula en el intervalo dado.
+    
+    De la condición inicial $u(t_0) = u_0$, y sabiendo que $h(t_0) = 1$, deducimos que $v(t_0) = u_0$. Integrando la expresión para $v'(s)$ en el intervalo $[t_0, t]$:
+    \[
+        v(t) - v(t_0) = \int_{t_0}^{t} \frac{b(s)}{h(s)} ds \implies v(t) = u_0 + \int_{t_0}^{t} b(s) e^{-\int_{t_0}^{s} a(r) dr} ds
+    \]
+    
+    Sustituyendo $v(t)$ en nuestra propuesta $u(t) = h(t)v(t)$:
+    \[
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} \left( u_0 + \int_{t_0}^{t} b(s) e^{-\int_{t_0}^{s} a(r) dr} ds \right)
+    \]
+    Al distribuir el término exponencial e introducirlo en la integral, obtenemos:
+    \[
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} b(s) e^{\left( \int_{t_0}^{t} a(r) dr - \int_{t_0}^{s} a(r) dr \right)} ds
+    \]
+    Finalmente, aplicando la propiedad de aditividad de la integral ($\int_{t_0}^{t} - \int_{t_0}^{s} = \int_{s}^{t}$):
+    \[
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds
+    \]
+    A la ecuación anterior le llamamos \textbf{fórmula de variación de las constantes de Lagrange}.
+\end{proof}
+
+Cuando $a(t) \equiv a$ es constante, la fórmula se simplifica a la conocida:
+\[
+    u(t) = e^{a(t - t_0)} u_0 + \int_{t_0}^{t} e^{a(t - s)} b(s) ds
+\]
+En particular, si $b(t) \equiv 0$, resulta que $h(t,t_0,u_0) = e^{\int_{t_0}^{t} a(s) ds} u_0$ es la solución única del problema de Cauchy homogéneo:
+\[
+    \begin{cases}
+    h' = a(t) h, \quad t \in [\alpha, \beta] \\
+    h(t_0) = u_0
+    \end{cases}
+\]
+
+\begin{teorema} [Teorema de Existencia y Unicidad General]
+    Para cada $t_0 \in [\alpha, \beta]$ y cada vector inicial $u_0 \in \mathbb{K}^n$, el problema de Cauchy:
+    \[
+        \begin{cases}
+        u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\
+        u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una \textbf{única} solución $u \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.
+\end{teorema}
+
+\begin{proof}
+
+\end{proof}
+
+Como consecuencia de este teorema, se puede demostrar que $\dim(\Sigma_0) = n$ y, por tanto, $\Sigma_B$ es una variedad afín de dimensión $n$.
+
+
+\subsection{Fórmulas de variación de las constantes (de Lagrange)}
+
+\textbf{Método de variación de las constantes}\\
+
+\[
+    u(t,t_0,u_0) = h(t,t_0,u_0) + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds, \quad \forall t \in [\alpha, \beta]
+\]
+
+\[
+    \implies u(t,t_0,0) = \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds = \underbrace{u(t,t_0,u_0)}_{\in \Sigma_B} + (- \underbrace{h(t,t_0,u_0)}_{\in \Sigma_0}) \in \Sigma_B 
+\]
+Luego la solución anterior es la solución particular del sistema inhomogéneo que anula la condición inicial. Por tanto:
+\[
+    u(t,t_0,u_0) = h(t,t_0,u_0) + u(t,t_0,0)
+\]
+
+\begin{teorema}
+    El operador solución
+    \[
+        S_0 : \mathbb{K} \to \Sigma_0
+    \]
+    \[
+        x \mapsto S_0(x) := h(t,t_0,x), \quad \forall t \in [\alpha, \beta]
+    \]
+    $S_0$ es la única solución de $\begin{cases}
+        h' = a(t) h, \quad t \in [\alpha, \beta] \\
+        h(t_0) = x
+    \end{cases}$ es un isomorfismo entre espacios vectoriales. En particular $\dim(\Sigma_0) = 1$ (es una recta vectorial). Por lo tanto, el operador solución del sistema inhomogéneo
+    \[
+        S_B : \mathbb{K} \to \Sigma_B
+    \]
+    \[
+        x \mapsto S_B(x) := u(t,t_0,x), \quad \forall t \in [\alpha, \beta]
+    \]
+    es un isomorfismo entre espacios afines. En particular, $\Sigma_B$ es una recta afín paralela a $\Sigma_0$.
+
+\end{teorema}
+
+\begin{proof}
+    Veamos primero que $S_0$ es lineal. Sean $x,y \in \mathbb{K}$ y $\lambda, \mu \in \mathbb{K}$, entonces:
+    \[
+        S_0(\lambda x + \mu y) = e^{\int_{t_0}^{t} a(s) ds} (\lambda x + \mu y) = \lambda e^{\int_{t_0}^{t} a(s) ds} x + \mu e^{\int_{t_0}^{t} a(s) ds} y = \lambda S_0(x) + \mu S_0(y)
+    \]
+    Además, $S_0$ es inyectiva, pues si $S_0(x) = S_0(y)$, por ser $S_0$ lineal, se cumple que $S_0(x - y) = 0$, lo que implica que $x - y = 0$, es decir, $x = y$.
+    \[
+        S_0(z) = 0 \implies e^{\int_{t_0}^{t} a(s) ds} z = 0 \implies z = 0
+    \]
+    Finalmente, $S_0$ es sobreyectiva, ya que para cualquier $h \in \Sigma_0$, tenemos que $h'(t) = a(t) h(t), \ \forall t \in [\alpha, \beta]$, $h(t_0) = x$ para algún $x \in \mathbb{K}$. Por lo tanto, $h = S_0(x)$.
+    \[
+        h(t) = e^{\int_{t_0}^{t} a(s) ds} x = S_0(x)
+    \]
+\end{proof}
+
+Las soluciones de $\Sigma_0$ son todos los puntos de la recta vectorial generada por el vector $e^{\int_{t_0}^{t} a(s) ds}$, es decir:
+\[
+    \Sigma_0 = \{ \lambda e^{\int_{t_0}^{t} a(s) ds} : \lambda \in \mathbb{K} \}
+\]
+Por otro lado, las soluciones de $\Sigma_B$ son todos los puntos de la recta afín paralela a $\Sigma_0$ que pasa por el punto $u(t,t_0,0)$, es decir:
+\[
+    \Sigma_B = \{ u(t,t_0,0) + \lambda e^{\int_{t_0}^{t} a(s) ds} : \lambda \in \mathbb{K} \}
+\]
+
+\ejemplo{
+    Sea el problema de valor inicial definido por la ecuación diferencial lineal de primer orden $u' = au + b$, con $a, b \in \mathbb{R}$, $a \neq 0$ y la condición inicial $u(t_0) = u_0$. Para resolverlo, consideramos primero la ecuación diferencial homogénea asociada $u' - au = 0$, cuya solución se obtiene mediante la integración directa, resultando en $u_h(t) = \lambda e^{at}$, donde $\lambda$ es una constante real. Posteriormente, buscamos una solución particular $u_p(t)$ para la ecuación completa. Dado que los coeficientes son constantes, proponemos una solución de equilibrio de la forma $u_p(t) = k$. Al sustituir en la ecuación original, obtenemos $0 = ak + b$, lo que implica que la solución particular es $u_p = -b/a$. 
+
+    La solución general de la ecuación diferencial se construye como la suma de la solución homogénea y la solución particular, resultando en la expresión $u(t) = \lambda e^{at} - \frac{b}{a}$. Para determinar el valor de la constante $\lambda$ que satisface la condición inicial específica $u(t_0) = u_0$, evaluamos la función en $t = t_0$:
+    \[
+    u_0 = \lambda e^{at_0} - \frac{b}{a}
+    \]
+    Al despejar el término que contiene la constante, obtenemos $\lambda e^{at_0} = u_0 + \frac{b}{a}$, y multiplicando ambos miembros por $e^{-at_0}$ hallamos que $\lambda = e^{-at_0} \left( u_0 + \frac{b}{a} \right)$. Finalmente, sustituimos este valor de $\lambda$ en la solución general:
+    \[
+    u(t) = e^{-at_0} \left( u_0 + \frac{b}{a} \right) e^{at} - \frac{b}{a}
+    \]
+    Aplicando las propiedades de los exponentes para combinar los términos con base $e$, llegamos a la expresión final del problema de valor inicial:
+    \[
+    u(t) = e^{a(t - t_0)} \left( u_0 + \frac{b}{a} \right) - \frac{b}{a}
+    \]
+}
+
+\ejemplo{
+    \[
+        u(t) = au + e^{wt}, \quad w \in \mathbb{K}, \quad a \neq w
+    \]
+    \[
+        h' = ah \implies h(t) = e^{at}, \quad \forall t \in \mathbb{R}
+    \]
+    Solución general:
+    \[
+        u(t) = e^{at} \lambda + p(t), \quad \lambda \in \mathbb{K}
+    \]
+    \[
+        p(t) = me^{wt} \implies p'(t) = wme^{wt} = ame^{wt} + e^{wt} \implies m(w - a) = 1 \implies m = \frac{1}{w - a}
+    \]
+    Luego
+    \[
+    p(t) = \frac{e^{wt}}{w - a}
+    \]
+    resuelve la ecuación inhomogénea. Por tanto, la solución general es:
+    \[
+        u(t) = e^{at} \lambda + \frac{e^{wt}}{w - a}, \quad \lambda \in \mathbb{K}
+    \]
+    \[
+        e^{at_0} = u_0 - \frac{e^{wt_0}}{w - a} \implies \lambda = e^{-at_0} \left( u_0 - \frac{e^{wt_0}}{w - a} \right)
+    \]
+    \[
+        u(t) = e^{a(t - t_0)} \left( u_0 - \frac{e^{wt_0}}{w - a} \right) + \frac{e^{wt}}{w - a}
+    \]
+}
+
+\ejemplo{
+    \[
+        u' = au + e^{at}, \quad a \in \mathbb{K}
+    \]
+    La ecuación homogénea asociada es $h' = ah$, cuya solución general es:
+    \[
+        h(t) = e^{at}, \quad \forall t \in \mathbb{R}
+    \]
+    Por tanto, la solución general del sistema inhomogéneo es:
+    \[
+        u(t) = e^{at} \lambda + p(t), \quad \lambda \in \mathbb{K}
+    \]
+    \[
+        p(t) = me^{at} 
+    \]
+    como es solución de la homogénea, no puede ser solución del inhomogéneo. Probamos con:
+}

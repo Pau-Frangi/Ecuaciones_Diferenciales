@@ -1,0 +1,164 @@
+
+\section{Límites y continuidad de funciones complejas (de variable compleja)}
+\subsection{Límites de funciones complejas}
+
+\begin{definición}[Límite de funciones complejas]
+    Sea $A \subset \mathbb{C}$ y $f : A \to \mathbb{C}$.  
+    Sea $z_0$ un punto de acumulación de $A$. Diremos que un número complejo $w \in \mathbb{C}$ es el límite de $f$ en $z_0$, y escribiremos
+    \[
+        \lim_{z \to z_0} f(z) = w,
+    \]
+    si y sólo si
+    \[
+        \forall \, \varepsilon > 0 \ \exists \, \delta > 0 \ \text{tal que, para todo } z \in A \text{ con } 0 < |z-z_0| < \delta, 
+        \ \ |f(z) - w| < \varepsilon.
+    \]
+\end{definición}
+
+\begin{definición}[Limite infinito de funciones complejas]
+    Sea $A \subset \mathbb{C}$ y $f : A \to \mathbb{C}$.  
+    Sea $z_0$ un punto de acumulación de $A$. Diremos que
+    \[
+        \lim_{z \to z_0} f(z) = \infty,
+    \]
+    si y sólo si
+    \[
+        \forall \, M > 0 \ \exists \, \delta > 0 \ \text{tal que, para todo } z \in A \text{ con } 0 < |z-z_0| < \delta, 
+        \ \ |f(z)| > M.
+    \]
+\end{definición}
+
+\ejemplo{
+    Calculemos:
+    \[
+    \lim_{z \to 0} \frac{1}{z} = \infty
+    \]
+    Pues dado $M > 0$, si tomamos $\delta = \frac{1}{M}$, entonces si $0 < |z| < \delta$ se tiene que
+    \[
+    \left| \frac{1}{z} \right| = \frac{1}{|z|} > \frac{1}{\delta} = M.
+    \]
+    Aunque es importante recordar que en $\mathbb{R}$, $\nexists \lim_{z \to 0} \frac{1}{z}$, pues:
+    \begin{itemize}
+        \item $\lim_{x \to 0^+} \frac{1}{x} = \infty$
+        \item $\lim_{x \to 0^-} \frac{1}{x} = -\infty$
+    \end{itemize}
+}
+
+\begin{definición}[Limite cuando $z$ tiende a infinito de funciones complejas]
+    Sea $A \subset \mathbb{C}$ y $f : A \to \mathbb{C}$.  
+    Diremos que un número complejo $w \in \mathbb{C}$ es el límite de $f$ cuando $z$ tiende a infinito, y escribiremos
+    \[
+        \lim_{z \to \infty} f(z) = w,
+    \]
+    si y sólo si
+    \[
+        \forall \, \varepsilon > 0 \ \exists \, M > 0 \ \text{tal que, para todo } z \in A \text{ con } |z| > M, 
+        \ \ |f(z) - w| < \varepsilon.
+    \]
+    De manera análoga podemos definir el límite infinito cuando $z$ tiende a infinito:
+    \[
+        \lim_{z \to \infty} f(z) = \infty,
+    \]
+    si y sólo si
+    \[
+        \forall \, M > 0 \ \exists \, N > 0 \ \text{tal que, para todo } z \in A \text{ con } |z| > N, 
+        \ \ |f(z)| > M.
+    \]
+\end{definición}
+
+Tenemos que 
+\[
+\lim_{z \to z_0} f(z) = w \iff |f(z) - w| \xrightarrow[z \to z_0]{} 0,
+\]
+con demostración análoga a la de $\mathbb{R}$.
+
+\begin{proposición}
+    Si $f, g : A \to \mathbb{C}$ y $z_0$ es punto de acumulación de $A$, y
+    \[
+    \lim_{z \to z_0} f(z) = w_1, 
+    \quad \lim_{z \to z_0} g(z) = w_2,
+    \]
+    entonces se tiene:    
+    \begin{enumerate}
+        \item $f+g$ tiene límite en $z_0$, y
+        \[
+        \lim_{z \to z_0} (f+g)(z) = w_1 + w_2.
+        \]
+        \item $\alpha f$, con $\alpha \in \mathbb{C}$, tiene límite en $z_0$, y
+        \[
+        \lim_{z \to z_0} \alpha f(z) = \alpha w_1.
+        \]
+        \item $f \cdot g$ tiene límite en $z_0$, y
+        \[
+        \lim_{z \to z_0} (f \cdot g)(z) = w_1 \cdot w_2.
+        \]
+        \item $\dfrac{f}{g}$ tiene límite en $z_0$ si $w_2 \neq 0$, y
+        \[
+        \lim_{z \to z_0} \frac{f(z)}{g(z)} = \frac{w_1}{w_2}.
+        \]
+    \end{enumerate}
+\end{proposición}
+
+\ejemplo{
+    \begin{itemize}
+        \item Si $f(z) = z$ y $z \in \mathbb{C}$, entonces
+        \[
+        \lim_{z \to z_0} f(z) = z_0.
+        \]
+        \item Si $f(z) = a_0 + a_1 z + \cdots + a_n z^n$, con $a_j \in \mathbb{C}$, $z_0 \in \mathbb{C}$,  
+        entonces
+        \[
+        \lim_{z \to z_0} f(z) = a_0 + a_1 z_0 + \cdots + a_n z_0^n.
+        \]
+        \item Si $f(z) = |z|$ y $z_0 \in \mathbb{C}$, entonces
+        \[
+        \lim_{z \to z_0} |z| = |z_0| \quad \text{pues } \big|\, |z| - |z_0| \,\big| \leq |z - z_0|.
+        \]
+        \item $\displaystyle \lim_{z \to z_0} \overline{z} = \overline{z_0}, \quad \forall z_0 \in \mathbb{C}$  
+        pues $|\overline{z} - \overline{z_0}| = |\, \overline{z - z_0}\,| = |z - z_0|$.
+    \end{itemize}
+}
+
+En las hipótesis anteriores, $\lim_{z \to z_0} f(z) = w$ si y sólo si para toda sucesión $(z_n)$ contenida en $A \setminus \{z_0\}$ convergente a $z_0$ se cumple que 
+\[
+\lim_{n \to \infty} f(z_n) = w.
+\]
+
+\subsection{Continuidad de funciones complejas}
+
+\begin{definición} [Continuidad de funciones complejas]
+Sea $A \subset \mathbb{C}$, $f : A \to \mathbb{C}$, $z_0 \in A$.  
+Diremos que $f$ es \textbf{continua} en $z_0$ si para cada $\varepsilon > 0$ existe $\delta > 0$ tal que si $z \in A$ y $|z-z_0| < \delta$, entonces
+\[
+|f(z) - f(z_0)| < \varepsilon.
+\]    
+\end{definición}
+
+\textbf{Son continuas las funciones:}
+\begin{itemize}
+    \item Polinómicas (continuas en $\mathbb{C}$).
+    \item Función módulo $f(z) = |z|$ (continua en $\mathbb{C}$).
+    \item $f(z) = \dfrac{1}{z}$ (continua en $\mathbb{C}\setminus \{0\}$).
+    \item $f(z) = \dfrac{p(z)}{q(z)}$, continua en su dominio $\{z \in \mathbb{C} \mid q(z) \neq 0\}$.
+\end{itemize}
+
+\begin{observación}
+    Veamos algunas consecuencias de la definición:
+    \begin{itemize}
+        \item Si $z_0$ es un punto aislado de $A$, entonces $f$ siempre será continua en $z_0$.
+        \item Si $z_0$ es un punto de acumulación de $A$, entonces $f$ es continua en $z_0 \iff \lim_{z \to z_0} f(z) = f(z_0)$.
+    \end{itemize}
+\end{observación}
+
+\begin{definición}[Determinacion del argumento]
+    Si $\theta : \mathbb{C} \setminus \{0\} \to \mathbb{C}$ es una función tal que $\theta(z) \in \text{Arg}(z) \quad \forall z \in \mathbb{C} \setminus \{0\}$, entonces diremos que $\theta$ es una \textbf{determinacion del argumento}.
+\end{definición}
+
+\ejemplo{
+    Por ejemplo podemos definir la funcion $\text{Arg} : \mathbb{C} \setminus \{0\} \to \mathbb{R}$ como $\text{Arg}(z) = \{\theta \in [-\pi, \pi) \mid z = |z|(\cos \theta + i \sin \theta)\}$, es decir, el argumento principal de $z$.
+    Claramente se observa que $\text{Arg}$ es una función continua en $\mathbb{C} \setminus \{x \in \mathbb{R} \mid x \leq 0\}$, pero no es continua en ningún punto de $\{x \in \mathbb{R} \mid x < 0\}$, ya que si tomamos $x < 0$:
+    \begin{itemize}
+        \item $\lim_{n \to \infty} \text{Arg}(x + i/n) = \pi$
+        \item $\lim_{n \to \infty} \text{Arg}(x - i/n) = -\pi$
+    \end{itemize}
+}

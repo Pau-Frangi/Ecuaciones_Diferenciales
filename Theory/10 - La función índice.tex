@@ -1,0 +1,206 @@
+\section{La función índice. Versión general de la fórmula integral de Cauchy}
+\subsection{La función índice}
+
+Observemos que:
+\[
+\frac{1}{2\pi i} \int_{C(0,1)} \frac{1}{w - z}\,dw =
+\begin{cases}
+    \displaystyle \frac{1}{2\pi i} \int_{\partial D(0,1)} \frac{f(w)}{w - z}\,dw = f(z) = 1, & \text{por la fórmula integral de Cauchy, si } |z| < 1, \\[1em]
+    0, & \text{por el teorema de Cauchy, si } |z| > 1.
+\end{cases}
+\]
+
+En efecto, cuando $|z| < 1$ podemos aplicar la fórmula integral de Cauchy con $f(w) = 1$, obteniendo $f(z) = 1$.  
+Por otro lado, si $|z| > 1$, la función $w \mapsto \dfrac{1}{w - z}$ es holomorfa en $\mathbb{C} \setminus \{z\}$, y la curva $C(0,1)$ es homótopa a cero en dicho dominio. Por el teorema de Cauchy, la integral se anula.
+
+Este razonamiento motiva la siguiente definición.
+
+\begin{definición} [Función índice]
+Sea $\gamma : [a,b] \to \mathbb{C}$ una curva cerrada en $\mathbb{C}$.  
+Definimos la \textbf{función índice de $\gamma$} como:
+\[
+\Ind_\gamma(z) := \frac{1}{2\pi i} \int_\gamma \frac{1}{w - z}\,dw, 
+\quad \forall z \in \mathbb{C} \setminus \gamma^*.
+\]
+\end{definición}
+
+Observemos que si $\gamma$ es una curva cerrada en $\mathbb{C}$, entonces $\mathbb{C} \setminus \gamma^*$ es un abierto que tendrá una o varias componentes conexas, y solo una de ellas no acotada.\\
+
+Como $\gamma^*$ es compacto, existe $R > 0$ tal que $\gamma^* \subset D(0,R)$, luego $\mathbb{C} \setminus \overline{D}(0,R) \subset \mathbb{C} \setminus \gamma^*$, y como $\mathbb{C} \setminus \overline{D}(0,R)$ es conexo, entonces $\mathbb{C} \setminus \overline{D}(0,R)$ está contenido en una componente conexa de $\mathbb{C} \setminus \gamma^*$, que será la única componente conexa no acotada de $\mathbb{C} \setminus \gamma^*$, ya que el resto estarán  contenidas en $\overline{D}(0,R)$, que es acotado.\\
+
+\begin{proposición}[Propiedades de la función índice]
+    Sea $\gamma : [a,b] \to \mathbb{C}$ una curva cerrada en $\mathbb{C}$. Entonces:
+    \begin{enumerate}
+        \item $\Ind_\gamma$ es continua en $\mathbb{C} \setminus \gamma^*$.
+        \item $\Ind_\gamma$ solo toma valores enteros, es decir, $\Ind_\gamma (\mathbb{C} \setminus \gamma^*) \subset \mathbb{Z}$.
+        \item $\Ind_\gamma$ es constante en cada componente conexa de $\mathbb{C} \setminus \gamma^*$.
+        \item $\Ind_\gamma \equiv 0$ en la componente conexa no acotada de $\mathbb{C} \setminus \gamma^*$.
+    \end{enumerate}
+\end{proposición}
+
+\begin{proof}
+    Veamos cada una de las propiedades:
+    \begin{enumerate}
+        \item Sea $z_1 \in \mathbb{C} \setminus \gamma^*$. Entonces, como $\mathbb{C} \setminus \gamma^*$ es abierto, existe $\delta > 0$ tal que $D(z_1, \delta) \subset \mathbb{C} \setminus \gamma^*$.\\
+        Aplicando el lema 2 del tema 8, existen $t_0, t_1, \ldots, t_n \in [a,b]$ particion que cumplen que $\forall j \in \{1, \ldots, n\}$ se tiene que $\gamma([t_{j-1}, t_j])$ está contenida en un disco abierto $D_j \subset \mathbb{C} \setminus \overline{D} (z_1, \delta)$.\\
+        Por esto mismo, podemos obtener una curva $C^1$ o $C^1$ a trozos llamada $\Gamma$ mediante un numero finito de deformaciones elementales de $\gamma$ en $\mathbb{C} \setminus \overline{D}(z_1, \delta)$, pues para cada $z \in D(z_1, \delta)$, $\gamma$ la función $w \mapsto \frac{1}{w - z}$ es holomorfa en $\mathbb{C} \setminus \overline{D}(z_1, \delta)$.\\
+        Es claro que $\int_\gamma \frac{1}{w - z} dw = \int_\Gamma \frac{1}{w - z} dw \, \quad \forall z \in D(z_1, \delta)$.\\
+        Ahora, si $z \in D(z_1, \delta/2)$, entonces:
+        \[
+        \left| \Ind_\gamma (z) - \Ind_\gamma (z_1) \right| = 
+        \left| \left( \frac{1}{2 \pi i} \int_\gamma \frac{dw}{w - z} \right) - 
+        \left( \frac{1}{2 \pi i} \int_\gamma \frac{dw}{w - z_1} \right) \right| =
+        \frac{1}{2 \pi i} \left| \int_\Gamma \frac{1}{w - z} - \int_\Gamma \frac{1}{w - z_1} dw \right| =  
+        \]
+        \[
+        = \frac{1}{2 \pi } \left| \int_\Gamma \frac{(w - z_1) - (w - z)}{(w - z)(w - z_1)} dw \right| =
+        \frac{1}{2 \pi } \left| \int_\Gamma \frac{z - z_1}{(w - z)(w - z_1)} dw \right| \leq
+        \]
+        \[
+        \frac{1}{2 \pi } \Long (\Gamma) \left(\sup_{w \in \Gamma} \frac{|z-z_1|}{|w - z||w - z_1|}\right)  =
+        \frac{1}{2 \pi } \Long (\Gamma) |z - z_1| \left(\sup_{w \in \Gamma} \frac{1}{|w - z||w - z_1|}\right)  \leq^*
+        \frac{1}{\pi  \delta^2} \Long (\Gamma) |z - z_1|
+        \]
+        Usando en $*$ que como $\Gamma \subset \mathbb{C} \setminus \overline{D}(z_1, \delta)$, entonces $\forall w \in \Gamma$ se tiene que $|w - z_1| \geq \delta$, y como $|w-z| \geq |w - z_1| - |z - z_1| \geq \delta - \delta/2 = \delta/2$, entonces se cumple que $\frac{1}{|w - z|} \leq \frac{2}{\delta}$. Luego 
+        \[
+            \sup_{w \in \Gamma} \frac{1}{|w-z||w-z_1|} \leq \frac{1}{(\delta/2)\delta} = \frac{2}{\delta^2}
+        \]
+        Así, finalmente, tenemos que:
+        \[
+        \left| \Ind_\gamma(z) - \Ind_\gamma(z_1) \right| \leq
+        \frac{\Long (\Gamma)}{\pi \delta^2} |z - z_1| \xrightarrow{z \to z_1} 0 \quad \forall z \in D(z_1, \delta/2)
+        \]
+        \item Sabemos que $\Ind_\gamma (z) = \frac{1}{2 \pi i } \int_\gamma \frac{1}{w - z} dw \, \quad \forall z \in \mathbb{C} \setminus \gamma^*$.\\
+        Ahora sea $z \in \mathbb{C} \setminus \gamma^*$:
+        \[
+        \Ind_\gamma(z) = \frac{1}{2 \pi i} \int_\gamma \frac{1}{w - z} dw =
+        \frac{1}{2 \pi i} \int_a^b \frac{\gamma'(t)}{\gamma(t) - z} dt
+        \]
+        Definamos:
+        \[
+        \begin{array}{ccc}
+            \varphi : [a,b] & \to & \mathbb{C} \\
+            x & \mapsto & \int_a^x \frac{\gamma'(t)}{\gamma(t) - z} dt
+        \end{array}
+        \]
+        Y tengamos:
+        \[
+        h(x) = e^{-\varphi(x)} (\gamma(x) - z) \, \quad \forall x \in [a,b]
+        \]
+        Entonces se cumple que la derivada de $h$ es:
+        \[
+        h'(x) = 
+        e^{-\varphi(x)} \gamma'(x) - \varphi'(x) e^{-\varphi(x)} (\gamma(x) - z) =
+        e^{-\varphi(x)} \left( \gamma'(x) - \underbrace{\frac{\gamma'(x)}{\gamma(x) - z}}_{\varphi'(x)} (\gamma(x) - z) \right) =
+        0 \, \quad \forall x \in [a,b]
+        \]
+        Por lo que:
+        \[
+        h \text{ es constante en } [a,b] \implies 
+        h(a) = h(b) \implies 
+        e^{-\varphi(a)} (\gamma(a) - z) = e^{-\varphi(b)} (\gamma(b) - z) \implies_{\gamma \text{ cerrada}}
+        \]
+        \[
+        e^0 (\gamma(a) - z) = 
+        e^{-\varphi(b)} (\gamma(a) - z) \implies_{z \notin \gamma^* \implies \gamma(a) \neq z} e^{0} = e^{- \varphi(b)}
+        \]
+        Como la función exponencial es periódica con periodo $2 \pi i$, se tiene que:
+        \[
+        \exists k \in \mathbb{Z} : - \varphi (b) =
+        2k\pi i \implies
+        \varphi (b) = 2(-k) \pi i \implies
+        \Ind_\gamma (z) = \frac{1}{2 \pi i} \varphi (b) = -k \in \mathbb{Z}
+        \]
+        \item Veamos que:
+        \[
+        \begin{cases}
+            \Ind_\gamma \text{ es continua} \\
+            \Omega \text{ componente conexa de } \mathbb{C} \setminus \gamma^*
+        \end{cases} \implies
+        \Ind_\gamma (\Omega) \text{ es conexo } \implies_{\Ind_\gamma (\Omega) \subset \mathbb{Z}}
+        \]
+        \[
+        \Ind_\gamma \text{ es un unico valor de } \mathbb{Z} \implies
+        \Ind_\gamma \text{ es constante en } \Omega
+        \]
+        \item Como $\gamma^*$ es compacto, existe $R > 0$ tal que $\gamma^* \subset D(0,R)$, sea ahora $R' > R$:
+        \[
+        \left| \Ind_\gamma (R) \right| \underbrace{=}_{R,2R' \in \text{ componente conex. no acotada de } \mathbb{C} \setminus \gamma^*}
+        \left| \Ind_\gamma (2R') \right| =
+        \left| \frac{1}{2 \pi i} \int_\gamma \frac{dw}{w - 2R'} \right| \leq
+        \]
+        \[
+        \frac{1}{2 \pi} \Long (\gamma) \sup_{w \in \gamma^*} \frac{1}{|w - 2R'|} \leq
+        \frac{1}{2 \pi} \Long (\gamma) \frac{1}{2R'} \xrightarrow{R' \to +\infty} 0
+        \]
+        Ya que $w \in \gamma \implies |w| \leq R < R' \implies |w - 2R'| \geq R' \implies \frac{1}{|w - 2R'|} \leq \frac{1}{R'}$.\\
+    \end{enumerate}
+\end{proof}
+
+\begin{definición}
+    Sea $\gamma : [a,b] \to \mathbb{C}$ una curva cerrada en $\mathbb{C}$. Se define el \textbf{interior} y \textbf{exterior} de $\gamma$ como:
+    \[
+        \Int(\gamma) := \{ z \in \mathbb{C} \setminus \gamma^* : \Ind_\gamma (z) \neq 0 \},
+        \quad
+        \Ext(\gamma) := \{ z \in \mathbb{C} \setminus \gamma^* : \Ind_\gamma (z) = 0 \}.
+    \]
+\end{definición}
+
+\textbf{Intuición geométrica de la función índice:} Si $\gamma$ es una curva cerrada en $\mathbb{C}$ y $z_0 \in \mathbb{C} \setminus \gamma^*$, entonces $Ind_\gamma (z)$ mide el número de vueltas que da la curva $\gamma$ alrededor del punto $z$, teniendo en cuenta la orientación de la curva
+
+Para todo $t \in [a,b]$, escribamos $w(t) = \gamma(t)$ y expresemos
+\[
+    w(t) - z_0 = r(t)e^{i\theta(t)},
+\]
+donde $r(t) > 0$ y $\theta(t)$ es una función continua que representa el argumento de $w(t) - z_0$.
+
+Derivando respecto de $t$ se obtiene
+\[
+    \dot{w}(t) = e^{i\theta(t)}\big(r'(t) + i\,r(t)\theta'(t)\big),
+\]
+y por tanto
+\[
+    \frac{\dot{w}(t)}{w(t) - z_0} = \frac{r'(t)}{r(t)} + i\,\theta'(t).
+\]
+
+Integrando a lo largo de la curva $\gamma$ se tiene
+\[
+    \int_\gamma \frac{dw}{w - z_0}
+    = \int_a^b \frac{r'(t)}{r(t)}\,dt + i \int_a^b \theta'(t)\,dt.
+\]
+El primer término es nulo, ya que
+\[
+    \int_a^b \frac{r'(t)}{r(t)}\,dt = \log r(b) - \log r(a) = 0,
+\]
+porque $\gamma$ es cerrada y, por tanto, $r(a)=r(b)$.
+
+El segundo término corresponde al cambio total del ángulo $\theta(t)$ cuando la curva recorre una vuelta completa, es decir,
+\[
+    \int_a^b \theta'(t)\,dt = \Delta \theta = 2\pi n,
+\]
+donde $n \in \mathbb{Z}$ es el número de vueltas que $\gamma$ da alrededor de $z_0$, contado con signo.
+
+Sustituyendo en la expresión anterior se obtiene
+\[
+    \int_\gamma \frac{dw}{w - z_0} = i(2\pi n),
+\]
+y por tanto
+\[
+    \Ind_\gamma(z_0) = \frac{1}{2\pi i} \int_\gamma \frac{dw}{w - z_0} = n.
+\]
+En consecuencia, el índice representa el número de vueltas (positivas o negativas) que la curva $\gamma$ da alrededor de $z_0$.
+
+
+\begin{observación}
+    Puede ocurrir que $Int(\gamma) = \emptyset$. Por ejemplo, si $\gamma$ es un segmento de ida y vuelta, ó si $\gamma = \Gamma \cup \Gamma^-$, siendo $\Gamma$ una curva simple con exteriores distintos.\\
+    Si $\gamma$ es una curva cerrada simple, orientada positivamente entonces
+    \[
+        \Ind_\gamma (z) = \begin{cases}
+            1, & \text{si } z \in \Int(\gamma), \\
+            0, & \text{si } z \in \Ext(\gamma).
+        \end{cases}
+    \]
+\end{observación}
+
+
+

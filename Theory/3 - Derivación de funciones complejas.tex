@@ -1,0 +1,298 @@
+\section{Derivación de funciones complejas (de variable compleja)}
+
+\subsection{Definición de derivada compleja}
+
+Si $A \subset \mathbb{C}$ y $f : A \to \mathbb{C}$, podemos escribir $f$ como:
+\[
+    f(z) = f(x+iy) = u(x,y) + iv(x,y),
+\]
+donde $u(x,y) = \Re(f(x+iy))$, y $v(x,y) = \Im(f(x+iy))$ son funciones reales de dos variables.
+Así podemos considerar $f$ como una función de $\mathbb{R}^2$ en $\mathbb{R}^2$:
+\[
+    f: A \subset \mathbb{R}^2 \to \mathbb{R}^2, \quad f(x,y) = (u(x,y), v(x,y)).
+\]
+
+\begin{definición}[Derivada compleja]
+    Sea $\Omega \subset \mathbb{C}$ un abierto, $f : \Omega \to \mathbb{C}$ y $z_0 \in \Omega$.\\
+    Diremos que $f$ es \textbf{derivable} en $z_0$ si existe el siguiente límite en $\mathbb{C}$:
+    \[
+        f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} = \lim_{h \to 0} \frac{f(z_0 + h) - f(z_0)}{h} = w \in \mathbb{C}.
+    \]
+    Es decir, esta derivada vale $w$ si para cada $\varepsilon > 0$ existe $\delta > 0$ tal que si $z \in \Omega$ y $0 < |z-z_0| < \delta$, entonces
+    \[
+        \left| \frac{f(z) - f(z_0)}{z - z_0} - w \right| < \varepsilon.
+    \]
+    A este limite, cuando existe, lo llamamos la \textbf{derivada} de $f$ en $z_0$ y lo denotamos por:
+    \[
+        f'(z_0) = \frac{df}{dz}(z_0) = \frac{d}{dz} f(z_0).
+    \]
+\end{definición}
+
+Sea $f = u + iv$ una función compleja definida en un entorno de $z_0 = x_0 + i y_0$. 
+Supongamos que $f$ es derivable en $z_0$ y que
+\[
+f'(z_0) = \alpha + i \beta, \qquad \alpha, \beta \in \mathbb{R}.
+\]
+Entonces se cumple la caracterización siguiente.
+
+Por definición de derivada compleja,
+\[
+\lim_{h \to 0} \frac{f(z_0 + h) - f(z_0)}{h} = f'(z_0) = \alpha + i \beta.
+\]
+
+Esto equivale a exigir que
+\[
+\left| \frac{f(z_0 + h) - f(z_0)}{h} - (\alpha + i \beta) \right| \xrightarrow{h \to 0} 0,
+\]
+lo cual, separando partes real e imaginaria, se traduce en
+\[
+\begin{cases}
+\Re\!\left( \dfrac{f(z_0 + h) - f(z_0)}{h} \right) \xrightarrow{h \to 0} \alpha, \\[1.2ex]
+\Im\!\left( \dfrac{f(z_0 + h) - f(z_0)}{h} \right) \xrightarrow{h \to 0} \beta.
+\end{cases}
+\]
+
+Ahora escribimos $h = h_1 + i h_2$, con $(h_1,h_2)\in\mathbb{R}^2$. Entonces:
+\[
+\begin{cases}
+\dfrac{1}{|h|}\,\big|u(x_0+h_1,y_0+h_2) - u(x_0,y_0) - \Re[(h_1+i h_2)(\alpha+i\beta)]\big| \xrightarrow{|h|\to 0} 0, \\[2ex]
+\dfrac{1}{|h|}\,\big|v(x_0+h_1,y_0+h_2) - v(x_0,y_0) - \Im[(h_1+i h_2)(\alpha+i\beta)]\big| \xrightarrow{|h|\to 0} 0.
+\end{cases}
+\]
+
+Desarrollando el producto:
+\[
+(h_1+i h_2)(\alpha+i\beta) = (h_1\alpha - h_2\beta) + i(h_1\beta + h_2\alpha).
+\]
+
+Por tanto, las condiciones se reescriben como
+\[
+\begin{cases}
+\dfrac{1}{\|(h_1,h_2)\|}\,\big|u(x_0+h_1,y_0+h_2) - u(x_0,y_0) - (h_1\alpha - h_2\beta)\big| \xrightarrow{(h_1,h_2)\to (0,0)} 0, \\[2ex]
+\dfrac{1}{\|(h_1,h_2)\|}\,\big|v(x_0+h_1,y_0+h_2) - v(x_0,y_0) - (h_1\beta + h_2\alpha)\big| \xrightarrow{(h_1,h_2)\to (0,0)} 0.
+\end{cases}
+\]
+
+Esto significa exactamente que:
+\[
+Du(x_0,y_0) = (\alpha,-\beta), \qquad Dv(x_0,y_0) = (\beta,\alpha),
+\]
+es decir, que $u$ y $v$ son diferenciables en $(x_0,y_0)$ y sus derivadas parciales satisfacen
+\[
+\frac{\partial u}{\partial x}(x_0,y_0) = \alpha, 
+\qquad 
+\frac{\partial u}{\partial y}(x_0,y_0) = -\beta,
+\]
+\[
+\frac{\partial v}{\partial x}(x_0,y_0) = \beta, 
+\qquad 
+\frac{\partial v}{\partial y}(x_0,y_0) = \alpha.
+\]
+
+Por tanto,
+\[
+\frac{\partial u}{\partial x}(x_0,y_0) = \frac{\partial v}{\partial y}(x_0,y_0), 
+\qquad 
+\frac{\partial u}{\partial y}(x_0,y_0) = -\frac{\partial v}{\partial x}(x_0,y_0).
+\]
+
+Estas son precisamente las \textbf{ecuaciones de Cauchy–Riemann}.
+\begin{teorema}
+    Sea $\Omega \subset \mathbb{C}$ un abierto, $f : \Omega \to \mathbb{C}$ y $z_0 = x_0 + i y_0 \in \Omega$. Entonces, $f = u+iv$ es derivable en $z_0$ si y sólo si $u, v$ son diferenciables en $(x_0, y_0)$ y se cumplen las \textbf{ecuaciones de Cauchy-Riemann}:
+    \[
+        \frac{\partial u}{\partial x}(x_0, y_0) = \frac{\partial v}{\partial y}(x_0, y_0), \quad \frac{\partial u}{\partial y}(x_0, y_0) = -\frac{\partial v}{\partial x}(x_0, y_0).
+    \]
+    Y en tal caso, la derivada de $f$ en $z_0$ viene dada por:
+    \[
+        f'(z_0) = u_x(x_0, y_0) + i v_x(x_0, y_0) = v_y(x_0, y_0) - i u_y(x_0, y_0).
+    \]
+\end{teorema}
+
+\begin{observación}
+    Por el teorema anterior, $f : \Omega \to \mathbb{C}$ es derivable en $z_0 \in \Omega$ si y sólo si
+    \[
+        f : \Omega \subset \mathbb{R}^2 \to \mathbb{R}^2, \quad f(x,y) = (u(x,y), v(x,y))
+    \]
+    es diferenciable en $(x_0, y_0)$ y su matriz jacobiana es de la forma:
+    \[
+        J_f(x_0, y_0) = \begin{pmatrix}
+            \alpha & -\beta \\
+            \beta & \alpha 
+        \end{pmatrix}, \quad \alpha, \beta \in \mathbb{R}.
+    \]
+\end{observación}
+
+\ejemplo{
+    ¿Dónde es derivable $f(z) = |z| \ \forall z \in \mathbb{C}$?\\
+    \[
+        u(z) = u(x,y) = \Re(f(z)) = \Re(|z|) = \sqrt{x^2 + y^2}, \quad v(z) = v(x,y) = \Im(f(z)) = \Im(|z|) = 0.
+    \]
+    \[
+        \begin{cases}
+            u(x,y) = \sqrt{x^2 + y^2} \\
+            v(x,y) = 0
+        \end{cases} \implies
+        \begin{cases}
+            u_x(x,y) = \frac{2x}{2\sqrt{x^2 + y^2}} = \frac{x}{\sqrt{x^2 + y^2}} \\
+            u_y(x,y) = \frac{2y}{2\sqrt{x^2 + y^2}} = \frac{y}{\sqrt{x^2 + y^2}} \\
+            v_x \equiv v_y \text{ en todo } \mathbb{R}^2
+        \end{cases} \quad \forall (x,y) \in \mathbb{R}^2 \setminus \{(0,0)\}
+    \]
+    Si $z = x + iy \neq 0$, las ecuaciones de Cauchy-Riemann no se cumplen:
+    \[
+        \begin{cases}
+            u_x(x,y) = v_y(x,y) \\
+            u_y(x,y) = -v_x(x,y)
+        \end{cases} \iff
+        \begin{cases}
+            \frac{x}{\sqrt{x^2 + y^2}} = 0 \\
+            \frac{y}{\sqrt{x^2 + y^2}} = 0
+        \end{cases} \iff (x,y) = (0,0) \text{ (imposible)}
+    \]
+    Por lo tanto, $f$ no es derivable en ningún punto $z \neq 0$.\\ 
+    En $z=0$, tampoco lo es pues
+    \[
+        \lim_{z \to 0} \frac{f(z) - f(0)}{z - 0} = \lim_{z \to 0} \frac{|z| - 0}{z}
+    \]
+    y este límite no existe 
+    \[
+        \frac{1}{n} \xrightarrow{n \to \infty} 0, \quad \frac{|\frac{1}{n}|}{\frac{1}{n}} = 1 \xrightarrow{n \to \infty} 1.
+    \]
+    y
+    \[
+        -\frac{1}{n} \xrightarrow{n \to \infty} 0, \quad \frac{|\frac{-1}{n}|}{\frac{-1}{n}} = -1 \xrightarrow{n \to \infty} -1.
+    \]
+    Por lo tanto, $f$ no es derivable en ningún punto de $\mathbb{C}$.  
+}
+
+Se puede probar de forma análoga al caso real que
+
+\begin{itemize}
+    \item Si $f$ es derivable en $z_0$, entonces $f$ es continua en $z_0$.
+    \item Si $f$ y $g$ son derivables en $z_0$, entonces $f+g$, $\alpha f$ ($\alpha \in \mathbb{C}$) y $f \cdot g$ son derivables en $z_0$, y se cumplen las reglas usuales de derivación, es decir,
+    \[
+        (f+g)'(z_0) = f'(z_0) + g'(z_0), \quad (\alpha f)'(z_0) = \alpha f'(z_0),
+    \]
+    \[
+        (f \cdot g)'(z_0) = f'(z_0) g(z_0) + f(z_0) g'(z_0)
+    \]
+    \item Si $f$ y $g$ son derivables en $z_0$ y $g(z_0) \neq 0$, entonces $f/g$ es derivable en $z_0$ y
+    \[
+        \left(\frac{f}{g}\right)'(z_0) = \frac{f'(z_0) g(z_0) - f(z_0) g'(z_0)}{(g(z_0))^2}.
+    \]
+    \item Si $f$ es derivable en $z_0$ y $g$ es derivable en $f(z_0)$, entonces $g \circ f$ es derivable en $z_0$ y
+    \[
+        (g \circ f)'(z_0) = g'(f(z_0)) \cdot f'(z_0).
+    \]
+\end{itemize}
+
+\begin{definición} [Funciones holomorfas y enteras]
+    Sea $\Omega \subset \mathbb{C}$ un abierto y $f : \Omega \to \mathbb{C}$. Diremos que $f$ es \textbf{holomorfa} en $\Omega$ (y escribiremos $f \in \mathcal{H}(\Omega)$) si es derivable en todo punto de $\Omega$. Si $f$ es holomorfa en todo $\mathbb{C}$, diremos que $f$ es una función \textbf{entera}.
+\end{definición}
+
+\textbf{Notas:}
+
+\begin{itemize}
+    \item La función $f(z) = z |z|^2$ es derivable sólo en $z=0$.
+    \item La función 
+    \[
+        f(z) = \begin{cases}
+            \frac{(1+i)x^3 - (1-i)y^3}{x^2 + y^2}, \quad \forall z = (x,y) \in \mathbb{C} \setminus \{0\} \\
+            0, \quad z=0
+        \end{cases}
+    \]
+    cumple las ecuaciones de Cauchy-Riemann en $z=0$ pero no es derivable en $z=0$.
+\end{itemize}
+
+\begin{proposición}
+    Sea $\Omega \subset \mathbb{C}$ un abierto conexo y $f : \Omega \to \mathbb{C}$ holomorfa. Entonces se tiene
+    \begin{enumerate}
+        \item Si $f'(z) = 0$ para todo $z \in \Omega$, entonces $f$ es constante en $\Omega$.
+        \item Si $|f(z)|$ es constante en $\Omega$, entonces $f$ es constante en $\Omega$.
+        \item Si $f(z) \in \mathbb{R}$ para todo $z \in \Omega$, entonces $f$ es constante en $\Omega$.
+        \item Si $f(z) \in i \mathbb{R} = \{iw : w \in \mathbb{R}\}$ para todo $z \in \Omega$, entonces $f$ es constante en $\Omega$.
+    \end{enumerate} \label{prop:constantes_holomorfas}
+\end{proposición}
+
+\begin{proof}
+    \leavevmode
+    \begin{enumerate}
+        \item Sea $f = u + iv$, derivable en $\Omega$. Entonces $u, v$ son diferenciables en $\Omega$ y 
+        \[
+            f'(z) = 0 \implies u_x(z) = u_y(z) = v_x(z) = v_y(z) = 0 \quad \forall z = (x,y) \in \Omega.
+        \]
+        \[
+            \implies u, v \text{ son constantes en } \Omega \implies f \text{ es constante en } \Omega.
+        \]
+        \item Sea $c \geq 0$ tal que $|f(z)| = c$ para todo $z \in \Omega$. Entonces
+        \begin{itemize}
+            \item Si $c=0$, entonces $f(z) = 0$ para todo $z \in \Omega$ y $f$ es constante en $\Omega$.
+            \item Si $c \neq 0$ y llamamos 
+            \[
+                \begin{cases}
+                    u(z) = (\Re(f(z))) \\
+                    v(z) = (\Im(f(z)))
+                \end{cases}
+            \]
+            tenemos que 
+            \[
+                c = |f(z)| = |u(z) + iv(z)| \ \forall z \in \Omega \implies u^2(z) + v^2(z) = c^2 \ \forall z \in \Omega.
+            \]
+            \[
+                \implies \begin{cases}
+                    2u(z) u_x(z) + 2v(z) v_x(z) = 0 \\
+                    2u(z) u_y(z) + 2v(z) v_y(z) = 0
+                \end{cases} \quad \forall z \in \Omega. \implies
+                \begin{cases}
+                    u(z) u_x(z) + v(z) v_x(z) = 0 \\
+                    u(z) u_y(z) + v(z) v_y(z) = 0
+                \end{cases} \quad \forall z \in \Omega.
+            \]
+            luego $f$ es holomorfa en $\Omega$ y se cumplen las ecuaciones de Cauchy-Riemann, por lo que
+            \[
+                \begin{cases}
+                    u(z) u_x(z) - v(z) u_y(z) = 0 \\
+                    u(z) u_y(z) + v(z) u_x(z) = 0
+                \end{cases} \implies 
+                \begin{cases}
+                    u(z)^2 u_x(z) - u(z) v(z) u_y(z) = 0 \\
+                    u(z) v(z) u_y(z) + v(z)^2 u_x(z) = 0 
+                \end{cases}
+            \]
+            \[
+                \implies u_x(z) (u^2(z) + v^2(z)) = 0 \implies u_x(z) c^2 = 0 \underbrace{\implies}_{c \neq 0} u_x(z) = 0 \quad \forall z \in \Omega.
+            \]
+            Análogamente, $v_x(z) = 0$ para todo $z \in \Omega$. Por lo tanto, $f'(z) = 0$ para todo $z \in \Omega$ y $f$ es constante en $\Omega$ por (1).
+        \end{itemize}
+        \item Si $f(z) \in \mathbb{R}$ para todo $z \in \Omega$, entonces 
+        \[
+            \begin{cases}
+                u(z) = (\Re(f(z))) = f(z) \\
+                v(z) = (\Im(f(z))) = 0
+            \end{cases} \quad \forall z \in \Omega.
+        \]
+        \[
+            \implies v_x(z) = v_y(z) = 0 \quad \forall z \in \Omega \implies f'(z) = 0 \quad \forall z \in \Omega \implies f \text{ es constante en } \Omega \text{ por (1).}
+        \]
+    \end{enumerate}
+
+\end{proof}
+
+Si $f$ es derivable en $z_0 \in \Omega$ con $\Omega \subset \mathbb{C}$ abierto, entonces tenemos que
+
+\[
+    \lim_{h \to 0} \frac{f(z_0 + h) - f(z_0)}{h} = f'(z_0) \in \mathbb{C}.
+\]
+
+Luego $f(z_0 + h) = f(z_0) + f'(z_0) h + h \varphi(h)$, donde $\varphi(h) \to 0$ cuando $h \to 0$. Por tanto, basta tomar 
+
+\[
+    \varphi(h) = \frac{f(z_0 + h) - f(z_0)}{h} - f'(z_0)
+\]
+
+Más aún, $f$ es derivable en $z_0$ y $f'(z_0) = \alpha + i \beta$ si y sólo $\exists \varphi : D(0,r_0) \to \mathbb{C}$ con $\lim_{h \to 0} \varphi(h) = 0$ tal que
+
+\[
+    f(z_0 + h) = f(z_0) + (\alpha + i \beta) h + h \varphi(h), \quad \forall h \in D(0,r_0).
+\]
+

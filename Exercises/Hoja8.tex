@@ -1,0 +1,374 @@
+\hojaejercicio{Aplicaciones Teorema de Cauchy II }
+\ejercicio{Demuestra la fórmula integral de Poisson: Si $f$ es holomorfa en un 
+dominio $\Omega \subset \mathbb{C}$ tal que $\Omega \supset \overline{D}(0;1)$, 
+entonces para cada $z=re^{i\theta} \in D(0;1)$ se tiene:
+
+$$ f(re^{i\theta}) = \frac{1}{2\pi} \int_{0}^{2\pi} \frac{1-r^2}{1-2r\cos(\theta-t)+r^2} \cdot f(e^{it}) \, dt $$
+
+(ind.: aplica la fórmula integral de Cauchy a $f(z)g_z(z)$, siendo $g_z(w)=(1-r^2)/(1-w\bar{z}))$.}{
+    Sea $f \in H(\Omega)$ y $\overline{D}(0,1) \subset \Omega$.
+
+Tenemos $h_z(w) = f(w) \cdot g_z(w) = f(w) \cdot \frac{1-r^2}{1-w\bar{z}}$.
+
+$h(z)$ es holomorfa en $\Omega \setminus \{1/\bar{z}\}$ puesto que $f \in H(\Omega)$ y $g \in H(\mathbb{C} \setminus \{1/\bar{z}\})$ al ser cocientes de funciones holomorfas cuyo denominador se anula en $w = \frac{1}{\bar{z}}$ y producto de holomorfas en $\mathbb{C} \setminus \{1/\bar{z}\}$
+\[ g_z(w) \cdot f(w) \in H(\Omega \cap (\mathbb{C} \setminus \{1/\bar{z}\}))=H(\Omega \setminus \{1/\bar{z}\})\]
+
+Cogiendo entonces $z = re^{i\theta} \in D(0,1)$, entonces $\bar{z} \in D(0,1)$ (porque $|z|=|\bar{z}|$).
+$$ \left| \frac{1}{\bar{z}} \right| = \frac{1}{|\bar{z}|} > 1 \implies \frac{1}{\bar{z}} \notin \overline{D}(0,1) \quad \text{por lo tanto, } \overline{D}(0,1) \subset \mathbb{C} \setminus \{1/\bar{z}\}. $$
+
+Al tener $\overline{D}(0,1) \subset \Omega$ y $\overline{D}(0,1) \subset \mathbb{C} \setminus \{1/\bar{z}\}$, entonces:
+$$ \overline{D}(0,1) \subset \Omega \cap \mathbb{C} \setminus \{1/\bar{z}\} = \Omega \setminus \{1/\bar{z}\} $$
+que es abierto conexo en $\mathbb{C}$.
+
+$h \in H(\Omega \setminus \{1/\bar{z}\})$, así pues, podemos aplicar la fórmula integral de Cauchy.
+
+\begin{align*}
+h(z) &= \frac{1}{2\pi i} \int_{\partial D(0,1)} \frac{h(w)}{w-z} \, dw \\
+&= \frac{1}{2\pi i} \int_{C(0,1)} \frac{f(w) \cdot g_z(w)}{w-z} \, dw \\
+&= \frac{1}{2\pi i} \int_{C(0,1)} \frac{f(w) \frac{1-r^2}{1-w\bar{z}}}{w-z} \\
+&= \frac{1}{2\pi i} \int_{C(0,1)} f(w) \frac{1-r^2}{(w-z)(1-w\bar{z})} \, dw
+\end{align*}
+
+Como $w \in C(0,1) \iff |w|=1 \iff |w|^2=1 \iff w\bar{w}=1$:
+
+\begin{align*}
+\frac{1}{2\pi i} \int_{C(0,1)} f(w) \frac{1-r^2}{(w-z)(\bar{w}-\bar{z})w} \, dw 
+&= \frac{1}{2\pi i} \int_{C(0,1)} f(w) \frac{1-r^2}{|w-z|^2 w} \\
+&= \frac{1}{2\pi} \int_{0}^{2\pi} f(e^{it}) \frac{(1-r^2)  e^{it}}{|e^{it}-re^{i\theta}|^2  e^{it}} \, dt \\
+&= \frac{1}{2\pi} \int_{0}^{2\pi} f(e^{it}) \frac{(1-r^2)}{|e^{it}(1-re^{i\theta})|^2} \, dt \\
+&= \frac{1}{2\pi} \int_{0}^{2\pi} f(e^{it}) \frac{1-r^2}{|1-re^{i(\theta-t)}|^2} \, dt \quad (*)
+\end{align*}
+
+Desarrollando concluimos:
+\begin{align*}
+|1 - re^{i(\theta-t)}|^2 &= (1 - re^{i(\theta-t)})(1 - re^{-i(\theta-t)}) \\
+&= 1 - re^{-i(\theta-t)} - re^{i(\theta-t)} + r^2 \\
+&= 1 + r^2 - 2r\cos(\theta-t)
+\end{align*}
+
+Sustituyendo en $(*)$:
+$$ (*) = \frac{1}{2\pi} \int_{0}^{2\pi} f(e^{it}) \frac{1-r^2}{1+r^2-2r\cos(\theta-t)} \, dt $$
+}
+
+\ejercicio{
+
+Calcula $\displaystyle \int_{C(0;1)} \frac{\text{Re } z}{z - \frac{1}{2}} , dz$ \quad $(\text{recuerda que } \bar{z} = \frac{1}{z} \text{ si } |z|=1)$.
+}{
+
+$$ \int_{C(0,1)} \frac{\text{Re } z}{z - \frac{1}{2}} , dz. \quad \text{Sabemos que } 2\text{Re } = z + \overline{z} \Rightarrow \text{Re } = \frac{z+\overline{z}}{2} \Rightarrow $$
+
+\begin{align*}
+\int_{C(0,1)} f(z) , dz &= \int_{C(0,1)} \frac{\frac{z+\overline{z}}{2}}{z-\frac{1}{2}} , dz = \int_{C(0,1)} \frac{z+\frac{1}{z}}{2z-1} , dz = \int_{C(0,1)} \frac{z}{2z-1} , dz + \int_{C(0,1)} \frac{1/z}{2z-1} \, dz \\
+&= \int_{C(0,1)} \frac{z}{2} \cdot \frac{1}{z-\frac{1}{2}} , dz + \int_{C(0,1)} \frac{1}{2z} \cdot \frac{1}{z-\frac{1}{2}} , dz.
+\end{align*}
+
+entonces: $\Rightarrow \int_{C(0,1)} \frac{z}{2} \cdot \frac{1}{z-1/2} \, dz = \frac{2\pi i \cdot (1/2)}{2} \quad$ por la fórmula integral de Cauchy.
+
+Si cogemos dos discos de centro $0$ y $1/2$ con radio $\delta$ tq $C(0,\delta) \cap C(1/2, \delta) = \emptyset$.
+Entonces, cogiendo la parametrización adecuada de la curva que une las tres circunferencias (y viendo que es homótopa a 0). Nos resulta en:
+
+\begin{align*}
+\int_{C(0,1)} \frac{1}{2z} \cdot \frac{1}{z-1/2} , dz &= -\int_{C(0,\delta)} \frac{1}{z} \cdot \frac{1}{2z-1} , dz - \int_{C(1/2,\delta)} \frac{1}{2z} \cdot \frac{1}{z-1/2} , dz \\
+&= -2\pi i \left(\frac{1}{2\cdot 0 - 1}\right) - 2\pi i \left(\frac{1}{2 \cdot \frac{1}{2}}\right) \\
+&= -2\pi i + 2\pi i = \boxed{0}
+\end{align*}
+
+\[\int_{C(0,1)} \frac{\text{Re } z}{z - 1/2} , dz = \int_{C(0,1)} \frac{z}{2} \frac{1}{z-1/2} , dz = \frac{2\pi i \cdot 1/2}{2} = \boxed{\frac{\pi i}{2}} \]
+}
+
+%ejercicio 3
+\ejercicio{Sea $\log z$ el logaritmo principal de $z$ en $\Omega = \mathbb{C} \setminus (-\infty, 0]$ y sea $a = \left( \frac{e}{\sqrt{2}} \right)(1+i)$.
+Calcula $\displaystyle \int_{C(a;1)} \frac{\log z}{z-a} \, dz$.
+}{
+    Tenemos que $\log z$ es el logaritmo principal de $z$ en $\Omega = \mathbb{C} \setminus (-\infty, 0]$ por lo que:
+$$ \text{Log } z = \log|z| + i\text{Arg}(z) $$
+siendo $\text{Arg}(z)$ el argumento principal de $z$ en $\Omega$, i.e., $\text{Arg}(z) \in (-\pi, \pi)$.
+
+Tenemos que es continua en $\Omega$ y además, es holomorfa porque es una determinacion del logaritmo continua en $\Omega$ que es un abierto conexo (prop 1.3.1) (es conexo por caminos).
+Por lo tanto $\text{Log}(z) \in H(\Omega)$ con $(\log z)' = \frac{1}{z} \quad \forall z \in \Omega$.
+
+Ahora, teniendo en cuenta que:
+\begin{align*}
+\text{Re } z \ge -1 \quad \forall z \in \overline{D}(0,1) &\implies \text{Re } z \ge \text{Re } a - 1 \quad \forall z \in \overline{D}(a,1) \\
+&\implies \text{Re } z \ge \frac{e}{\sqrt{2}} - 1 > 0 \\
+\text{Im } z \ge -1 \quad \forall z \in \overline{D}(0,1) &\implies \text{Im } z \ge \text{Im } a - 1 \quad \forall z \in \overline{D}(a,1) \\
+&\implies \text{Im } z \ge \frac{e}{\sqrt{2}} - 1 > 0
+\end{align*}
+$\implies \overline{D}(a,1) \subset \Omega$.
+
+Entonces utilizando la fórmula integral de Cauchy:
+
+\begin{align*}
+\int_{C(a,1)} \frac{\log z}{z-a} \, dz &= 2\pi i \log(a) \\
+&= 2\pi i \left( \log e + \frac{\pi}{4}i \right) \\
+&= \boxed{2\pi i  - \frac{\pi^2}{2}}
+\end{align*}
+}
+
+%ejercicio 4
+\ejercicio{
+    Utiliza el principio de identidad para probar que
+\[sen(z+w) = sen z cos w + cos z sen w \quad \forall z,w \in \mathbb{C} \]
+}
+{
+    El principio de identidad nos dice que si $\Omega$ es un dominio y $g, f \in H(\Omega)$ entonces si el conjunto de puntos donde son iguales tiene algún punto de acumulación entonces $f \equiv g$ en $\Omega$.
+
+Por lo que si consideramos $\Omega = \mathbb{C}$ y fijamos $z \in \mathbb{R}$.
+
+Entonces:
+\[sen(z+w) = sen z cos w + cos z sen w \quad \forall w \in \mathbb{R} \]
+
+Como $\mathbb{R}$ tiene puntos de acumulación en $\Omega = \mathbb{C}$. Entonces se da que para dicho $z \in \mathbb{R}$:
+\[ sen(z+w) = sen z cos w + cos z \cdot sen w \quad \forall w \in \mathbb{C}. \]
+
+Entonces fijamos ahora $w \in \mathbb{C}$. Se da que:
+\[ sen(z+w) = sen z cos w + cos z \cdot sen w \quad \forall z \in \mathbb{R} \]
+por lo anterior, entonces, por el principio de identidad:
+\[ sen(z+w) = sen z cos w + cos z sen w \quad \forall z \in \mathbb{C}. \]
+
+Es decir:
+\[sen(z+w) = sen z cos w + cos z sen w \quad \forall z, w \in \mathbb{C}. \]
+}
+%ejercicio 5
+\ejercicio{
+    Sea $D = D(0;1)$. Para cada $a \in D$ consideramos la transformación de Möbius:
+    \[
+    \varphi_a(z) = \frac{z - a}{1 - \bar{a}z}, \quad \forall z \in \bar{D}
+    \]
+    Demuestra que $\varphi_a(D) = D$, $\varphi_a(C(0,1)) = C(0,1)$, $\varphi_a: D \to D$ es biyectiva, $\varphi_a(0) = -a$, $\varphi_a(a) = 0$, $(\varphi_a)^{-1} = \varphi_{-a}$, $\varphi_a'(0) = 1 - |a|^2$ y $\varphi_a'(a) = \frac{1}{1 - |a|^2}$.
+}{
+    Necesitamos demostrar que $\varphi_{a}(D)=D$. O lo que es lo mismo:
+\[
+\text{Si } |z|<1 \implies |\varphi_{a}(z)|<1.
+\]
+Recordamos la definición: $\varphi_{a}(z) = \frac{z-a}{1-\overline{a}z}$.
+
+\subsection*{1. Demostración de la imagen del disco}
+Entonces, calculamos el módulo al cuadrado:
+\[
+|\varphi_{a}(z)|^2 = \left| \frac{z-a}{1-\overline{a}z} \right|^2 = \frac{|z-a|^2}{|1-\overline{a}z|^2} = \frac{(z-a)(\overline{z}-\overline{a})}{(1-\overline{a}z)(1-a\overline{z})}
+\]
+Queremos ver si esto es $< 1$. Desarrollamos la desigualdad:
+\[
+\frac{|z|^2 + |a|^2 - \overline{a}z - a\overline{z}}{1 + |a|^2|z|^2 - \overline{a}z - a\overline{z}} < 1
+\]
+Multiplicando por el denominador (que es positivo):
+\[
+|z|^2 + |a|^2 - \overline{a}z - a\overline{z} < 1 + |a|^2|z|^2 - \overline{a}z - a\overline{z}
+\]
+Simplificamos cancelando los términos comunes ($-\overline{a}z - a\overline{z}$):
+\[
+|z|^2 + |a|^2 < 1 + |a|^2|z|^2
+\]
+Reordenamos los términos:
+\[
+|z|^2 + |a|^2 - |a|^2|z|^2 - 1 < 0
+\]
+Factorizamos:
+\[
+|z|^2(1-|a|^2) - (1-|a|^2) < 0 \iff (1-|a|^2)(|z|^2 - 1) < 0
+\]
+O equivalentemente:
+\[
+|z|^2 + |a|^2(1-|z|^2) < 1 \iff \frac{1-|a|^2}{1-|a|^2|z|^2} \dots \quad (\text{Forma simplificada: } (1-|a|^2)(1-|z|^2) > 0)
+\]
+Como $|a|<1$ y $|z|<1$, la desigualdad se cumple. Por lo tanto, $|\varphi_{a}(z)| < 1$.
+
+
+Sea $z_0 \in D$, buscamos $z \in D$ tal que $\varphi_{a}(z) = z_0$.
+\[
+\varphi_{a}(z) = z_0 \iff \frac{z-a}{1-\overline{a}z} = z_0 \iff z-a = z_0(1-\overline{a}z)
+\]
+\[
+z - a = z_0 - z_0\overline{a}z \iff z + z z_0\overline{a} = z_0 + a \iff z(1+z_0\overline{a}) = z_0 + a
+\]
+\[
+z = \frac{z_0 + a}{1 + z_0\overline{a}}
+\]
+¿Está este $z$ en $D(0,1)$?
+\[
+\left| \frac{z_0+a}{1+\overline{a}z_0} \right| < 1
+\]
+(El desarrollo es análogo al apartado anterior intercambiando los roles de $z$ y $a$).
+Por lo tanto, $\varphi_a(D) = D$.
+
+
+
+\[
+\varphi_{a}(C(0,1)) = C(0,1)
+\]
+Queremos ver que: Si $|z|=1 \implies |\varphi_{a}(z)|=1$ y además que todo punto de $C(0,1)$ es imagen de otro punto de $C(0,1)$.
+Demostración:
+\[
+\text{Si } |z|=1 \implies |\varphi_{a}(z)| = \left| \frac{z-a}{1-\overline{a}z} \right| = 1 \iff |z-a| = |1-\overline{a}z|
+\]
+Elevando al cuadrado:
+\[
+|z|^2 + |a|^2 - a\overline{z} - \overline{a}z = 1 + |a|^2|z|^2 - a\overline{z} - \overline{a}z
+\]
+Como $|z|=1$, entonces $|z|^2=1$:
+\[
+1 + |a|^2 = 1 + |a|^2(1)
+\]
+La igualdad se cumple.
+La sobreyectividad se demuestra de forma análoga al apartado anterior.
+
+$\varphi_{a}: D \to D$ es biyectiva. La sobreyectividad es la hemos demostrado anterioremente, falta comprobar inyectividad.
+Si $\varphi_{a}(w) = \varphi_{a}(z)$:
+\[
+\frac{w-a}{1-w\overline{a}} = \frac{z-a}{1-z\overline{a}} \iff (w-a)(1-z\overline{a}) = (z-a)(1-w\overline{a})
+\]
+\[
+w - wz\overline{a} - a + az\overline{a} = z - zw\overline{a} - a + aw\overline{a}
+\]
+Simplificamos términos iguales:
+\[
+w + z|a|^2 = z + w|a|^2 \iff w - z = w|a|^2 - z|a|^2
+\]
+\[
+(w-z) = |a|^2(w-z) \iff (1-|a|^2)(w-z) = 0
+\]
+Como $|a|<1$, entonces $1-|a|^2 \neq 0$, por lo que $w-z=0 \implies w=z$.
+
+Para el resto, son simples comprobaciones:
+\[
+\varphi_{a}(a) = \frac{a-a}{1-|a|^2} = 0
+\]
+\[
+\varphi_{a}(0) = \frac{0-a}{1-0} = -a
+\]
+El resto se demuestran de forma trivial.
+}
+
+% Ejercicio 6
+\ejercicio{
+    Utiliza el lema de Schwarz y el ejercicio anterior para probar que si $f: D \to D$ es biholomorfa (= biyectiva, holomorfa con inversa holomorfa), entonces $f$ es una transformación de Möbius. Deduce que si $D_1$ y $D_2$ son discos y $g: D_1 \to D_2$ es biholomorfa, entonces $g$ es una transformación de Möbius.
+}{
+  $f: D \to D$ biholomorfa.
+
+\vspace{0.5cm}
+
+Debemos usar el Lema de Schwarz: Sea $D=D(0,1)$ y $f \in H(D)$ tal que $|f(z)| \le 1 \quad \forall z \in D$ y $f(0)=0$. Entonces:
+\[
+|f(z)| \le |z| \quad \forall z \in D \quad \text{y} \quad |f'(0)| \le 1
+\]
+Además, si para algún $z_0 \in D \setminus \{0\}$ se cumple que $|f(z_0)| = |z_0|$ o si $|f'(0)|=1$, entonces $f$ es una rotación.
+Sabemos que $f^{-1}: D \to D$ es holomorfa.
+
+\vspace{0.3cm}
+
+Sin embargo, nuestra función $f$ no tiene por qué cumplir que $f(0)=0$. Por lo tanto:
+
+Construyamos una función que reúna las condiciones. Nuestra $f$ es biyectiva, así que $\exists w \in D$ tal que $f(w)=0$. Por lo tanto, usando $\varphi_{-w}(z) = \frac{z+w}{1+\bar{w}z}$, tenemos entonces que:
+\[
+0 \xrightarrow{\varphi_w} w \xrightarrow{f} 0
+\]
+\[
+\varphi_{-w}(f(0))=0
+\]
+
+Sea $h(z) = \varphi_{-w} \circ f(z)$.
+
+\vspace{0.3cm}
+
+Al ser $f$ y $\varphi_{-w}$ biyectivas en $D$, $h$ es biyectiva.
+
+$f \in H(D)$ y $\varphi_{-w} \in H(\mathbb{C} \setminus \{ 1/\bar{w} \})$. Pero como $w \in D(0,1)$, entonces $|1/\bar{w}| = 1/|w| > 1$. Por lo tanto $D \subset \mathbb{C} \setminus \{ 1/\bar{w} \}$, lo que implica que $\varphi_{-w} \in H(D)$.
+
+Así, $h = \varphi_{-w} \circ f \in H(D)$ al ser composición de holomorfas. Además $h(D) \subseteq D$.
+\[
+\implies h(0)=0 \quad \text{y} \quad |h(z)| \le 1 \quad \forall z \in D
+\]
+Por lo que podemos aplicar el lema. Concluimos que:
+\[
+\begin{cases} 
+|h(z)| \le |z| \quad \forall z \in D \\ 
+|h'(0)| \le 1 
+\end{cases}
+\]
+
+\vspace{0.3cm}
+
+Como $\varphi_{-w}$ y $f$ son biholomorfas en $D \implies h = \varphi_{-w} \circ f$ es biholomorfa en $D$.
+$\implies h^{-1}$ es holomorfa en $D$ y cumple las condiciones del Lema de Schwarz.
+
+Trivialmente: $h^{-1}(h(z)) = z$. Derivando por la regla de la cadena:
+\[
+(h^{-1})'(h(z)) \cdot h'(z) = 1 \implies (h^{-1})'(h(0)) = \frac{1}{h'(0)}
+\]
+Como $h(0)=0$:
+\[
+h^{-1}(0) = 0 \implies (h^{-1})'(0) = \frac{1}{h'(0)}
+\]
+
+Al cumplir $h^{-1}$ el Lema de Schwarz, sabemos que $|(h^{-1})'(0)| \le 1$. Sustituyendo:
+\[
+\left| \frac{1}{h'(0)} \right| \le 1 \implies |h'(0)| \ge 1
+\]
+
+Llegamos a que $|h'(0)| \ge 1$ y anteriormente teníamos $|h'(0)| \le 1$.
+\[
+\implies |h'(0)| = 1
+\]
+
+Entonces, por la parte de la igualdad del propio lema, $h: D \to D$ es una \textbf{rotación} tal que:
+\[
+h(z) = e^{i\theta}z \quad \text{con } \theta \in [0, 2\pi)
+\]
+
+Como $h = \varphi_{-w} \circ f$, deshacemos el cambio:
+\[
+e^{i\theta}z = \varphi_{-w}(f(z)) \implies (\varphi_{-w})^{-1}(e^{i\theta}z) = f(z)
+\]
+\[
+\implies f(z) = \varphi_{w}(e^{i\theta}z)
+\]
+
+$f$ es composición de Transformaciones de Möbius (rotación y automorfismo), por lo tanto \textbf{$f$ es una Transformación de Möbius}.
+}
+\ejercicio{Sea $f(z) = z + \frac{1}{z}$. Prueba que $f$ es inyectiva en $\mathbb{C} \setminus \bar{D}(0;1)$. Determina $f(C(0,r))$ para $r > 1$ y para $r = 1$.}{}
+\ejercicio{Sea $f: D(0;1) \to \mathbb{C}$ holomorfa y acotada con $f(0) = 0$. Usa el lema de Schwarz para probar que $\sum_{n=1}^{\infty} f(z^n)$ converge en $D = D(0;1)$ y su función suma es holomorfa en $D$.}{
+    Tenemos que $f \in H(D)$ y $|f(z)| \le M$ para todo $z \in D(0,1)$.
+Consideramos la función:
+\[
+g(z) = \frac{f(z)}{M}
+\]
+Esta función cumple las premisas del Lema de Schwarz ($g(0)=0$ y $|g(z)| \le 1$).
+\[
+\implies \left| \frac{f(z)}{M} \right| \le |z| \quad \text{y} \quad \left| \frac{f'(0)}{M} \right| \le 1
+\]
+\[
+\implies |f(z)| \le M|z|
+\]
+Aplicando esto a los términos de la serie:
+\[
+|f(z^n)| \le M|z^n| = M|z|^n
+\]
+Por el criterio de comparación de series, estudiamos:
+\[
+\sum_{n=1}^{\infty} |f(z^n)| \le \sum_{n=1}^{\infty} M|z|^n
+\]
+Como $|z|<1$, la serie geométrica $\sum |z|^n$ converge. Por lo tanto:
+\[
+\sum_{n=1}^{\infty} f(z^n) \quad \text{converge absolutamente para } z \in D(0,1).
+\]
+
+\subsubsection*{Convergencia uniforme sobre compactos}
+Sea $f_n(z) = f(z^n)$. Veamos que la serie converge uniformemente sobre compactos de $D(0,1)$.
+Sea $K \subset D(0,1)$ un compacto.
+Como $K$ es cerrado y acotado y $K \subset D(0,1)$, existe una distancia al borde $>0$. La función $|z|$ alcanza un máximo en $K$.
+Sea $r = \max \{|z| : z \in K \} < 1$.
+\[
+|f_n(z)| \le M|z|^n \le M r^n \quad \forall z \in K
+\]
+Como $\sum M r^n$ converge (serie geométrica con $r<1$), por el \textbf{Criterio M de Weierstrass}, la serie $\sum f_n(z)$ converge uniformemente sobre compactos de $D$.
+
+Sea $g_m(z) = \sum_{n=1}^{m} f(z^n)$.
+Como $g_m \in H(D)$ y la sucesión converge uniformemente sobre compactos, por el Teorema de Weierstrass, el límite $g(z)$ es una función holomorfa.
+\[
+g(z) = \sum_{n=1}^{\infty} f(z^n) \in H(D)
+\]
+Además, la derivada se puede calcular término a término:
+\[
+g'(z) = \sum_{n=1}^{\infty} (f(z^n))' = \sum_{n=1}^{\infty} f'(z^n) \cdot n z^{n-1}
+\]}

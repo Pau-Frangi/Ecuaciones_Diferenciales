@@ -1,0 +1,613 @@
+\section{Teorema de los Residuos}
+\subsection{Teorema de los Residuos}
+
+Si $f$ tiene una singularidad aislada en $z_0$, definimos lo siguiente:
+
+\begin{definición}[Residuo]
+    El \textbf{residuo} de $f$ en $z_0$ (una singularidad aislada) es el coeficiente $c_{-1}$ del desarrollo en serie de Laurent de $f$ en $D'(z_0,r)$, es decir:
+    \[
+        \Res(f,z_0) =
+        c_{-1} = 
+        \frac{1}{2\pi i} \int_{C(z_0,\rho)} f(w) \, dw =
+        \frac{1}{2\pi i} \int_{C(z_0,\rho)} \sum_{n=-\infty}^{\infty} c_n (w-z_0)^n \, dw
+    \]
+    Con $0 < \rho < r$.
+\end{definición}
+
+Como vimos en el tema anterior, si $z_0$ es una singularidad evitable entonces $c_{-1} = 0$, luego $\Res(f,z_0) = 0$.\\
+
+Antes de enunciar el Teorema de los Residuos, recordemos un lema enunciado en el tema 12:
+
+\begin{lema}
+    Sea $\Omega \subset \mathbb{C}$ un dominio y sea $\gamma$ una curva cerrada en $\Omega$ homótopa a 0, entonces existe $\Omega_1 \subset \Omega$ un dominio acotado tal que $\overline{\Omega}_1 \subset \Omega$, $\gamma \sim 0$ en $\Omega_1$ y ademas $\Ind_\gamma (z) = 0$ $\forall z \in \mathbb{C} \setminus \overline{\Omega}_1$.
+\end{lema}
+
+\begin{teorema}[Teorema de los Residuos]
+    Sea $\Omega \subset \mathbb{C}$ un dominio, $S \subset \Omega$ un conjunto sin puntos de acumulación y sea $f \in \mathcal{H}(\Omega \setminus S)$. Si $\gamma$ es una curva cerrada en $\Omega \setminus S$ homótopa a 0 en $\Omega$, entonces:
+    \[
+        \int_{\gamma} f(z) \, dz =
+        2 \pi i \sum_{z \in S} \Ind_\gamma (z) \Res(f,z)
+    \]
+\end{teorema}
+
+\begin{proof}
+    Como $S \subset \Omega$ no tiene puntos de acumulación, y $\overline{\Omega}_1$ es compacto con $\overline{\Omega}_1 \subset \Omega$, entonces $S \cap \overline{\Omega}_1$ es un conjunto finito de puntos $\{z_1, z_2, \ldots, z_n\}$.\\
+    Tenemos que probar entonces que:
+    \[
+        \int_{\gamma} f(z) \, dz =
+        2 \pi i \sum_{k=1}^{n} \Ind_\gamma (z_k) \Res(f,z_k)
+    \]
+    Si probamos esto, el teorema quedará demostrado, ya que:
+    \[
+        \int_{\gamma} f(z) \, dz \underbrace{=}_{\gamma^* \subset \Omega_1}
+        \int_{\gamma} f_{|\Omega_1}(z) \, dz =
+        2 \pi i \sum_{j=1}^{n} \Res(f, z_j) \Ind_\gamma (z_j) 
+    \]
+    \[
+        = 2 \pi i \sum_{z \in S \cap \Omega_1} \Res(f, z) \Ind_\gamma (z) \underbrace{=}_{\Ind_\gamma (z) = 0 \, \forall z \in S \setminus \Omega_1}
+        2 \pi i \sum_{z \in S} \Res(f, z) \Ind_\gamma (z)
+    \]
+    Para cada $j \in \{1, 2, \ldots, n\}$, como $z_j \in \Omega_1$ abierto y $S$ no tiene puntos de acumulación, sabemos que $\exists r_j > 0$ tal que $D'(z_j, r_j) \subset \Omega_1 \setminus S$.\\
+    Tenemos que $f \in \mathcal{H}(D'(z_j, r_j))$, para cualquier $1 \leq j \leq n$, luego $f$ tiene un desarrollo en serie de Laurent en $D'(z_j, r_j)$:
+    \[
+        f(z) = \underbrace{\sum_{m=1}^{\infty} \frac{c_{-m}}{(z-z_j)^m}}_{g_j(z)} + \underbrace{\sum_{m=0}^{\infty} c_m (z-z_j)^m}_{f_j(z)} \quad \forall z \in D'(z_j, r_j)
+    \]
+    donde $f_j \in \mathcal{H}(D(z_j, r_j))$ y $g_j \in \mathcal{H}(\mathbb{C} \setminus \{z_j\})$. Consideremos ahora la función
+    \[
+    \phi(z) := f(z) - \sum_{j=1}^{n} g_j(z) \quad \forall z \in \Omega_1 \setminus \{ z_1, z_2, \ldots, z_n \}.
+    \]
+    Sabemos que $\phi \in \mathcal{H}(\Omega_1 \setminus \{ z_1, z_2, \ldots, z_n \})$ y que para cada $j \in \{1, 2, \ldots, n\}$:
+    \[
+    \lim_{z \to z_j} \phi(z) = 
+    \lim_{z \to z_j} \left( f(z) - g_j(z) \right) - \sum_{\substack{k=1 \\ k \neq j}}^{n} g_k(z) =
+    \lim_{z \to z_j} f_j(z) - \sum_{\substack{k=1 \\ k \neq j}}^{n} g_k(z) = f_j(z_j) - \sum_{\substack{k=1 \\ k \neq j}}^{n} g_k(z_j) \in \mathbb{C}
+    \]
+    Luego por el teorema de prolongación de funciones holomorfas, $\phi$ admite una extensión holomorfa a todo $\Omega_1$.\\
+    Ahora, por ser $\phi \in \mathcal{H}(\Omega_1)$ y $\gamma \sim 0$ en $\Omega_1$, podemos aplicar el Teorema de Cauchy para obtener:
+    \[
+        \int_{\gamma} \phi(z) \, dz = 0      
+    \]
+    Con lo cual tenemos que:
+    \[
+        \int_{\gamma} f(z) \, dz =
+        \sum_{j=1}^{n} \left( \int_{\gamma} g_j(z) \, dz \right)
+    \]
+    Sea ahora $j \in \{1, 2, \ldots, n\}$ fijo:
+    \[
+        \int_{\gamma} g_j(z) \, dz =
+        \int_{\gamma} \sum_{m=1}^{\infty} \frac{c_{-m}}{(z-z_j)^m} \, dz \underbrace{=^*}_{\text{si hay conv. uni. en } \gamma^*}
+        \sum_{m=1}^{\infty} \int_\gamma \frac{c_{-m}}{(z-z_j)^m} \, dz 
+    \]
+    \[
+        = \sum_{m=1}^{\infty} c_{-m} \int_\gamma \frac{1}{(z-z_j)^m} \, dz =^{**}
+        c_{-1} \int_\gamma \frac{1}{z-z_j} \, dz =
+        2 \pi i \, c_{-1} \, \Ind_\gamma (z_j) =
+        2 \pi i \, \Res(f, z_j) \, \Ind_\gamma (z_j)
+    \]
+    Usando en el paso $^{**}$ el hecho de que $\frac{1}{(z-z_j)^m}$ tiene primitiva en $\mathbb{C} \setminus \{z_j\}$ excepto para $m=1$, en particular:
+    \[
+        \frac{d}{dz} \left(\frac{(z-z_j)^{1-m}}{1-m} \right) = (z-z_j)^{-m} \quad \forall z \in \mathbb{C} \setminus \{z_j\} \quad \forall m \geq 2
+    \]    
+    luego por el teorema de existencia de primitivas (\cref{teo:existencia-primitivas}), se cumple
+    \[
+        \int_\gamma \frac{1}{(z-z_j)^m} \, dz = 0 \quad \forall m \geq 2
+    \]
+    Así, tenemos que:
+    \[
+        \int_{\gamma} f(z) \, dz = 2 \pi i \sum_{j=1}^{n} \Res(f, z_j) \Ind_\gamma (z_j)
+    \]
+    Finalmente, comprobemos lo utilizado en el paso $^{*}$. Para ello, basta utilizar el criterio M de Weierstrass, es decir, comprobar que:
+    \[
+        \sum_{m=1}^{\infty} \left( \sup_{z \in \gamma^*} \left| \frac{c_{-m}}{(z-z_j)^m} \right| \right) < +\infty
+    \]
+    Como $z_j \notin \gamma^*$ por hipótesis, entonces $\exists \delta > 0$ tal que $|z-z_j| \geq \delta$ $\forall z \in \gamma^*$, luego $\frac{1}{|z-z_j|^m} \leq \frac{1}{\delta^m}$ $\forall z \in \gamma^*$. Por tanto:
+    \[
+    \sup_{z \in \gamma^*} \frac{ \left| c_{-m} \right| }{ \left| z-z_j \right|^m } \leq
+    \frac{ \left| c_{-m} \right| }{ \delta^m }
+    \]
+    Ahora tenemos que:
+    \[
+    |c_{-m}| =
+    \left| \frac{1}{2 \pi i} \int_{C(z_j, \rho)} \frac{f(w)}{(w-z_j)^{-m+1}} \, dw \right| \leq \frac{1}{2 \pi} \Long(C(z_j, \rho)) \frac{M}{\rho^{-m+1}} = \frac{1}{2 \pi} (2 \pi \rho) M \rho^{m-1} = M \rho^{m}
+    \]
+    donde $M := \sup_{w \in C(z_j, \rho)} |f(w)| < +\infty$, es decir, una cota máxima de $f$ en la circunferencia $C(z_j, \rho)$, y $0 < \rho < r_j$ (con $r_j > 0$ tal que $g_j \in \mathcal{H}(D'(z_j, r_j))$, que existe al no tener $S$ puntos de acumulación).\\
+    Ahora si tomamos $0 < \rho < \min \{ r_j, \delta \}$, tenemos que:
+    \[
+    \sup_{z \in \gamma^*} \frac{ |c_{-m}| }{ |z-z_j|^m } \leq
+    \frac{ M \rho^{m} }{ \delta^m } =
+    M \left( \frac{\rho}{\delta} \right)^m
+    \]
+    Como $ 0 < \frac{\rho}{\delta} < 1$, es cierto que:
+    \[
+    \sum_{m=1}^{\infty} M \left( \frac{\rho}{\delta} \right)^m < +\infty
+    \]
+\end{proof}
+
+\subsection{Cálculo de Residuos}
+
+Veamos ahora cómo calcular residuos en singularidades de diferentes tipos:
+\begin{itemize}
+    \item Si $z_0$ es una \textbf{singularidad evitable}, entonces $\Res(f,z_0) = 0$.
+    \item Si $z_0$ es un \textbf{polo de orden $k$}, entonces sabemos que $\exists g \in \mathcal{H}(D(z_0,r))$ tal que $g(z_0) \neq 0$ y
+    \[
+        f(z) =
+        \frac{g(z)}{(z-z_0)^k} \quad \forall z \in D'(z_0,r)
+    \]
+    Luego por el desarrollo en serie de Taylor de $g$ en $z_0$:
+    \[
+        g(z) =
+        \sum_{n=0}^{\infty} \frac{g^{(n)}(z_0)}{n!} (z-z_0)^n \quad \forall z \in D(z_0,r)
+    \]
+    Lo que nos da:
+    \[
+        f(z) =
+        \frac{g(z)}{(z-z_0)^m} =
+        \frac{1}{(z-z_0)^k} \sum_{n=0}^{\infty} a_n (z-z_0)^n =
+        \sum_{n=0}^{\infty} \frac{a_n}{(z-z_0)^{k-n}} \quad \forall z \in D'(z_0,r)
+    \]
+    Por tanto, el residuo de $f$ en $z_0$ es:
+    \[
+        \Res(f,z_0) =
+        a_{m-1} =
+        \frac{g^{(k-1)}(z_0)}{(k-1)!} =
+        \lim_{z \to z_0} \frac{g^{(k-1)}(z)}{(k-1)!} =
+        \lim_{z \to z_0} \frac{1}{(k-1)!} \frac{d^{k-1}}{dz} \left[ (z-z_0)^k f(z) \right]
+    \]
+    En particular, si $k=1$ (polo simple), entonces:
+    \[
+        \Res(f,z_0) =
+        \lim_{z \to z_0} (z-z_0) f(z)
+    \]
+    \item Si $z_0$ es una \textbf{singularidad esencial}, entonces el residuo de $f$ en $z_0$ es el coeficiente $c_{-1}$ del desarrollo en serie de Laurent de $f$ en $D'(z_0,r)$, es decir:
+    \[
+        \Res(f,z_0) =
+        c_{-1} =
+        \frac{1}{2 \pi i} \int_{C(z_0, \rho)} f(w) \, dw
+    \]
+    Con $0 < \rho < r$.
+\end{itemize}
+
+\begin{proposición}[Cálculo de Residuos]
+    Para calcular el residuo de una función $f$ en una singularidad, podemos usar las siguientes fórmulas:
+    \begin{itemize}
+        \item Si $z_0$ es una singularidad evitable, entonces:
+        \[
+            \Res(f,z_0) = 0
+        \]
+        \item Si $z_0$ es un polo de orden $m$, entonces:
+        \[
+            \Res(f,z_0) =
+            \lim_{z \to z_0} \frac{1}{(m-1)!} \frac{d^{m-1}}{dz} \left[ (z-z_0)^m f(z) \right]
+        \]
+        En particular, si $m=1$ (polo simple), entonces $\Res(f,z_0) = \lim_{z \to z_0} (z-z_0) f(z)$.
+        \item Si $z_0$ es una singularidad esencial, entonces:
+        \[
+            \Res(f,z_0) =
+            \frac{1}{2 \pi i} \int_{C(z_0, \rho)} f(w) \, dw
+        \]
+        Con $0 < \rho < r$.
+    \end{itemize}
+\end{proposición}
+
+Calculemos ahora algunos residuos en singularidades de diferentes tipos.
+
+\ejemplo{
+
+\begin{enumerate}
+    \item Calcular el residuo $\Res(z^2 e^{1/z}, 0)$:
+    \[
+        z^2 e^{1/z} =
+        z^2 \sum_{n=0}^{\infty} \frac{1}{n!} \left( \frac{1}{z} \right)^n =
+        \sum_{n=0}^{\infty} \frac{1}{n!} z^{2-n} =
+        z^{2} +
+        1 z^{1} +
+        \frac{1}{2} z^{0} +
+        \frac{1}{6} z^{-1} +
+        \frac{1}{24} z^{-2} +
+        \ldots
+    \]
+    Luego $\Res(z^2 e^{1/z}, 0) = \frac{1}{6}$ al ser el coeficiente de $z^{-1}$.
+    Esto se puede utilizar para calcular la siguiente integral:
+    \[
+        \int_{\left[0,1\right]} z^2 e^{1/z} \, dz =
+        2 \pi i \, \Res(z^2 e^{1/z}, 0) \cdot \Ind_{\left[0,1\right]}(0) =
+        2 \pi i \cdot \frac{1}{6} \cdot 1 =
+        \frac{\pi i}{3}
+    \]
+    \item Sea ahora la función $f(z) = \frac{1}{(z-i)^2 (z+i)} \in \mathcal{H}(\mathbb{C} \setminus \{i, -i\})$. Calcular los residuos de $f$ en sus singularidades.\\
+    Teniendo en cuenta que $z=i$ es un polo de orden 2 y $z=-i$ es un polo simple (orden 1), tenemos que:
+    \begin{enumerate}
+        \item Cálculo de $\Res(f,i)$:
+        \[
+            \Res(f,i) =
+            \lim_{z \to i} \frac{1}{(2-1)!} \frac{d^{2-1}}{dz} \left[ (z-i)^2 f(z) \right] =
+            \lim_{z \to i} \frac{d}{dz} \left[ \frac{1}{z+i} \right] =
+        \]
+        \[
+        = \lim_{z \to i} -\frac{1}{(z+i)^2} =
+            -\frac{1}{(i+i)^2} =
+            -\frac{1}{(2i)^2} =
+            -\frac{1}{-4} =
+            \frac{1}{4}
+        \]
+        \item Cálculo de $\Res(f,-i)$:
+        \[
+            \Res(f,-i) =
+            \lim_{z \to -i} (z+i) f(z) =
+            \lim_{z \to -i} \frac{1}{(z-i)^2} =
+            \frac{1}{(-i - i)^2} =
+            \frac{1}{(-2i)^2} =
+            -\frac{1}{4}
+        \]
+        \item Sea $f(z) = \frac{1}{1+z^4} \in \mathcal{H}(\mathbb{C} \setminus \{ \text{ceros de } 1+z^4 \})$. Calcular los residuos de $f$ en sus singularidades.\\
+        Cada raiz cuarta de $-1$ es un polo simple de $f$, ya que son ceros simples de $1+z^4$, por lo que el residuo en cada una de ellas es:
+        \[
+            \Res(f,z_1) =
+            \lim_{z \to z_1} (z-z_1) f(z) =
+            \lim_{z \to z_1} \frac{z-z_1}{(z-z_1)(z-z_2)(z-z_3)(z-z_4)} =
+        \]
+        \[
+            = \lim_{z \to z_1} \frac{1}{(z-z_2)(z-z_3)(z-z_4)} =
+            \frac{1}{(z_1-z_2)(z_1-z_3)(z_1-z_4)}
+        \]
+    \end{enumerate}
+\end{enumerate}
+}
+
+En general, si $z_0$ es un polo simple de una función $f = \frac{g}{h}$, donde $g,h \in \mathcal{H}(\Omega)$ y $h(z_0) = 0$, $h'(z_0) \neq 0$ (ya que es un polo simple), entonces el residuo de $f$ en $z_0$ es:
+\[
+    \Res(f,z_0) =
+    \lim_{z \to z_0} (z-z_0) \frac{g(z)}{h(z)} =
+    \lim_{z \to z_0} \frac{g(z)}{\frac{h(z)-h(z_0)}{z-z_0}} =
+    \frac{g(z_0)}{h'(z_0)}
+\]
+
+Volviendo al ejemplo anterior, tenemos que:
+\[
+    \Res(f,z_1) =
+    \frac{1}{\frac{d}{dz} (1+z^4)_{|z=z_1}} =
+    \frac{1}{4 z_1^3} =
+    \frac{1}{4 z_2} =
+    \frac{1}{4} \overline{z_2} =
+    -\frac{1}{4} z_1 =
+    -\frac{1}{4} (\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}) =
+    \frac{\sqrt{2}}{8} (1 + i)
+\]
+
+Hagamos ahora el ejercicio 2 de la hoja 8:
+
+\ejemplo{
+    Calcular la integral:
+    \[
+    \int_{C(0,1)} \frac{\Re(z)}{z - \frac{1}{2}} \, dz =
+    \int_{C(0,1)} \frac{\frac{z + \overline{z}}{2}}{z - \frac{1}{2}} \, dz =
+    \int_{C(0,1)} \frac{z + \overline{z}}{2z - 1} \, dz 
+    \]
+    \[
+    = \int_{C(0,1)} \frac{z + \frac{1}{z}}{2z - 1} \, dz =
+    \int_{C(0,1)} \left( \frac{z^2+1}{z(2z-1)} \right) \, dz = (2 \pi i) \left( \Res\left( f,0 \right) + \Res\left( f, \frac{1}{2} \right) \right) 
+    \]
+    Usando que $z=0$ y $z=\frac{1}{2}$ son polos simples de la función $f(z) = \frac{z^2+1}{z(2z-1)}$, y que sus indices respecto a la curva $C(0,1)$ son ambos 1.
+    \[
+    = (2 \pi i) \left( \frac{0^2 + 1}{\left.\frac{d}{dz} (z(2z-1))\right|_{z=0}} + \frac{\left( \frac{1}{2} \right)^2 + 1}{\left.\frac{d}{dz} (z(2z-1))\right|_{z=\frac{1}{2}}} \right) =
+    (2 \pi i) \left( \frac{1}{-1} + \frac{\frac{5}{4}}{2} \right) =
+    \frac{\pi i}{2}
+    \]
+}
+
+\subsection{Aplicaciones del Teorema de los Residuos}
+
+\ejemplo{
+    Calcula la integral:
+    \[
+    \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx
+    \]
+    Sea $f(z) = \frac{1}{1+z^4} \in \mathcal{H}(\mathbb{C} \setminus \{ \text{ceros de } 1+z^4 \})$. Los ceros de $1+z^4$ son las raíces cuartas de $-1$.
+    Para cada $R > 1$, consideremos la curva cerrada $\gamma_R$ formada por la unión del segmento $\left[-R,R\right]$ y la semicircunferencia $C_R^+$ de centro 0 y radio $R$ en el semiplano superior.
+    \[
+        \Gamma_R = I_{R} \cup \gamma_R
+    \]
+    donde $I_R := \left[-R,R\right]$ y $\gamma_R := C_R^+$.\\
+    Por el teorema de los residuos, tenemos que:
+    \[
+        \int_{\Gamma_R} f(z) \, dz = \int_{\Gamma_R} \frac{1}{1+z^4} \, dz = 2 \pi i (\Res(f,z_1) + \Res(f,z_2)) = 2 \pi i \left( \frac{1}{4 z_1^3} + \frac{1}{4 z_2^3} \right)  
+    \]
+    \[
+        = \frac{\pi i}{2} \left( \frac{1}{z_1^3} + \frac{1}{z_2^3} \right) = \frac{\pi i}{2} \left( \frac{1}{z_1} + \frac{1}{z_2} \right) = \frac{\pi i}{2} (\overline{z_1} + \overline{z_2}) = \frac{\pi i}{2} \left( \left(-\frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2}\right) + \left(\frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2}\right) \right) = \pi \frac{\sqrt{2}}{2}
+    \]
+    Por otro lado, tenemos que:
+    \[
+        \int_{\Gamma_R} f(z) \, dz = \int_{I_R} f(z) \, dz + \int_{\gamma_R} f(z) \, dz = \int_{-R}^{R} \frac{1}{1+x^4} \, dx + \int_{\gamma_R} \frac{1}{1+z^4} \, dz
+    \]
+    Por (1) y (2), tenemos que:
+    \[
+        \pi \frac{\sqrt{2}}{2} = \lim_{R \to \infty} \int_{\Gamma_R} f(z) \, dz \underbrace{=}_{??} \lim_{R \to \infty} \left( \int_{-R}^{R} \frac{1}{1+x^4} \, dx + \int_{\gamma_R} \frac{1}{1+z^4} \, dz \right)
+    \]
+    \[
+        = \lim_{R \to \infty} \int_{-R}^{R} \frac{1}{1+x^4} \, dx + \lim_{R \to \infty} \int_{\gamma_R} \frac{1}{1+z^4} \, dz = \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx + \lim_{R \to \infty} \int_{\gamma_R} \frac{1}{1+z^4} \, dz
+    \]
+    Parametrizando la semicircunferencia $\gamma_R$ como $\gamma_R(t) = R e^{i t}$, con $t \in [0, \pi]$, tenemos que:
+    \[
+        \left| \int_{\gamma_R} \frac{1}{1+z^4} \, dz \right| = \left| \int_{0}^{\pi} \frac{1}{1+(R e^{i t})^4} i R e^{i t} \, dt \right| \leq \int_{0}^{\pi} \left| \frac{1}{1+R^4 e^{i 4 t}} i R e^{i t} \right| \, dt = \int_{0}^{\pi} \frac{R}{|1+R^4 e^{i 4 t}|} \, dt 
+    \]
+    \[
+        \leq \int_{0}^{\pi} \frac{R}{R^4 - 1} \, dt = \frac{\pi R}{R^4 - 1} \xrightarrow[R \to \infty]{} 0
+    \]
+    En el último paso hemos usado que $|1+R^4 e^{i 4 t}| \geq |R^4| - |1| = R^4 - 1$.\\
+    Luego:
+    \[
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{1}{1+z^4} \, dz = 0
+    \]
+    Por tanto, tenemos que:
+    \[
+        \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx =
+        \pi \frac{\sqrt{2}}{2}
+    \]
+    En ?? hemos usado que 
+    \[
+        \lim_{R \to \infty} \int_{-R}^{R} \frac{1}{1+x^4} \, dx =
+        \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx
+    \]
+    Pero esa igualdad solamente es cierta si la integral impropia converge. En realidad, el teorema de los residuos nos ayuda a calcular $\lim_{R \to \infty} \int_{-R}^{R} \frac{1}{1+x^4} \, dx$, que recibe el nombre del valor principal de $\int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx$, y se denota como:
+    \[
+        VP \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx
+    \]
+    Cuando $\int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx$ converge, entonces se cumple que 
+    \[
+        VP \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx =
+        \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx
+    \]
+    Pero puede ocurrir que $VP \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx$ exista y $\int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx$ no converja.\\
+    Por ejemplo, si consideramos la integral:
+    \[
+        \int_{-\infty}^{\infty} x \, dx
+    \]
+    que no converge, pero su valor principal sí existe:
+    \[
+        VP \int_{-\infty}^{\infty} x \, dx =
+        \lim_{R \to \infty} \int_{-R}^{R} x \, dx =
+        \lim_{R \to \infty} 0 =
+        0
+    \]
+    Falta comprobar que $\int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx$ converge. La función $f(x) = \frac{1}{1+x^4}$ es continua en $\mathbb{R}$ y además es par, luego es integrable en $[0,R]$ para cualquier $R > 0$ y
+    \[
+        \int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx \text{ converge } \iff \int_{0}^{\infty} \frac{1}{1+x^4} \, dx \text{ converge }
+    \]
+    Como $f$ es continua en $[1,\infty)$
+    \[
+        0 \leq f(x) = \frac{1}{1+x^4} \leq \frac{1}{x^4} \quad \forall x \in [1,\infty)
+    \]
+    Como la integral impropia $\int_{1}^{\infty} \frac{1}{x^4} \, dx$ converge, por el criterio de comparación tenemos que $\int_{1}^{\infty} \frac{1}{1+x^4} \, dx$ converge, luego $\int_{0}^{\infty} \frac{1}{1+x^4} \, dx$ converge y por tanto $\int_{-\infty}^{\infty} \frac{1}{1+x^4} \, dx$ converge.
+}
+
+\begin{enumerate}
+    \item El argumento usado en el ejemplo anterior nos srive para calcular
+\[
+    \int_{-\infty}^{\infty} \frac{p(x)}{q(x)} \, dx
+\]
+con $p,q \in \mathbb{C}[X]$, $\deg(q) \geq \deg(p) + 2$, y $q$ no tiene ceros reales.\\
+Resulta que 
+\[
+    \int_{-\infty}^{\infty} \frac{p(x)}{q(x)} \, dx = 2 \pi i \sum_{z \in S_+} \Res(f,z)
+\]
+donde $f(z) = \frac{p(z)}{q(z)}$, y $S_+$ es el conjunto de ceros de $q$ en el semiplano superior.\\
+En este caso, $\int_{-\infty}^{\infty} \frac{p(x)}{q(x)} \, dx$ converge.
+    \item Calcular la integral
+    \[
+        \int_{0}^{2 \pi} \frac{1}{5+4\cos(t)} \, dt
+    \]
+    Como $\cos(t) = \frac{e^{i t} + e^{-i t}}{2}$, tenemos que:
+    \[
+        \int_{0}^{2 \pi} \frac{1}{5+4\cos(t)} \, dt =
+        \int_{0}^{2 \pi} \frac{1}{5 + 2 (e^{i t} + e^{-i t})} \, dt =
+        \int_{0}^{2 \pi} \frac{2}{10 + 4 (e^{i t} + e^{-i t})} \, dt 
+    \]
+    \[
+        = \int_{0}^{2 \pi} \frac{2 e^{i t}}{4 e^{2 i t} + 10 e^{i t} + 4} \, dt = \frac{1}{i} \int_{0}^{2 \pi} \frac{ie^{i t}}{2 e^{2 i t} + 5 e^{i t} + 2} \, dt = (-i) \int_{C(0,1)} \frac{1}{2 z^{2} + 5 z + 2} \, dz
+    \]
+    \[
+        2z^2 + 5z + 2 = 0 \iff \begin{cases}
+            z = -2 \\
+            z = -\frac{1}{2}
+        \end{cases}
+    \]
+    Luego
+    \[
+        2z^2 + 5z + 2 = 2 (z+2) (z+\frac{1}{2})
+    \]
+    \[
+        = (-i) \int_{C(0,1)} \frac{1}{2 (z+2) (z+\frac{1}{2})} \, dz =
+        (-i) (2 \pi i) \Res\left( \frac{1}{2 (z+2) (z+\frac{1}{2})}, -\frac{1}{2} \right) = 2 \pi \lim_{z \to -\frac{1}{2}} \frac{1}{2 (z+2)} 
+    \]
+    \[
+        = 2 \pi \frac{1}{2 \left( -\frac{1}{2} + 2 \right)} = \frac{2 \pi}{3}
+    \]
+    Con este argumento, podemos calcular integrales de la forma 
+    \[
+        \int_{0}^{2 \pi} R(\sin(t), \cos(t)) \, dt
+    \]
+    siendo $R(X,Y)$ función racional en dos variables. Nos queda entonces
+    \[
+        \int_{0}^{2 \pi} R(\sin(t), \cos(t)) \, dt = 2 \pi i \sum_{j=1}^{n} \Res \left( R \left( \frac{z^2-1}{2 iz}, \frac{z^2+1}{2}\right) \frac{1}{iz}, z_j \right)
+    \]
+    donde $z_j$ son los polos de la función que están dentro de la circunferencia unidad.
+\end{enumerate}
+
+\ejemplo{
+    Calcular la integral 
+    \[
+        \int_{0}^{\infty} \frac{x^3}{1+x^5} \, dx 
+    \]
+    Sea la función $f(z) = \frac{z^3}{1+z^5} \in \mathcal{H}(\mathbb{C} \setminus \{ \text{raíces quintas de } -1 \})$. Consideremos $z_1$ la primera raíz quinta de $-1$, entonces $z_1 = e^{i \pi/5}$.\\
+    LLamos $c=z_1^2$ y tomamos para $R>1$ la curva $\Gamma_R$ donde
+    \[
+        \Gamma_R =[0,R] \cup \gamma_R \cup J_R
+    \]
+    siendo $\gamma_R$ la arco de circunferencia de centro 0 y radio $R$ que une $R$ con $R c$, y $J_R$ el segmento que une $R c$ con 0.\\
+    Por un lado, por el teorema de los residuos, tenemos que:
+    \[
+        \int_{\Gamma_R} f(z) \, dz =
+        2 \pi i \, \Res(f,z_1) =
+        2 \pi i \frac{z_1^3}{5z_1^4} = \frac{2}{5} \pi i z_1^{-1} 
+    \]
+    Por otro lado, tenemos que:
+    \[
+        \int_{\Gamma_R} f(z) \, dz =
+        \int_{0}^{R} \frac{x^3}{1+x^5} \, dx +
+        \int_{\gamma_R} f(z) \, dz +
+        \int_{J_R} f(z) \, dz
+    \]
+    como
+    \[
+        \int_{[0,R]} f(z) \, dz = \int_{0}^{R} f(t) \, dt = \int_{0}^{R} \frac{t^3}{1+t^5} \, dt
+    \]
+    donde $t \to t \quad t\in [0,R]$.\\
+    \[
+        \int_{J_R^-} f(z) \, dz = \int_{0}^{R} f(ct) c \, dt = \int_{0}^{R} \frac{(ct)^3}{1+(ct)^5} c \, dt = c^4 \int_{0}^{R} \frac{t^3}{1+c^5 t^5} \, dt = c^4 \int_{0}^{R} \frac{t^3}{1+t^5} \, dt
+    \]
+    donde $t \to ct \quad t \in [0,R]$. Puesto que $c^5 = z_1^{10} = (-1)^2 = 1$.\\	
+    \[
+        \left| \int_{\gamma_R} f(z) \, dz \right| = \left| \int_{0}^{2 \pi/5} f(R e^{i t}) i R e^{i t} \, dt \right| \leq \int_{0}^{2 \pi/5} \left| f(R e^{i t}) i R e^{i t} \right| \, dt
+    \]
+    \[  
+    \leq \int_{0}^{2 \pi/5} \frac{R^3}{R^5 - 1} R \, dt = \frac{2 \pi}{5} \frac{R^3}{R^5 - 1} \xrightarrow[R \to \infty]{} 0
+    \]
+    Aquí hemos usado que $|1+(R e^{i t})^5| \geq |R^5| - |1| = R^5 - 1$.\\
+    Con lo cual, tenemos que:
+    \[
+        \frac{2}{5} \pi i z_1^{-1} =
+        \lim_{R \to \infty} \int_{\Gamma_R} f(z) \, dz =
+        \lim_{R \to \infty} \left( \int_{0}^{R} \frac{t^3}{1+t^5} \, dt + \int_{\gamma_R} f(z) \, dz - c^4 \int_{0}^{R} \frac{t^3}{1+t^5} \, dt \right) 
+    \]
+    Por lo tanto,
+    \[
+        \int_{0}^{\infty} \frac{x^3}{1+x^5} \, dx  = \left( \frac{1}{1 - c^4} \right) \frac{2}{5} \pi i z_1^{-1} = \frac{\pi}{5 \sin(\pi/5)}
+    \]
+}
+
+Con el argumento del ejemplo anterior, podemos calcular integrales de la forma
+
+\[
+    \int_{0}^{\infty} \frac{x^{m}}{1+x^{n}} \, dx
+\]
+con $m,n \in \mathbb{N}$, $m < n-1$.
+
+\ejemplo{   
+    Para calcular la integral
+    \[
+        \int_{-\infty}^{\infty} \frac{p(x)}{q(x)} \sin(mx) \, dx \qquad \int_{-\infty}^{\infty} \frac{p(x)}{q(x)} \cos(mx) \, dx
+    \]
+    con $p,q \in \mathbb{R}[X]$, $\deg(q) \geq \deg(p) + 1$, y $q$ no tiene ceros reales, nos conviene usar $\Gamma_R$ de forma que esté compuesta por el segmento $\left[-R,R\right]$ y la semicircunferencia $C_R^+$ de centro 0 y radio $R$ en el semiplano superior.\\
+    Si $\deg(q) \geq \deg(p) + 2$, entonces usamos
+    \[  
+        f(z) = \frac{p(z)}{q(z)} e^{i m z} 
+    \]
+    y luego tomamos la parte real o imaginaria según sea coseno o seno.\\
+    Si $\deg(q) = \deg(p) + 1$, entonces consideramos $\gamma_R$ como el rectángulo con vértices en $-R_1$ y $R_2$.
+    \[
+        \int_{-\infty}^{\infty} \left( \frac{x \sin(x)}{x^2 + 1} \right) \, dx 
+    \]
+    \[
+        f(z) = \frac{z e^{i z}}{z^2 + 1} \in \mathcal{H} (\mathbb{C} \setminus \{ i, -i \})
+    \]
+    Como $\lim_{z \to \infty} |z \frac{p(z)}{q(z)}| = 1$, entonces existe $M > 0$ tal que $|z \frac{p(z)}{q(z)}| < \epsilon / 2$ para todo $z$ con $|z| > M$. Luego,
+    \[
+        \left|\frac{p(z)}{q(z)}\right| < \frac{\epsilon}{2 |z|} \text{ para todo } z \text{ con } |z| > M
+    \]
+    Sea $R_1, R_2 > M$ y mayores que $1$, y sea la curva $\Gamma_{R_1,R_2}$ el rectángulo con vértices en $-R_1$, $R_2$, $R_2 + i R_2$, $-R_1 + i R_2$.\\
+    Por un lado, tenemos que:
+    \[
+        \int_{\Gamma_{R_1,R_2}} f(z) \, dz =
+        2 \pi i \, \Res(f,i) =
+        2 \pi i \frac{i e^{i i}}{2 i} =
+        \pi e^{-1}i
+    \]
+    Por otro lado 
+    \[
+        \int_{\Gamma_{R_1,R_2}} f(z) \, dz =
+        \int_{-R_1}^{R_2} f(x) \, dx +
+        \int_{R_2}^{R_2 + i R_2} f(z) \, dz +
+        \int_{R_2 + i R_2}^{-R_1 + i R_2} f(z) \, dz +
+        \int_{-R_1 + i R_2}^{-R_1} f(z) \, dz
+    \]
+    Si probamos que 
+    \[
+        \int_{I_{R_1,R_2}} f(z) \, dz \xrightarrow{R_1,R_2 \to \infty} 0
+    \]
+    \[
+        \int_{J_{R_1,R_2}} f(z) \, dz \xrightarrow{R_1,R_2 \to \infty} 0
+    \]
+    \[
+        \int_{\gamma_{R_1,R_2}} f(z) \, dz \xrightarrow{R_1,R_2 \to \infty} 0
+    \]
+        donde $I_{R_1,R_2}$ es el segmento de $R_2$ a $R_2 + i R_2$, $J_{R_1,R_2}$ es el segmento de $-R_1 + i R_2$ a $-R_1$, y $\gamma_{R_1,R_2}$ es el segmento de $-R_1$ a $R_2$, entonces tendremos que:
+    \[
+        \frac{\pi}{e}i = \lim_{R_1,R_2 \to \infty} \int_{\Gamma_{R_1,R_2}} f(z) \, dz = \lim_{R_1,R_2 \to \infty} \int_{-R_1}^{R_2} f(x) \, dx = \int_{-\infty}^{\infty} \frac{x e^{i x}}{x^2 + 1} \, dx = \int_{-\infty}^{\infty} \frac{x (\cos(x) + i \sin(x))}{x^2 + 1} \, dx
+    \]
+    Por tanto,
+    \[
+        \int_{-\infty}^{\infty} \frac{x \sin(x)}{x^2 + 1} \, dx = \Im \left(\frac{\pi}{e}i\right) = \frac{\pi}{e}
+    \]
+    \[
+        \left| \int_{\gamma_{R_1,R_2}} f(z) \, dz \right| = \left| \int_{\gamma_{R_1,R_2}^-} f(z) \, dz \right| = \left| \int_{-R_1}^{R_2} f(x + (R_1+R_2)i) \, dx \right|  
+    \]
+    donde $t \to t + (R_1 + R_2)i \quad t \in [-R_1,R_2]$. Luego,
+    \[
+        \leq \int_{-R_1}^{R_2} \left| f(x + (R_1+R_2)i) \right| \, dx = \int_{-R_1}^{R_2} \left| \frac{p(x + (R_1+R_2)i)}{q(x + (R_1+R_2)i)} \right| |e^{i(x+(R_1+R_2)i)}| \, dx
+    \]
+    \[
+        \leq \frac{3}{2} \int_{-R_1}^{R_2} \frac{1}{|x + (R_1+R_2)i|} | e^{ix}e^{- (R_1+R_2)} | \, dx \leq \frac{3}{2}  \frac{1}{|R_1+R_2|} \int_{-R_1}^{R_2} e^{-(R_1+R_2)} \, dx
+    \]
+    \[
+        = \frac{3}{2} \frac{R_2 - (-R_1)}{R_1 + R_2} e^{-(R_1+R_2)} \xrightarrow[R_1,R_2 \to \infty]{} 0
+    \]
+}
+
+\ejemplo{
+    Sabiendo que 
+    \[
+        \int_{0}^{\infty} e^{-x^2} \, dx = \frac{\sqrt{\pi}}{2}
+    \]
+    calcular
+    \[
+        \int_{0}^{\infty} \cos(x^2) \, dx
+    \]
+    Sea la función $f(z) = e^{iz^2}$. Consideramos la curva $\Gamma_R$ formada por el segmento $[0,R]$, que denotamos por $I_R$, el arco de circunferencia $\gamma_R$ de centro 0 y radio $R$ que une $R$ con $R e^{i \pi/4}$, denotado por $\gamma_R$, y el segmento $J_R$ que une $R e^{i \pi/4}$ con 0.\\
+    Por un lado, tenemos que:
+    \[
+        \int_{\Gamma_R} e^{iz} \, dz = 0
+    \]
+    por ser $e^{iz} \in \mathcal{H(\mathbb{C})}$ y $\Gamma_R$ una curva cerrada homótopa a $0$.\\
+    Por otro lado, tenemos que:
+    \[
+        \int_{\Gamma_R} f(z) \, dz =
+        \int_{I_R} f(z) \, dz +
+        \int_{\gamma_R} f(z) \, dz +
+        \int_{J_R} f(z) \, dz
+    \]
+    \[
+        = \int_{0}^{R} e^{i t^2} \, dt + \int_{\gamma_R} e^{i z^2} \, dz + \int_{0}^{R} e^{i (t e^{i \pi/4})^2} e^{i \pi/4} \, dt
+    \]
+    Si comprobamos que $\int_{\gamma_R} e^{i z^2} \, dz \xrightarrow[R \to \infty]{} 0$, entonces como 
+    \[
+    \int_{J_R^-} f(z) \, dz = \int_{0}^{R} f(x e^{i \pi/4}) e^{i \pi/4} \, dx = e^{i \pi/4} \int_{0}^{R} e^{i (x e^{i \pi/4})^2} \, dx 
+    \]
+    \[
+        = \left(\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) \int_{0}^{R} e^{-x^2} \, dx \xrightarrow{R \to \infty} \left(\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) \int_{0}^{\infty} e^{-x^2} \, dx
+    \]
+    tomando $x \to x e^{i \pi/4} \quad x \in [0,R]$. Nos queda entonces que:
+    \[
+        0 = \lim_{R \to \infty} \int_{\Gamma_R} f(z) \, dz = \int_{0}^{\infty} e^{i t^2} \, dt - \left(\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) \underbrace{\int_{0}^{\infty} e^{-x^2} \, dx}_{\frac{\sqrt{\pi}}{2}}
+    \]
+    \[
+        \implies \int_{0}^{\infty} (\cos(t^2) + i \sin(t^2)) \, dt = \left(\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) \frac{\sqrt{\pi}}{2}
+    \]
+    \[
+        \implies \int_{0}^{\infty} \cos(t^2) \, dt = \Re\left( \left(\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) \frac{\sqrt{\pi}}{2} \right) = \frac{\sqrt{2 \pi}}{4}
+    \]
+}
+
+
+\[
+    \sin(x) \geq \frac{2}{\pi} x \quad \forall x \in \left[0, \frac{\pi}{2}\right]
+\]
