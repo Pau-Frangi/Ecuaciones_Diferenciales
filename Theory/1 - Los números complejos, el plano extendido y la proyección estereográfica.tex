@@ -179,24 +179,6 @@ En particular, si $b(t) \equiv 0$, resulta que $h(t,t_0,u_0) = e^{\int_{t_0}^{t}
     \end{cases}
 \]
 
-\begin{teorema} [Teorema de Existencia y Unicidad General]
-    Para cada $t_0 \in [\alpha, \beta]$ y cada vector inicial $u_0 \in \mathbb{K}^n$, el problema de Cauchy:
-    \[
-        \begin{cases}
-        u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\
-        u(t_0) = u_0
-        \end{cases}
-    \]
-    tiene una \textbf{única} solución $u \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.
-\end{teorema}
-
-\begin{proof}
-
-\end{proof}
-
-Como consecuencia de este teorema, se puede demostrar que $\dim(\Sigma_0) = n$ y, por tanto, $\Sigma_B$ es una variedad afín de dimensión $n$.
-
-
 \subsection{Fórmulas de variación de las constantes (de Lagrange)}
 
 \textbf{Método de variación de las constantes}\\
@@ -321,5 +303,119 @@ Por otro lado, las soluciones de $\Sigma_B$ son todos los puntos de la recta af�
     \[
         p(t) = me^{at} 
     \]
-    como es solución de la homogénea, no puede ser solución del inhomogéneo. Probamos con:
+    como es solución de la homogénea, no puede ser solución del inhomogéneo. Hacemos el cambio de variable:
+    \[
+        u(t) = e^{at} v(t) \implies u'(t) = a e^{at} v(t) + e^{at} v'(t)
+    \]
+    \[
+        ae^{at} v(t) + e^{at} v'(t) = a e^{at} v(t) + e^{at} \implies v'(t) = 1 \implies v(t) = t + \lambda, \quad \lambda \in \mathbb{K}
+    \]
+    Luego
+    \[
+        u(t) = e^{at} (t + \lambda) = \underbrace{\lambda e^{at}}_{\in \Sigma_0} + \underbrace{t e^{at}}_{\in \Sigma_B}, \quad \lambda \in \mathbb{K} 
+    \]
+    \[
+        p(t) = t e^{at} \text{ es solución particular del inhomogéneo}
+    \]
+    \[
+        u_0 = u(t_0) = \lambda e^{at_0} + t_0 e^{at_0} \implies \lambda = e^{-at_0} (u_0 - t_0 e^{at_0})
+    \]
+    \[
+        u(t,t_0,u_0) = e^{a(t - t_0)} (u_0 - t_0 e^{at_0}) + t e^{at}
+    \]
 }
+
+
+\begin{teorema} [Teorema Fundamental]
+    Sean $\alpha < \beta$ reales, y $a_{ij},b_j \in C([\alpha, \beta], \mathbb{K})$, para $i,j = 1, \ldots, n$. Sean $A(t) = (a_{ij}(t))_{i,j=1}^{n}$ y $B(t) = (b_j(t))_{j=1}^{n}$. Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada $u_0 \in \mathbb{K}^n$, el problema de valores iniciales de Cauchy:
+    \[
+        P : \begin{cases}
+            u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una única solución $u(t,t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
+\end{teorema}
+
+\begin{proof}
+    Supongamos que $u(t)$ resuelve el problema $P$
+    \[
+        u'(s) = A(s) u(s) + B(s), \quad s \in [\alpha, \beta]
+    \]
+    Integrando entre $t_0$ y $t$, coordenada a coordenada, obtenemos:
+    \[
+        \int_{t_0}^{t} u'(s) ds = \int_{t_0}^{t} A(s) u(s) ds + \int_{t_0}^{t} B(s) ds
+    \]
+    \[
+        u(t) - u(t_0) = \int_{t_0}^{t} A(s) u(s) ds + \int_{t_0}^{t} B(s) ds
+    \]
+    \[
+        u(t) = u_0 + \int_{t_0}^{t} (A(s) u(s) + B(s)) ds
+    \]
+\end{proof}
+
+\begin{lema}
+    Supongamos que $u \in C([\alpha, \beta], \mathbb{K}^n)$. Entonces las siguientes afirmaciones son equivalentes:
+    \begin{enumerate}
+        \item $u \in C^1([\alpha, \beta], \mathbb{K}^n)$ resuelve $P$ en $[\alpha, \beta]$.
+        \item $u(t) = u_0 + \int_{t_0}^{t} (A(s) u(s) + B(s)) ds$, para todo $t \in [\alpha, \beta]$.
+    \end{enumerate}
+\end{lema}
+
+\begin{proof}
+    \leavevmode
+    \begin{enumerate}
+        \item[$(1) \implies (2)$] Ya se ha demostrado en el teorema anterior.
+        \item[$(2) \implies (1)$] Por el Teorema Fundamental del Cálculo Integral, sabemos que si $a : [\alpha, \beta] \to \mathbb{R}$ es continua
+        \[
+            \varphi (t) = \int_{t_0}^{t} a(s) ds \implies \varphi' (t) = a(t), \quad \varphi \in C^1([\alpha, \beta], \mathbb{R}), \quad \forall t \in [\alpha, \beta]
+        \]
+        \[
+            \varphi'(t) = \lim_{h \to 0} \frac{\varphi(t+h) - \varphi(t)}{h} = \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) ds 
+        \]
+        \[
+            h \min_{s \in [t, t+h]} a(s) \leq \int_{t}^{t+h} a(s) ds \leq h \max_{s \in [t, t+h]} a(s)
+        \]
+        \[
+            a(t) = \lim_{h \to 0} \min_{s \in [t, t+h]} a(s) \leq \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) ds \leq \lim_{h \to 0} \max_{s \in [t, t+h]} a(s) = a(t)
+        \]
+        \[
+            \implies \varphi'(t) = a(t)
+        \]
+        En el caso complejo, $a : [\alpha, \beta] \to \mathbb{C}$ continua, se descompone en sus partes real e imaginaria $a = a_1 + i a_2$, con $a_1, a_2 : [\alpha, \beta] \to \mathbb{R}$ continuas. Entonces:
+        \[
+            \varphi(t) = \int_{t_0}^{t} a(s) ds = \int_{t_0}^{t} a_1(s) ds + i \int_{t_0}^{t} a_2(s) ds
+        \]
+        \[
+            \varphi'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) ds + i \int_{t_0}^{t} a_2(s) ds \right) = \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) ds \right) + i \frac{d}{dt} \left( \int_{t_0}^{t} a_2(s) ds \right)
+        \] 
+        \[
+            = a_1(t) + i a_2(t) = a(t)
+        \]
+        \[
+            a : [\alpha, \beta] \to \mathbb{K}^n
+        \]
+        \[
+            a = \begin{pmatrix}
+            a_1 \\
+            \vdots \\
+            a_n
+            \end{pmatrix}, \quad a_j : [\alpha, \beta] \to \mathbb{K} \text{ continua}, \quad j = 1, \ldots, n
+        \]
+        \[
+            \frac{d}{dt} \left( \int_{t_0}^{t} \begin{pmatrix}
+            a_1(s) \\
+            \vdots \\
+            a_n(s)
+            \end{pmatrix} ds \right) = \begin{pmatrix}
+            \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) ds \right) \\
+            \vdots \\
+            \frac{d}{dt} \left( \int_{t_0}^{t} a_n(s) ds \right)
+            \end{pmatrix} = \begin{pmatrix}
+            a_1(t) \\
+            \vdots \\
+            a_n(t)
+            \end{pmatrix} = a(t)
+        \]
+    \end{enumerate}
+\end{proof}
