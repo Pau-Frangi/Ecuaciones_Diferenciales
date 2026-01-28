@@ -105,6 +105,33 @@ Esta estructura se demuestra mediante las dos propiedades siguientes:
     \end{proof}
 \end{enumerate}
 
+\begin{proposición}
+    Sean $B_1, B_2: [\alpha, \beta] \to \mathbb{K}^n$ dos funciones continuas. Si $u_1 \in \Sigma_{B_1}$ es solución de $u' = A(t)u + B_1(t)$ y $u_2 \in \Sigma_{B_2}$ es solución de $u' = A(t)u + B_2(t)$, entonces la suma $u_1 + u_2$ pertenece a $\Sigma_{B_1 + B_2}$.
+\end{proposición}
+
+\begin{proof}
+    Por hipótesis, las funciones satisfacen:
+    \[
+        u_1'(t) = A(t) u_1(t) + B_1(t) \quad \text{y} \quad u_2'(t) = A(t) u_2(t) + B_2(t)
+    \]
+    Consideramos la función suma $w(t) = u_1(t) + u_2(t)$. Derivando y agrupando términos:
+    \[
+        w'(t) = (u_1 + u_2)'(t) = u_1'(t) + u_2'(t)
+    \]
+    Sustituyendo las ecuaciones diferenciales correspondientes:
+    \[
+        = [A(t) u_1(t) + B_1(t)] + [A(t) u_2(t) + B_2(t)]
+    \]
+    Utilizando la propiedad distributiva del producto matriz-vector para agrupar respecto a $A(t)$:
+    \[
+        = A(t) [u_1(t) + u_2(t)] + [B_1(t) + B_2(t)] = A(t) w(t) + (B_1 + B_2)(t)
+    \]
+    Esto demuestra que $w$ satisface la ecuación diferencial con término inhomogéneo $B_1 + B_2$. Por tanto:
+    \[
+        u_1 + u_2 \in \Sigma_{B_1 + B_2}.
+    \]
+\end{proof}
+
 \subsubsection*{Existencia y Unicidad}
 
 \begin{teorema} [Resolución del sistema lineal escalar, caso $n=1$]
@@ -254,75 +281,77 @@ Por otro lado, las soluciones de $\Sigma_B$ son todos los puntos de la recta af�
     \]
     Aplicando las propiedades de los exponentes para combinar los términos con base $e$, llegamos a la expresión final del problema de valor inicial:
     \[
-    u(t) = e^{a(t - t_0)} \left( u_0 + \frac{b}{a} \right) - \frac{b}{a}
+        \boxed{u(t) = e^{a(t - t_0)} \left( u_0 + \frac{b}{a} \right) - \frac{b}{a}}
     \]
 }
 
 \ejemplo{
-    \[
-        u(t) = au + e^{wt}, \quad w \in \mathbb{K}, \quad a \neq w
-    \]
-    \[
-        h' = ah \implies h(t) = e^{at}, \quad \forall t \in \mathbb{R}
-    \]
-    Solución general:
-    \[
-        u(t) = e^{at} \lambda + p(t), \quad \lambda \in \mathbb{K}
-    \]
-    \[
-        p(t) = me^{wt} \implies p'(t) = wme^{wt} = ame^{wt} + e^{wt} \implies m(w - a) = 1 \implies m = \frac{1}{w - a}
-    \]
-    Luego
-    \[
-    p(t) = \frac{e^{wt}}{w - a}
-    \]
-    resuelve la ecuación inhomogénea. Por tanto, la solución general es:
-    \[
-        u(t) = e^{at} \lambda + \frac{e^{wt}}{w - a}, \quad \lambda \in \mathbb{K}
-    \]
-    \[
-        e^{at_0} = u_0 - \frac{e^{wt_0}}{w - a} \implies \lambda = e^{-at_0} \left( u_0 - \frac{e^{wt_0}}{w - a} \right)
-    \]
-    \[
-        u(t) = e^{a(t - t_0)} \left( u_0 - \frac{e^{wt_0}}{w - a} \right) + \frac{e^{wt}}{w - a}
-    \]
+
+Consideremos la ecuación diferencial lineal de primer orden:
+\[
+    u'(t) = au(t) + e^{wt}, \quad w \in \mathbb{K}, \quad a \neq w
+\]
+La ecuación homogénea asociada es $h' = ah$, cuya solución es conocida:
+\[
+    h(t) = e^{at}, \quad \forall t \in \mathbb{R}
+\]
+Buscamos la solución general de la forma $u(t) = \lambda e^{at} + p(t)$, donde $p(t)$ es una solución particular. Proponemos una solución con la misma estructura que el término forzante:
+\begin{align*}
+    p(t) &= m e^{wt} \\
+    \implies p'(t) &= w m e^{wt}
+\end{align*}
+Sustituyendo en la ecuación diferencial original $u' = au + e^{wt}$:
+\begin{align*}
+    w m e^{wt} &= a (m e^{wt}) + e^{wt} \\
+    m e^{wt} (w - a) &= e^{wt} \\
+    m (w - a) &= 1 \quad \implies \quad m = \frac{1}{w - a}
+\end{align*}
+Por tanto, la solución particular es $p(t) = \frac{e^{wt}}{w - a}$, y la solución general resulta:
+\[
+    u(t) = \lambda e^{at} + \frac{e^{wt}}{w - a}, \quad \lambda \in \mathbb{K}
+\]
+Para determinar la constante $\lambda$, imponemos la condición inicial $u(t_0) = u_0$:
+\begin{align*}
+    u_0 &= \lambda e^{at_0} + \frac{e^{wt_0}}{w - a} \\
+    \lambda e^{at_0} &= u_0 - \frac{e^{wt_0}}{w - a} \\
+    \lambda &= e^{-at_0} \left( u_0 - \frac{e^{wt_0}}{w - a} \right)
+\end{align*}
+Sustituyendo $\lambda$ en la solución general y agrupando términos:
+\[
+    \boxed{u(t) = e^{a(t - t_0)} \left( u_0 - \frac{e^{wt_0}}{w - a} \right) + \frac{e^{wt}}{w - a}}
+\]
 }
 
 \ejemplo{
-    \[
-        u' = au + e^{at}, \quad a \in \mathbb{K}
-    \]
-    La ecuación homogénea asociada es $h' = ah$, cuya solución general es:
-    \[
-        h(t) = e^{at}, \quad \forall t \in \mathbb{R}
-    \]
-    Por tanto, la solución general del sistema inhomogéneo es:
-    \[
-        u(t) = e^{at} \lambda + p(t), \quad \lambda \in \mathbb{K}
-    \]
-    \[
-        p(t) = me^{at} 
-    \]
-    como es solución de la homogénea, no puede ser solución del inhomogéneo. Hacemos el cambio de variable:
-    \[
-        u(t) = e^{at} v(t) \implies u'(t) = a e^{at} v(t) + e^{at} v'(t)
-    \]
-    \[
-        ae^{at} v(t) + e^{at} v'(t) = a e^{at} v(t) + e^{at} \implies v'(t) = 1 \implies v(t) = t + \lambda, \quad \lambda \in \mathbb{K}
-    \]
-    Luego
-    \[
-        u(t) = e^{at} (t + \lambda) = \underbrace{\lambda e^{at}}_{\in \Sigma_0} + \underbrace{t e^{at}}_{\in \Sigma_B}, \quad \lambda \in \mathbb{K} 
-    \]
-    \[
-        p(t) = t e^{at} \text{ es solución particular del inhomogéneo}
-    \]
-    \[
-        u_0 = u(t_0) = \lambda e^{at_0} + t_0 e^{at_0} \implies \lambda = e^{-at_0} (u_0 - t_0 e^{at_0})
-    \]
-    \[
-        u(t,t_0,u_0) = e^{a(t - t_0)} (u_0 - t_0 e^{at_0}) + t e^{at}
-    \]
+
+Consideremos ahora el caso donde el exponente del forzamiento coincide con el autovalor del sistema:
+\[
+    u'(t) = au(t) + e^{at}, \quad a \in \mathbb{K}
+\]
+La solución de la homogénea es $h(t) = e^{at}$. Dado que el término forzante $e^{at}$ es solución de la homogénea, proponemos el método de variación de la constante haciendo el cambio $u(t) = e^{at} v(t)$. Derivamos esta expresión:
+\[
+    u'(t) = a e^{at} v(t) + e^{at} v'(t)
+\]
+Igualamos esta derivada a la ecuación original $au(t) + e^{at}$:
+\begin{align*}
+    \underbrace{a e^{at} v(t) + e^{at} v'(t)}_{u'(t)} &= \underbrace{a e^{at} v(t)}_{au(t)} + e^{at} \\
+    e^{at} v'(t) &= e^{at} \\
+    v'(t) &= 1
+\end{align*}
+Integrando directamente obtenemos $v(t) = t + \lambda$, con $\lambda \in \mathbb{K}$. Recuperamos la variable original $u(t)$:
+\[
+    u(t) = e^{at} (t + \lambda) = \underbrace{\lambda e^{at}}_{\in \Sigma_0} + \underbrace{t e^{at}}_{\in \Sigma_B}
+\]
+Observamos que $p(t) = t e^{at}$ es la solución particular que surge de la resonancia. Finalmente, imponemos la condición inicial $u(t_0) = u_0$:
+\begin{align*}
+    u_0 &= \lambda e^{at_0} + t_0 e^{at_0} \\
+    \lambda e^{at_0} &= u_0 - t_0 e^{at_0} \\
+    \lambda &= e^{-at_0} (u_0 - t_0 e^{at_0})
+\end{align*}
+Sustituyendo $\lambda$ en la expresión general, obtenemos la solución única del problema de valor inicial:
+\[
+    \boxed{u(t) = e^{a(t - t_0)} (u_0 - t_0 e^{at_0}) + t e^{at}}
+\]
 }
 
 
@@ -366,56 +395,188 @@ Por otro lado, las soluciones de $\Sigma_B$ son todos los puntos de la recta af�
     \leavevmode
     \begin{enumerate}
         \item[$(1) \implies (2)$] Ya se ha demostrado en el teorema anterior.
-        \item[$(2) \implies (1)$] Por el Teorema Fundamental del Cálculo Integral, sabemos que si $a : [\alpha, \beta] \to \mathbb{R}$ es continua
+        \item[$(2) \implies (1)$] 
+        
+        Comenzamos analizando el caso real. Por el Teorema Fundamental del Cálculo, si consideramos una función continua $a : [\alpha, \beta] \to \mathbb{R}$, podemos definir la función acumulada $\varphi(t)$ como:
         \[
-            \varphi (t) = \int_{t_0}^{t} a(s) ds \implies \varphi' (t) = a(t), \quad \varphi \in C^1([\alpha, \beta], \mathbb{R}), \quad \forall t \in [\alpha, \beta]
+            \varphi (t) = \int_{t_0}^{t} a(s) \, ds.
         \]
+        Nuestro objetivo es demostrar que $\varphi \in C^1([\alpha, \beta], \mathbb{R})$ y que su derivada es precisamente $a(t)$. Para ello, aplicamos la definición de derivada mediante el límite del cociente incremental:
         \[
-            \varphi'(t) = \lim_{h \to 0} \frac{\varphi(t+h) - \varphi(t)}{h} = \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) ds 
+            \varphi'(t) = \lim_{h \to 0} \frac{\varphi(t+h) - \varphi(t)}{h} = \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) \, ds.
         \]
+        Dado que $a$ es continua, en el intervalo cerrado $[t, t+h]$ (asumiendo $h>0$) la función alcanza un mínimo y un máximo absoluto. Esto nos permite establecer la siguiente acotación para la integral:
         \[
-            h \min_{s \in [t, t+h]} a(s) \leq \int_{t}^{t+h} a(s) ds \leq h \max_{s \in [t, t+h]} a(s)
+            h \min_{s \in [t, t+h]} a(s) \leq \int_{t}^{t+h} a(s) \, ds \leq h \max_{s \in [t, t+h]} a(s).
         \]
+        Dividiendo toda la expresión por $h$ y tomando el límite cuando $h \to 0$, observamos que, por la continuidad de $a$, tanto el mínimo como el máximo tienden al valor de la función en el punto $t$:
         \[
-            a(t) = \lim_{h \to 0} \min_{s \in [t, t+h]} a(s) \leq \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) ds \leq \lim_{h \to 0} \max_{s \in [t, t+h]} a(s) = a(t)
+            a(t) = \lim_{h \to 0} \min_{s \in [t, t+h]} a(s) \leq \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) \, ds \leq \lim_{h \to 0} \max_{s \in [t, t+h]} a(s) = a(t).
         \]
+        Por el teorema del sándwich, concluimos que el límite central existe y es igual a los extremos, lo que implica que:
         \[
-            \implies \varphi'(t) = a(t)
+            \varphi'(t) = a(t).
         \]
-        En el caso complejo, $a : [\alpha, \beta] \to \mathbb{C}$ continua, se descompone en sus partes real e imaginaria $a = a_1 + i a_2$, con $a_1, a_2 : [\alpha, \beta] \to \mathbb{R}$ continuas. Entonces:
+
+        Este resultado se extiende de manera natural al caso complejo. Si $a : [\alpha, \beta] \to \mathbb{C}$ es continua, se puede descomponer en sus partes real e imaginaria como $a = a_1 + i a_2$, donde $a_1, a_2 : [\alpha, \beta] \to \mathbb{R}$ son funciones continuas. Por la linealidad de la integral y la derivada, tenemos:
         \[
-            \varphi(t) = \int_{t_0}^{t} a(s) ds = \int_{t_0}^{t} a_1(s) ds + i \int_{t_0}^{t} a_2(s) ds
+            \varphi(t) = \int_{t_0}^{t} a(s) \, ds = \int_{t_0}^{t} a_1(s) \, ds + i \int_{t_0}^{t} a_2(s) \, ds.
         \]
+        Al derivar esta expresión y aplicar el resultado probado anteriormente para las funciones reales $a_1$ y $a_2$, obtenemos:
         \[
-            \varphi'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) ds + i \int_{t_0}^{t} a_2(s) ds \right) = \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) ds \right) + i \frac{d}{dt} \left( \int_{t_0}^{t} a_2(s) ds \right)
-        \] 
-        \[
-            = a_1(t) + i a_2(t) = a(t)
+            \varphi'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) \, ds \right) + i \frac{d}{dt} \left( \int_{t_0}^{t} a_2(s) \, ds \right) = a_1(t) + i a_2(t) = a(t).
         \]
+
+        Finalmente, generalizamos este concepto para funciones con valores vectoriales $a : [\alpha, \beta] \to \mathbb{K}^n$ (donde $\mathbb{K}$ es $\mathbb{R}$ o $\mathbb{C}$). Definimos la función mediante sus componentes $a_j : [\alpha, \beta] \to \mathbb{K}$, las cuales son continuas para todo $j = 1, \ldots, n$:
         \[
-            a : [\alpha, \beta] \to \mathbb{K}^n
-        \]
-        \[
-            a = \begin{pmatrix}
-            a_1 \\
+            a(t) = \begin{pmatrix}
+            a_1(t) \\
             \vdots \\
-            a_n
-            \end{pmatrix}, \quad a_j : [\alpha, \beta] \to \mathbb{K} \text{ continua}, \quad j = 1, \ldots, n
+            a_n(t)
+            \end{pmatrix}.
         \]
+        La derivada de la integral vectorial se calcula derivando cada componente por separado. Aplicando el resultado previo a cada $a_j(t)$, llegamos a la conclusión final:
         \[
             \frac{d}{dt} \left( \int_{t_0}^{t} \begin{pmatrix}
             a_1(s) \\
             \vdots \\
             a_n(s)
-            \end{pmatrix} ds \right) = \begin{pmatrix}
-            \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) ds \right) \\
+            \end{pmatrix} \, ds \right) = \begin{pmatrix}
+            \frac{d}{dt} \int_{t_0}^{t} a_1(s) \, ds \\
             \vdots \\
-            \frac{d}{dt} \left( \int_{t_0}^{t} a_n(s) ds \right)
+            \frac{d}{dt} \int_{t_0}^{t} a_n(s) \, ds
             \end{pmatrix} = \begin{pmatrix}
             a_1(t) \\
             \vdots \\
             a_n(t)
-            \end{pmatrix} = a(t)
+            \end{pmatrix} = a(t).
         \]
+        Por el teorema fundamental del Cálculo Integral, la función
+        \[
+            t \mapsto \int_{t_0}^{t} (A(s) u(s) + B(s)) ds
+        \]
+        es diferenciable y si derivada vale 
+        \[
+            \frac{d}{dt} \left( \int_{t_0}^{t} (A(s) u(s) + B(s)) ds \right) = A(t) u(t) + B(t), \quad \forall t \in [\alpha, \beta].
+        \]
+        que es continua.
+        \[
+            t \mapsto \int_{t_0}^{t} (A(s) u(s) + B(s)) ds \in C^1([\alpha, \beta], \mathbb{K}^n) \implies u \in C^1([\alpha, \beta], \mathbb{K}^n)
+        \]
+        y además, $u'(t) = A(t) u(t) + B(t), \ \forall t \in [\alpha, \beta]$. Finalmente, 
+        \[
+            u(t_0) = u_0 + \int_{t_0}^{t_0} (A(s) u(s) + B(s)) ds = u_0.
+        \]
+        Luego $u$ resuelve el problema $P$. Definimos el operador:
+        \[
+            \begin{matrix}
+                \mathcal{K} : C([\alpha, \beta], \mathbb{K}^n) & \to & C([\alpha, \beta], \mathbb{K}^n) \\
+                h & \mapsto & \left( t \mapsto u_0 + \int_{t_0}^{t} (A(s) h(s) + B(s)) ds \right)
+            \end{matrix}
+        \]
+        \[
+            \iff u(t) = \mathcal{K}(u)(t), \quad \forall t \in [\alpha, \beta] \iff u(t) = \mathcal{K}(u)(t) \iff u \text{ es un punto fijo de } \mathcal{K}
+        \]
+        entonces $u$ es solución del problema $P$ si y sólo si es un punto fijo del operador $\mathcal{K}$.
+        Demostrar el teorema fundamental equivale a demostrar que $\mathcal{K}$ tiene un único punto fijo.
     \end{enumerate}
+\end{proof}
+
+\begin{definición} [Espacio de Banach]
+    Un espacio vectorial normado $(E, \| \cdot \|)$ se dice que es un espacio de Banach si es completo respecto a la métrica inducida por la norma, es decir, si toda sucesión de Cauchy en $E$ converge a un elemento que también pertenece a $E$.    
+\end{definición}
+
+\begin{definición} [Operador contractivo]
+    Sea $(E, \| \cdot \|)$ un espacio normado. Un operador $\mathcal{T} : E \to E$ se dice que es contractivo si existe una constante $\theta \in [0,1)$ tal que:
+    \[
+        \| \mathcal{T}(u) - \mathcal{T}(v) \| \leq \theta \| u - v \|, \quad \forall u,v \in E
+    \]
+    o, de forma equivalente, si
+    \[
+        d(\mathcal{T}(u), \mathcal{T}(v)) \leq \theta d(u,v) < d(u,v), \quad \forall u,v \in E, u \neq v
+    \]
+\end{definición}
+
+\begin{teorema} [Teorema de la aplicación contractiva]
+    Sean $E$ un espacio de Banach (espacio vectorial normado completo) y $\mathcal{T} : E \to E$ un operador contractivo. Entonces, $\mathcal{T}$ tiene un único punto fijo en $E$.
+\end{teorema}
+
+Tomamos una norma $\lVert \cdot \rVert$ en $\mathbb{K}^n$ y consideramos la función:
+\[
+    t \mapsto \lVert u(t) \rVert, \quad \forall t \in [\alpha, \beta]
+\]
+entonces la función anterior es continua si $u \in C([\alpha, \beta], \mathbb{K}^n)$, por ser la composición de funciones continuas. Las funciones continuas en un intervalo cerrado y acotado (compacto) alcanzan sus valores máximo y mínimo, luego podemos definir la norma del máximo:
+\[
+    \| u \|_{\infty} := \max_{t \in [\alpha, \beta]} \| u(t) \|, \quad \forall u \in C([\alpha, \beta], \mathbb{K}^n)
+\]
+Veaos que efectivamente $\| \cdot \|_{\infty}$ es una norma en el espacio vectorial $C([\alpha, \beta], \mathbb{K}^n)$.
+\begin{enumerate}
+    \item $\| u \|_{\infty} \geq 0$ y $\| u \|_{\infty} = 0 \iff u = 0$ para todo $u \in C([\alpha, \beta], \mathbb{K}^n)$.
+    \item $\| \lambda u \|_{\infty} = |\lambda| \| u \|_{\infty}$, para todo $\lambda \in \mathbb{K}$ y todo $u \in C([\alpha, \beta], \mathbb{K}^n)$.
+    \item $\| u + v \|_{\infty} \leq \| u \|_{\infty} + \| v \|_{\infty}$, para todo $u,v \in C([\alpha, \beta], \mathbb{K}^n)$.
+    \begin{proof}
+        Sea $t \in [\alpha, \beta]$, entonces:
+        \[
+            \| u(t) + v(t) \| \leq \| u(t) \| + \| v(t) \| \leq \| u \|_{\infty} + \| v \|_{\infty}
+        \]
+        Por tanto, tomando el máximo sobre $t \in [\alpha, \beta]$:
+        \[
+            \| u + v \|_{\infty} = \max_{t \in [\alpha, \beta]} \| u(t) + v(t) \| \leq \| u \|_{\infty} + \| v \|_{\infty}
+        \]
+    \end{proof}
+\end{enumerate}
+
+\begin{teorema}
+    El espacio normado $E \equiv C([\alpha, \beta], \mathbb{K}^n)$ con la norma del máximo $\| \cdot \|_{\infty}$ es un espacio de Banach.
+\end{teorema}
+
+\begin{proof}
+    Para demostrar que $E$ es un espacio de Banach, debemos probar que es completo; es decir, que toda sucesión de Cauchy en $E$ converge a un elemento que también pertenece a $E$.
+
+    Sea $\{ u_k \}_{k \in \mathbb{N}}$ una sucesión de Cauchy en $E$. Por definición, para todo $\varepsilon > 0$, existe un entero $k_0 \in \mathbb{N}$ tal que para cualesquiera $k, m \geq k_0$:
+    \[
+        \| u_k - u_m \|_{\infty} < \varepsilon.
+    \]
+    Recordando la definición de la norma del supremo, esto implica que para todo $t \in [\alpha, \beta]$:
+    \[
+        \| u_k(t) - u_m(t) \|_{\mathbb{K}^n} \leq \sup_{x \in [\alpha, \beta]} \| u_k(x) - u_m(x) \|_{\mathbb{K}^n} = \| u_k - u_m \|_{\infty} < \varepsilon.
+    \]
+    Esto nos indica que, para cada $t \in [\alpha, \beta]$ fijo, la sucesión de vectores $\{ u_k(t) \}_{k \in \mathbb{N}}$ es una sucesión de Cauchy en $\mathbb{K}^n$. Dado que $\mathbb{K}^n$ (con $\mathbb{K} = \mathbb{R}$ o $\mathbb{C}$) es un espacio completo (es un espacio de Banach con la norma euclídea usual), la sucesión converge. Definimos la función límite puntual $u(t)$ como:
+    \[
+        u(t) := \lim_{k \to \infty} u_k(t), \quad \forall t \in [\alpha, \beta].
+    \]
+    Ahora debemos probar dos cosas:
+    \begin{enumerate}
+        \item La convergencia es uniforme (lo que implica convergencia en la norma $\| \cdot \|_\infty$).
+        \item La función límite $u$ es continua (es decir, $u \in E$).
+    \end{enumerate}
+
+    \noindent \textbf{1. Convergencia Uniforme:}
+    Retomamos la desigualdad de Cauchy: $\| u_k(t) - u_m(t) \| < \varepsilon$ para $k, m \geq k_0$. Si fijamos $k \geq k_0$ y $t$, y hacemos tender $m \to \infty$, obtenemos por la continuidad de la norma:
+    \[
+        \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall t \in [\alpha, \beta].
+    \]
+    Como esto es válido para todo $t$, tomando el supremo obtenemos:
+    \[
+        \| u_k - u \|_{\infty} = \sup_{t \in [\alpha, \beta]} \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall k \geq k_0.
+    \]
+    Esto demuestra que $u_k \to u$ uniformemente.
+
+    \noindent \textbf{2. Continuidad de $u$ (Pertenencia a $E$):}
+    Queremos ver que $u$ es continua en cualquier $t \in [\alpha, \beta]$. Sea $\varepsilon > 0$. Por la convergencia uniforme probada arriba, existe un $k_0$ tal que $\| u_{k_0}(x) - u(x) \| < \varepsilon/3$ para todo $x$.
+    
+    Además, como $u_{k_0} \in E$, $u_{k_0}$ es continua (de hecho, uniformemente continua al estar en un compacto). Por tanto, existe un $\delta > 0$ tal que si $s \in [\alpha, \beta]$ cumple $|t - s| < \delta$, entonces:
+    \[
+        \| u_{k_0}(t) - u_{k_0}(s) \| < \frac{\varepsilon}{3}.
+    \]
+    Aplicando la desigualdad triangular con $u_{k_0}$ como intermediario:
+    \[
+    \begin{aligned}
+        \| u(t) - u(s) \| &\leq \| u(t) - u_{k_0}(t) \| + \| u_{k_0}(t) - u_{k_0}(s) \| + \| u_{k_0}(s) - u(s) \| \\
+        &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
+    \end{aligned}
+    \]
+    Esto prueba que $u$ es continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.
+    
+    Concluímos que toda sucesión de Cauchy en $E$ converge a un elemento de $E$, por lo tanto, $E$ es un espacio de Banach.
 \end{proof}
