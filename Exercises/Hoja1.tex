@@ -1,0 +1,407 @@
+
+% Ejercicio 1
+\ejercicio{
+    Demuestra el siguiente principio de superposición generalizado. Sea $m \geq 2$ un número entero, y
+    \[
+    A(t) := (a_{ij}(t))_{1 \leq i,j \leq N} \quad \text{y} \quad B_k(t) := (b_{i,k}(t))_{1 \leq i \leq N, \atop 1 \leq k \leq m}
+    \]
+    Si $u_k$, $1 \leq k \leq m$, son, respectivamente, las soluciones de los sistemas lineales
+    \[
+    u' = A(t)u + B_k(t),
+    \]
+    entonces
+    \[
+    u(t) := \sum_{k=1}^{m} u_k(t)
+    \]
+    resuelve el sistema lineal
+    \[
+    u' = A(t)u + \sum_{k=1}^{m} B_k(t).
+    \]
+}{
+    Para demostrar el principio de superposición generalizado, definimos la función $u(t)$ como la suma de las soluciones individuales $u_k(t)$ para $k = 1, \dots, m$:
+    \[
+    u(t) := \sum_{k=1}^{m} u_k(t).
+    \]
+    Nuestro objetivo es verificar que esta función $u(t)$ satisface la ecuación diferencial lineal cuyo término no homogéneo es la suma de los términos $B_k(t)$. Procedemos derivando $u(t)$ respecto a $t$. Utilizando la linealidad del operador derivada, tenemos:
+    \[
+    u'(t) = \frac{d}{dt} \left( \sum_{k=1}^{m} u_k(t) \right) = \sum_{k=1}^{m} u_k'(t).
+    \]
+    Por hipótesis, sabemos que cada función $u_k(t)$ es solución del sistema lineal correspondiente, lo que significa que satisface la identidad $u_k'(t) = A(t)u_k(t) + B_k(t)$ para todo $1 \leq k \leq m$. Sustituyendo estas expresiones en la sumatoria anterior, obtenemos:
+    \begin{align*}
+    u'(t) &= \sum_{k=1}^{m} \left( A(t)u_k(t) + B_k(t) \right) \\
+        &= \sum_{k=1}^{m} A(t)u_k(t) + \sum_{k=1}^{m} B_k(t).
+    \end{align*}
+    En virtud de la propiedad distributiva del producto matricial respecto a la suma vectorial, el operador lineal $A(t)$ puede extraerse del primer sumatorio. Esto nos permite reescribir el término como:
+    \[
+    \sum_{k=1}^{m} A(t)u_k(t) = A(t) \left( \sum_{k=1}^{m} u_k(t) \right) = A(t)u(t).
+    \]
+    Finalmente, al reintegrar este resultado en la ecuación desarrollada, concluimos que:
+    \[
+    u'(t) = A(t)u(t) + \sum_{k=1}^{m} B_k(t).
+    \]
+    Queda así demostrado que la suma $u(t)$ es solución del sistema lineal con el término forzante agregado. 
+    \qed
+}
+
+% Ejercicio 2
+\ejercicio{
+    Encuentra la solución general de la ecuación lineal escalar
+    \[
+    u' - 2tu = t.
+    \]
+}{
+    Consideramos la ecuación sin el término no homogéneo:
+    \[
+    u_h' - 2tu_h = 0.
+    \]
+    Separamos variables para resolverla:
+    \[
+    \frac{u_h'}{u_h} = 2t \implies \int \frac{du_h}{u_h} = \int 2t \, dt \implies \ln|u_h| = t^2.
+    \]
+    Tomando exponenciales, obtenemos la solución homogénea básica (ignorando por un momento la constante multiplicativa):
+    \[
+    u_h(t) = e^{t^2}.
+    \]
+    Buscamos una solución de la forma $u(t) = C(t) \cdot e^{t^2}$, donde $C(t)$ es una función a determinar. Derivamos esta expresión usando la regla del producto:
+    \[
+    u'(t) = C'(t)e^{t^2} + C(t) \cdot (2te^{t^2}).
+    \]
+    Sustituimos $u(t)$ y $u'(t)$ en la ecuación diferencial original $u' - 2tu = t$:
+    \[
+    \left[ C'(t)e^{t^2} + 2tC(t)e^{t^2} \right] - 2t \left[ C(t)e^{t^2} \right] = t.
+    \]
+    Observamos que los términos que contienen $C(t)$ se cancelan (propiedad fundamental del método):
+    \[
+    C'(t)e^{t^2} = t.
+    \]
+    Despejamos $C'(t)$:
+    \[
+    C'(t) = t e^{-t^2}.
+    \]
+
+    Integramos respecto a $t$ (usando el cambio de variable $v = -t^2 \implies dv = -2t dt$):
+    \[
+    C(t) = \int t e^{-t^2} \, dt = -\frac{1}{2} \int e^v \, dv = -\frac{1}{2}e^{-t^2} + K,
+    \]
+    donde $K$ es una constante arbitraria real.
+
+    Sustituimos $C(t)$ en la expresión propuesta en el Paso 2:
+    \[
+    u(t) = \left( -\frac{1}{2}e^{-t^2} + K \right) e^{t^2}.
+    \]
+    Distribuyendo el término exponencial:
+    \[
+    u(t) = -\frac{1}{2} + K e^{t^2}.
+    \]
+}
+
+% Ejercicio 3
+\ejercicio{
+    Encuentra la solución única del problema de valor inicial
+    \[
+    \begin{cases}
+    u' + 2tu = t, & t \in \mathbb{R}, \\
+    u(1) = 2.
+    \end{cases}
+    \]
+}{
+    Primero, hallamos la solución de la ecuación homogénea asociada, ignorando temporalmente el término forzante:
+    \[
+    u_h' + 2tu_h = 0.
+    \]
+    Separamos las variables para resolverla:
+    \[
+    \frac{u_h'}{u_h} = -2t \implies \int \frac{du_h}{u_h} = \int -2t \, dt \implies \ln|u_h| = -t^2.
+    \]
+    Tomando exponenciales a ambos lados, obtenemos la solución homogénea básica:
+    \[
+    u_h(t) = e^{-t^2}.
+    \]
+    
+    Para hallar la solución general, aplicamos el método de variación de las constantes. Buscamos una solución de la forma $u(t) = C(t) \cdot e^{-t^2}$, donde $C(t)$ es una función a determinar. Derivamos esta expresión utilizando la regla del producto:
+    \[
+    u'(t) = C'(t)e^{-t^2} + C(t) \cdot (-2te^{-t^2}).
+    \]
+    Sustituimos $u(t)$ y $u'(t)$ en la ecuación diferencial original $u' + 2tu = t$:
+    \[
+    \left[ C'(t)e^{-t^2} - 2tC(t)e^{-t^2} \right] + 2t \left[ C(t)e^{-t^2} \right] = t.
+    \]
+    Observamos que los términos que contienen $C(t)$ se cancelan mutuamente, lo cual verifica la consistencia del método:
+    \[
+    C'(t)e^{-t^2} = t.
+    \]
+    Despejamos la derivada $C'(t)$ multiplicando por $e^{t^2}$:
+    \[
+    C'(t) = t e^{t^2}.
+    \]
+    
+    Ahora integramos respecto a $t$ para encontrar $C(t)$. Utilizamos el cambio de variable $w = t^2$, lo que implica $dw = 2t \, dt$, o equivalentemente, $\frac{1}{2}dw = t \, dt$:
+    \[
+    C(t) = \int t e^{t^2} \, dt = \frac{1}{2} \int e^w \, dw = \frac{1}{2}e^{t^2} + K,
+    \]
+    donde $K$ es la constante arbitraria de integración.
+    
+    Sustituimos la función $C(t)$ encontrada en nuestra propuesta inicial:
+    \[
+    u(t) = \left( \frac{1}{2}e^{t^2} + K \right) e^{-t^2}.
+    \]
+    Distribuyendo el término exponencial $e^{-t^2}$, obtenemos la solución general explícita:
+    \[
+    u(t) = \frac{1}{2} + K e^{-t^2}.
+    \]
+    
+    Finalmente, para encontrar la solución única del problema, imponemos la condición inicial $u(1) = 2$:
+    \[
+    2 = \frac{1}{2} + K e^{-(1)^2} \implies 2 - \frac{1}{2} = K e^{-1} \implies \frac{3}{2} = \frac{K}{e}.
+    \]
+    Despejamos $K$:
+    \[
+    K = \frac{3e}{2}.
+    \]
+    Sustituyendo este valor de $K$ en la solución general, concluimos con la solución del problema de valor inicial:
+    \[
+    u(t) = \frac{1}{2} + \left( \frac{3e}{2} \right) e^{-t^2} = \frac{1}{2} + \frac{3}{2}e^{1-t^2}.
+    \]
+}
+
+% Ejercicio 4
+\ejercicio{
+    Encuentra la solución única del problema de valor inicial
+    \[
+    \begin{cases}
+    u' = \frac{u}{t} + e^t, & t \in (0, \infty), \\
+    u(1) = 2.
+    \end{cases}
+    \]
+}{
+    Reescribimos la ecuación diferencial en su forma estándar $u' - \frac{1}{t}u = e^t$. Para aplicar el método de variación de las constantes, comenzamos resolviendo la ecuación homogénea asociada $u_h' - \frac{1}{t}u_h = 0$. Separando variables e integrando:
+    \[
+    \int \frac{du_h}{u_h} = \int \frac{dt}{t} \implies \ln|u_h| = \ln|t|.
+    \]
+    Dado que el dominio es $t > 0$, podemos prescindir del valor absoluto, obteniendo la solución homogénea fundamental $u_h(t) = t$.
+    
+    Proponemos entonces una solución general de la forma $u(t) = C(t)t$, donde $C(t)$ es la función incógnita. Calculamos su derivada mediante la regla del producto:
+    \[
+    u'(t) = C'(t)t + C(t).
+    \]
+    Sustituimos $u(t)$ y $u'(t)$ en la ecuación diferencial original $u' = \frac{u}{t} + e^t$:
+    \[
+    C'(t)t + C(t) = \frac{C(t)t}{t} + e^t.
+    \]
+    Simplificando el lado derecho, tenemos $C'(t)t + C(t) = C(t) + e^t$. Cancelamos el término $C(t)$ en ambos lados, lo que confirma la validez del planteamiento:
+    \[
+    C'(t)t = e^t \implies C'(t) = \frac{e^t}{t}.
+    \]
+    Para hallar $C(t)$, integramos la expresión anterior. Dado que la integral $\int \frac{e^t}{t} dt$ no posee una primitiva expresable mediante funciones elementales, utilizamos el Teorema Fundamental del Cálculo para expresar la solución en términos de una integral definida, tomando $t_0 = 1$ (el punto de la condición inicial) como límite inferior para facilitar el cálculo posterior:
+    \[
+    C(t) = \int_{1}^{t} \frac{e^s}{s} \, ds + K,
+    \]
+    donde $s$ es una variable muda de integración y $K$ es una constante arbitraria. La solución general es entonces:
+    \[
+    u(t) = t \left( K + \int_{1}^{t} \frac{e^s}{s} \, ds \right).
+    \]
+    Finalmente, aplicamos la condición inicial $u(1) = 2$. Evaluamos la solución en $t=1$:
+    \[
+    2 = 1 \cdot \left( K + \int_{1}^{1} \frac{e^s}{s} \, ds \right).
+    \]
+    Como la integral definida desde 1 hasta 1 es cero, obtenemos directamente que $K = 2$. Sustituyendo este valor, llegamos a la solución única del problema:
+    \[
+    u(t) = 2t + t \int_{1}^{t} \frac{e^s}{s} \, ds.
+    \]  
+}
+
+% Ejercicio 5
+\ejercicio{
+    Encuentra la solución única del problema de valor inicial
+    \[
+    \begin{cases}
+    u' + u = \frac{1}{1+t^2}, & t \in \mathbb{R}, \\
+    u(2) = 3.
+    \end{cases}
+    \]
+}{
+    Iniciamos el proceso resolviendo la ecuación homogénea asociada $u_h' + u_h = 0$. Mediante separación de variables, tenemos $\frac{u_h'}{u_h} = -1$, cuya integración conduce a $\ln|u_h| = -t$, resultando en la función base $u_h(t) = e^{-t}$.
+
+    Aplicando el método de variación de las constantes, buscamos una solución de la estructura $u(t) = C(t)e^{-t}$. Derivamos esta expresión respecto a $t$:
+    \[
+    u'(t) = C'(t)e^{-t} - C(t)e^{-t}.
+    \]
+    Introducimos $u(t)$ y $u'(t)$ en la ecuación no homogénea original:
+    \[
+    \left[ C'(t)e^{-t} - C(t)e^{-t} \right] + C(t)e^{-t} = \frac{1}{1+t^2}.
+    \]
+    Tras la cancelación de los términos semejantes, obtenemos la ecuación diferencial para $C(t)$:
+    \[
+    C'(t)e^{-t} = \frac{1}{1+t^2} \implies C'(t) = \frac{e^t}{1+t^2}.
+    \]
+    Integramos para encontrar $C(t)$. Al igual que en el ejercicio anterior, la función $\frac{e^t}{1+t^2}$ no tiene una antiderivada elemental. Por conveniencia, definimos la integral acumulada desde el punto inicial $t_0 = 2$:
+    \[
+    C(t) = \int_{2}^{t} \frac{e^s}{1+s^2} \, ds + K.
+    \]
+    Sustituyendo $C(t)$ en nuestra propuesta inicial, la solución general toma la forma:
+    \[
+    u(t) = e^{-t} \left( K + \int_{2}^{t} \frac{e^s}{1+s^2} \, ds \right).
+    \]
+    Para determinar la constante $K$, imponemos la condición inicial $u(2) = 3$:
+    \[
+    3 = e^{-2} \left( K + \int_{2}^{2} \frac{e^s}{1+s^2} \, ds \right).
+    \]
+    La integral se anula, resultando en $3 = e^{-2}K$, de donde despejamos $K = 3e^2$. Reemplazamos $K$ en la expresión general para obtener la solución final:
+    \[
+    u(t) = e^{-t} \left( 3e^2 + \int_{2}^{t} \frac{e^s}{1+s^2} \, ds \right) = 3e^{2-t} + e^{-t} \int_{2}^{t} \frac{e^s}{1+s^2} \, ds.
+    \]    
+}
+
+% Ejercicio 6
+\ejercicio{
+    Encuentra la solución única continua del problema de valor inicial
+    \[
+    \begin{cases}
+    u' + u = b(t), \\
+    u(0) = 0
+    \end{cases}
+    \]
+    en el intervalo $[0, \infty)$, donde
+    \[
+    b(t) = \begin{cases} 2 & \text{si } 0 \leq t \leq 1, \\ 0 & \text{si } t > 1. \end{cases}
+    \]    
+}{
+    Dada la naturaleza definida a trozos de la función fuente $b(t)$, debemos resolver la ecuación diferencial por separado en cada intervalo, asegurando posteriormente la continuidad de la función $u(t)$ en el punto de empalme $t=1$.
+
+    Comenzamos analizando el primer intervalo, $0 \leq t \leq 1$, donde $b(t) = 2$. La ecuación diferencial se reduce a $u' + u = 2$. Primero resolvemos la ecuación homogénea asociada $u_h' + u_h = 0$, cuya solución es $u_h(t) = e^{-t}$. Aplicando el método de variación de las constantes, proponemos $u(t) = C(t)e^{-t}$. Al derivar y sustituir en la ecuación completa, obtenemos:
+    \[
+    C'(t)e^{-t} = 2 \implies C'(t) = 2e^t.
+    \]
+    Integramos para hallar $C(t) = 2e^t + K_1$. Por consiguiente, la solución general en este intervalo es $u(t) = (2e^t + K_1)e^{-t} = 2 + K_1e^{-t}$. Imponemos la condición inicial global $u(0) = 0$:
+    \[
+    0 = 2 + K_1e^0 \implies K_1 = -2.
+    \]
+    Así, la solución para el primer tramo es $u(t) = 2(1 - e^{-t})$. Para garantizar la continuidad, calculamos el valor de la función al final de este intervalo:
+    \[
+    u(1) = 2(1 - e^{-1}).
+    \]
+    
+    Procedemos ahora con el segundo intervalo, $t > 1$, donde $b(t) = 0$. La ecuación se convierte en homogénea: $u' + u = 0$. La solución general es inmediata: $u(t) = K_2 e^{-t}$. Para determinar la constante $K_2$, utilizamos la condición de continuidad en $t=1$, es decir, $\lim_{t \to 1^-} u(t) = \lim_{t \to 1^+} u(t)$. Igualamos el valor obtenido del primer tramo con la expresión del segundo evaluada en $t=1$:
+    \[
+    2(1 - e^{-1}) = K_2 e^{-1}.
+    \]
+    Despejamos $K_2$ multiplicando por $e$:
+    \[
+    K_2 = 2e(1 - e^{-1}) = 2(e - 1).
+    \]
+    Sustituyendo este valor, la solución para $t > 1$ es $u(t) = 2(e - 1)e^{-t}$.
+    
+    En conclusión, la solución única continua del problema de valor inicial es:
+    \[
+    u(t) = \begin{cases} 
+    2(1 - e^{-t}) & \text{si } 0 \leq t \leq 1, \\
+    2(e - 1)e^{-t} & \text{si } t > 1.
+    \end{cases}
+    \]    
+}
+
+% Ejercicio 7
+\ejercicio{
+    Sean $a, m, \omega \in \mathbb{R}$ tales que $a > 0$ y $\omega > 0$. Encuentra la solución general de
+    \[
+    u' = -au + me^{-\omega t}
+    \]
+    y demuestra que toda solución tiende a cero cuando $t \uparrow \infty$.    
+}{
+    Reescribimos la ecuación lineal en su forma estándar: $u' + au = me^{-\omega t}$. Resolvemos primero la ecuación homogénea asociada $u_h' + au_h = 0$. Al separar variables e integrar, obtenemos $\ln|u_h| = -at$, lo que nos da la solución fundamental $u_h(t) = e^{-at}$.
+
+    Utilizando el método de variación de las constantes, buscamos una solución de la forma $u(t) = C(t)e^{-at}$. Derivamos esta expresión, $u'(t) = C'(t)e^{-at} - aC(t)e^{-at}$, y la sustituimos en la ecuación original. Tras la cancelación de términos, llegamos a:
+    \[
+    C'(t)e^{-at} = me^{-\omega t} \implies C'(t) = m e^{(a-\omega)t}.
+    \]
+    Para integrar esta expresión y hallar $C(t)$, debemos distinguir dos casos según si $a = \omega$ o $a \neq \omega$. Asumiremos el caso general $a \neq \omega$ (el caso $a=\omega$ se resuelve análogamente resultando en un término lineal $t$). Integramos respecto a $t$:
+    \[
+    C(t) = \int m e^{(a-\omega)t} \, dt = \frac{m}{a-\omega}e^{(a-\omega)t} + K,
+    \]
+    donde $K$ es una constante arbitraria. Sustituyendo $C(t)$ en la propuesta inicial, la solución general es:
+    \[
+    u(t) = \left( \frac{m}{a-\omega}e^{(a-\omega)t} + K \right) e^{-at} = \frac{m}{a-\omega}e^{-\omega t} + Ke^{-at}.
+    \]
+    (Nota: Si $a=\omega$, la solución sería $u(t) = mte^{-at} + Ke^{-at}$).
+    
+    Finalmente, analizamos el comportamiento asintótico de la solución cuando $t \to \infty$. Observamos la expresión obtenida para el caso general:
+    \[
+    \lim_{t \to \infty} u(t) = \lim_{t \to \infty} \left( \frac{m}{a-\omega}e^{-\omega t} + Ke^{-at} \right).
+    \]
+    Dado que por hipótesis los parámetros $a$ y $\omega$ son estrictamente positivos ($a > 0, \omega > 0$), las exponenciales $e^{-\omega t}$ y $e^{-at}$ son decrecientes y tienden a cero cuando $t$ crece indefinidamente. Por lo tanto:
+    \[
+    \lim_{t \to \infty} u(t) = 0 + 0 = 0.
+    \]
+    Esta conclusión se mantiene igualmente válida para el caso de resonancia ($a=\omega$), ya que el término $te^{-at}$ también tiende a cero por la regla de L'Hôpital. Queda así demostrado que todas las soluciones tienden a cero asintóticamente.
+}
+
+% Ejercicio 8
+\ejercicio{
+    Sean $a, b \in \mathcal{C}(\mathbb{R}; \mathbb{R})$ tales que
+    \[
+    \sup_{\mathbb{R}} a \leq -c < 0 \quad \text{y} \quad \lim_{t \uparrow \infty} b(t) = 0,
+    \]
+    para una constante $c$. Demuestra que toda solución de $u' = a(t)u + b(t)$ tiende a cero cuando $t \uparrow \infty$.
+}{
+    Sea $u(t)$ una solución arbitraria de la ecuación diferencial lineal $u' = a(t)u + b(t)$. Para estudiar su comportamiento asintótico, primero derivamos una expresión explícita para $u(t)$ utilizando el método de variación de las constantes.
+
+    Consideramos un tiempo inicial $t_0$ arbitrario. La solución general de la ecuación lineal de primer orden viene dada por la fórmula:
+    \[
+    u(t) = u(t_0) \exp\left( \int_{t_0}^t a(s) \, ds \right) + \int_{t_0}^t \exp\left( \int_{\tau}^t a(s) \, ds \right) b(\tau) \, d\tau.
+    \]
+    Nuestro objetivo es acotar esta expresión utilizando las hipótesis dadas. Sabemos que $\sup_{\mathbb{R}} a \leq -c$, lo que implica que $a(s) \leq -c$ para todo $s \in \mathbb{R}$. En consecuencia, para cualquier intervalo $[\tau, t]$ con $\tau \leq t$, tenemos:
+    \[
+    \int_{\tau}^t a(s) \, ds \leq \int_{\tau}^t -c \, ds = -c(t - \tau).
+    \]
+    Utilizando esta desigualdad en la fórmula de la solución y tomando valores absolutos, obtenemos la siguiente acotación para $|u(t)|$:
+    \[
+    |u(t)| \leq |u(t_0)| e^{-c(t - t_0)} + \int_{t_0}^t e^{-c(t - \tau)} |b(\tau)| \, d\tau.
+    \]
+    Definimos $I_1(t) = |u(t_0)| e^{-c(t - t_0)}$ e $I_2(t) = \int_{t_0}^t e^{-c(t - \tau)} |b(\tau)| \, d\tau$. Analizaremos el límite de cada término por separado cuando $t \to \infty$.
+
+    \begin{enumerate}
+        \item \textbf{Análisis del primer término $I_1(t)$:}
+        Dado que $c > 0$, la función exponencial $e^{-ct}$ decrece a cero. Por tanto, independientemente del valor inicial $u(t_0)$, tenemos:
+        \[
+        \lim_{t \to \infty} I_1(t) = |u(t_0)| e^{ct_0} \lim_{t \to \infty} e^{-ct} = 0.
+        \]
+        \item \textbf{Análisis del segundo término $I_2(t)$:}
+        Debemos demostrar que la integral de convolución tiende a cero. Dado que $\lim_{t \to \infty} b(t) = 0$, para cualquier $\epsilon > 0$, existe un tiempo $T_\epsilon > t_0$ tal que $|b(\tau)| < \frac{c\epsilon}{2}$ para todo $\tau \geq T_\epsilon$.
+        Dividimos la integral $I_2(t)$ en dos partes para $t > T_\epsilon$:
+        \[
+        I_2(t) = \int_{t_0}^{T_\epsilon} e^{-c(t - \tau)} |b(\tau)| \, d\tau + \int_{T_\epsilon}^t e^{-c(t - \tau)} |b(\tau)| \, d\tau.
+        \]
+        Llamemos $A(t)$ a la primera integral y $B(t)$ a la segunda.
+    
+        Para $B(t)$, usamos la cota de $|b(\tau)|$:
+        \[
+        B(t) \leq \int_{T_\epsilon}^t e^{-c(t - \tau)} \frac{c\epsilon}{2} \, d\tau = \frac{c\epsilon}{2} e^{-ct} \int_{T_\epsilon}^t e^{c\tau} \, d\tau = \frac{c\epsilon}{2} e^{-ct} \left[ \frac{e^{c\tau}}{c} \right]_{T_\epsilon}^t.
+        \]
+        Simplificando:
+        \[
+        B(t) \leq \frac{\epsilon}{2} e^{-ct} (e^{ct} - e^{cT_\epsilon}) = \frac{\epsilon}{2} (1 - e^{-c(t - T_\epsilon)}) < \frac{\epsilon}{2}.
+        \]
+        Para $A(t)$, observamos que es una integral sobre un intervalo fijo $[t_0, T_\epsilon]$, por lo que su valor está acotado por una constante $M$. El factor $e^{-c(t-\tau)}$ puede escribirse como $e^{-ct}e^{c\tau}$.
+        \[
+        A(t) = e^{-ct} \int_{t_0}^{T_\epsilon} e^{c\tau} |b(\tau)| \, d\tau = C_{const} \cdot e^{-ct}.
+        \]
+        Como $c > 0$, $\lim_{t \to \infty} A(t) = 0$. Por tanto, existe un $T_{final}$ tal que para todo $t > T_{final}$, $A(t) < \frac{\epsilon}{2}$.
+    
+        Sumando ambas partes, para $t$ suficientemente grande, tenemos $I_2(t) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$. Esto demuestra que $\lim_{t \to \infty} I_2(t) = 0$.
+    \end{enumerate}
+
+    Finalmente, como $|u(t)| \leq I_1(t) + I_2(t)$ y ambos términos tienden a cero, concluimos que:
+    \[
+    \lim_{t \to \infty} u(t) = 0.
+    \]
+    \qed
+}
+
+% Ejercicio 9
+\ejercicio{
+
+}{
+    
+}
+
+

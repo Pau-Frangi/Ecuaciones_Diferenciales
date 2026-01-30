@@ -576,7 +576,132 @@ Veaos que efectivamente $\| \cdot \|_{\infty}$ es una norma en el espacio vector
         &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
     \end{aligned}
     \]
-    Esto prueba que $u$ es continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.
+    Esto prueba que $u$ es uniformemente continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.
     
     Concluímos que toda sucesión de Cauchy en $E$ converge a un elemento de $E$, por lo tanto, $E$ es un espacio de Banach.
+\end{proof}
+
+
+\textbf{Normas equivalentes a la norma del máximo}\\
+
+\begin{definición} [Normas equivalentes]
+    Dos normas $\| \cdot \|_1$ y $\| \cdot \|_2$ en un espacio vectorial $E$ se dicen que son equivalentes si existen constantes positivas $c, C > 0$ tales que:
+    \[
+        c \| u \|_1 \leq \| u \|_2 \leq C \| u \|_1, \quad \forall u \in E.
+    \]    
+\end{definición}
+
+Veamos a continuación un ejemplo de norma equivalente a la norma del máximo en el espacio de funciones continuas.
+
+\begin{definición} [Norma de Bielecki]
+    Sea el espacio $C([\alpha, \beta], \mathbb{K}^n)$. Dados un parámetro $\eta > 0$ y un punto fijo $t_0 \in [\alpha, \beta]$, definimos la \textbf{norma de Bielecki}, denotada por $\| \cdot \|_{\eta}$, como:
+    \[
+        \| u \|_{\eta} := \max_{t \in [\alpha, \beta]} e^{-\eta |t-t_0|} \| u(t) \|.
+    \]
+\end{definición}
+
+A continuación, demostramos que esta norma es equivalente a la norma del máximo usual, $\| u \|_{\infty} = \max_{t \in [\alpha, \beta]} \|u(t)\|$.
+
+Debemos probar que existen constantes $c, C > 0$ tales que $c \| u \|_{\eta} \leq \| u \|_{\infty} \leq C \| u \|_{\eta}$.
+
+\begin{itemize}
+    \item \textbf{Primera desigualdad ($\| u \|_{\eta} \leq \| u \|_{\infty}$):} \\
+    Observamos que para todo $t \in [\alpha, \beta]$, el exponente es no positivo ($-\eta |t-t_0| \leq 0$), lo que implica que $e^{-\eta |t-t_0|} \leq 1$. Por lo tanto, para cualquier $t$:
+    \[
+        e^{-\eta | t - t_0 |} \| u(t) \| \leq 1 \cdot \| u(t) \| \leq \| u \|_{\infty}.
+    \]
+    Al tomar el máximo sobre $t \in [\alpha, \beta]$ en el lado izquierdo, obtenemos directamente:
+    \[
+        \| u \|_{\eta} \leq \| u \|_{\infty}.
+    \]
+    \item \textbf{Segunda desigualdad ($\| u \|_{\infty} \leq C \| u \|_{\eta}$):} \\
+    Buscamos acotar la norma del máximo por la norma de Bielecki. Para cualquier $t \in [\alpha, \beta]$, multiplicamos y dividimos por el factor exponencial:
+    \begin{align*}
+        \| u(t) \| &= e^{\eta | t - t_0 |} \cdot \left( e^{-\eta | t - t_0 |} \| u(t) \| \right) \\
+                &\leq e^{\eta | t - t_0 |} \cdot \| u \|_{\eta}.
+    \end{align*}
+    Sabemos que la distancia máxima entre dos puntos en el intervalo es $\beta - \alpha$, por lo que $|t - t_0| \leq \beta - \alpha$. Usando la monotonía de la exponencial:
+    \[
+        \| u(t) \| \leq e^{\eta (\beta - \alpha)} \| u \|_{\eta}.
+    \]
+    Dado que esta desigualdad es válida para todo $t \in [\alpha, \beta]$, tomamos el máximo en el lado izquierdo:
+    \[
+        \| u \|_{\infty} \leq e^{\eta (\beta - \alpha)} \| u \|_{\eta}.
+    \]
+    Definiendo la constante $C = e^{\eta (\beta - \alpha)}$, concluimos que $\| u \|_{\infty} \leq C \| u \|_{\eta}$.
+\end{itemize}
+
+Por tanto, ambas normas son equivalentes.
+
+
+\begin{teorema} [Teorema de punto fijo de Banach - Aplicación contractiva]
+    Sea $(E, \| \cdot \|)$ un espacio de Banach y sea $\mathcal{K} : E \to E$ un operador contractivo. Entonces, $\mathcal{K}$ tiene un único punto fijo $u^{*} \in E$. Además, la sucesión de iteradas $\{ u_k \}_{k \in \mathbb{N}}$ definida por:
+    \[
+        u_{n} = \mathcal{K}(u_{n-1}) = \mathcal{K}^{n}(u_0), \quad n \geq 1, \quad u_0 \in E \text{ arbitrario}
+    \]
+    converge al punto fijo $u^{*}$.  
+\end{teorema}
+
+\begin{proof}
+    Dividiremos la demostración en tres partes: convergencia, existencia y unicidad.
+
+    \begin{itemize}
+        \item \textbf{La sucesión es de Cauchy.}\\
+        Sea $u_0 \in E$ arbitrario. Definimos la sucesión recursiva $u_n = \mathcal{K}(u_{n-1})$ para $n \geq 1$.
+        Primero, estimamos la distancia entre dos términos consecutivos. Aplicando la propiedad contractiva:
+        \[
+            \| u_2 - u_1 \| = \| \mathcal{K}(u_1) - \mathcal{K}(u_0) \| \leq \theta \| u_1 - u_0 \|.
+        \]
+        Por inducción, para cualquier $k \geq 1$:
+        \[
+            \| u_{k+1} - u_k \| \leq \theta \| u_k - u_{k-1} \| \leq \dots \leq \theta^k \| u_1 - u_0 \|.
+        \]
+        Ahora, consideremos dos índices arbitrarios $n, m$ con $n > m$. Utilizamos la desigualdad triangular para "conectar" $u_m$ con $u_n$ a través de los términos intermedios:
+        \[
+            \| u_n - u_m \| = \| (u_n - u_{n-1}) + (u_{n-1} - u_{n-2}) + \dots + (u_{m+1} - u_m) \|.
+        \]
+        Aplicando la desigualdad triangular ($ \|a+b\| \leq \|a\| + \|b\| $) y la estimación inductiva anterior:
+        \begin{align*}
+            \| u_n - u_m \| &\leq \sum_{j=m}^{n-1} \| u_{j+1} - u_j \| \\
+            &\leq \sum_{j=m}^{n-1} \theta^j \| u_1 - u_0 \| \\
+            &= \| u_1 - u_0 \| \sum_{j=m}^{n-1} \theta^j.
+        \end{align*}
+        Reconocemos una serie geométrica. Dado que $\theta \in [0, 1)$, podemos acotar la suma parcial por la suma de la serie infinita comenzando en $m$:
+        \[
+            \sum_{j=m}^{n-1} \theta^j = \theta^m (1 + \theta + \theta^2 + \dots + \theta^{n-1-m}) < \theta^m \sum_{k=0}^{\infty} \theta^k = \frac{\theta^m}{1-\theta}.
+        \]
+        Por lo tanto, obtenemos la cota fundamental:
+        \[
+            \| u_n - u_m \| \leq \frac{\theta^m}{1-\theta} \| u_1 - u_0 \|.
+        \]
+        Como $0 \leq \theta < 1$, tenemos que $\lim_{m \to \infty} \theta^m = 0$. Esto implica que para todo $\varepsilon > 0$, existe un $N$ tal que para todo $n > m \geq N$, $\| u_n - u_m \| < \varepsilon$. Concluimos que $\{ u_n \}$ es una sucesión de Cauchy.
+
+        \item \textbf{Existencia del punto fijo.}\\
+        Dado que $E$ es un espacio de Banach (es completo por definición), toda sucesión de Cauchy en $E$ converge a un límite dentro de $E$. Sea:
+        \[
+            u^{*} = \lim_{n \to \infty} u_n \in E.
+        \]
+        Veamos que este límite es un punto fijo. Notamos primero que $\mathcal{K}$ es continua. En efecto, dado que es contractiva, es Lipschitz continua: si $v_n \to v$, entonces $\| \mathcal{K}(v_n) - \mathcal{K}(v) \| \leq \theta \| v_n - v \| \to 0$.
+        
+        Tomando límites en la relación de recurrencia $u_{n+1} = \mathcal{K}(u_n)$:
+        \[
+            u^{*} = \lim_{n \to \infty} u_{n+1} = \lim_{n \to \infty} \mathcal{K}(u_n) = \mathcal{K}\left( \lim_{n \to \infty} u_n \right) = \mathcal{K}(u^{*}).
+        \]
+        Por tanto, $u^{*}$ es un punto fijo.
+
+        \item \textbf{Unicidad.}\\
+        Supongamos que existen dos puntos fijos, $u^{*}$ y $v^{*}$. Entonces:
+        \[
+            \| u^{*} - v^{*} \| = \| \mathcal{K}(u^{*}) - \mathcal{K}(v^{*}) \| \leq \theta \| u^{*} - v^{*} \|.
+        \]
+        Esto implica:
+        \[
+            (1 - \theta) \| u^{*} - v^{*} \| \leq 0.
+        \]
+        Como $\theta < 1$, el término $(1-\theta)$ es estrictamente positivo. La única forma de satisfacer la desigualdad es que la norma sea $0$.
+        \[
+            \| u^{*} - v^{*} \| = 0 \implies u^{*} = v^{*}.
+        \]
+        Esto demuestra la unicidad.        
+    \end{itemize}
 \end{proof}
