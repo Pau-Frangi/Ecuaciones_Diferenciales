@@ -771,5 +771,169 @@ Sea $t,t_0 \in [\alpha, \beta]$ y $v : [\alpha, \beta] \to \mathbb{K}^n$ una fun
             u(t_0) = u_0
         \end{cases}
     \]
-    tiene una única solución $u(t,t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
+    tiene una única solución $u(t;t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
 \end{teorema}
+
+\begin{proof}
+    Sea el sistema homogéneo asociado:
+    \[
+        P_h : \begin{cases}
+            h' = A(t) h, \quad t \in [\alpha, \beta] \\
+            h(t_0) = h_0
+        \end{cases}
+        \longrightarrow h(t;t_0,h_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n) \, t \in [\alpha, \beta]
+    \]
+    Veamos como si tomamos una funcion arbitraria $h_0 \in C([\alpha, \beta], \mathbb{K}^n)$, podemos construir una solución del problema $P$ a partir de iterar el operador integral:
+    \[
+        h_n = \mathcal{K} h_{n-1} = \mathcal{K}^2 h_{n-2} = \ldots = \mathcal{K}^n h_0
+        \longrightarrow_{n \to \infty} u( \cdot ; t_0, u_0) \in C([\alpha, \beta], \mathbb{K}^n)
+    \]
+    Notese que estas iteradas se conocen como \textbf{iteradas de Picard-Lindelöf}.
+    Podemos tomar ahora el siguiente problema:
+    \[
+        \begin{cases}
+            u' = u \\
+            u(0) = 1
+        \end{cases}
+    \]
+    De lo que se deduce que $u(t) = 1 + \int_{0}^{t} u(s) ds$, y en general, $\mathcal{K}h(t) = 1 + \int_{0}^{t} h(s) ds$. Si tomamos $h_0(t) = 1$, entonces podemos empezar a iterar:
+    \[
+        h_1(t) = \mathcal{K} h_0(t) = 1 + \int_{0}^{t} 1 ds = 1 + t
+    \]
+    \[
+        h_2(t) = \mathcal{K} h_1(t) = 1 + \int_{0}^{t} (1 + s) ds = 1 + t + \frac{t^2}{2}
+    \]
+    Podemos ahora intuir que el resultado de iterar $n$ veces es la suma de los primeros $n$ términos del desarrollo en serie de Taylor de la función exponencial (algo que ya sabiamos que era la solución del problema), por lo que podemos probarlo por inducción. Sea el caso base $n=0$, tomemos como hipótesis de inducción que:
+    \[
+        h_n(t) = \sum_{k=0}^{n} \frac{t^k}{k!}
+    \]
+    Entonces:
+    \[
+        h_{n+1}(t) = 
+        \mathcal{K} h_n(t) =
+        1 + \int_{0}^{t} \sum_{k=0}^{n} \frac{s^k}{k!} ds = 
+        1 + \sum_{k=0}^{n} \frac{1}{k!} \int_{0}^{t} s^k ds =
+        1 + \sum_{k=0}^{n} \frac{t^{k+1}}{(k+1)!} =
+        \sum_{k=0}^{n+1} \frac{t^k}{k!}
+    \]
+    Así tenemos probado que $\forall n \in \mathbb{N}: h_n(t) = \sum_{k=0}^{n} \frac{t^k}{k!}$, es decir, $h_n(t)$ coincide con el polinomio de Taylor de grado $n$ de la función exponencial en el punto $0$. Por tanto, tomando el límite cuando $n \to \infty$, obtenemos:
+    \[
+        \lim_{n \to \infty} h_n(t) = 
+        \lim_{n \to \infty} \sum_{k=0}^{n} \frac{t^k}{k!} =
+        e^{t} 
+        \quad \text{uniformemente en } [-c,c], \forall c > 0
+    \]
+    Ahora podemos definir la siguiente iteración:
+    \[
+        h_n(t) =
+        \mathcal{K} h_{n-1}(t) =
+        u_0 + \int_{t_0}^{t} \left[ A(s) h_{n-1}(s) + B(s) \right] ds
+        \longrightarrow_{n \to \infty} 
+        u(t; t_0, u_0) \in C([\alpha, \beta], \mathbb{K}^n)
+        \quad \forall t \in [\alpha, \beta], \forall h_0 \in C([\alpha, \beta], \mathbb{K}^n)
+    \]
+\end{proof}
+
+Sea el sistema de ecuaciones diferenciales lineales homogéneo:
+\[
+    \begin{cases}
+        u' = A(t) u, \quad t \in [\alpha, \beta] \\
+        u(t_0) = u_0
+    \end{cases}
+\]
+Entonces, podemos definir los conjuntos de soluciones del sistema homogenio y del sistema no homogéneo como:
+\[
+    \Sigma_0 = \{ h \in C^{1}([\alpha, \beta], \mathbb{K}^n) : h' = Ah \text{ en } [\alpha, \beta] \}
+\]
+\[
+    \Sigma_B = \{ u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u' = Au + B \text{ en } [\alpha, \beta] \}
+\]
+Entonces, se cumple que:
+\[
+    \dim(\Sigma_B) = \dim(\Sigma_0) = n
+\]
+Todo esto lo vamos a poder ver en el siguiente teorema:
+
+\begin{teorema}
+    Bajo las condiciones del Teorema Fundamental, el operador solucion:
+    \[
+        \begin{array}{rccl}
+            S_0 : & \mathbb{K}^n & \to & \Sigma_0 \\
+            & x & \mapsto & h(\cdot; t_0, x)
+        \end{array}
+    \]
+    Es un isomorfismo entre espacios vectoriales, y por tanto el operador solución del sistema no homogéneo:
+    \[
+        \begin{array}{rccl}
+            S_B : & \mathbb{K}^n & \to & \Sigma_B \\
+            & x & \mapsto & u(\cdot; t_0, x)
+        \end{array}
+    \]
+    Es un isomorfismo afín, y en particular se cumple la proposición anterior, es decir:
+    \[
+        \dim(\Sigma_B) = \dim(\Sigma_0) = n
+    \]
+\end{teorema}
+
+\begin{proof}
+    Veamos que $S_0$ es lineal:
+    Sean $x,y \in \mathbb{K}^n$ y $\lambda, \mu \in \mathbb{K}$. Entonces queremos ver que:
+    \[
+        S_0(\lambda x + \mu y) = \lambda S_0(x) + \mu S_0(y)
+    \]
+    Lo que equivale a ver que:
+    \[
+        h(t; t_0, \lambda x + \mu y) \in \Sigma 0 \iff
+        \lambda h(t; t_0, x) + \mu h(t; t_0, y) \in \Sigma 0
+    \]
+    Y esto es cierto, ya que ambas funciones son soluciones del sistema homogéneo con la misma condición inicial.\\
+    Veamos ahora la inyectividad de $S_0$:\\
+    Supongamos que $S_0(x) = 0$ para algun $x \in \mathbb{K}^n$. Entonces:
+    \[
+        h(\cdot; t_0, x) = 0 \iff
+        h(t; t_0, x) = 0 \forall t \in [\alpha, \beta] \implies
+        h(t_0; t_0, x) = 0 \implies
+        x = 0
+    \]
+    Veamos ahora la sobreyectividad de $S_0$:\\
+    Sea $h \in \Sigma_0$ arbitrario. Entonces, como $h$ es solución del sistema homogéneo, podemos construir otra solución $h(\cdot; t_0, h(t_0)) = S_0(h(t_0)) \in \Sigma_0$. Por tanto como ambas funciones coinciden en el punto $t_0$ y son soluciones del mismo sistema, se cumple que:
+    \[
+        h = h(\cdot; t_0, h(t_0)) = S_0(h(t_0)) \in \Sigma_0 \implies
+        \square{h = S_0(h(t_0))}
+    \]
+    Por tanto, $S_0$ es sobreyectiva, y por tanto es un isomorfismo entre espacios vectoriales.\\
+    Veamos ahora que $S_B$ es un isomorfismo afín, para ello podemos ver que:
+    \[
+        S_B(x) = u(\cdot; t_0, x) = \underbrace{h(\cdot; t_0, x)}_{\text{vector}} + \underbrace{u(\cdot; t_0, 0)}_{\text{punto}} \in \Sigma_B
+    \]
+    Ya que $x = x + 0$, y las dos soluciones coinciden en el punto $t_0$, y por tanto ambas soluciones coinciden en todo el intervalo $[\alpha, \beta]$.\\
+    Por tanto, $S_B$ es un isomorfismo afín entre $\mathbb{K}^n$ y $\Sigma_B$, definido por:
+    \[
+        S_B(x) = S_0(x) + u(\cdot; t_0, 0)
+    \]
+    Ahora sabemos que al ser isomorfismos deben transformar bases en bases, por lo que:
+    \[
+    \mathbb{K}^n =
+    L \left[ e_1, e_2, \ldots, e_n \right]
+    \implies
+    \{ S_0(e_1), S_0(e_2), \ldots, S_0(e_n) \}
+    \text{ es una base de } \Sigma_0
+    \]
+    Equivalentemente:
+    \[
+    \{ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \}
+    \text{ es una base de } \Sigma_0
+    \]
+    Y por tanto:
+    \[
+        \Sigma_0 = L \left[ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \right]
+    \]
+    Equivalentemente tambien se puede decir que $\{ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \}$ es un sistema fundamental de soluciones (base) del sistema homogéneo.
+    Construyendo así la matriz fundamental de soluciones:
+    \[
+        \Phi(t) =
+        \begin{pmatrix}
+            h(t; t_0, e_1) & h(t; t_0, e_2) & \ldots & h(t; t_0, e_n)
+        \end{pmatrix}
+    \]
+\end{proof}
