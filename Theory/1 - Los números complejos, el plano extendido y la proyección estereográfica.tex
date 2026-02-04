@@ -551,34 +551,38 @@ Veaos que efectivamente $\| \cdot \|_{\infty}$ es una norma en el espacio vector
         \item La función límite $u$ es continua (es decir, $u \in E$).
     \end{enumerate}
 
-    \noindent \textbf{1. Convergencia Uniforme:}
-    Retomamos la desigualdad de Cauchy: $\| u_k(t) - u_m(t) \| < \varepsilon$ para $k, m \geq k_0$. Si fijamos $k \geq k_0$ y $t$, y hacemos tender $m \to \infty$, obtenemos por la continuidad de la norma:
-    \[
-        \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall t \in [\alpha, \beta].
-    \]
-    Como esto es válido para todo $t$, tomando el supremo obtenemos:
-    \[
-        \| u_k - u \|_{\infty} = \sup_{t \in [\alpha, \beta]} \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall k \geq k_0.
-    \]
-    Esto demuestra que $u_k \to u$ uniformemente.
+    Veamos cada punto por separado:
 
-    \noindent \textbf{2. Continuidad de $u$ (Pertenencia a $E$):}
-    Queremos ver que $u$ es continua en cualquier $t \in [\alpha, \beta]$. Sea $\varepsilon > 0$. Por la convergencia uniforme probada arriba, existe un $k_0$ tal que $\| u_{k_0}(x) - u(x) \| < \varepsilon/3$ para todo $x$.
-    
-    Además, como $u_{k_0} \in E$, $u_{k_0}$ es continua (de hecho, uniformemente continua al estar en un compacto). Por tanto, existe un $\delta > 0$ tal que si $s \in [\alpha, \beta]$ cumple $|t - s| < \delta$, entonces:
-    \[
-        \| u_{k_0}(t) - u_{k_0}(s) \| < \frac{\varepsilon}{3}.
-    \]
-    Aplicando la desigualdad triangular con $u_{k_0}$ como intermediario:
-    \[
-    \begin{aligned}
-        \| u(t) - u(s) \| &\leq \| u(t) - u_{k_0}(t) \| + \| u_{k_0}(t) - u_{k_0}(s) \| + \| u_{k_0}(s) - u(s) \| \\
-        &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
-    \end{aligned}
-    \]
-    Esto prueba que $u$ es uniformemente continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.
-    
+    \begin{enumerate}
+        \item \textbf{Convergencia Uniforme:}\\
+        Retomamos la desigualdad de Cauchy: $\| u_k(t) - u_m(t) \| < \varepsilon$ para $k, m \geq k_0$. Si fijamos $k \geq k_0$ y $t$, y hacemos tender $m \to \infty$, obtenemos por la continuidad de la norma:
+        \[
+            \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall t \in [\alpha, \beta].
+        \]
+        Como esto es válido para todo $t$, tomando el supremo obtenemos:
+        \[
+            \| u_k - u \|_{\infty} = \sup_{t \in [\alpha, \beta]} \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall k \geq k_0.
+        \]
+        Esto demuestra que $u_k \to u$ uniformemente.
+        \item \textbf{Continuidad de $u$ (Pertenencia a $E$):}\\
+        Queremos ver que $u$ es continua en cualquier $t \in [\alpha, \beta]$. Sea $\varepsilon > 0$. Por la convergencia uniforme probada arriba, existe un $k_0$ tal que $\| u_{k_0}(x) - u(x) \| < \varepsilon/3$ para todo $x$.
+        
+        Además, como $u_{k_0} \in E$, $u_{k_0}$ es continua (de hecho, uniformemente continua al estar en un compacto). Por tanto, existe un $\delta > 0$ tal que si $s \in [\alpha, \beta]$ cumple $|t - s| < \delta$, entonces:
+        \[
+            \| u_{k_0}(t) - u_{k_0}(s) \| < \frac{\varepsilon}{3}.
+        \]
+        Aplicando la desigualdad triangular con $u_{k_0}$ como intermediario:
+        \[
+        \begin{aligned}
+            \| u(t) - u(s) \| &\leq \| u(t) - u_{k_0}(t) \| + \| u_{k_0}(t) - u_{k_0}(s) \| + \| u_{k_0}(s) - u(s) \| \\
+            &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
+        \end{aligned}
+        \]
+        Esto prueba que $u$ es uniformemente continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.        
+    \end{enumerate}
+
     Concluímos que toda sucesión de Cauchy en $E$ converge a un elemento de $E$, por lo tanto, $E$ es un espacio de Banach.
+
 \end{proof}
 
 
@@ -705,3 +709,67 @@ Por tanto, ambas normas son equivalentes.
         Esto demuestra la unicidad.        
     \end{itemize}
 \end{proof}
+
+
+\begin{definición} [Norma de un operador lineal]
+    Dado un operador lineal $A : \mathbb{K}^n \to \mathbb{K}^n$, definimos su norma como:
+    \[
+        \| A \| := \max_{\| u \| = 1} \| A u \|
+    \]
+    que es una norma en el espacio vectorial de operadores lineales $\mathcal{L}(\mathbb{K}^n, \mathbb{K}^n)$.
+\end{definición}
+
+Si tomamos $x \neq 0$, $x \in \mathbb{K}^n$, $u = \frac{x}{\| x \|}$, entonces $\| u \| = 1$ y por definición de la norma del operador:
+\[
+    \| A u \| \leq \| A \| = \max_{\| v \| = 1} \| A v \| \implies \| A \frac{x}{\| x \|} \| \leq \| A \| \implies \| A x \| \leq \| A \| \| x \| \quad \forall x \in \mathbb{K}^n 
+\]
+Ahora tomando dos operadores $A, B \in \mathcal{L}(\mathbb{K}^n)$, tenemos que:
+\[
+    \| A B x \| \leq \| A \| \| B x \| \leq \| A \| \| B \| \| x \|, \quad \forall x \in \mathbb{K}^n
+\]
+En particular, si $\| x \| = 1$, entonces:
+\[
+    \| A B x \| \leq \| A \| \| B \|, \quad \forall x \in \mathbb{K}^n, \| x \| = 1 \implies \| A B \| \leq \| A \| \| B \|
+\]
+En general, para $n \in \mathbb{N}$, se tiene por lo anterior que:
+\[
+    \| A^n \| \leq \| A \|^n
+\]
+
+\textbf{Desigualdad integral de Minkowski}\\
+
+Sea $t,t_0 \in [\alpha, \beta]$ y $v : [\alpha, \beta] \to \mathbb{K}^n$ una función continua. Entonces:
+\[
+    \int_{t_0}^{t} v(s) ds = \begin{pmatrix}
+        \int_{t_0}^{t} v_1(s) ds \\
+        \vdots \\
+        \int_{t_0}^{t} v_n(s) ds
+    \end{pmatrix}
+\]
+
+\begin{lema}
+    Sea $v : [\alpha, \beta] \to \mathbb{K}^n$ una función continua. Entonces, para todo $t, t_0 \in [\alpha, \beta]$ se cumple la siguiente desigualdad:
+    \[
+        \left\| \int_{t_0}^{t} v(s) ds \right\|_1 \leq \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds
+    \]
+\end{lema}
+
+\begin{proof}
+    \[
+        \| \int_{t_0}^{t} v(s) ds \|_1 = \left\| \int_{\min(t_0,t)}^{\max(t_0,t)} v(s) ds \right\|_1 = \sum_{j=1}^{n} \left| \int_{\min(t_0,t)}^{\max(t_0,t)} v_j(s) ds \right| \leq \sum_{j=1}^{n} \int_{\min(t_0,t)}^{\max(t_0,t)} |v_j(s)| ds 
+    \]
+    \[
+        = \int_{\min(t_0,t)}^{\max(t_0,t)} \sum_{j=1}^{n} |v_j(s)| ds = \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds
+    \]
+\end{proof}
+
+\begin{teorema} [Teorema Fundamental]
+    Sean $\alpha < \beta$ reales, y $a_{ij},b_j \in C([\alpha, \beta], \mathbb{K})$, para $i,j = 1, \ldots, n$. Sean $A(t) = (a_{ij}(t))_{i,j=1}^{n}$ y $B(t) = (b_j(t))_{j=1}^{n}$. Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada $u_0 \in \mathbb{K}^n$, el problema de valores iniciales de Cauchy:
+    \[
+        P : \begin{cases}
+            u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una única solución $u(t,t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
+\end{teorema}
