@@ -747,7 +747,7 @@ Sea $t,t_0 \in [\alpha, \beta]$ y $v : [\alpha, \beta] \to \mathbb{K}^n$ una fun
     \end{pmatrix}
 \]
 
-\begin{lema}
+\begin{lema} [Desigualdad integral de Minkowski]
     Sea $v : [\alpha, \beta] \to \mathbb{K}^n$ una función continua. Entonces, para todo $t, t_0 \in [\alpha, \beta]$ se cumple la siguiente desigualdad:
     \[
         \left\| \int_{t_0}^{t} v(s) ds \right\|_1 \leq \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds
@@ -774,7 +774,60 @@ Sea $t,t_0 \in [\alpha, \beta]$ y $v : [\alpha, \beta] \to \mathbb{K}^n$ una fun
     tiene una única solución $u(t;t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
 \end{teorema}
 
-\begin{proof}
+\begin{proof}    
+    El objetivo es demostrar que el operador integral asociado $K: C([\alpha, \beta], \mathbb{K}^n) \to C([\alpha, \beta], \mathbb{K}^n)$, definido por:
+    \[
+    K u(t) = u_0 + \int_{t_0}^t (A(s)u(s) + B(s)) \, ds, \quad t \in [\alpha, \beta]
+    \]
+    posee un único punto fijo $u(t; t_0, u_0)$. Para ello, aplicaremos el \textbf{Teorema del Punto Fijo de Banach}.
+    
+    Consideramos el espacio de funciones continuas equipado con la \textbf{norma de Bielecki}, definida como:
+    \[
+    \|u\|_\eta = \max_{t \in [\alpha, \beta]} \left\{ e^{-\eta |t - t_0|} \|u(t)\| \right\}
+    \]
+    Ya hemos visto que esta norma es equivalente a la norma del supremo habitual $\|u\|_\infty = \max_{t \in [\alpha, \beta]} \|u(t)\|$. Nuestro propósito es encontrar un valor $\eta > 0$ tal que $K$ sea una aplicación contractiva respecto a $\|\cdot\|_\eta$, es decir, que verifique:
+    \[
+    \|Ku - Kv\|_\eta \le \theta \|u - v\|_\eta \quad \text{con } \theta \in [0, 1)
+    \]
+    
+    Partimos de la definición de la norma de Bielecki para la diferencia entre las imágenes de dos funciones $u$ y $v$:
+    \[
+    \|Ku - Kv\|_\eta = \max_{t \in [\alpha, \beta]} \left\{ e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\| \right\}
+    \]
+    Fijamos un punto $t \in [\alpha, \beta]$ y analizamos el término $e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\|$:
+    \begin{align*}
+    e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\| &= e^{-\eta |t - t_0|} \left\| \left( u_0 + \int_{t_0}^t (A(s)u(s) + B(s)) ds \right) \right. \\
+    &\quad \left. - \left( u_0 + \int_{t_0}^t (A(s)v(s) + B(s)) ds \right) \right\| \\
+    &= e^{-\eta |t - t_0|} \left\| \int_{t_0}^t A(s)(u(s) - v(s)) ds \right\| \\
+    &\le e^{-\eta |t - t_0|} \left| \int_{t_0}^t \|A(s)\| \cdot \|u(s) - v(s)\| ds \right|
+    \end{align*}
+    
+    Como la matriz $A(s)$ es continua en el intervalo compacto $[\alpha, \beta]$, su norma está acotada por una constante $L$:
+    \[
+    \|A(s)\| \le C \|A(s)\|_1 = C \sum_{i,j=1}^n |a_{ij}(s)| \le C \sum_{i,j=1}^n \|a_{ij}\|_\infty = L
+    \]
+    Sustituyendo esta cota en la desigualdad anterior, obtenemos:
+    \[
+    e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\| \le L \cdot e^{-\eta |t - t_0|} \left| \int_{t_0}^t \|u(s) - v(s)\| ds \right|
+    \]
+    
+    Para relacionar la integral con la norma $\|\cdot\|_\eta$, introducimos el factor exponencial dentro de la integral:
+    \begin{align*}
+    L \cdot e^{-\eta |t - t_0|} \left| \int_{t_0}^t \frac{\|u(s) - v(s)\|}{e^{\eta |s - t_0|}} e^{\eta |s - t_0|} ds \right| &\le L \cdot e^{-\eta |t - t_0|} \int_{\min(t_0, t)}^{\max(t_0, t)} \|u - v\|_\eta \cdot e^{\eta |s - t_0|} ds \\
+    &= L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \left[ \frac{e^{\eta |s - t_0|}}{\eta} \right]_{\min(t_0, t)}^{\max(t_0, t)} \\
+    &= L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \left( \frac{e^{\eta |t - t_0|} - 1}{\eta} \right) \\
+    &= \frac{L}{\eta} \|u - v\|_\eta (1 - e^{-\eta |t - t_0|}) \le \frac{L}{\eta} \|u - v\|_\eta
+    \end{align*}
+    
+    Dado que la desigualdad anterior es válida para todo $t \in [\alpha, \beta]$, se concluye que:
+    \[
+    \|Ku - Kv\|_\eta \le \frac{L}{\eta} \|u - v\|_\eta
+    \]
+    Si elegimos un valor de $\eta$ tal que $\eta > L$, entonces la constante de Lipschitz $\theta = \frac{L}{\eta}$ pertenece al intervalo $[0, 1)$. Esto convierte a $K$ en una aplicación contractiva sobre el espacio de Banach $(C([\alpha, \beta], \mathbb{K}^n), \|\cdot\|_\eta)$. 
+    
+    En virtud del \textbf{Teorema de Banach de la aplicación contractiva}, el operador $K$ posee un único punto fijo $u(t; t_0, u_0)$, que representa la única solución al problema de valor inicial planteado.
+\end{proof}
+
     Sea el sistema homogéneo asociado:
     \[
         P_h : \begin{cases}
@@ -832,7 +885,6 @@ Sea $t,t_0 \in [\alpha, \beta]$ y $v : [\alpha, \beta] \to \mathbb{K}^n$ una fun
         u(t; t_0, u_0) \in C([\alpha, \beta], \mathbb{K}^n)
         \quad \forall t \in [\alpha, \beta], \forall h_0 \in C([\alpha, \beta], \mathbb{K}^n)
     \]
-\end{proof}
 
 Sea el sistema de ecuaciones diferenciales lineales homogéneo:
 \[
