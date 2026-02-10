@@ -1219,5 +1219,182 @@ Denotando $U=\begin{pmatrix}
 \end{lema}
 
 \begin{proof}
-    $D$
+    $D$ está bien definida, es inyectiva, pues si $D(u) = D(v)$, entonces $u = v$ y $u' = v'$, lo que implica que $u$ y $v$ son la misma función. Además, $D$ es sobreyectiva, ya que dada una solución $U(t) = \begin{pmatrix}
+        u_1(t) \\
+        u_2(t)
+    \end{pmatrix}$ del sistema matricial, podemos definir $u(t) = u_1(t)$, y entonces $D(u) = U$. Por tanto, $D$ es una biyección entre $\Sigma_b^e$ y $\Sigma_B^s$.
 \end{proof}
+
+\begin{corolario}
+    Para cada $U_0 = \begin{pmatrix}
+        u_0^1 \\
+        u_0^2
+        \end{pmatrix} \in \mathbb{K}^2$ y cada $t_0 \in [\alpha, \beta]$, el problema de valores inciciales:
+        \[
+            \begin{cases}
+                u'' = a_0(t) u + a_1(t) u' + b(t), \quad t \in [\alpha, \beta] \\
+                u(t_0) = u_0^1 \\
+                u'(t_0) = u_0^2
+            \end{cases}
+        \]
+        tiene una única solución $u(t; t_0, U_0) \in C^2([\alpha, \beta], \mathbb{K})$ (porque $\begin{cases}
+            U' = A(t) U + B(t) \\
+            U(t_0) = U_0
+        \end{cases}$). Además, $u(t; t_0, U_0)$ es la primera componente de la solución $U(t; t_0, U_0)$ del sistema matricial asociado, y $u'(t; t_0, U_0)$ es la segunda componente de $U(t; t_0, U_0)$.
+\end{corolario}
+
+\subsection{Ecuaciones de orden $3$}
+
+\[
+    u''' = a_0(t) u + a_1(t) u' + a_2(t) u'' + b(t), \quad t \in [\alpha, \beta], \quad a_0, a_1, a_2, b \in C([\alpha, \beta], \mathbb{K})
+\]
+Conjunto de soluciones $\Sigma_b^e$. Sea $u \in \Sigma_b^e$, entonces:
+\[
+    \begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        u_3
+    \end{pmatrix} = \begin{pmatrix}
+        u \\
+        u' \\
+        u''
+    \end{pmatrix} 
+\] 
+\[    
+    \begin{pmatrix}
+        u_1' \\
+        u_2' \\
+        u_3'
+    \end{pmatrix} = \begin{pmatrix}
+        u' \\
+        u'' \\
+        u'''
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        u_3 \\
+        a_0(t) u + a_1(t) u' + a_2(t) u'' + b(t)
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        u_3 \\
+        a_0(t) u_1 + a_1(t) u_2 + a_2(t) u_3
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
+\[
+    \underbrace{\begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        u_3
+    \end{pmatrix}'}_{U'} = \underbrace{\begin{pmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+        a_0(t) & a_1(t) & a_2(t)
+    \end{pmatrix}}_{A(t)} \underbrace{\begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        u_3
+    \end{pmatrix}}_{U} + \underbrace{\begin{pmatrix}
+        0 \\
+        0 \\
+        b(t)
+    \end{pmatrix}}_{B(t)}
+\]
+
+\begin{proof}
+    De manera análoga al caso de orden $2$, se puede demostrar que la aplicación:
+    \[
+        \Sigma_b^e \xrightarrow{D} \Sigma_B^s
+    \]
+    \[
+        u \mapsto D(u) = \begin{pmatrix}
+            u \\
+            u' \\
+            u''
+        \end{pmatrix}
+    \]
+    Es una biyección entre el espacio de soluciones del sistema de orden $3$ y el espacio de soluciones del sistema matricial asociado. Por tanto, para cada $U_0 = \begin{pmatrix}
+        u_0^1 \\
+        u_0^2 \\
+        u_0^3
+    \end{pmatrix} \in \mathbb{K}^3$ y cada $t_0 \in [\alpha, \beta]$, el problema de valores inciciales:
+    \[
+        \begin{cases}
+            u''' = a_0(t) u + a_1(t) u' + a_2(t) u'' + b(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0^1 \\
+            u'(t_0) = u_0^2 \\
+            u''(t_0) = u_0^3
+        \end{cases}
+    \]
+    Tiene una única solución $u(t; t_0, U_0)$. Además, $u(t; t_0, U_0)$ es la primera componente de la solución $U(t; t_0, U_0)$ del sistema matricial asociado, $u'(t; t_0, U_0)$ es la segunda componente de $U(t; t_0, U_0)$ y $u''(t; t_0, U_0)$ es la tercera componente de $U(t; t_0, U_0)$.
+\end{proof}
+
+\subsection{Ecuaciones de orden $n$}
+
+\[
+    u^{(n)} = a_0(t) u + a_1(t) u' + a_2(t) u'' + \ldots + a_{n-1}(t) u^{(n-1)} + b(t), \quad t \in [\alpha, \beta], \quad a_0, a_1, \ldots, a_{n-1}, b \in C([\alpha, \beta], \mathbb{K})
+\]
+
+Sea $u \in C^n([\alpha, \beta], \mathbb{K})$ una solución de la ecuación diferencial de orden $n$. Ecuación homogénea asociada:
+\[
+    h^{(n)} = a_0(t) h + a_1(t) h' + a_2(t) h'' + \ldots + a_{n-1}(t) h^{(n-1)}, \quad t \in [\alpha, \beta]
+\]
+conjunto de soluciones $\Sigma_0^e$.\\
+
+\textbf{Propiedades de estructura:} \\
+ $h_1, h_2 \in \Sigma_0^e, \lambda, \mu \in \mathbb{K} \implies \lambda h_1 + \mu h_2 \in \Sigma_0^e$ subvariedad lineal vectorial de $C^n([\alpha, \beta], \mathbb{K})$. $\underbrace{\lambda h_1 + \mu h_2}_{\in \Sigma_0^e} + \delta h_3, \quad u_1, u_2 \in \Sigma_0^e, \quad u_1-u_2 = h \in \Sigma_0^e$. $u \in \Sigma_b^e, \quad h \in \Sigma_0^e \implies u + h \in \Sigma_b^e$. $\Sigma_b^e$ es subvariedad lineal afín paralela a $\Sigma_0^e$ en $C^n([\alpha, \beta], \mathbb{K})$.
+
+ \[
+    \begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        \vdots \\
+        u_n
+    \end{pmatrix} = \begin{pmatrix}
+        u \\
+        u' \\
+        \vdots \\
+        u^{(n-1)}
+    \end{pmatrix}
+\]
+
+\[
+    \begin{pmatrix}
+        u_1' \\
+        u_2' \\
+        \vdots \\
+        u_n'
+    \end{pmatrix} = \begin{pmatrix}
+        u' \\
+        u'' \\
+        \vdots \\
+        u^{(n)}
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        u_3 \\
+        \vdots \\
+        a_0(t) u + a_1(t) u' + a_2(t) u'' + \ldots + a_{n-1}(t) u^{(n-1)} + b(t)
+    \end{pmatrix}  
+\]  
+\[
+    = \begin{pmatrix}
+        0 & 1 & 0 & \ldots & 0 \\
+        0 & 0 & 1 & \ldots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \ldots & 1 \\
+        a_0(t) & a_1(t) & a_2(t) & \ldots & a_{n-1}(t)
+    \end{pmatrix} \begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        \vdots \\
+        u_n
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        0 \\
+        \vdots \\
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
