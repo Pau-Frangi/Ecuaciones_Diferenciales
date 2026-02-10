@@ -1070,3 +1070,154 @@ es una matriz fundamental de soluciones del sistema homogéneo $u' = A u$, donde
         det(\Phi(t)) = det(\Phi(t_0)) \cdot e^{\int_{t_0}^{t} tr(A(s)) ds}, \quad t, t_0 \in [\alpha, \beta]
     \]    
 \end{proposición}
+
+Tomando un base $\mathcal{B} = \{e_1, \ldots, e_n\}$ en $\mathbb{K}^n$, entonces si consideramos los sistemas de valores iniciales:
+\[
+    P_i : \begin{cases}
+        h' = A(t) h, \quad t \in [\alpha, \beta] \\
+        h(t_0) = e_i
+    \end{cases}
+    \longrightarrow h(t; t_0, e_i) \in C^{1}([\alpha, \beta], \mathbb{K}^n), \quad i = 1, 2, \ldots, n
+\]
+Entonces, la matriz fundamental de soluciones asociada a esta base es:
+\[
+    \Phi(t) =
+    \begin{pmatrix}
+        h(t; t_0, e_1) & h(t; t_0, e_2) & \ldots & h(t; t_0, e_n)
+    \end{pmatrix}
+\]
+Además, esta matriz en particular cumple que $\Phi(t_0) = I_n$. Si $\Psi(t)$ es otra matriz fundamental de soluciones, entonces $\Phi(t) = \Psi(t) \Psi(t_0)^{-1}$ es también una matriz fundamental de soluciones. 
+\[
+    \Phi(t_0) = \Psi(t_0) \Psi(t_0)^{-1} = I_n
+\]
+Dado el sistema
+\[
+    \begin{cases}
+        u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\	
+        u(t_0) = u_0
+    \end{cases}
+\]
+\[
+    u(t) = \Phi(t) C \qquad u'(t) = \Phi'(t) C = A(t) \Phi(t) C = A(t) u(t)
+\] 
+\[
+    u(t) = \Phi(t) v(t)
+\]
+\[
+    \Phi'(t) v(t) + \Phi(t) v'(t) = A(t) \Phi(t) v(t) + B(t)
+\]
+\[
+    u_0 = u(t_0) = \Phi(t_0) v(t_0) = v(t_0) \implies v(t_0) = u_0
+\]
+\[
+    A(t) \Phi(t) v(t) + \Phi(t) v'(t) = A(t) \Phi(t) v(t) + B(t) 
+\]
+\[
+    \Phi(t) v'(t) = B(t) \implies v'(t) = \Phi(t)^{-1} B(t), \quad t \in [\alpha, \beta]
+\]
+\[
+    \int_{t_0}^{t} v'(s) ds = \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \implies
+    v(t) - v(t_0) = \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds 
+\]
+\[
+    v(t) = u_0 + \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \implies u(t) = \Phi(t) \left(u_0 + \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \right), \quad t \in [\alpha, \beta]
+\]
+\[
+    u(t) = \Phi(t) u_0 + \Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
+\]
+\[
+    h' = A(t) h \quad e^{\int_{t_0}^{t} A(s) ds} = h(t; t_0, I_n) \quad \Phi(t) = h(t) e^{-\int_{t_0}^{t} A(s) ds}
+\]
+\[
+    \Phi(t)u_0 = (h_1(t), h_2(t), \ldots, h_n(t)) u_0 = u_0^1 h_1(t) + u_0^2 h_2(t) + \ldots + u_0^n h_n(t) = h(t; t_0, u_0)
+\]
+\[
+    u(t) = \underbrace{\Phi(t) u_0}_{h(t; t_0, u_0)} + \underbrace{\Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds}_{u(t; t_0, 0)} = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
+\]
+Estas son las ecuaciones paramétricas de la variedad afín n-dimensional $\Sigma_B$.
+Cuando la matriz es constante:
+\[
+    u(t,t_0,u_0) = e^{A(t-t_0)} u_0 + \int_{t_0}^{t} e^{A(t-s)} B(s) ds, \quad t \in [\alpha, \beta]
+\]
+
+
+\section{Ecuaciones de orden $n$}
+
+\subsection{Ecuaciones de orden $2$}
+
+\[
+    u'' = a_0(t) u + a_1(t) u' + b(t), \quad t \in [\alpha, \beta], \quad a_0, a_1, b \in C([\alpha, \beta], \mathbb{K})
+\]
+solución $u \in C^2([\alpha, \beta], \mathbb{K})$. Escrbiéndola en forma matricial:
+
+\[
+    \begin{pmatrix}
+        u_1 \\
+        u_2
+    \end{pmatrix} = \begin{pmatrix}
+        u \\
+        u'
+    \end{pmatrix} \quad \begin{pmatrix}
+        u_1' \\
+        u_2'
+    \end{pmatrix} = \begin{pmatrix}
+        u' \\
+        u''
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        a_0(t) u + a_1(t) u' + b(t)
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        a_0(t) u_1 + a_1(t) u_2 
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
+
+\[
+    \begin{pmatrix}
+        u_1 \\
+        u_2
+    \end{pmatrix}' = \begin{pmatrix}
+        0 & 1 \\
+        a_0(t) & a_1(t)
+    \end{pmatrix} \begin{pmatrix}
+        u_1 \\
+        u_2
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
+Denotando $U=\begin{pmatrix}
+    u_1 \\
+    u_2
+\end{pmatrix}$, $A(t) = \begin{pmatrix}
+    0 & 1 \\
+    a_0(t) & a_1(t)
+\end{pmatrix}$ y $B(t) = \begin{pmatrix}
+
+    0 \\
+    b(t)
+\end{pmatrix}$, entonces el sistema matricial asociado es:
+\[
+    U' = A(t) U + B(t), \quad t \in [\alpha, \beta]
+\]
+
+\begin{lema}
+    \[
+        \Sigma_b^e \xrightarrow{D} \Sigma_B^s
+    \]
+    \[
+        u \mapsto D(u) = \begin{pmatrix}
+            u \\
+            u'
+        \end{pmatrix}
+    \]
+    es una biyección entre el espacio de soluciones del sistema de orden $2$ y el espacio de soluciones del sistema matricial asociado.
+\end{lema}
+
+\begin{proof}
+    $D$
+\end{proof}
