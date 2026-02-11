@@ -1352,12 +1352,22 @@ conjunto de soluciones $\Sigma_0^e$.\\
         u_2 \\
         \vdots \\
         u_n
-    \end{pmatrix} = \begin{pmatrix}
+    \end{pmatrix} \equiv_{\text{def.}} \begin{pmatrix}
         u \\
         u' \\
         \vdots \\
         u^{(n-1)}
     \end{pmatrix}
+\]
+
+\[
+    \begin{cases}
+        u_1' = u' = u_2 \\
+        u_2' = u'' = u_3 \\
+        \vdots \\
+        u_{n-1}' = u^{(n-1)} = u_n \\
+        u_n' = u^{(n)} = \sum_{k=0}^{n-1} a_k(t) u^{(k)} + b(t) = a_0(t) u_1 + a_1(t) u_2 + \ldots + a_{n-1}(t) u_n + b(t)
+    \end{cases}
 \]
 
 \[
@@ -1379,22 +1389,106 @@ conjunto de soluciones $\Sigma_0^e$.\\
     \end{pmatrix}  
 \]  
 \[
-    = \begin{pmatrix}
+    = \underbrace{\begin{pmatrix}
         0 & 1 & 0 & \ldots & 0 \\
         0 & 0 & 1 & \ldots & 0 \\
         \vdots & \vdots & \vdots & \ddots & \vdots \\
         0 & 0 & 0 & \ldots & 1 \\
         a_0(t) & a_1(t) & a_2(t) & \ldots & a_{n-1}(t)
-    \end{pmatrix} \begin{pmatrix}
+    \end{pmatrix}}_{A(t)} \underbrace{\begin{pmatrix}
         u_1 \\
         u_2 \\
         \vdots \\
         u_n
-    \end{pmatrix} + \begin{pmatrix}
+    \end{pmatrix}}_{U} + \underbrace{\begin{pmatrix}
         0 \\
         0 \\
         \vdots \\
         0 \\
         b(t)
-    \end{pmatrix}
+    \end{pmatrix}}_{B(t)}
 \]
+
+\begin{lema}
+    La aplicación 
+    \[
+        \mathcal{D} : \Sigma_b^e \to \Sigma_B^s
+    \]
+    \[
+        u \mapsto \mathcal{D}(u) = \begin{pmatrix}
+            u \\
+            u' \\
+            \vdots \\
+            u^{(n-1)}
+        \end{pmatrix}
+    \]
+    Es una biyección entre el espacio de soluciones del sistema de orden $n$ y el espacio de soluciones del sistema matricial asociado. Además, $\mathcal{D}$ es un isomorfismo vectorial.
+\end{lema}
+
+\begin{proof}
+    Veamos primero que es inyectiva. Sean $u, v \in \Sigma_b^e$ tales que $\mathcal{D}(u) = \mathcal{D}(v)$. Entonces:
+    \[
+        \begin{pmatrix}
+            u \\
+            u' \\
+            \vdots \\
+            u^{(n-1)}
+        \end{pmatrix} = \begin{pmatrix}
+            v \\
+            v' \\
+            \vdots \\
+            v^{(n-1)}
+        \end{pmatrix}
+    \]
+    lo que implica que $u = v$, $u' = v'$, $\ldots$, $u^{(n-1)} = v^{(n-1)}$. Por tanto, $u$ y $v$ son la misma función, y $\mathcal{D}$ es inyectiva.\\
+    Veamos ahora que es sobreyectiva. Sea $U(t) = \begin{pmatrix}
+        u_1(t) \\
+        u_2(t) \\
+        \vdots \\
+        u_n(t)
+    \end{pmatrix}$ una solución del sistema matricial asociado. Definimos la función $u(t) = u_1(t)$. Entonces, $u'(t) = u_2(t)$, $u''(t) = u_3(t)$, $\ldots$, $u^{(n-1)}(t) = u_n(t)$. Además, $u^{(n)}(t) = a_0(t) u_1(t) + a_1(t) u_2(t) + \ldots + a_{n-1}(t) u_n(t) + b(t)$, lo que implica que $u$ es una solución de la ecuación diferencial de orden $n$. Por tanto, $\mathcal{D}(u) = U$, y $\mathcal{D}$ es sobreyectiva.\\
+\end{proof}
+
+    Sea $U_0 = \begin{pmatrix}
+        u_0^1 \\
+        u_0^2 \\
+        \vdots \\
+        u_0^n
+    \end{pmatrix} \in \mathbb{K}^n$ y $t_0 \in [\alpha, \beta]$. Consideramos el problema de valores inciciales asociado al sistema matricial:
+
+    \[
+        \begin{cases}
+            U' = A(t) U + B(t), \quad t \in [\alpha, \beta] \\
+            U(t_0) = U_0
+        \end{cases}
+    \]
+
+    El teorema fundamental asgura que $(P)_s$ tiene una única solución $U(t; t_0, U_0)$ en $C^1([\alpha, \beta], \mathbb{K}^n)$. Por el lema anterior, existe una única solución $u(t; t_0, U_0) \in C^n([\alpha, \beta], \mathbb{K})$ del problema de valores inciciales asociado a la ecuación diferencial de orden $n$ tal que $\mathcal{D}(u(t; t_0, U_0)) = U(t; t_0, U_0)$ para todo $t \in [\alpha, \beta]$. Además, $u(t; t_0, U_0)$ es la primera componente de $U(t; t_0, U_0)$, $u'(t; t_0, U_0)$ es la segunda componente de $U(t; t_0, U_0)$, $\ldots$, $u^{(n-1)}(t; t_0, U_0)$ es la última componente de $U(t; t_0, U_0)$. Por tanto:
+    \[
+        u(t_0) = u_0^1, \quad u'(t_0) = u_0^2, \quad \ldots, \quad u^{(n-1)}(t_0) = u_0^n
+    \]
+    luego a partir de $(P)_s$ se obtiene la solución de $(P)_e$.
+    \[
+        \begin{cases}
+            u^{(n)} = a_0(t) u + a_1(t) u' + a_2(t) u'' + \ldots + a_{n-1}(t) u^{(n-1)} + b(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0^1 \\
+            u'(t_0) = u_0^2 \\
+            \vdots \\
+            u^{(n-1)}(t_0) = u_0^n
+        \end{cases}
+    \]
+
+\begin{corolario}
+    Para cada $U_0 \in \mathbb{K}^n$ y cada $t_0 \in [\alpha, \beta]$, el problema de valores inciciales asociado a la ecuación diferencial de orden $n$ tiene una única solución $u(t; t_0, U_0) \in C^n([\alpha, \beta], \mathbb{K})$. Esa única solución es la primera coordenada de la única solución asociada al sistema de primer orden matricial asociado al sistema de orden $n$.
+\end{corolario}
+
+\begin{teorema}
+    El operador solución
+    \[
+        \begin{matrix}
+            S_0 : \mathbb{K}^n \to \Sigma_0^e \\
+            U_0 \mapsto h(t; t_0, U_0)
+        \end{matrix}
+    \]
+    es un isomorfismo vectorial entre $\mathbb{K}^n$ y $\Sigma_0^e$. En particular, el operador solución $S_b : \mathbb{K}^n \to \Sigma_b^e$ es un isomorfismo afín entre $\mathbb{K}^n$ y $\Sigma_b^e$.
+\end{teorema}
