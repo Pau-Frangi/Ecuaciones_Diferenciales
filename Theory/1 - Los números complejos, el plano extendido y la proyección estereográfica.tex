@@ -1587,3 +1587,91 @@ conjunto de soluciones $\Sigma_0^e$.\\
     \]
     es un isomorfismo vectorial entre $\mathbb{K}^n$ y $\Sigma_0^e$. En particular, el operador solución $S_b : \mathbb{K}^n \to \Sigma_b^e$ es un isomorfismo afín entre $\mathbb{K}^n$ y $\Sigma_b^e$.
 \end{teorema}
+
+
+\begin{proof}
+Visualizando:
+\[
+\begin{matrix}
+\mathbb{K}^N & \longrightarrow & \Sigma^l (\text{escalar}) \\
+x & \longmapsto & h \\
+\downarrow & & \downarrow \Delta \\
+x & \longmapsto & H \in \Sigma^e (\text{sistema})
+\end{matrix}
+\]
+
+Es un isomorfismo vectorial.
+Así tenemos la relación entre soluciones: $u(t; t_0, x) = h(t; t_0, x) + u(t; t_0, 0)$, luego $S_b^e(x) = S_0^e(x) + u(t; t_0, 0), x \in \mathbb{K}^N$.
+Además, $\dim \Sigma_0^e = \dim \Sigma_b^e = N$.
+Como los isomorfismos mandan bases en bases, si $\mathbb{K}^N = L[e_1, \dots, e_N]$ (base canónica), entonces:
+    \[ \Sigma_0^e = L[H(t; t_0, e_1), \dots, H(t; t_0, e_N)] \]
+\end{proof}
+
+Definimos $\Delta$ como:
+\[ \Delta : \Sigma_0^e \longrightarrow \Sigma_0^s \]
+\[ \Delta(h) = \begin{pmatrix} h \\ h' \\ \vdots \\ h^{(N-1)} \end{pmatrix} \]
+
+Por tanto:
+\[ \Sigma_0^s = L \lbrack \begin{pmatrix} h_1(t) \\ h_1'(t) \\ \vdots \\ h_1^{(N-1)}(t) \end{pmatrix} \dots \begin{pmatrix} h_N(t) \\ h_N'(t) \\ \vdots \\ h_N^{(N-1)}(t)\end{pmatrix} \rbrack \]
+$\Leftrightarrow $
+\[
+W(t; h_1, \dots, h_N) = \begin{pmatrix} 
+h_1(t) & h_2(t) & \dots & h_N(t) \\ 
+h_1'(t) & h_2'(t) & \dots & h_N'(t) \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+h_1^{(N-1)}(t) & h_2^{(N-1)}(t) & \dots & h_N^{(N-1)}(t) 
+\end{pmatrix}
+\] 
+es una Matriz Fundamental de Soluciones (M.F.S.) de $H' = A(t)H$, y es la \textbf{Matriz Wronskiana} de $h_1, \dots, h_N$ 
+y su derivada es $W'(t) = A(t)W(t)$  
+Ahora, buscamos la solución particular $U(t)$ de la forma:
+\[ U(t) = W(t) c(t) \quad \text{donde } c(t) = \begin{pmatrix} c_1(t) \\ \vdots \\ c_N(t) \end{pmatrix} \]
+
+Derivamos:
+\[ U'(t) = W'(t)c(t) + W(t)c'(t) \]
+
+Sabemos que $W(t)$ es solución del homogéneo, luego $W'(t) = A(t)W(t)$. Sustituimos en la ecuación completa $U' = A(t)U + B(t)$:
+
+\[ \underbrace{A(t)W(t)c(t)}_{W'(t)c(t)} + W(t)c'(t) = A(t)\underbrace{(W(t)c(t))}_{U(t)} + B(t) \]
+
+Cancelando los términos $A(t)W(t)c(t)$ a ambos lados:
+\[ W(t)c'(t) = B(t) \]
+
+Despejamos $c'(t)$ (multiplicando por la inversa del Wronskiano):
+\[ c'(t) = W^{-1}(t)B(t) \]
+
+\ejemplo{
+Consideramos la ecuación diferencial de segundo orden:
+\[ h'' = a_1 h' + a_0 h \implies h'' - a_1 h' - a_0 h = 0 \]
+donde los coeficientes $a_1, a_0 \in \mathbb{C} $ . Definimos el \textbf{operador diferencial} $P(D) = D^2 - a_1 D - a_0$ (a esto se le llama \textbf{símbolo de la ecuación)}, de modo que la ecuación se expresa como:
+\[ P(D)h = 0 \]
+
+Buscamos soluciones del tipo exponencial $h(t) = e^{\lambda t}$. Al derivar e introducir en la ecuación, obtenemos:
+\[ \lambda^2 e^{\lambda t} - a_1 \lambda e^{\lambda t} - a_0 e^{\lambda t} = 0 \implies (\lambda^2 - a_1 \lambda - a_0)e^{\lambda t} = 0 \]
+Dado que $e^{\lambda t} \neq 0$, esto nos lleva al \textbf{polinomio característico} de la ecuación:
+\[ P(\lambda) = \lambda^2 - a_1 \lambda - a_0 = 0 \]
+Las raíces de este polinomio se denominan \textbf{raíces características}. Suponiendo que el discriminante es no nulo ($a_1^2 + 4a_0 \neq 0$), las raíces son:
+\[ \lambda = \frac{a_1 \pm (a_1^2 + 4a_0)^{1/2}}{2} \]
+Donde ${(a_1^2 + 4a_0)^{1/2}} = \{z \in \mathbb{C} : z^2 = a_1^2 + 4a_0\} = \{\lambda_1, \lambda_2\}$. Si las raíces son distintas ($\lambda_1 \neq \lambda_2$), las soluciones $h_1(t) = e^{\lambda_1 t}$ y $h_2(t) = e^{\lambda_2 t}$ son linealmente independientes y el espacio de soluciones es:
+\[ \Sigma_0 = L[e^{\lambda_1 t}, e^{\lambda_2 t}] \]
+
+
+Para verificar que son independientes, planteamos la combinación lineal $c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t} = 0$. Evaluando en $t=0$ y derivando, obtenemos el sistema:
+\[ \begin{pmatrix} 1 & 1 \\ \lambda_1 & \lambda_2 \end{pmatrix} \begin{pmatrix} c_1 \\ c_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \]
+Como $\lambda_1 \neq \lambda_2$, el determinante es no nulo, lo que implica $c_1 = c_2 = 0$.
+
+
+El sistema de primer orden asociado es:
+\[ \begin{cases} u' = v \\ v' = a_1 v + a_0 u + b(t) \end{cases} \]
+La \textbf{Matriz Wronskiana} $W(t)$, que es una M.F.S. del sistema $H' = AH$, es:
+\[ W(t) = \begin{pmatrix} e^{\lambda_1 t} & e^{\lambda_2 t} \\ \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} \end{pmatrix} \]
+
+Para resolver el sistema inhomogéneo mediante el método de \textbf{variación de los parámetros}, planteamos $W(t)C'(t) = B(t)$, con $C(t) = \begin{pmatrix} c_1(t) \\ c_2(t) \end{pmatrix}$:
+\[ \begin{pmatrix} e^{\lambda_1 t} & e^{\lambda_2 t} \\ \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} \end{pmatrix} \begin{pmatrix} c_1'(t) \\ c_2'(t) \end{pmatrix} = \begin{pmatrix} 0 \\ b(t) \end{pmatrix} \]
+
+Aplicando la regla de Cramer para resolver el sistema algebraico:
+\[ c_1'(t) = \frac{\begin{vmatrix} 0 & e^{\lambda_2 t} \\ b(t) & \lambda_2 e^{\lambda_2 t} \end{vmatrix}}{\det W(t)} = \frac{-b(t)e^{\lambda_2 t}}{(\lambda_2 - \lambda_1) e^{(\lambda_1 + \lambda_2)t}} \]
+\[ c_2'(t) = \frac{\begin{vmatrix} e^{\lambda_1 t} & 0 \\ \lambda_1 e^{\lambda_1 t} & b(t) \end{vmatrix}}{\det W(t)} = \frac{b(t)e^{\lambda_1 t}}{(\lambda_2 - \lambda_1) e^{(\lambda_1 + \lambda_2)t}} \]
+
+Finalmente, para hallar la solución general, basta con integrar $c_1'(t)$ y $c_2'(t)$, obtener las funciones $c_1(t)$ y $c_2(t)$, y sustituirlas para recuperar la primera componente del vector de soluciones.
+}
