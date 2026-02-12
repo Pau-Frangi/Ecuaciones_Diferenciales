@@ -1071,6 +1071,101 @@ es una matriz fundamental de soluciones del sistema homogéneo $u' = A u$, donde
     \]    
 \end{proposición}
 
+\begin{proof}
+Sea $\Phi(t) = (h_1(t) \dots h_n(t)) = \begin{pmatrix} h_{11}(t) & \dots & h_{1n}(t) \\ \vdots & \ddots & \vdots \\ h_{n1}(t) & \dots & h_{nn}(t) \end{pmatrix}$.
+Definimos $\varphi(t) = \det \Phi(t)$. Buscamos calcular $\varphi'(t)$.
+Dado que $h_{ij} \in C^1$, entonces $\varphi \in C^1([\alpha, \beta], \mathbb{K})$;
+
+\textbf{Caso $n=2$:}
+\[
+\begin{vmatrix} h_{11}(t) & h_{12}(t) \\ h_{21}(t) & h_{22}(t) \end{vmatrix}' = (h_{11}(t)h_{22}(t) - h_{21}(t)h_{12}(t))' 
+\]
+\[
+= h_{11}'h_{22} + h_{11}h_{22}' - h_{21}'h_{12} - h_{21}h_{12}' 
+\]
+Agrupando nuevamente en determinantes:
+\[
+= \begin{vmatrix} h_{11}'(t) & h_{12}'(t) \\ h_{21}(t) & h_{22}(t) \end{vmatrix} + \begin{vmatrix} h_{11}(t) & h_{12}(t) \\ h_{21}'(t) & h_{22}'(t) \end{vmatrix} 
+\]
+
+\textbf{Ejercicio (Generalización por inducción):}
+La derivada del determinante es la suma de determinantes donde se deriva una fila cada vez:
+\[
+\varphi'(t) = \sum_{i=1}^{N} \begin{vmatrix} h_{11}(t) & \dots & h_{1N}(t) \\ \vdots & & \vdots \\ h_{i1}'(t) & \dots & h_{iN}'(t) \\ \vdots & & \vdots \\ h_{N1}(t) & \dots & h_{NN}(t) \end{vmatrix} 
+\]
+
+\textbf{Derivación de la fórmula de Jacobi-Liouville}
+
+Como $\Phi'(t) = A(t)\Phi(t)$, cada elemento de la matriz derivada se expresa como:
+\[
+h_{ij}'(t) = \sum_{k=1}^N a_{ik}(t) h_{kj}(t), \quad i,j \in \{1, \dots, N\} 
+\]
+
+Sustituyendo el desarrollo de la fila $i$-ésima en el sumatorio de la derivada del determinante:
+\[
+\begin{vmatrix} 
+h_{11}(t) & \dots & h_{1N}(t) \\ 
+\vdots & \ddots & \vdots \\ 
+\sum_{k=1}^N a_{ik}h_{k1} & \dots & \sum_{k=1}^N a_{ik}h_{kN} \\ 
+\vdots & \ddots & \vdots \\ 
+h_{N1}(t) & \dots & h_{NN}(t) 
+\end{vmatrix} = \sum_{k=1}^N a_{ik} \begin{vmatrix} 
+h_{11}(t) & \dots & h_{1N}(t) \\ 
+\vdots & \ddots & \vdots \\ 
+h_{k1}(t) & \dots & h_{kN}(t) \\ 
+\vdots & \ddots & \vdots \\ 
+h_{N1}(t) & \dots & h_{NN}(t) 
+\end{vmatrix} 
+\]
+
+\begin{itemize}
+    \item Si $k \neq i$, el determinante es nulo por tener filas repetidas (la fila $i$ es igual a la fila $k$).
+    \item Solamente queda el término donde $k = i$.
+\end{itemize}
+
+Por tanto, para cada fila $i$ se obtiene el término $a_{ii}(t) \det \Phi(t)$. Sumando sobre todas las filas $i=1, \dots, N$:
+\[
+\varphi'(t) = \left( \sum_{i=1}^N a_{ii}(t) \right) \varphi(t) = \text{tr } A(t) \cdot \varphi(t)
+\]
+
+Esto resulta en la ecuación diferencial escalar para el determinante:
+\[
+\frac{\varphi'(t)}{\varphi(t)} = \text{tr } A(t) 
+\]
+
+Resolviendo por integración en el intervalo $[t_0, t]$:
+\[
+\det \Phi(t) = e^{\int_{t_0}^t \text{tr } A(s) ds} \det \Phi(t_0) 
+\]
+\end{proof}
+
+\begin{proposición}
+\textbf{Propiedad 1:}Sea $\Phi(t)$ una M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$. Sea $C \in \mathcal{M}_N(\mathbb{K})$ una matriz constante tal que $\det C \neq 0$. Entonces, la matriz definida como $\Psi(t) = \Phi(t) C$ también es una M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$.
+\end{proposición}
+
+\begin{proof}
+Calculamos la derivada de $\Psi(t)$:
+\[ \Psi'(t) = (\Phi(t)C)' = \Phi'(t)C \text{} \] 
+Como $\Phi(t)$ es solución, $\Phi'(t) = A(t)\Phi(t)$. Sustituyendo:
+\[ \Psi'(t) = (A(t)\Phi(t))C = A(t)(\Phi(t)C) = A(t)\Psi(t), \quad \forall t \in [\alpha, \beta] \text{} \] 
+Además, para comprobar que es fundamental, calculamos su determinante:
+\[ \det \Psi(t) = \det(\Phi(t) \cdot C) = \det \Phi(t) \cdot \det C \text{} \] 
+Como $\det \Phi(t) \neq 0$ (por ser M.F.S.) y $\det C \neq 0$, entonces $\det \Psi(t) \neq 0$, por lo que $\Psi(t)$ es M.F.S..
+\end{proof}
+
+\begin{proposición}
+\textbf{Propiedad 2:}Si $\Phi(t)$ y $\Psi(t)$ son dos M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$, entonces existe una matriz constante invertible $C \in \mathcal{M}_N(\mathbb{K})$ tal que $\Psi(t) = \Phi(t)C$ para todo $t \in [\alpha, \beta]$.
+\end{proposición}
+
+\begin{proof}
+Sean $\Phi(t) = (\varphi_1(t) \dots \varphi_n(t))$ y $\Psi(t) = (\psi_1(t) \dots \psi_n(t))$. 
+Como $\Phi(t)$ es M.F.S., sus columnas forman una base de $\Sigma_0$. Puesto que cada columna $\psi_j(t)$ de $\Psi(t)$ pertenece a $\Sigma_0$, se puede escribir como combinación lineal de las columnas de $\Phi(t)$:
+\[ \psi_j(t) = \sum_{i=1}^n c_{ij} \varphi_i(t), \quad j = 1, \dots, n \text{} \]
+En forma matricial, esto se traduce en:
+\[ (\psi_1 \dots \psi_n) = (\varphi_1 \dots \varphi_n) \begin{pmatrix} c_{11} & \dots & c_{1n} \\ \vdots & \ddots & \vdots \\ c_{n1} & \dots & c_{nn} \end{pmatrix} \implies \Psi = \Phi \cdot C \text{} \]
+Donde $C = (c_{ij})$. Como $\det \Psi(t) = \det \Phi(t) \det C$ y ambos determinantes de las matrices fundamentales son no nulos, se deduce que $\det C \neq 0$, por lo que $C$ es invertible.
+\end{proof}
+
 Tomando un base $\mathcal{B} = \{e_1, \ldots, e_n\}$ en $\mathbb{K}^n$, entonces si consideramos los sistemas de valores iniciales:
 \[
     P_i : \begin{cases}
