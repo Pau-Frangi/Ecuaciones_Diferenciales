@@ -1,3 +1,5 @@
+\hojaejercicio{Ecuaciones Lineales de Primer Orden y Variación de Constantes}
+
 
 % Ejercicio 1
 \ejercicio{
@@ -399,9 +401,20 @@
 
 % Ejercicio 9
 \ejercicio{
-
+    Sea la siguiente ecuación diferencial:
+    \[
+        N'(t) = - \lambda N(t)
+    \]
+    donde $\lambda > 0$ es una constante. Encuentra en que momento $N(t)$ es igual a la mitad de su valor inicial $N(0)$.\\
+    Notese que esta ecuación modela el proceso de desintegración radiactiva, y el tiempo que tarda una cantidad de material radiactivo en reducirse a la mitad de su valor inicial se conoce como su \textit{vida media}.
 }{
-    
+    Se puede ver rapidamente que la solucion general de la ecuacion diferencial es $N(t) = N(0)e^{-\lambda t}$. Para encontrar el tiempo $t_{1/2}$ en el que $N(t)$ es igual a la mitad de su valor inicial, planteamos la siguiente ecuacion:
+    \[
+        N(0)e^{-\lambda t_{1/2}} = \frac{N(0)}{2} \implies
+        e^{-\lambda t_{1/2}} = \frac{1}{2} \implies
+        -\lambda t_{1/2} = \ln\left(\frac{1}{2}\right) \implies
+        t_{1/2} = \frac{\ln(2)}{\lambda}.
+    \]
 }
 
 
