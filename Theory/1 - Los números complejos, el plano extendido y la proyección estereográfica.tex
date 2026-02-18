@@ -1766,3 +1766,142 @@ Ordenando los términos, obtenemos la solución general de la ecuación diferenc
         u(t) = e^{\alpha t} \left( x_1 - \int_{t_0}^{t} \frac{b(s)e^{-\alpha s} \sin(\beta s)}{\beta} ds \right) + e^{\alpha t} \left( x_2 + \int_{t_0}^{t} \frac{b(s)e^{-\alpha s} \cos(\beta s)}{\beta} ds \right)
     \]
 }
+
+\textbf{Variación de coeficientes en el sistema de primer orden asociado}\\
+
+\[
+    u'' = a_1 u' + a_0 u + b(t), \quad a_0, a_1 \in \mathbb{C}, \quad a_1^2 + 4a_0 = 0, \quad \lambda = \frac{a_1}{2}
+\]
+
+\[
+    U' = \begin{pmatrix} 
+    0 & 1 \\ 
+    a_0 & a_1 
+    \end{pmatrix} U + \begin{pmatrix} 
+    0 \\ 
+    b(t) 
+    \end{pmatrix}
+\]
+
+\[
+    U(t) = W(t) C(t) \quad \text{donde } W(t) = \begin{pmatrix}
+    e^{\lambda t} & t e^{\lambda t} \\
+    \lambda e^{\lambda t} & e^{\lambda t} + \lambda t e^{\lambda t}
+    \end{pmatrix}
+\]
+
+\[
+    det W(t) = e^{2 \lambda t} \neq 0
+\]
+
+\[
+    W'(t) C(t) + W(t) C'(t) = A(t) W(t) C(t) + B(t)
+\]
+
+\[
+    W'(t) = A(t) W(t), \quad W(t) \text{ es M.F.S. del homogéneo } H' = A(t) H
+\]
+\[
+    W(t) C'(t) = B(t) \implies C'(t) = W^{-1}(t) B(t)
+\]
+
+
+\[
+    \begin{pmatrix}
+        e^{\lambda t} & t e^{\lambda t} \\
+        \lambda e^{\lambda t} & e^{\lambda t} + \lambda t e^{\lambda t}
+    \end{pmatrix} \begin{pmatrix}
+        c_1'(t) \\
+        c_2'(t)
+    \end{pmatrix} = \begin{pmatrix}
+        0 \\
+        b(t)
+    \end{pmatrix}
+\] 
+
+\[
+    c_1'(t) = \frac{\begin{vmatrix}
+        0 & t e^{\lambda t} \\
+        b(t) & e^{\lambda t} + \lambda t e^{\lambda t}
+    \end{vmatrix}}{\det W(t)} = -\frac{b(t) t}{e^{\lambda t}}
+\]
+
+\[
+    \implies c_1(t) = -\int_{t_0}^{t} \frac{b(s) s}{e^{\lambda s}} ds + x_1, \quad x_1 \in \mathbb{C}
+\]
+
+\[
+    c_2'(t) = \frac{\begin{vmatrix}
+        e^{\lambda t} & 0 \\
+        \lambda e^{\lambda t} & b(t)
+    \end{vmatrix}}{\det W(t)} = \frac{b(t)}{e^{\lambda t}}
+\]
+
+\[
+    \implies c_2(t) = \int_{t_0}^{t} \frac{b(s)}{e^{\lambda s}} ds + x_2, \quad x_2 \in \mathbb{C}
+\]
+
+\[
+    u(t) = e^{\lambda t} c_1(t) + t e^{\lambda t} c_2(t) = e^{\lambda t} \left( x_1 - \int_{t_0}^{t} \frac{b(s) s}{e^{\lambda s}} ds \right) + t e^{\lambda t} \left( x_2 + \int_{t_0}^{t} \frac{b(s)}{e^{\lambda s}} ds \right)
+\]
+\[
+    = \underbrace{x_1 e^{\lambda t} + x_2 t e^{\lambda t}}_{\text{solución homogénea}} + \underbrace{\int_{t_0}^{t} b(s) (t - s) e^{\lambda (t - s)} ds}_{\text{sol. particular inhomogénea}}
+\]
+
+\textbf{Reducción del orden de la ecuación}\\
+
+\[
+    u'' = a_1 u' + a_0 u + b(t), \quad a_0, a_1, b \in C([\alpha, \beta], \mathbb{C})
+\]
+
+Sea $h(t)$ una solución conocida de la ecuación homogénea asociada $h'' = a_1 h' + a_0 h$. Variamos coeficientes buscando una solución de la forma $u(t) = v(t) h(t)$. Derivamos:
+\[
+    u' = v' h + v h', \quad u'' = v'' h + 2 v' h' + v h''
+\]
+Sustituyendo en la ecuación diferencial, obtenemos:
+\[
+    v'' h + 2 v' h' + v h'' = a_1 (v' h + v h') + a_0 v h + b(t)
+\]
+Dado que $h$ es solución del homogéneo, $h'' = a_1 h' + a_0 h$, lo que nos lleva a:
+\[
+    v'' h + 2 v' h' = a_1 v' h + b(t) \implies v'' h + (2 h' - a_1 h) v' = b(t)
+\]
+Por tanto,
+\[
+    v''= \frac{b(t)}{h} - \left( 2 \frac{h'}{h} - a_1 \right) v'
+\]
+Definimos $w = v'$, de modo que $w' = v''$, y obtenemos el sistema de primer orden:
+\[
+    \begin{cases}
+        w' = \frac{b(t)}{h} - \left( 2 \frac{h'}{h} - a_1 \right) w \\
+        v' = w
+    \end{cases}
+\]
+Este sistema es de primer orden, y podemos resolverlo utilizando el método de variación de coeficientes. 
+
+\[
+    w(\theta) = e^{\int_{t_0}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} x) + \int_{t_0}^{\theta} e^{\int_{s}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} \frac{b(s)}{h(s)} ds, \quad x \in \mathbb{C}
+\]
+
+\[
+    v(t) = \int_{t_0}^{t} w(\theta) d\theta + y, \quad y \in \mathbb{C}
+\]
+
+
+\[
+    u(t) = h(t) y + h(t) \int_{t_0}^{t} e^{\int_{t_0}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} x d\theta + h(t) \int_{t_0}^{t} \int_{t_0}^{\theta} e^{\int_{s}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} \frac{b(s)}{h(s)} ds d\theta
+\]
+
+\ejemplo{
+    Dada la ecuación $u''-tu'+u = e^{\frac{t^2}{2}}$, veamos primero a ojo una solución del homogéneo asociado $h'' - t h' + h = 0$. Probamos con $h(t) = t$, y obtenemos $h'' - t h' + h = 0 - t \cdot 1 + t = 0$, por lo que $h(t) = t$ es una solución del homogéneo.
+    \[
+        u(t) = t \theta(t), \quad 2v'+tv''-t(v+tv') + tv = e^{\frac{t^2}{2}} 
+    \]
+    \[
+        2v'+tv''-t \theta -t^2v'+tv = e^{\frac{t^2}{2}} \implies tv'' = (t^2-2) v' + e^{\frac{t^2}{2}} \implies v'' = \left( t - \frac{2}{t} \right) v' + \frac{e^{\frac{t^2}{2}}}{t}
+    \]
+    \[
+        v' = w, \quad w' = \left( t - \frac{2}{t} \right) w + \frac{e^{\frac{t^2}{2}}}{t}
+    \]
+
+}
