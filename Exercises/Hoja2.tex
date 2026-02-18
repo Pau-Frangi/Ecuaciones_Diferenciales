@@ -1,0 +1,48 @@
+\hojaejercicio{Hoja 2}
+
+% Ejercicio 1
+\ejercicio{
+    Sea $n>0$, y definamos $u_n = t^n$ para $t \in [0,1]$. Demostrar que $u_n \to 0$ en $L^1$ pero no uniformemente.
+}{
+    Para comprobar el limite puntual, es sencillo ver que si tomamos $n \to \infty$, entonces $t^n \to 0$ para todo $t \in [0,1)$ y $t^n \to 1$ para $t=1$. Por lo tanto, el limite puntual es:
+    \[
+        u(t) = \begin{cases}
+        0 & \text{si } t \in [0,1) \\
+        1 & \text{si } t=1
+        \end{cases}
+    \]
+    Sin embargo, segun la definición de convergencia uniforme, para que $u_n$ converja uniformemente a $u$, debe existir un $N$ tal que para todo $n \geq N$ y para todo $t \in [0,1]$, se cumpla que $|u_n(t) - u(t)| < \varepsilon$ para cualquier $\varepsilon > 0$. En este caso, si tomamos $\varepsilon = 0.5$, entonces no existe tal $N$ porque para cualquier $n$, siempre habrá un $t$ cercano a 1 donde $|t^n - 1| \geq 0.5$, ya que:
+    \[
+        \forall n \in \mathbb{N}, t^n \to_{t \to 1} 1 \implies
+        \exists t_{\varepsilon_n} \in [0,1) \text{ tal que } |t_{\varepsilon_n}^n - 1| \geq 0.5
+    \]
+    Y por lo tanto, $u_n$ no converge uniformemente a $u$.
+}
+
+% Ejercicio 2
+\ejercicio{
+    Sea $\mathbb{K} \in \{\mathbb{R}, \mathbb{C}\}$, $\alpha < \beta$ y sea $C^1([\alpha, \beta], \mathbb{K})$ el espacio vectorial de las funciones de clase $C^1$ con valores en $\mathbb{K}$, definido en el intervalo $[\alpha, \beta]$. Demostrar que:
+    \[
+        \| u \|_{C^1([\alpha, \beta], \mathbb{K})} :=
+        \| u \|_\infty + \| u' \|_\infty
+    \]
+    equivalente a la norma de $C^1([\alpha, \beta], \mathbb{K})$ con estructura de espacio de Banach.
+}{
+    Para demostrar que la norma dada es equivalente a la norma de $C^1([\alpha, \beta], \mathbb{K})$, debemos mostrar que existen constantes positivas $m$ y $M$ tales que para todo $u \in C^1([\alpha, \beta], \mathbb{K})$, se cumpla:
+    \[
+        m \| u \|_{C^1} \leq \| u \|_\infty + \| u' \|_\infty \leq M \| u \|_{C^1}
+    \]
+    Primero, notemos que por definición de la norma de $C^1$, tenemos:
+    \[
+        \| u \|_{C^1} = \sup_{t \in [\alpha, \beta]} |u(t)| + \sup_{t \in [\alpha, \beta]} |u'(t)|
+    \]
+    Por lo tanto, podemos tomar $m = 1$ y $M = 1$, ya que:
+    \[
+        m \| u \|_{C^1} = 1 (\sup_{t} |u(t)| + \sup_{t} |u'(t)|) = \| u \|_\infty + \| u' \|_\infty
+    \]
+    y
+    \[
+        M \| u \|_{C^1} = 1 (\sup_{t} |u(t)| + \sup_{t} |u'(t)|) = \| u \|_\infty + \| u' \|_\infty
+    \]
+    Por lo tanto, se cumple la desigualdad requerida y concluimos que la norma dada es equivalente a la norma de $C^1([\alpha, \beta], \mathbb{K})$.
+}

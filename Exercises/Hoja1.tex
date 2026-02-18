@@ -417,4 +417,38 @@
     \]
 }
 
-
+% Ejercicio 10
+\ejercicio{
+    Sean $\alpha < \beta$, $t_0 \in [\alpha, \beta]$, $\eta > 0$ y sea una norma $\|\cdot\|$ en $\mathcal{C}([\alpha, \beta]; \mathbb{R}^N)$. Demuestra que:
+    \[
+    \|u\|_\eta := \sup_{t \in [\alpha, \beta]} e^{-\eta(t - t_0)} \|u(t)\|
+    \]
+    define una norma en $\mathcal{C}([\alpha, \beta]; \mathbb{R}^N)$.
+}{
+    Para demostrar que $\|\cdot\|_\eta$ define una norma, debemos verificar los tres axiomas de norma:
+    \begin{enumerate}
+        \item \textbf{Positividad:} $\|u\|_\eta \geq 0$ para todo $u \in \mathcal{C}([\alpha, \beta]; \mathbb{R}^N)$ y $\|u\|_\eta = 0$ si y solo si $u = 0$.\\
+        Dado que $\|u(t)\| \geq 0$ para todo $t$, y $e^{-\eta(t - t_0)} > 0$, se tiene que $\|u\|_\eta \geq 0$.\\
+        Si $\|u\|_\eta = 0$, entonces para todo $t$, $e^{-\eta(t - t_0)} \|u(t)\| = 0$. Como la exponencial es positiva, necesariamente $\|u(t)\| = 0$ para todo $t$, lo cual implica que $u(t) = 0$ para todo $t$.\\
+        Recíprocamente, si $u = 0$, entonces $\|u(t)\| = 0$ para todo $t$, por lo tanto $\|u\|_\eta = 0$.
+        \item \textbf{Homogeneidad:} Para cualquier escalar $\lambda \in \mathbb{R}$,
+        \[
+            \|\lambda u\|_\eta = \sup_{t \in [\alpha, \beta]} e^{-\eta(t - t_0)} \|\lambda u(t)\|
+            = |\lambda| \sup_{t \in [\alpha, \beta]} e^{-\eta(t - t_0)} \|u(t)\|
+            = |\lambda| \|u\|_\eta.
+        \]
+        Esto se sigue de la propiedad de homogeneidad de la norma en $\mathbb{R}^N$.
+        \item \textbf{Desigualdad triangular:} Para cualquier par de funciones $u, v$, tenemos:
+        $$
+            \|u + v\|_\eta = 
+            \sup_{t \in [\alpha, \beta]} e^{-\eta(t - t_0)} \|u(t) + v(t)\|
+            \\
+            < 
+            \sup_{t \in [\alpha, \beta]} e^{-\eta(t - t_0)} (\|u(t)\| + \|v(t)\|)
+            \\
+            =
+            \|u\|_\eta + \|v\|_\eta.
+        $$
+    \end{enumerate}
+    En resumen, todas las propiedades de una norma se cumplen. Por tanto, $\|\cdot\|_\eta$ define una norma en el espacio de funciones continuas sobre el intervalo $[\alpha, \beta]$ con valores en $\mathbb{R}^N$.
+}
