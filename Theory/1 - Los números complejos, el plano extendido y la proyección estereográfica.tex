@@ -1893,15 +1893,107 @@ Este sistema es de primer orden, y podemos resolverlo utilizando el método de v
 \]
 
 \ejemplo{
-    Dada la ecuación $u''-tu'+u = e^{\frac{t^2}{2}}$, veamos primero a ojo una solución del homogéneo asociado $h'' - t h' + h = 0$. Probamos con $h(t) = t$, y obtenemos $h'' - t h' + h = 0 - t \cdot 1 + t = 0$, por lo que $h(t) = t$ es una solución del homogéneo.
-    \[
-        u(t) = t \theta(t), \quad 2v'+tv''-t(v+tv') + tv = e^{\frac{t^2}{2}} 
-    \]
-    \[
-        2v'+tv''-t \theta -t^2v'+tv = e^{\frac{t^2}{2}} \implies tv'' = (t^2-2) v' + e^{\frac{t^2}{2}} \implies v'' = \left( t - \frac{2}{t} \right) v' + \frac{e^{\frac{t^2}{2}}}{t}
-    \]
-    \[
-        v' = w, \quad w' = \left( t - \frac{2}{t} \right) w + \frac{e^{\frac{t^2}{2}}}{t}
-    \]
+    Consideramos la siguiente ecuación diferencial de segundo orden con coeficientes variables:
+    \[ u'' - tu' + u = e^{t^2/2} \]
+    Veamos primero a ojo una solución del homogéneo asociado $h'' - t h' + h = 0$. Probamos con $h(t) = t$, y obtenemos $h'' - t h' + h = 0 - t \cdot 1 + t = 0$, por lo que $h(t) = t$ es una solución del homogéneo.
+    
+    Se nos sugiere el cambio de variable $u(t) = tv(t)$. Derivando esta expresión respecto a $t$, obtenemos la primera y segunda derivada de $u$:
+    \begin{align*}
+    u'(t) &= v(t) + tv'(t) \\
+    u''(t) &= 2v'(t) + tv''(t)
+    \end{align*}
 
+    Sustituimos $u$, $u'$ y $u''$ en la ecuación diferencial original:
+    \[ (2v' + tv'') - t(v + tv') + tv = e^{t^2/2} \]
+    Expandiendo y agrupando términos:
+    \[ 2v' + tv'' - tv - t^2v' + tv = e^{t^2/2} \]
+    \[ tv'' + (2 - t^2)v' = e^{t^2/2} \]
+    Dividiendo entre $t$, despejamos $v''$:
+    \[ v'' = \left(t - \frac{2}{t}\right)v' + t^{-1}e^{t^2/2} \]
+
+    Para resolver esta ecuación, hacemos un nuevo cambio de variable bajando el orden, definiendo $w = v'$. La ecuación se transforma en una ecuación diferencial lineal de primer orden para $w$:
+    \[ w' = \left(t - \frac{2}{t}\right)w + t^{-1}e^{t^2/2} \]
+
+    Primero resolvemos la ecuación homogénea asociada $h' = \left(t - \frac{2}{t}\right)h$. Buscamos una solución de la forma $h(t) = e^{f(t)}$. Derivando e igualando:
+    \[ f'(t)e^{f(t)} = \left(t - \frac{2}{t}\right)e^{f(t)} \implies f'(t) = t - \frac{2}{t} \]
+    Integrando $f'(t)$:
+    \[ f(t) = \frac{t^2}{2} - 2\ln t = \frac{t^2}{2} + \ln t^{-2} \]
+    Por lo tanto, la solución homogénea es:
+    \[ h(t) = e^{\frac{t^2}{2} + \ln t^{-2}} = t^{-2}e^{t^2/2} \]
+
+    Ahora aplicamos el método de variación de la constante, proponiendo $w(t) = h(t)z(t)$. Derivando:
+    \[ w'(t) = h'(t)z(t) + h(t)z'(t) \]
+    Sustituyendo en la ecuación diferencial de $w$:
+    \[ h'(t)z(t) + h(t)z'(t) = \left(t - \frac{2}{t}\right)h(t)z(t) + t^{-1}e^{t^2/2} \]
+    Como $h(t)$ es solución de la homogénea, $h'(t) = \left(t - \frac{2}{t}\right)h(t)$, los términos se cancelan y queda:
+    \[ h(t)z'(t) = t^{-1}e^{t^2/2} \]
+    Sustituyendo el valor de $h(t)$:
+    \[ t^{-2}e^{t^2/2} z'(t) = t^{-1}e^{t^2/2} \implies z'(t) = \frac{t^{-1}}{t^{-2}} = t \]
+    Integrando para hallar $z(t)$:
+    \[ z(t) = \frac{t^2}{2} + x, \quad x \in \mathbb{R} \]
+
+    Recuperamos la función $w(t)$:
+    \[ w(t) = h(t)z(t) = t^{-2}e^{t^2/2} \left(\frac{t^2}{2} + x\right) = \frac{1}{2}e^{t^2/2} + x t^{-2}e^{t^2/2} \]
+
+    Como $v'(t) = w(t)$, integramos para obtener $v(t)$:
+    \[ v(t) = \int w(t) dt = \frac{1}{2}\int e^{t^2/2} dt + x\int t^{-2}e^{t^2/2} dt + y, \quad y \in \mathbb{R} \]
+
+    Finalmente, deshacemos el primer cambio de variable $u(t) = tv(t)$ para encontrar la solución general:
+    \[ u(t) = \frac{t}{2}\int e^{t^2/2} dt + x t\int t^{-2}e^{t^2/2} dt + yt, \quad x, y \in \mathbb{R} \]
+
+    Podemos identificar la estructura de la solución general de la forma $u(t) = u_p(t) + h_1(t)x + h_2(t)y$. 
+    Si tomamos $x = y = 0$, obtenemos la solución particular $u_p(t) \in \Sigma_b$:
+    \[ u_p(t) = \frac{t}{2}\int e^{t^2/2} dt \]
+    Por otra parte, $u(t) - \frac{t}{2}\int t^{-2}e^{t^2/2} dt $, pertenece al espacio $\Sigma_0$, y por tanto $h_1(t)x + h_2(t)y$ también están en $\Sigma_0$.
+    En particular, si tomamos $x = 1$ y $y = 0$, se tiene que $h_1(t) \in \Sigma_0$.
+    Si tomamos $x = 0$ y $y = 1$, se tiene que $h_2(t) \in \Sigma_0$.
+
+
+    \subsubsection*{Método de Coeficientes Indeterminados}
+
+    Consideramos la ecuación diferencial lineal de segundo orden con coeficientes constantes:
+    \[ u'' = a_0 u + a_1 u' + b ,    a_0, a_1, b \in \mathbb{C} \]
+    La ecuación homogénea asociada es:
+    \[ h'' = a_0 h + a_1 h' \]
+    Proponemos soluciones exponenciales de la forma $h(t) = e^{\lambda t}$.Sustituyendo obtenemos:
+    \[ \lambda^2 e^{\lambda t} = a_0 e^{\lambda t} + a_1 \lambda e^{\lambda t} \implies \lambda^2 - a_1 \lambda - a_0 = 0 \]
+    Las raíces de este polinomio característico, $\lambda_1, \lambda_2 \in \mathbb{C}$, definen la base del espacio de soluciones $B$:
+    \begin{itemize}
+        \item Si $\lambda_1 \neq \lambda_2$, entonces $B = \{e^{\lambda_1 t}, e^{\lambda_2 t}\}$.
+        \item Si $\lambda_1 = \lambda_2 \neq 0$, entonces $B = \{e^{\lambda_1 t}, te^{\lambda_1 t}\}$.
+        \item Si $\lambda_1 = \lambda_2 = 0$, entonces $B = \{1, t\}$.
+    \end{itemize}
+
+    Para encontrar una solución particular a la ecuación inhomogénea, analizamos distintos casos:
+    \begin{itemize}
+        \item \textbf{Caso $a_0 \neq 0$}: Proponemos una solución constante $u = c$. Derivando obtenemos $u' = u'' = 0$. Sustituyendo en la ecuación $0 = a_0 c + b$, despejamos $c = \frac{-b}{a_0}$.
+        \item \textbf{Caso $a_0 = 0$}: La ecuación se reduce a $u'' = a_1 u' + b$. Bajamos el orden con $u' = v$, obteniendo $v' = a_1 v + b$. Proponiendo una solución constante para $v$, tenemos $v = \frac{-b}{a_1}$. Deshaciendo el cambio, $u' = \frac{-b}{a_1}$, cuya integración da como solución particular $u(t) = -\frac{b}{a_1}t$.
+        \item \textbf{Caso $a_0 = a_1 = 0$}: La ecuación es simplemente $u'' = b$. Integrando directamente dos veces obtenemos $u' = bt + x$ y $u(t) = b\frac{t^2}{2} + xt + y$ con $x,y \in \mathbb{R}$. La solución particular es $u_p(t) = b\frac{t^2}{2}$.
+    \end{itemize}
+}
+\ejemplo{
+Consideramos la ecuación diferencial inhomogénea: 
+\[ u'' = a_0 u + a_1 u' + m e^{\lambda t}, \quad m, \lambda, a_0, a_1 \in \mathbb{C} \] 
+
+Proponemos una solución particular de la forma: 
+\[ u(t) = C e^{\lambda t} \] 
+
+Derivamos y sustituimos en la ecuación original: 
+\[ C \lambda^2 e^{\lambda t} = a_0 C e^{\lambda t} + a_1 C \lambda e^{\lambda t} + m e^{\lambda t} \] 
+
+Dividiendo toda la expresión por $e^{\lambda t}$ (que nunca es cero): 
+\[ C \lambda^2 = a_0 C + a_1 C \lambda + m \] 
+
+Agrupando los términos con $C$: 
+\[ C (\lambda^2 - a_1 \lambda - a_0) = m \] 
+
+Despejando la constante $C$, asumiendo que el denominador no se anula ($\neq 0$): 
+\[ C = \frac{m}{\lambda^2 - a_1 \lambda - a_0} \] 
+
+Recordemos que el polinomio característico de la ecuación homogénea es: 
+\[ P(z) = z^2 - a_1 z - a_0 \] 
+
+Pero teníamos que $P(\lambda) \neq 0$, luego $\lambda$ no es raíz característica. 
+Por consiguiente, no es solución de la ecuación homogénea asociada, y una solución particular es: 
+\[ \boxed{ u_p(t) = \frac{m}{P(\lambda)} e^{\lambda t} } \] 
 }
