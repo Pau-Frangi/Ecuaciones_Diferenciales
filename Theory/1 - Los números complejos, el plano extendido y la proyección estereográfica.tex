@@ -1996,4 +1996,129 @@ Recordemos que el polinomio característico de la ecuación homogénea es:
 Pero teníamos que $P(\lambda) \neq 0$, luego $\lambda$ no es raíz característica. 
 Por consiguiente, no es solución de la ecuación homogénea asociada, y una solución particular es: 
 \[ \boxed{ u_p(t) = \frac{m}{P(\lambda)} e^{\lambda t} } \] 
+
+Suponemos que ahora que $P(\lambda) = 0$, y $P'(\lambda) \neq 0$. En este caso, $\lambda$ es una raíz simple del polinomio característico, lo que implica que $e^{\lambda t}$ es una solución de la ecuación homogénea asociada. Hacemos una reducción del orden igualando $u$ a la solución homogénea multiplicada por una función desconocida $v(t)$:
+\[ u(t) = v(t) e^{\lambda t} \]
+\[
+    \lambda^2 e^{\lambda t} v + 2 \lambda e^{\lambda t} v' + e^{\lambda t} v'' = a_0 e^{\lambda t} v + a_1 (\lambda e^{\lambda t} v + e^{\lambda t} v') + m e^{\lambda t}
+\]
+\[
+    = a_0 e^{\lambda t} v + a_1 \lambda e^{\lambda t} v + a_1 e^{\lambda t} v' + m e^{\lambda t}
+\]
+\[
+    \lambda^2 v + 2 \lambda v' + v'' = a_0 v + a_1 \lambda v + a_1 v' + m
+\]
+\[
+    \underbrace{(\lambda^2 - a_1 \lambda - a_0)}_{P(\lambda) = 0} v + \underbrace{(2 \lambda - a_1)}_{P'(\lambda) \neq 0} v' + v'' = m
+\]
+\[
+    v'' + (2 \lambda - a_1) v' = m
+\]
+Tomando $w = v'$, obtenemos la ecuación diferencial de primer orden:
+\[
+    w' + (2 \lambda - a_1) w = m
+\]
+Esta es una ecuación diferencial lineal de primer orden, y una solución particular es la solución constante $w = \frac{m}{P'(\lambda)}$. 
+
+\[
+    u(t) =\frac{m}{P'(\lambda)} t e^{\lambda t}, \quad v'(t) = \frac{m}{P'(\lambda)} \implies v(t) = \frac{m}{P'(\lambda)} t + x, \quad x \in \mathbb{C}
+\]
+
+Cuando $P(\lambda) = P'(\lambda) = 0$, entonces obtenemos que $v'' = m$, luego $v' = mt + x$ y $v(t) = m\frac{t^2}{2} + xt + y$ con $x,y \in \mathbb{C}$. 
+
+\[
+    u(t) = e^{\lambda t} \left( m\frac{t^2}{2} + xt + y \right) = \underbrace{x t e^{\lambda t} + y e^{\lambda t}}_{\text{sol. ec. gen. hom.}} + \underbrace{m\frac{t^2}{2} e^{\lambda t}}_{\text{solución particular}}
+\]
+
+\begin{enumerate}
+    \item Si $P(\lambda) \neq 0$, entonces $u(t) = \frac{m}{P(\lambda)} e^{\lambda t}$ es solución particular.
+    \item Si $P(\lambda) = 0$ y $P'(\lambda) \neq 0$, entonces $u(t) = \frac{m}{P'(\lambda)} t e^{\lambda t}$ es solución particular.
+    \item Si $P(\lambda) = P'(\lambda) = 0$, entonces $u(t) = m\frac{t^2}{P''(\lambda)} e^{\lambda t}$ es solución particular.
+\end{enumerate}
+
 }
+
+\ejemplo{
+    \[
+        u''= a_0 u + a_1 u' + b_1(t) + b_2(t)    
+    \]
+    \[
+        u''= a_0 u + a_1 u' + b_1(t) \quad u_1
+    \]
+    \[
+        u''= a_0 u + a_1 u' + b_2(t) \quad u_2
+    \]
+    \[
+        (u_1 + u_2)'' = u_1''+u_2'' = a_0 (u_1 + u_2) + a_1 (u_1' + u_2') + b_1(t) + b_2(t)
+    \]
+    Tomando $v = u_1 + u_2$, se tiene que $v'' = a_0 v + a_1 v' + b_1(t) + b_2(t)$.
+}
+
+
+\section{Movimiento Armónico}
+
+\subsection{Movimiento Armónico Simple (sin rozamiento)}
+
+Partimos de la segunda ley de Newton con una fuerza recuperadora elástica (Ley de Hooke):
+\[
+    F = -k u(t), \quad F = m u''(t) \implies m u''(t) + k u(t) = 0
+\]
+
+Definiendo la \textbf{pulsación} como $\omega = \sqrt{\frac{k}{m}}$, la ecuación queda:
+\[
+    u''(t) + \omega^2 u(t) = 0
+\]
+
+Para resolverla, proponemos $u(t) = e^{\lambda t}$, lo que nos da el polinomio característico:
+\[
+    \lambda^2 + \omega^2 = 0 \implies \lambda = \pm i \omega
+\]
+
+Usando la fórmula de Euler, la base de soluciones es $\{\cos(\omega t), \sin(\omega t)\}$. La solución general es:
+\[
+    u(t) = x_1 \cos(\omega t) + x_2 \sin(\omega t), \quad x_1, x_2 \in \mathbb{R}
+\]
+
+\textbf{Condiciones iniciales:} Para $u(0) = u_0$ y $u'(0) = v_0$, calculamos:
+\begin{itemize}
+    \item $u(0) = x_1 \cos(0) + x_2 \sin(0) = x_1 \implies x_1 = u_0$
+    \item $u'(t) = -x_1 \omega \sin(\omega t) + x_2 \omega \cos(\omega t) \implies u'(0) = x_2 \omega = v_0 \implies x_2 = \frac{v_0}{\omega}$
+\end{itemize}
+
+Por tanto, la solución particular es:
+\[
+    u(t) = u_0 \cos(\omega t) + \frac{v_0}{\omega} \sin(\omega t)
+\]
+
+Para compactar la solución, definimos la \textbf{amplitud} como $A = \sqrt{u_0^2 + (v_0/\omega)^2}$. Si dividimos y multiplicamos por $A$:
+\[
+    u(t) = A \left[ \frac{u_0}{A} \cos(\omega t) + \frac{v_0/\omega}{A} \sin(\omega t) \right]
+\]
+Como la suma de los cuadrados de los coeficientes es $\left(\frac{u_0}{A}\right)^2 + \left(\frac{v_0/\omega}{A}\right)^2 = 1$, podemos identificar estos términos con el seno y el coseno de un ángulo $\varphi$ (que se conoce como \textbf{fase inicial}):
+\[
+    \sin(\varphi) = \frac{u_0}{A}, \quad \cos(\varphi) = \frac{v_0/\omega}{A}
+\]
+Aplicando la identidad trigonométrica $\sin(\alpha + \beta) = \sin\alpha\cos\beta + \cos\alpha\sin\beta$, llegamos a:
+\[
+    u(t) = A (\sin(\varphi)\cos(\omega t) + \cos(\varphi)\sin(\omega t)) = A \sin(\omega t + \varphi)
+\]
+
+El periodo es $T = \frac{2\pi}{\omega}$, de modo que $u(t + T) = u(t)$:
+\[
+    u(t + \frac{2\pi}{\omega}) = A \sin(\omega t + 2\pi + \varphi) = A \sin(\omega t + \varphi) = u(t)
+\]
+
+\subsection{Conservación de la energía}
+
+Multiplicando la ecuación del movimiento por la velocidad $u'(t)$:
+\[
+    m u''(t) u'(t) + k u(t) u'(t) = 0
+\]
+Esto representa la derivada temporal de la energía:
+\[
+    \frac{d}{dt} \left( \frac{1}{2} m [u'(t)]^2 + \frac{1}{2} k [u(t)]^2 \right) = 0
+\]
+La energía total ($E_T$) permanece constante:
+\[
+    E_T = \underbrace{\frac{1}{2} m [u'(t)]^2}_{\text{E. Cinética}} + \underbrace{\frac{1}{2} k [u(t)]^2}_{\text{E. Potencial}} = \frac{1}{2} m v_0^2 + \frac{1}{2} k u_0^2
+\]
