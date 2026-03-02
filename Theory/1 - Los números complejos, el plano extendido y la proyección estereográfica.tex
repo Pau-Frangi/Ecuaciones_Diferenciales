@@ -1761,130 +1761,124 @@ Ordenando los términos, obtenemos la expresión final de la solución general p
     \]
 }
 
-\textbf{Variación de coeficientes en el sistema de primer orden asociado}\\
+\section*{Variación de Parámetros en el Sistema de Primer Orden Asociado}
 
+Considérese la ecuación diferencial lineal de segundo orden no homogénea:
 \[
-    u'' = a_1 u' + a_0 u + b(t), \quad a_0, a_1 \in \mathbb{C}, \quad a_1^2 + 4a_0 = 0, \quad \lambda = \frac{a_1}{2}
+    u'' - a_1 u' - a_0 u = b(t) \label{eq:edo_original}
+\] 
+donde $a_0, a_1 \in \mathbb{C}$. Suponemos el caso de \textbf{raíz única (repetida)} para la ecuación característica, es decir, el discriminante es nulo: $a_1^2 + 4a_0 = 0$. La raíz es $\lambda = \frac{a_1}{2}$.
+
+Definiendo el vector de estado $U = \begin{pmatrix} u \\ u' \end{pmatrix}$, la ecuación diferencial se escribe como el sistema:
+\[
+    U' = A U + B(t) \implies 
+    \begin{pmatrix} u' \\ u'' \end{pmatrix} = 
+    \begin{pmatrix} 0 & 1 \\ a_0 & a_1 \end{pmatrix} 
+    \begin{pmatrix} u \\ u' \end{pmatrix} + 
+    \begin{pmatrix} 0 \\ b(t) \end{pmatrix}
 \]
 
+Dado que $\lambda$ es una raíz con multiplicidad 2, las soluciones de la homogénea son $u_1 = e^{\lambda t}$ y $u_2 = t e^{\lambda t}$. La Matriz Wronskiana $W(t)$ se construye con estas soluciones y sus derivadas:
 \[
-    U' = \begin{pmatrix} 
-    0 & 1 \\ 
-    a_0 & a_1 
-    \end{pmatrix} U + \begin{pmatrix} 
-    0 \\ 
-    b(t) 
+    W(t) = \begin{pmatrix}
+        e^{\lambda t} & t e^{\lambda t} \\
+        \lambda e^{\lambda t} & e^{\lambda t} + \lambda t e^{\lambda t}
     \end{pmatrix}
 \]
-
+El determinante de esta matriz (el Wronskiano) es:
 \[
-    U(t) = W(t) C(t) \quad \text{donde } W(t) = \begin{pmatrix}
-    e^{\lambda t} & t e^{\lambda t} \\
-    \lambda e^{\lambda t} & e^{\lambda t} + \lambda t e^{\lambda t}
-    \end{pmatrix}
+    \det (W(t)) = e^{\lambda t}(e^{\lambda t} + \lambda t e^{\lambda t}) - (t e^{\lambda t})(\lambda e^{\lambda t}) = e^{2 \lambda t} \neq 0
 \]
 
+Buscamos una solución de la forma $U(t) = W(t)C(t)$, donde $C(t) = \begin{pmatrix} c_1(t) \\ c_2(t) \end{pmatrix}$. Sustituyendo en el sistema:
 \[
-    det W(t) = e^{2 \lambda t} \neq 0
+    W'(t)C(t) + W(t)C'(t) = A W(t)C(t) + B(t)
 \]
-
+Como $W(t)$ es la M.F.S., cumple que $W'(t) = A W(t)$, por lo que el sistema se reduce a:
 \[
-    W'(t) C(t) + W(t) C'(t) = A(t) W(t) C(t) + B(t)
-\]
-
-\[
-    W'(t) = A(t) W(t), \quad W(t) \text{ es M.F.S. del homogéneo } H' = A(t) H
-\]
-\[
-    W(t) C'(t) = B(t) \implies C'(t) = W^{-1}(t) B(t)
-\]
-
-
-\[
+    W(t)C'(t) = B(t) \implies 
     \begin{pmatrix}
         e^{\lambda t} & t e^{\lambda t} \\
         \lambda e^{\lambda t} & e^{\lambda t} + \lambda t e^{\lambda t}
-    \end{pmatrix} \begin{pmatrix}
-        c_1'(t) \\
-        c_2'(t)
-    \end{pmatrix} = \begin{pmatrix}
-        0 \\
-        b(t)
-    \end{pmatrix}
-\] 
-
-\[
-    c_1'(t) = \frac{\begin{vmatrix}
-        0 & t e^{\lambda t} \\
-        b(t) & e^{\lambda t} + \lambda t e^{\lambda t}
-    \end{vmatrix}}{\det W(t)} = -\frac{b(t) t}{e^{\lambda t}}
+    \end{pmatrix} 
+    \begin{pmatrix} c_1'(t) \\ c_2'(t) \end{pmatrix} = 
+    \begin{pmatrix} 0 \\ b(t) \end{pmatrix}
 \]
 
+Calculamos las derivadas de los parámetros:
+\begin{itemize}
+    \item Para $c_1'(t)$:
+    \[
+        c_1'(t) = \frac{1}{\det (W(t))} \begin{vmatrix} 0 & t e^{\lambda t} \\ b(t) & e^{\lambda t} + \lambda t e^{\lambda t} \end{vmatrix} = \frac{-b(t) t e^{\lambda t}}{e^{2\lambda t}} = -b(t) t e^{-\lambda t}
+    \]
+    \item Para $c_2'(t)$:
+    \[
+        c_2'(t) = \frac{1}{\det (W(t))} \begin{vmatrix} e^{\lambda t} & 0 \\ \lambda e^{\lambda t} & b(t) \end{vmatrix} = \frac{b(t) e^{\lambda t}}{e^{2\lambda t}} = b(t) e^{-\lambda t}
+    \]
+\end{itemize}
+
+Integrando desde un punto inicial $t_0$, obtenemos:
 \[
-    \implies c_1(t) = -\int_{t_0}^{t} \frac{b(s) s}{e^{\lambda s}} ds + x_1, \quad x_1 \in \mathbb{C}
+    c_1(t) = -\int_{t_0}^{t} b(s) s e^{-\lambda s} \, ds + x_1, \quad c_2(t) = \int_{t_0}^{t} b(s) e^{-\lambda s} \, ds + x_2
 \]
 
+La primera componente de $U(t) = W(t)C(t)$ nos da $u(t) = e^{\lambda t} c_1(t) + t e^{\lambda t} c_2(t)$. Sustituyendo los resultados:
 \[
-    c_2'(t) = \frac{\begin{vmatrix}
-        e^{\lambda t} & 0 \\
-        \lambda e^{\lambda t} & b(t)
-    \end{vmatrix}}{\det W(t)} = \frac{b(t)}{e^{\lambda t}}
+    u(t) = e^{\lambda t} \left( x_1 - \int_{t_0}^{t} b(s) s e^{-\lambda s} \, ds \right) + t e^{\lambda t} \left( x_2 + \int_{t_0}^{t} b(s) e^{-\lambda s} \, ds \right)
+\]
+Agrupando términos y simplificando la integral mediante la propiedad de linealidad:
+\[
+    u(t) = \underbrace{x_1 e^{\lambda t} + x_2 t e^{\lambda t}}_{\text{Sol. Homogénea}} + \underbrace{\int_{t_0}^{t} b(s) (t - s) e^{\lambda (t - s)} \, ds}_{\text{Sol. Particular}}
+\]
+\section*{Reducción del Orden de la Ecuación Diferencial}
+
+Considérese la ecuación diferencial lineal de segundo orden con coeficientes variables:
+\[
+    u'' - a_1(t) u' - a_0(t) u = b(t) \label{eq:edo_reduccion}
+\]
+donde $a_0, a_1, b \in C([\alpha, \beta], \mathbb{C})$. 
+
+Sea $h(t)$ una solución conocida, no nula, de la ecuación homogénea asociada $h'' - a_1 h' - a_0 h = 0$. Buscamos una solución general de la forma $u(t) = v(t)h(t)$. Aplicando la regla del producto, calculamos sus derivadas:
+\[
+    u' = v'h + vh', \quad u'' = v''h + 2v'h' + vh''
 \]
 
+Sustituyendo estas expresiones en la ecuación diferencial original:
 \[
-    \implies c_2(t) = \int_{t_0}^{t} \frac{b(s)}{e^{\lambda s}} ds + x_2, \quad x_2 \in \mathbb{C}
+    (v''h + 2v'h' + vh'') - a_1(v'h + vh') - a_0(vh) = b(t)
+\]
+Agrupando términos respecto a $v$:
+\[
+    v''h + v'(2h' - a_1h) + v(\underbrace{h'' - a_1h' - a_0h}_{0}) = b(t)
+\]
+Como $h(t)$ es solución del homogéneo, el término en $v$ desaparece, resultando en:
+\[
+    v''h + (2h' - a_1h)v' = b(t) \implies v'' + \left( \frac{2h'}{h} - a_1 \right)v' = \frac{b(t)}{h}
 \]
 
+Definimos la variable auxiliar $w(t) = v'(t)$. La ecuación se reduce a una EDO lineal de primer orden para $w$:
 \[
-    u(t) = e^{\lambda t} c_1(t) + t e^{\lambda t} c_2(t) = e^{\lambda t} \left( x_1 - \int_{t_0}^{t} \frac{b(s) s}{e^{\lambda s}} ds \right) + t e^{\lambda t} \left( x_2 + \int_{t_0}^{t} \frac{b(s)}{e^{\lambda s}} ds \right)
-\]
-\[
-    = \underbrace{x_1 e^{\lambda t} + x_2 t e^{\lambda t}}_{\text{solución homogénea}} + \underbrace{\int_{t_0}^{t} b(s) (t - s) e^{\lambda (t - s)} ds}_{\text{sol. particular inhomogénea}}
+    w' + \left( \frac{2h'(t)}{h(t)} - a_1(t) \right)w = \frac{b(t)}{h(t)} 
 \]
 
-\textbf{Reducción del orden de la ecuación}\\
-
+Utilizando el factor integrante $\mu(\theta) = \exp\left( \int_{t_0}^{\theta} \left( \frac{2h'}{h} - a_1 \right) dr \right)$, la solución para $w(\theta)$ es:
 \[
-    u'' = a_1 u' + a_0 u + b(t), \quad a_0, a_1, b \in C([\alpha, \beta], \mathbb{C})
+    w(\theta) = e^{-\int_{t_0}^{\theta} \left( \frac{2h'}{h} - a_1 \right) dr} \left( x + \int_{t_0}^{\theta} \frac{b(s)}{h(s)} e^{\int_{t_0}^{s} \left( \frac{2h'}{h} - a_1 \right) dr} ds \right)
+\]
+Simplificando mediante la propiedad $e^{\int \frac{h'}{h} = h}$, observamos que $\exp(\int_{t_0}^{\theta} \frac{2h'}{h} dr) = \frac{h^2(\theta)}{h^2(t_0)}$. Introduciendo esto en la expresión:
+\[
+    w(\theta) = \frac{h^2(t_0) e^{\int_{t_0}^{\theta} a_1 dr}}{h^2(\theta)} \left( x + \int_{t_0}^{\theta} \frac{b(s)}{h(s)} \frac{h^2(s) e^{-\int_{t_0}^{s} a_1 dr}}{h^2(t_0)} ds \right)
 \]
 
-Sea $h(t)$ una solución conocida de la ecuación homogénea asociada $h'' = a_1 h' + a_0 h$. Variamos coeficientes buscando una solución de la forma $u(t) = v(t) h(t)$. Derivamos:
-\[
-    u' = v' h + v h', \quad u'' = v'' h + 2 v' h' + v h''
-\]
-Sustituyendo en la ecuación diferencial, obtenemos:
-\[
-    v'' h + 2 v' h' + v h'' = a_1 (v' h + v h') + a_0 v h + b(t)
-\]
-Dado que $h$ es solución del homogéneo, $h'' = a_1 h' + a_0 h$, lo que nos lleva a:
-\[
-    v'' h + 2 v' h' = a_1 v' h + b(t) \implies v'' h + (2 h' - a_1 h) v' = b(t)
-\]
-Por tanto,
-\[
-    v''= \frac{b(t)}{h} - \left( 2 \frac{h'}{h} - a_1 \right) v'
-\]
-Definimos $w = v'$, de modo que $w' = v''$, y obtenemos el sistema de primer orden:
-\[
-    \begin{cases}
-        w' = \frac{b(t)}{h} - \left( 2 \frac{h'}{h} - a_1 \right) w \\
-        v' = w
-    \end{cases}
-\]
-Este sistema es de primer orden, y podemos resolverlo utilizando el método de variación de coeficientes. 
-
-\[
-    w(\theta) = e^{\int_{t_0}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} x) + \int_{t_0}^{\theta} e^{\int_{s}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} \frac{b(s)}{h(s)} ds, \quad x \in \mathbb{C}
-\]
-
+Finalmente, integramos $w(\theta)$ para hallar $v(t)$ y multiplicamos por $h(t)$:
 \[
     v(t) = \int_{t_0}^{t} w(\theta) d\theta + y, \quad y \in \mathbb{C}
 \]
-
-
+La solución general $u(t) = h(t)v(t)$ se expresa como:
 \[
-    u(t) = h(t) y + h(t) \int_{t_0}^{t} e^{\int_{t_0}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} x d\theta + h(t) \int_{t_0}^{t} \int_{t_0}^{\theta} e^{\int_{s}^{\theta} \left( a_1 - 2 \frac{h'}{h} \right) d\theta} \frac{b(s)}{h(s)} ds d\theta
+    u(t) = h(t)y + h(t) \int_{t_0}^{t} \frac{e^{\int_{t_0}^{\theta} a_1 dr}}{h^2(\theta)} \left( X + \int_{t_0}^{\theta} b(s)h(s)e^{-\int_{t_0}^{s} a_1 dr} ds \right) d\theta
 \]
+donde $y, X \in \mathbb{C}$ son las constantes de integración.
 
 \ejemplo{
     Consideramos la siguiente ecuación diferencial de segundo orden con coeficientes variables:
@@ -1941,30 +1935,50 @@ Este sistema es de primer orden, y podemos resolverlo utilizando el método de v
     Por otra parte, $u(t) - \frac{t}{2}\int t^{-2}e^{t^2/2} dt $, pertenece al espacio $\Sigma_0$, y por tanto $h_1(t)x + h_2(t)y$ también están en $\Sigma_0$.
     En particular, si tomamos $x = 1$ y $y = 0$, se tiene que $h_1(t) \in \Sigma_0$.
     Si tomamos $x = 0$ y $y = 1$, se tiene que $h_2(t) \in \Sigma_0$.
-
-
-    \subsubsection*{Método de Coeficientes Indeterminados}
-
-    Consideramos la ecuación diferencial lineal de segundo orden con coeficientes constantes:
-    \[ u'' = a_0 u + a_1 u' + b ,    a_0, a_1, b \in \mathbb{C} \]
-    La ecuación homogénea asociada es:
-    \[ h'' = a_0 h + a_1 h' \]
-    Proponemos soluciones exponenciales de la forma $h(t) = e^{\lambda t}$.Sustituyendo obtenemos:
-    \[ \lambda^2 e^{\lambda t} = a_0 e^{\lambda t} + a_1 \lambda e^{\lambda t} \implies \lambda^2 - a_1 \lambda - a_0 = 0 \]
-    Las raíces de este polinomio característico, $\lambda_1, \lambda_2 \in \mathbb{C}$, definen la base del espacio de soluciones $B$:
-    \begin{itemize}
-        \item Si $\lambda_1 \neq \lambda_2$, entonces $B = \{e^{\lambda_1 t}, e^{\lambda_2 t}\}$.
-        \item Si $\lambda_1 = \lambda_2 \neq 0$, entonces $B = \{e^{\lambda_1 t}, te^{\lambda_1 t}\}$.
-        \item Si $\lambda_1 = \lambda_2 = 0$, entonces $B = \{1, t\}$.
-    \end{itemize}
-
-    Para encontrar una solución particular a la ecuación inhomogénea, analizamos distintos casos:
-    \begin{itemize}
-        \item \textbf{Caso $a_0 \neq 0$}: Proponemos una solución constante $u = c$. Derivando obtenemos $u' = u'' = 0$. Sustituyendo en la ecuación $0 = a_0 c + b$, despejamos $c = \frac{-b}{a_0}$.
-        \item \textbf{Caso $a_0 = 0$}: La ecuación se reduce a $u'' = a_1 u' + b$. Bajamos el orden con $u' = v$, obteniendo $v' = a_1 v + b$. Proponiendo una solución constante para $v$, tenemos $v = \frac{-b}{a_1}$. Deshaciendo el cambio, $u' = \frac{-b}{a_1}$, cuya integración da como solución particular $u(t) = -\frac{b}{a_1}t$.
-        \item \textbf{Caso $a_0 = a_1 = 0$}: La ecuación es simplemente $u'' = b$. Integrando directamente dos veces obtenemos $u' = bt + x$ y $u(t) = b\frac{t^2}{2} + xt + y$ con $x,y \in \mathbb{R}$. La solución particular es $u_p(t) = b\frac{t^2}{2}$.
-    \end{itemize}
 }
+\section*{Método de Coeficientes Indeterminados}
+
+Consideramos la ecuación diferencial lineal de segundo orden con coeficientes constantes en su forma estándar:
+\[
+    u'' - a_1 u' - a_0 u = b(t), \quad a_0, a_1 \in \mathbb{C} 
+\]
+La ecuación homogénea asociada es $h'' - a_1 h' - a_0 h = 0$. Al proponer soluciones de la forma $h(t) = e^{\lambda t}$, obtenemos el \textbf{polinomio característico}:
+\[ P(\lambda) = \lambda^2 - a_1 \lambda - a_0 = 0 \]
+Sean $\lambda_1, \lambda_2 \in \mathbb{C}$ las raíces de $P(\lambda)$. La base del espacio de soluciones $\mathcal{B}$ se define según la multiplicidad de las raíces:
+\begin{itemize}
+    \item \textbf{Caso 1 ($\lambda_1 \neq \lambda_2$):} Las raíces son distintas. 
+    \[ \mathcal{B} = \{e^{\lambda_1 t}, e^{\lambda_2 t}\} \]
+    \item \textbf{Caso 2 ($\lambda_1 = \lambda_2 = \lambda$):} Raíz real doble. 
+    \[ \mathcal{B} = \{e^{\lambda t}, t e^{\lambda t}\} \]
+    \item \textbf{Caso 3 ($\lambda_{1,2} = \alpha \pm i\beta$):} Raíces complejas conjugadas. 
+    \[ \mathcal{B} = \{e^{\alpha t} \cos(\beta t), e^{\alpha t} \sin(\beta t)\} \]
+\end{itemize}
+
+Si el término fuente es una constante $b(t) = b$, la solución particular $u_p(t)$ depende de si la constante es solución de la homogénea (es decir, si $\lambda=0$ es raíz):
+
+\begin{itemize}
+    \item \textbf{Si $a_0 \neq 0$:} ($0$ no es raíz). Proponemos $u_p = A$. Sustituyendo: $-a_0 A = b \implies A = -\frac{b}{a_0}$.
+    \item \textbf{Si $a_0 = 0$ y $a_1 \neq 0$:} ($0$ es raíz simple). Proponemos $u_p = At$. Sustituyendo: $-a_1 A = b \implies A = -\frac{b}{a_1}$.
+    \item \textbf{Si $a_0 = a_1 = 0$:} ($0$ es raíz doble). Proponemos $u_p = At^2$. Sustituyendo: $2A = b \implies A = \frac{b}{2}$.
+\end{itemize}
+
+Para funciones $b(t)$ más complejas, se utiliza la siguiente tabla de formas candidatas para $u_p(t)$. Si algún término de la propuesta ya existe en la solución homogénea, se debe multiplicar por $t^k$ (donde $k$ es la multiplicidad de la raíz).
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Forma de $b(t)$} & \textbf{Propuesta para $u_p(t)$} \\ \hline
+Polinomio $P_n(t)$ de grado $n$ & $A_n t^n + A_{n-1} t^{n-1} + \dots + A_0$ \\ \hline
+Exponencial $e^{\alpha t}$ & $A e^{\alpha t}$ \\ \hline
+Seno o Coseno $\sin(\beta t)$ o $\cos(\beta t)$ & $A \cos(\beta t) + B \sin(\beta t)$ \\ \hline
+Producto $P_n(t) e^{\alpha t} \cos(\beta t)$ & $e^{\alpha t} \left[ Q_n(t) \cos(\beta t) + R_n(t) \sin(\beta t) \right]$ \\ \hline
+\end{tabular}
+\end{table}
+
+Si el término no homogéneo es una suma $b(t) = b_1(t) + b_2(t)$, la solución particular es la suma de las soluciones particulares individuales: $u_p(t) = u_{p_1}(t) + u_{p_2}(t)$.
+
 \ejemplo{
 Consideramos la ecuación diferencial inhomogénea: 
 \[ u'' = a_0 u + a_1 u' + m e^{\lambda t}, \quad m, \lambda, a_0, a_1 \in \mathbb{C} \] 
