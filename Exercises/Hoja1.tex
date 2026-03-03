@@ -638,34 +638,60 @@
     $$\begin{cases} u' = A(t)u + B(t), \\ u(t_0) = u_0, \end{cases}$$
     donde $A(t) = (a_{ij}(t))_{1 \le i, j \le N}$ y $B(t) = (b_i(t))_{1 \le i \le N}$, posee una solución única en $(\alpha, \beta)$.
 }{
+    Dado que ya sabemos que el teorema de existencia y unicidad es válido para cualquier intervalo compacto (cerrado y acotado), vamos a construir el intervalo abierto $(\alpha, \beta)$ como una unión infinita de intervalos compactos anidados.
 
-    Para demostrar que el problema de valor inicial (PVI)
-    $$ \begin{cases} u' = A(t)u + B(t) \\ u(t_0) = u_0 \end{cases} $$
-    posee una solución única en todo el intervalo $(\alpha, \beta)$, procederemos en dos pasos: verificar las condiciones del \textbf{Teorema de Picard-Lindelöf} y extender la solución al intervalo completo.
+    Dado que $t_0 \in (\alpha, \beta)$, podemos construir una sucesión de intervalos compactos anidados $I_n = [\alpha_n, \beta_n]$ tales que:
+    \begin{enumerate}
+        \item $t_0 \in I_1$ (y por lo tanto, $t_0 \in I_n$ para todo $n$).
+        \item $I_n \subset I_{n+1}$ para todo $n \in \mathbb{N}$.
+        \item La unión de todos estos intervalos cubre todo el intervalo abierto: $\bigcup_{n=1}^\infty I_n = (\alpha, \beta)$.
+    \end{enumerate}
 
-    Definimos la función $f: (\alpha, \beta) \times \mathbb{K}^N \to \mathbb{K}^N$ como:
-    $$ f(t, u) = A(t)u + B(t) $$
-
+    Para ser rigurosos, podemos definir $\alpha_n$ y $\beta_n$ de la siguiente manera:
     \begin{itemize}
-        \item \textbf{Continuidad:} Dado que las entradas $a_{ij}(t)$ y $b_i(t)$ son funciones continuas en $(\alpha, \beta)$, la matriz $A(t)$ y el vector $B(t)$ son continuos. Por lo tanto, $f(t, u)$ es continua en su dominio.
-        \item \textbf{Lipschitz respecto a $u$:} Tomamos dos vectores $u, v \in \mathbb{K}^N$. Entonces:
-        $$ \|f(t, u) - f(t, v)\| = \|A(t)u + B(t) - (A(t)v + B(t))\| = \|A(t)(u - v)\| $$
-        Utilizando la norma matricial inducida, tenemos:
-        $$ \|f(t, u) - f(t, v)\| \le \|A(t)\| \cdot \|u - v\| $$
-        Para cualquier subintervalo compacto $J \subset (\alpha, \beta)$, la norma $\|A(t)\|$ es una función continua de $t$, por lo que alcanza un máximo $L_J = \max_{t \in J} \|A(t)\|$. Así, $f$ es \textbf{localmente Lipschitz} en $u$ de manera uniforme respecto a $t$ en subintervalos compactos.
+        \item Si $\alpha > -\infty$, tomamos $\alpha_n = \alpha + \frac{t_0 - \alpha}{n+1}$. Si $\alpha = -\infty$, tomamos $\alpha_n = t_0 - n$.
+        \item Si $\beta < +\infty$, tomamos $\beta_n = \beta - \frac{\beta - t_0}{n+1}$. Si $\beta = +\infty$, tomamos $\beta_n = t_0 + n$.
     \end{itemize}
 
-    Por el Teorema de Picard-Lindelöf, para cualquier $t_0 \in (\alpha, \beta)$, existe un intervalo abierto $I = (t_0 - \epsilon, t_0 + \epsilon) \subset (\alpha, \beta)$ donde el problema tiene una \textbf{solución única} $u(t)$.
+    Por la hipótesis del problema, sabemos que el problema de valor inicial está resuelto para intervalos compactos con extremos reales. Como la matriz $A(t)$ y el vector $B(t)$ son continuos en $(\alpha, \beta)$, también lo son cuando los restringimos a cualquier subintervalo compacto $I_n \subset (\alpha, \beta)$.
 
-    A diferencia de las ecuaciones no lineales (donde las soluciones pueden "explotar" en tiempo finito), en los sistemas lineales el crecimiento de la solución está controlado. Consideremos la desigualdad:
-    $$ \|f(t, u)\| \le \|A(t)\| \|u\| + \|B(t)\| $$
+    Por lo tanto, para cada $n \in \mathbb{N}$, existe una única función $u_n: I_n \to \mathbb{K}^N$ que es solución del problema:
+    \[
+    \begin{cases} u_n' = A(t)u_n + B(t), \quad t \in I_n \\ u_n(t_0) = u_0 \end{cases}
+    \]
 
-    Si denotamos $L(t) = \|A(t)\|$ y $K(t) = \|B(t)\|$, por el Lema de Grönwall, la solución satisface:
-    $$ \|u(t)\| \le \|u_0\| e^{|\int_{t_0}^t L(s) ds|} + |\int_{t_0}^t K(s) e^{|\int_{s}^t L(\tau) d\tau|} ds| $$
+    Ahora debemos asegurarnos de que estas soluciones encajen entre sí. Supongamos que tomamos dos índices $m > n$. Esto significa que $I_n \subset I_m$. 
 
-    Dado que $A(t)$ y $B(t)$ son continuas en todo el intervalo abierto $(\alpha, \beta)$, las integrales anteriores están bien definidas para cualquier $t \in (\alpha, \beta)$. Esto implica que la solución $\|u(t)\|$ permanece acotada en cualquier subintervalo compacto de $(\alpha, \beta)$, lo que permite extender la solución local de forma única a todo el intervalo $(\alpha, \beta)$.
+    La función $u_m$ es solución en $I_m$, por lo que su restricción al intervalo más pequeño $I_n$ (es decir, $u_m|_{I_n}$) sigue siendo una solución de la ecuación diferencial en $I_n$ que cumple la condición inicial $u_m(t_0) = u_0$. 
 
-    \textbf{Conclusión:} El problema posee una única solución $u \in C^1((\alpha, \beta); \mathbb{K}^N)$.
+    Pero por la unicidad de soluciones en el intervalo compacto $I_n$ (nuestra hipótesis), cualquier solución en $I_n$ que cumpla la condición inicial debe ser exactamente $u_n$. Por lo tanto, concluimos que:
+    \[
+    u_m(t) = u_n(t) \quad \text{para todo } t \in I_n
+    \]
+
+    Gracias a la consistencia demostrada en el paso anterior, podemos definir una función global $u: (\alpha, \beta) \to \mathbb{K}^N$ bien definida. 
+
+    Para cualquier $t \in (\alpha, \beta)$, existirá algún $N_0 \in \mathbb{N}$ tal que $t \in I_{N_0}$. Definimos:
+    \[
+    u(t) = u_{N_0}(t)
+    \]
+
+    Esta función está bien definida (no depende del intervalo elegido) porque si $t$ también pertenece a otro intervalo $I_m$ con $m > N_0$, ya demostramos que $u_m(t) = u_{N_0}(t)$. 
+
+    Como para cualquier $t \in (\alpha, \beta)$, $u(t)$ coincide en un entorno de $t$ con una función derivable que satisface la ecuación diferencial, se deduce directamente que $u(t)$ es derivable en $(\alpha, \beta)$ y cumple:
+    \[
+    u'(t) = A(t)u(t) + B(t) \quad \text{para todo } t \in (\alpha, \beta)
+    \]
+    Además, como $t_0 \in I_1$, $u(t_0) = u_1(t_0) = u_0$. Por tanto,  existe una solución en todo $(\alpha, \beta)$.
+
+    Supongamos que existe otra solución $v: (\alpha, \beta) \to \mathbb{K}^N$ para el mismo problema de valor inicial. 
+
+    Para cualquier $t \in (\alpha, \beta)$, sabemos que existe un $n \in \mathbb{N}$ tal que $t \in I_n$. Si restringimos la función $v$ al intervalo compacto $I_n$, obtenemos una solución al problema en $I_n$. 
+    Por la hipótesis de unicidad en intervalos compactos, la restricción de $v$ a $I_n$ debe ser exactamente $u_n$. Es decir:
+    \[
+    v(t) = u_n(t) = u(t)
+    \]
+    Como esto es válido para cualquier $t \in (\alpha, \beta)$, concluimos que $v(t) = u(t)$ en todo el dominio. Esto demuestra que la solución global es única.
 }
 
 
