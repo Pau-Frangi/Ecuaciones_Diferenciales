@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1773046182.01351 "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" "main.pdf" "main" 1773046188.76207 0
+["pdflatex"] 1773046522.75747 "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" "main.pdf" "main" 1773046855.335 0
   "Appendix/Agradecimientos.tex" 1770045791 628 99fc62e09a551f1ea508feb8630e6ea1 ""
   "Appendix/Appendix.tex" 1773045687 180 2541486e775b01cf504fcdb93c79c18b ""
   "Appendix/Criterios de convergencia de series.tex" 1770045791 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -356,7 +356,7 @@
   "C:/Users/diego/AppData/Local/Programs/MiKTeX/tex/latex/xstring/xstring.sty" 1693735632 123 a302f2c651a95033260db60e51527ae8 ""
   "C:/Users/diego/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-abspage.sty" 1750428951 2269 2de6c7a5fd634dfef00a960544463a38 ""
   "C:/Users/diego/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-base.sty" 1750428951 20785 198a9cb2e04238d92c320d0d9edbd76a ""
-  "Exercises/Hoja1.tex" 1773046174 73234 a06a697ccc10111f748df20396a681c4 ""
+  "Exercises/Hoja1.tex" 1773046522 73232 15e317f93232ea30e5d5390882337345 ""
   "Exercises/Hoja2.tex" 1772614725 268 74cb9727315508f12e5d6cf805f5f273 ""
   "Exercises/Hojas.tex" 1771402589 333 18afc54518a3f46f30e1b69c3af61234 ""
   "Preamble/Diagonal Matrix Command.tex" 1770045791 994 86797f6883aa9637224e9e09b84c6f7c ""
@@ -364,10 +364,10 @@
   "Preamble/Preamble.tex" 1770045791 14481 cd34d60c740163d01aa8df5a8552a35f ""
   "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" 1773044251 4435 1e05dcb62a4954d03aec81315d77f9c7 ""
   "images/logo.png" 1770045791 444144 2cb7926de033eda7c58a3b31d8e065e6 ""
-  "main.aux" 1773046188 24800 2aa8c5e346da4e65246d90f131dfa28b "pdflatex"
-  "main.out" 1773046188 4613 847e985dba6b3d464d41e3384485136c "pdflatex"
+  "main.aux" 1773046854 24800 2aa8c5e346da4e65246d90f131dfa28b "pdflatex"
+  "main.out" 1773046854 4613 847e985dba6b3d464d41e3384485136c "pdflatex"
   "main.tex" 1773044251 4435 1e05dcb62a4954d03aec81315d77f9c7 ""
-  "main.toc" 1773046188 2329 0da5b56a4c1865585744d3ece6c661b7 "pdflatex"
+  "main.toc" 1773046854 2329 0da5b56a4c1865585744d3ece6c661b7 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
