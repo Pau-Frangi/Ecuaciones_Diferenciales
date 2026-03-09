@@ -891,7 +891,100 @@
     $$\begin{cases} u'' + u = \sec^3 t, \\ u(0) = 1, \ u'(0) = \frac{1}{2} \end{cases}$$
     en el intervalo $\left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$.
 }{
-
+    En primer lugar se obtiene rapidamente que dos soluciones del homogéneo asociado $h'' + h = 0$ son $h_1(t) = \cos t$ y $h_2(t) = \sin t$. Ahora podemos construir el sistema de 1er orden equivalente a la EDO de 2º orden:
+    \[
+        \begin{pmatrix}
+            u \\ v
+        \end{pmatrix}'
+        =
+        \begin{pmatrix}
+            0 & 1 \\
+            -1 & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            u \\ v
+        \end{pmatrix}
+        +
+        \begin{pmatrix}
+            0 \\ \sec^3 t
+        \end{pmatrix}
+    \]
+    El Wronskiano de $h_1$ y $h_2$ es:
+    \[
+        W =
+        \begin{pmatrix}
+            \cos t & \sin t \\
+            -\sin t & \cos t
+        \end{pmatrix}
+        \implies 
+        |W| = \cos^2 t + \sin^2 t = 1
+    \]
+    Ahora, aplicamos el cambio de variable $U(t) = W(t) C(t)$, de lo que podemos pasar:
+    \[
+        U' = AU + B \implies
+        \underbrace{W C'}_{AWC} + W' C = A W C + B \implies
+        W C' = B \implies
+        \begin{pmatrix}
+            \cos t & \sin t \\
+            -\sin t & \cos t
+        \end{pmatrix}
+        \begin{pmatrix}
+            C_1' \\ C_2'
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0 \\ \sec^3 t
+        \end{pmatrix}
+    \]
+    De lo que podemos despejar ahora que:
+    \[
+        C_1' =
+        \begin{vmatrix}
+            0 & \sin t \\
+            \sec^3 t & \cos t
+        \end{vmatrix}
+        = -\sin t \sec^3 t =
+        - \tan t \sec^2 t =
+        - \tan t \cdot (\tan t)' =
+        - \frac{1}{2} (\tan^2 t)'
+    \]
+    \[
+        \implies \boxed{C_1 = -\frac{1}{2} \tan^2 t + x}
+    \]
+    \[
+        C_2' =
+        \begin{vmatrix}
+            \cos t & 0 \\
+            -\sin t & \sec^3 t
+        \end{vmatrix}
+        = \cos t \sec^3 t =
+        \sec^2 t =
+        (\tan t)'
+    \]
+    \[
+        \implies \boxed{C_2 = \tan t + y}
+    \]
+    Por lo tanto, como $U = W C$, la solución general de la EDO es:
+    \[
+        u(t) = \cos t \cdot \left(-\frac{1}{2} \tan^2 t + x\right) + \sin t \cdot (\tan t + y) =
+        x \cos t + y \sin t - \frac{1}{2} \cos t \tan^2 t + \sin t \tan t =
+    \]
+    \[
+        = x \cos t + y \sin t + \frac{1}{2} \sin t \tan t
+    \]
+    Aplicando ahora las condiciones iniciales:
+    \[
+        u(0) = x \cos(0) + y \sin(0) + \frac{1}{2} \sin(0) \tan(0) = x = 1 \implies 
+        x = 1
+    \]
+    \[
+        u'(0) = -x \sin(0) + y \cos(0) + \frac{1}{2} (\cos(0) \tan(0) + \sin(0) \sec^2(0)) = y - \frac{1}{2} = \frac{1}{2} \implies
+        y = 1
+    \]
+    Por lo tanto, $x = 1$ y $y = 1$. La solución particular es:
+    \[
+        u(t) = \cos t + \sin t + \frac{1}{2} \sin t \tan t
+    \]
 }
 
 
@@ -909,7 +1002,135 @@
         \item[(e)] Represente la gráfica de $u_\omega(t)$. El fenómeno físico subyacente se conoce como \textbf{resonancia}. Compare la gráfica de $u_\omega(t)$ con la de $u_\gamma(t)$, para $\gamma \neq \omega, \gamma \sim \omega$.
     \end{enumerate}
 }{
-
+    Veamos los distintos apartados:
+    \begin{enumerate}
+        \item[(a)] Primero obtengamos la solución homogénea asociada a la ecuación diferencial:
+        \[
+            h'' + \omega^2 h = 0 \implies
+            h'' = -\omega^2 h \implies
+            \begin{cases}
+                h_1(t) = \cos(\omega t) \\
+                h_2(t) = \sin(\omega t)
+            \end{cases}
+        \]
+        Ahora podemos:
+        \[
+            u_p(t) = m \cos (\gamma t) = \frac{F_0}{\omega^2 - \gamma^2} \cos(\gamma t) \implies
+            m \gamma^2 \cos(\gamma t) + m \omega^2 \cos(\gamma t) = F_0 \cos(\gamma t) \implies 
+        \]
+        \[
+            - m (\omega^2 - \gamma^2) \cos(\gamma t) = F_0 \cos(\gamma t) \implies
+            m = \frac{F_0}{\omega^2 - \gamma^2}
+        \]
+        Y si ahora variamos los parámetros, proponiendo $u_p(t) = x_1 \cos t + x_2 \sin t$, obtenemos:
+        \[
+            u_p = x_1 \cos t + x_2 \sin t + \frac{F_0}{\omega^2 - \gamma^2} \cos(\gamma t) \implies
+            u(0) = x_1 + \frac{F_0}{\omega^2 - \gamma^2} = 0 \implies
+            x_1 = -\frac{F_0}{\omega^2 - \gamma^2}
+        \]
+        \[
+            u'(t) = -x_1 \sin t + x_2 \cos t - \frac{F_0 \gamma}{\omega^2 - \gamma^2} \sin(\gamma t) \implies
+            u'(0) = x_2 = 0
+        \]
+        Y por lo tanto, la solución particular es:
+        \[
+            u_\gamma(t) = \frac{F_0}{\omega^2 - \gamma^2} (\cos(\gamma t) - \cos(\omega t))
+        \]
+        \item[(b)] Para este caso, reducimos la ecuacion a un sistema de orden reducido, donde $u'=v$ y $v' = u'' = -\omega^2 u + F_0 \cos(\omega t)$. El sistema resultante es:
+        \[
+            \begin{pmatrix}
+                u \\ v
+            \end{pmatrix}'
+            =
+            \begin{pmatrix}
+                0 & 1 \\
+                -\omega^2 & 0
+            \end{pmatrix}
+            \begin{pmatrix}
+                u \\ v
+            \end{pmatrix}
+            +
+            \begin{pmatrix}
+                0 \\ F_0 \cos(\omega t)
+            \end{pmatrix}
+        \]
+        El Wronskiano de las soluciones del homogéneo asociado es:
+        \[
+            W =
+            \begin{pmatrix}
+                \cos(\omega t) & \sin(\omega t) \\
+                -\omega \sin(\omega t) & \omega \cos(\omega t)
+            \end{pmatrix}
+            \implies
+            |W| = \omega
+        \]
+        Ahora, aplicamos el cambio de variable $U(t) = W(t) C(t)$, de lo que podemos pasar:
+        \[
+            \underbrace{W C'}_{AWC} + W' C = A W C + B \implies
+            W C' = B \implies
+            \begin{pmatrix}
+                \cos(\omega t) & \sin(\omega t) \\
+                -\omega \sin(\omega t) & \omega \cos(\omega t)
+            \end{pmatrix}
+            \begin{pmatrix}
+                C_1' \\ C_2'
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                0 \\ F_0 \cos(\omega t)
+            \end{pmatrix}
+        \]
+        De lo que despejamos ahora que:
+        \[
+            C_1' =
+            \frac{1}{\omega}
+            \begin{vmatrix}
+                0 & \sin(\omega t) \\
+                F_0 \cos(\omega t) & \omega \cos(\omega t)
+            \end{vmatrix}
+            = - \frac{F_0}{\omega} \sin(\omega t) \cos(\omega t) =
+            - \frac{F_0}{2\omega} \sin(2\omega t)
+        \]
+        \[
+            \implies \boxed{C_1 = - \frac{F_0}{4\omega^2} \cos(2\omega t) + x_1}
+        \]
+        \[
+            C_2' =
+            \frac{1}{\omega}
+            \begin{vmatrix}
+                \cos(\omega t) & 0 \\
+                -\omega \sin(\omega t) & F_0 \cos(\omega t)
+            \end{vmatrix}
+            = \frac{F_0}{\omega} \cos^2(\omega t) =
+            \frac{F_0}{2\omega} (1 + \cos(2\omega t))
+        \]
+        \[
+            \implies \boxed{C_2 = \frac{F_0}{2\omega} t + \frac{F_0}{4\omega^2} \sin(2\omega t) + x_2}
+        \]
+        Notese que para $C_2$ tambien se podria haber integrado el coseno cuadrado mediante integración por partes, obteniendo el mismo resultado.\\
+        Ahora, como $U = W C$, la solución general de la EDO es:
+        \[
+            u(t) = \cos(\omega t) \cdot \left(- \frac{F_0}{4\omega^2} \cos(2\omega t) + x_1\right) + \sin(\omega t) \cdot \left(\frac{F_0}{2\omega} t + \frac{F_0}{4\omega^2} \sin(2\omega t) + x_2\right) \implies
+        \]
+        Ahora si despejamos:
+        \[
+            - \frac{F_0}{4\omega^2} \cos(\omega t) \cos(2\omega t) + \frac{F_0}{4\omega^2} \sin(\omega t) \sin(2\omega t) =
+            \frac{F_0}{4\omega^2} \left(- \cos(\omega t) \cos(2\omega t) + \sin(\omega t) \sin(2\omega t)\right) =
+            \frac{F_0}{4\omega^2} \cos(\omega t)
+        \]
+        Por lo que nos queda:
+        \[
+            u(t) = \frac{F_0}{4\omega^2} \cos(\omega t) + x_1 \cos(\omega t) + x_2 \sin(\omega t)
+        \]
+        Aplicando ahora las condiciones iniciales:
+        \[
+            u(0) = - \frac{F_0}{4\omega^2} + x_1 = 0 \implies
+            x_1 = \frac{F_0}{4\omega^2}
+        \]
+        \[
+            u'(t) = -\omega \sin(\omega t) \cdot \left(- \frac{F_0}{4\omega^2} \cos(2\omega t) + x_1\right) + \cos(\omega t) \cdot \left(- \frac{F_0}{4\omega^2} \cdot (-2\omega) \sin(2\omega t)\right) +
+        \]
+    \end{enumerate}
 }
 
 % Ejercicio 22
