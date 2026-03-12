@@ -2332,3 +2332,124 @@ Simplificando el radicando:
 Dado que el término bajo la raíz es precisamente $\Omega$, concluimos que:
 \[ f(\gamma_m) = \frac{1}{r \Omega} \]
 Este valor representa el pico máximo de la oscilación. En el límite donde el amortiguamiento desaparece ($r \to 0$), se observa que $\Omega \to \omega$ y $f(\gamma_m) \to +\infty$. Este fenómeno se denomina \textbf{resonancia pura}, donde la sincronización entre la fuerza externa y la frecuencia natural provoca una transferencia de energía teóricamente infinita al sistema.
+
+
+\section{Construcción de bases para ecuaciones homogéneas de orden arbitrario con coeficientes constantes}
+
+\[
+    u^{(n)} + a_{n-1} u^{(n-1)} + \dots + a_1 u' + a_0 u = 0, \quad a_0, a_1, \dots, a_{n-1} \in \mathbb{C}
+\]
+Donde $\dim(\Sigma_0) = n$. Considerando $u^{(j)} = D^j u$, la ecuación se puede reescribir como:
+\[
+    D^n u + a_{n-1} D^{n-1} u + \dots + a_1 D u + a_0 u = 0
+\]
+Sacando factor común $u$:
+\[
+    (D^n + a_{n-1} D^{n-1} + \dots + a_1 D + a_0) u = 0
+\]
+El polinomio $P(D) = D^n + a_{n-1} D^{n-1} + \dots + a_1 D + a_0$ es un operador diferencial lineal que llamamos el \textbf{polinomio característico} de la ecuación diferencial. Para encontrar las soluciones, proponemos $u(t) = e^{\lambda t}$, lo que nos da:
+\[
+    P(\lambda)e^{\lambda t} = (\lambda^n + a_{n-1} \lambda^{n-1} + \dots + a_1 \lambda + a_0) e^{\lambda t} = 0
+\]
+\[
+    \iff \lambda^n + a_{n-1} \lambda^{n-1} + \dots + a_1 \lambda + a_0 = 0
+\]
+\[
+    \iff \lambda \in \{\text{raíces de } P(\lambda)\} \subseteq \mathbb{C}
+\]
+En general tendremos que 
+\[
+    P(\lambda) = (\lambda - \lambda_1)^{m_1} (\lambda - \lambda_2)^{m_2} \dots (\lambda - \lambda_k)^{m_k}
+\]
+donde $\lambda_1, \lambda_2, \dots, \lambda_k$ son las raíces distintas de $P(\lambda)$, y $m_1, m_2, \dots, m_k$ son sus respectivas multiplicidades. Para cada raíz $\lambda_j$ con multiplicidad $m_j$, se pueden construir $m_j$ soluciones linealmente independientes de la forma:
+\[
+    e^{\lambda_j t}, \quad t e^{\lambda_j t}, \quad t^2 e^{\lambda_j t}, \quad \dots, \quad t^{m_j - 1} e^{\lambda_j t}
+\]
+Considerando la ecuación diferencial de orden $2$
+\[
+    P(z) = z^2 - a_1 z - a_0, \quad P(z) = (z - \mu_1)(z - \mu_1), \quad \mu_1, \mu_2 \in \mathbb{C}
+\]
+
+\[
+    P(z) = z^2 - (\mu_1 + \mu_2) + \mu_1 \mu_2 = z^2 - a_1 z - a_0
+\]
+Por las relaciones de Cardano-Vieta, se tiene que $a_1 = \mu_1 + \mu_2$ y $a_0 = -\mu_1 \mu_2$.
+\[
+    (D-\mu_1)(D-\mu_2) = D^2 - \mu_1 D - \mu_2 D + \mu_1 \mu_2 = D^2 - (\mu_1 + \mu_2) D + \mu_1 \mu_2 = D^2 - a_1 D - a_0 = P(D)
+\]
+\[
+    \implies P(D) u = (D-\mu_1)(D-\mu_2) u = 0
+\]
+
+En el caso de que dimensión $3$ tenemos:
+\[
+    P(z) = z^3 - a_2 z^2 - a_1 z - a_0, \quad P(z) = (z - \mu_1)(z - \mu_2)(z - \mu_3), \quad \mu_1, \mu_2, \mu_3 \in \mathbb{C}
+\]
+\[
+    P(z) = z^3 - (\mu_1 + \mu_2 + \mu_3) z^2 + (\mu_1 \mu_2 + \mu_1 \mu_3 + \mu_2 \mu_3) z - \mu_1 \mu_2 \mu_3 = z^3 - a_2 z^2 - a_1 z - a_0
+\]
+\[
+    (D-\mu_1)(D-\mu_2)(D-\mu_3) = D^3 - (\mu_1 + \mu_2 + \mu_3) D^2 + (\mu_1 \mu_2 + \mu_1 \mu_3 + \mu_2 \mu_3) D - \mu_1 \mu_2 \mu_3 = D^3 - a_2 D^2 - a_1 D - a_0 = P(D)
+\]
+\[
+    \implies P(D) u = (D-\mu_1)(D-\mu_2)(D-\mu_3) u = 0
+\]
+En el caso general, para un polinomio de grado $n$ con raíces $\mu_1, \mu_2, \dots, \mu_n$ (contando multiplicidades), las relaciones de Cardano-Vieta nos permiten expresar los coeficientes $a_{n-1}, a_{n-2}, \dots, a_0$ en términos de las raíces $\mu_j$ de forma que cada coeficiente $a_k$ viene expresado de la forma:
+\[
+    a_k = (-1)^{n-k} \sum_{1 \leq j_1 < j_2 < \dots < j_{n-k} \leq n} \mu_{j_1} \mu_{j_2} \dots \mu_{j_{n-k}}
+\]
+\[
+    P(z) = (z - \mu_1)(z - \mu_2) \dots (z - \mu_n) = z^n - a_{n-1} z^{n-1} - a_{n-2} z^{n-2} - \dots - a_1 z - a_0
+\]
+\[
+    P(D) = (D - \mu_1)(D - \mu_2) \dots (D - \mu_n) = D^n - a_{n-1} D^{n-1} - a_{n-2} D^{n-2} - \dots - a_1 D - a_0
+\]
+\[
+    \implies P(D) u = (D - \mu_1)(D - \mu_2) \dots (D - \mu_n) u = 0
+\]
+
+Volviendo a nuestra ecuación diferencial
+\[
+    u^{(n)} + a_{n-1} u^{(n-1)} + \dots + a_1 u' + a_0 u = 0
+\]
+Tenemos
+\[
+    P(D) = \prod_{\stackrel{j=1}{j \neq k}}^q (D - \lambda_j)^{m_j} \cdot (D - \lambda_k)^{m_k}
+\]
+
+\[
+    P(D) (t^l e^{\lambda_k t}) = 0, \quad \forall l \in \{0, 1, \dots, m_k - 1\}
+\]
+\[
+    (D - \lambda_k)^{m_k} (t^l e^{\lambda_k t}) = 0, \quad \forall l \in \{0, 1, \dots, m_k - 1\}
+\]
+
+\[
+    (D - \lambda_k)^{m_k-1} (D - \lambda_k) (t^l e^{\lambda_k t}) = 
+    (D - \lambda_k)^{m_k-1} (D(t^l e^{\lambda_k t}) - \lambda_k t^l e^{\lambda_k t}) = (D - \lambda_k)^{m_k-1} (l t^{l-1} e^{\lambda_k t}) 
+\]
+
+\[
+    = (D - \lambda_k)^{m_k-1} (l t^{l-1} e^{\lambda_k t}) = l (D - \lambda_k)^{m_k-1} (t^{l-1} e^{\lambda_k t}) = l(l-1) (D - \lambda_k)^{m_k-2} (t^{l-2} e^{\lambda_k t}) = \dots = l! (D - \lambda_k)^{m_k-l} (e^{\lambda_k t}) = 0
+\]
+
+\ejemplo{
+    Dado el polinomio $P(z) = (z-\lambda_1)^3(z-\lambda_2)^2(z-\lambda)^4(z-\lambda_4)$. Las soluciones de la ecuación diferencial $P(D) u = 0$ son:
+    \[
+        e^{\lambda_1 t}, \quad t e^{\lambda_1 t}, \quad t^2 e^{\lambda_1 t}, \quad e^{\lambda_2 t}, \quad t e^{\lambda_2 t}, \quad e^{\lambda t}, \quad t e^{\lambda t}, \quad t^2 e^{\lambda t}, \quad t^3 e^{\lambda t}, \quad e^{\lambda_4 t}
+    \]
+}
+
+\begin{teorema}
+    Si $P(z) = (z-\lambda_1)^{m_1} (z-\lambda_2)^{m_2} \dots (z-\lambda_q)^{m_q}$, entonces la base de soluciones de $P(D) u = 0$ es:
+    \[
+        \{ e^{\lambda_j t}, t e^{\lambda_j t}, \dots, t^{m_j - 1} e^{\lambda_j t} : j = 1, 2, \dots, q \}
+    \]
+\end{teorema}
+
+\begin{proof}
+    Veamos que es un sistema linealmente indpendiente. 
+    \[
+        \sum_{k=1}^q \sum_{l=0}^{m_k - 1} a_{k,l} t^l e^{\lambda_k t} = 0, \quad \forall t \in \mathbb{R}, \quad a_{k,l} \in \mathbb{C}
+    \]
+\end{proof}

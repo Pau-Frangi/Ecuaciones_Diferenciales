@@ -1110,25 +1110,62 @@
         Notese que para $C_2$ tambien se podria haber integrado el coseno cuadrado mediante integración por partes, obteniendo el mismo resultado.\\
         Ahora, como $U = W C$, la solución general de la EDO es:
         \[
-            u(t) = \cos(\omega t) \cdot \left(- \frac{F_0}{4\omega^2} \cos(2\omega t) + x_1\right) + \sin(\omega t) \cdot \left(\frac{F_0}{2\omega} t + \frac{F_0}{4\omega^2} \sin(2\omega t) + x_2\right) \implies
+            u(t) = \cos(\omega t) \cdot \left(\frac{F_0}{4\omega^2} \cos(2\omega t) + x_1\right) + \sin(\omega t) \cdot \left(\frac{F_0}{2\omega} t + \frac{F_0}{4\omega^2} \sin(2\omega t) + x_2\right) \implies
         \]
         Ahora si despejamos:
         \[
-            - \frac{F_0}{4\omega^2} \cos(\omega t) \cos(2\omega t) + \frac{F_0}{4\omega^2} \sin(\omega t) \sin(2\omega t) =
-            \frac{F_0}{4\omega^2} \left(- \cos(\omega t) \cos(2\omega t) + \sin(\omega t) \sin(2\omega t)\right) =
-            \frac{F_0}{4\omega^2} \cos(\omega t)
-        \]
-        Por lo que nos queda:
-        \[
-            u(t) = \frac{F_0}{4\omega^2} \cos(\omega t) + x_1 \cos(\omega t) + x_2 \sin(\omega t)
-        \]
-        Aplicando ahora las condiciones iniciales:
-        \[
-            u(0) = - \frac{F_0}{4\omega^2} + x_1 = 0 \implies
-            x_1 = \frac{F_0}{4\omega^2}
+            u(t) = \frac{F_0}{4\omega^2} \cos(\omega t) \cos(2\omega t) + x_1 \cos(\omega t) + \frac{F_0}{2\omega} t \sin(\omega t) + \frac{F_0}{4\omega^2} \sin(\omega t) \sin(2\omega t) + x_2 \sin(\omega t)
         \]
         \[
-            u'(t) = -\omega \sin(\omega t) \cdot \left(- \frac{F_0}{4\omega^2} \cos(2\omega t) + x_1\right) + \cos(\omega t) \cdot \left(- \frac{F_0}{4\omega^2} \cdot (-2\omega) \sin(2\omega t)\right) +
+            = x_1 \cos(\omega t) + x_2 \sin(\omega t) + \frac{F_0}{4\omega^2} \underbrace{ \left( \cos(\omega t) \cos(2\omega t) + \sin(\omega t) \sin(2\omega t) \right)}_{\cos(\omega t)} + \frac{F_0}{2\omega} t \sin(\omega t)
+        \]
+        Ahora imponemos las condiciones iniciales:
+        \[
+            u(t) = \left(x_1 + \frac{F_0}{4 \omega^2}\right) \cos(\omega t) + x_2 \sin(\omega t) + \frac{F_0}{2\omega} t \sin(\omega t)
+        \]
+        \[
+            0 = u(0) = x_1 + \frac{F_0}{4 \omega^2} \implies x_1 = -\frac{F_0}{4 \omega^2}
+        \]
+        \[
+            u'(t) = -\omega \left(x_1 + \frac{F_0}{4 \omega^2}\right) \sin(\omega t) + x_2 \omega \cos(\omega t) + \frac{F_0}{2\omega} \sin(\omega t) + \frac{F_0}{2} t \cos(\omega t)
+        \]
+        \[
+            0 = u'(0) = x_2 \omega \implies x_2 = 0      
+        \]
+
+        Por lo tanto, la solución particular es:
+        \[
+            u_\omega(t) = \frac{F_0}{2\omega} t \sin(\omega t)
+        \]
+    
+        \item [(c)] Para este apartado, simplemente calculamos el límite:
+        \[
+            \lim_{\gamma \to \omega} u_\gamma(t) = \lim_{\gamma \to \omega} \frac{F_0}{\omega^2 - \gamma^2} (\cos(\gamma t) - \cos(\omega t))
+        \]
+        Aplicando la regla de l'Hôpital, obtenemos:
+        \[
+            \lim_{\gamma \to \omega} u_\gamma(t) = \lim_{\gamma \to \omega} \frac{F_0 (-t \sin(\gamma t))}{-2\gamma} = \frac{F_0 t}{2\omega} \sin(\omega t) = u_\omega(t)
+        \]
+        
+        \item [(d)]
+        \[
+            \cos(a+b) - \cos(a-b) = -2 \sin a \sin b, \quad \cos(a+b) + \cos(a-b) = 2 \cos a \cos b
+        \]
+        \[
+            \cos(a-b) = \cos a \cos b + \sin a \sin b, \quad \cos(a+b) = \cos a \cos b - \sin a \sin b
+        \]
+        \[
+            \cos(\alpha) - \cos(\beta) = 2 \sin\left(\frac{\alpha + \beta}{2}\right) \sin\left(\frac{\alpha - \beta}{2}\right)
+        \]
+        \[
+            \frac{F_0}{(\omega-\gamma)(\omega+\gamma)} (\cos(\gamma t) - \cos(\omega t)) =
+            \frac{F_0}{(\omega-\gamma)(\omega+\gamma)} \cdot 2 \sin\left(\frac{\gamma t + \omega t}{2}\right) \sin\left(\frac{\gamma t - \omega t}{2}\right) 
+        \]
+        \[
+            \gamma = \omega + \epsilon, \quad \epsilon \to 0 \implies
+        \]
+        \[
+            = \frac{F_0}{\omega+\gamma} \cdot \frac{\sin\left(\frac{\gamma t + \omega t}{2}\right)}{\frac{\gamma + \omega}{2}} \cdot \frac{\sin\left(\frac{\gamma t - \omega t}{2}\right)}{\frac{\gamma - \omega}{2}} = \frac{F_0}{2\omega+\varepsilon} \frac{2}{\varepsilon} \sin\left(\frac{(2\omega + \varepsilon) t}{2}\right) \sin\left(\frac{\varepsilon t}{2}\right) = A(t) \sin\left((\omega + \frac{\varepsilon}{2}) t\right)
         \]
     \end{enumerate}
 }
