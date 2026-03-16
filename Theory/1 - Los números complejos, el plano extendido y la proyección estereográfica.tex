@@ -2467,6 +2467,57 @@ Por tanto, $P(D) (t^l e^{\lambda_k t}) = 0$.
     Dado que exponenciales con argumentos distintos $\lambda_k t$ poseen tasas de crecimiento asintótico diferentes (o frecuencias distintas si son imaginarias), y los polinomios en $t$ no pueden compensar este comportamiento asintótico global, la única forma de que la suma se anule idénticamente para todo $t$ es que los polinomios coeficientes se anulen, es decir, $c_{k,l} = 0$ para todo $k, l$. Por lo tanto, forman una base.
 \end{proof}
 
+Para dotar de rigor matemático a este argumento de independencia lineal y justificar que los coeficientes polinómicos deben anularse, demostramos el siguiente lema:
+
+\begin{lema}
+ Sean $\lambda_1, \dots, \lambda_q \in \mathbb{C}$ distintos dos a dos ($\lambda_i \neq \lambda_j$ si $i \neq j$). Si se cumple que
+ \[
+ \sum_{j=1}^q P_j(t) e^{\lambda_j t} = 0 \quad \forall t \in \mathbb{R}
+ \]
+ donde los $P_j(t)$ son polinomios en $t$, entonces $P_j(t) \equiv 0$ para todo $j \in \{1, \dots, q\}$.
+\end{lema}
+
+\begin{proof}
+Procedemos por inducción sobre $q$.
+ 
+ \textbf{Caso base ($q=1$):}
+ Partimos de $P_1(t) e^{\lambda_1 t} = 0$. Como $e^{\lambda_1 t} \neq 0$ para todo $t \in \mathbb{R}$, necesariamente se cumple que $P_1(t) = 0$.
+
+ \textbf{Hipótesis de inducción:}
+ Supongamos que el resultado es cierto para $q-1$. Es decir, $\sum_{j=1}^{q-1} P_j(t) e^{\lambda_j t} = 0 \implies P_j \equiv 0$ para todo $j \in \{1, \dots, q-1\}$.
+
+ \textbf{Paso inductivo:}
+ Consideremos la suma hasta $q$: $\sum_{j=1}^q P_j(t) e^{\lambda_j t} = 0$. Multiplicando toda la ecuación por $e^{-\lambda_q t}$, obtenemos:
+ \[
+ \sum_{j=1}^{q-1} P_j(t) e^{(\lambda_j - \lambda_q) t} + P_q(t) = 0 \implies \sum_{j=1}^{q-1} P_j(t) e^{(\lambda_j - \lambda_q) t} = -P_q(t)
+ \]
+ Sea $k = \text{gr}(P_q) + 1$. Aplicamos el operador derivada $k$ veces (es decir, $D^k$) a ambos lados. Al derivar un polinomio de grado $k-1$ unas $k$ veces, el lado derecho se anula:
+ \[
+ 0 = D^k (-P_q(t)) = \sum_{j=1}^{q-1} D^k \left( P_j(t) e^{(\lambda_j - \lambda_q) t} \right)
+ \]
+ Aplicando la regla de Leibniz de derivación, podemos reescribir esto como:
+ \[
+ \sum_{j=1}^{q-1} \left[ \sum_{l=0}^k \binom{k}{l} (D^l P_j(t)) (\lambda_j - \lambda_q)^{k-l} \right] e^{(\lambda_j - \lambda_q) t} = 0
+ \]
+ El término entre corchetes es un nuevo polinomio. Dado que $\lambda_j \neq \lambda_q$ para todo $j \neq q$, los exponentes de esta suma de $q-1$ términos son todos distintos. Aplicando nuestra hipótesis de inducción, cada polinomio coeficiente debe anularse:
+ \[
+ \sum_{l=0}^k \binom{k}{l} (\lambda_j - \lambda_q)^{k-l} D^l P_j(t) = 0 \quad \forall j \in \{1, \dots, q-1\}
+ \]
+ Notamos que el operador aplicado a $P_j$ es exactamente el desarrollo del binomio del operador diferencial $(D + \lambda_j - \lambda_q)^k$. Es decir:
+ \[
+ (D + \lambda_j - \lambda_q)^k P_j(t) = 0
+ \]
+ Definamos $Q_j(t) = (D + \lambda_j - \lambda_q)^{k-1} P_j(t)$. Entonces tenemos $(D + \lambda_j - \lambda_q) Q_j(t) = 0$, que es una ecuación diferencial de primer orden:
+ \[
+ Q_j'(t) = (\lambda_q - \lambda_j) Q_j(t)
+ \]
+ La solución general es $Q_j(t) = C e^{(\lambda_q - \lambda_j) t}$. Sin embargo, sabemos que $Q_j(t)$ es una combinación de derivadas del polinomio original $P_j(t)$, por lo que debe seguir siendo un polinomio. Un polinomio solo puede igualar a una exponencial si la constante es nula, es decir, $C = 0$. Esto implica que $Q_j(t) \equiv 0$.
+
+ Repitiendo este razonamiento recursivamente y bajando una unidad en la potencia del operador $(D + \lambda_j - \lambda_q)$, deducimos finalmente que $P_j(t) \equiv 0$ para todo $j \in \{1, \dots, q-1\}$.
+ 
+ Sustituyendo estos nulos en la ecuación original nos queda $P_q(t) e^{\lambda_q t} = 0$, lo que implica que $P_q(t) \equiv 0$, quedando así demostrada la independencia lineal.
+\end{proof}
+
 \subsection{Caso de coeficientes reales: Soluciones trigonométricas}
 
 Si los coeficientes $a_k$ del polinomio $P(z)$ son números reales, el Teorema de las Raíces Complejas Conjugadas asegura que si $\lambda = \alpha + i\beta$ es una raíz con multiplicidad $m$, su conjugada $\bar{\lambda} = \alpha - i\beta$ también es raíz con la misma multiplicidad $m$.
