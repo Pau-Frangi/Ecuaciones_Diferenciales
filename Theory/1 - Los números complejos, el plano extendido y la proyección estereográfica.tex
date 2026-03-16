@@ -2453,3 +2453,96 @@ Tenemos
         \sum_{k=1}^q \sum_{l=0}^{m_k - 1} a_{k,l} t^l e^{\lambda_k t} = 0, \quad \forall t \in \mathbb{R}, \quad a_{k,l} \in \mathbb{C}
     \]
 \end{proof}
+
+Dado el polinomio $P(z) = z^n - a_{n-1} z^{n-1} - a_{n-2} z^{n-2} - \dots - a_1 z - a_0$, con coeficientes reales entonces la primera derivada de $P(z)$ es:
+\[
+    P'(z) = n z^{n-1} - (n-1) a_{n-1} z^{n-2} - (n-2) a_{n-2} z^{n-3} - \dots - a_1
+\]
+en general, la $k$-ésima derivada de $P(z)$ es:
+\[
+    P^{(k)}(z) = \frac{n!}{(n-k)!} z^{n-k} - \sum_{j=1}^{n-k} \frac{(n-j)!}{(n-j-k)!} a_{n-j} z^{n-j-k}
+\]
+Sea la muliplicidad algebraica del la raiz $\lambda_k$ igual a $m_k$.
+
+\[
+    P(\lambda_k) = 0, \quad P'(\lambda_k) = 0, \quad P''(\lambda_k) = 0, \quad \dots, \quad P^{(m_k - 1)}(\lambda_k) = 0
+\]
+
+\[
+    P(z) = \prod_{j=1}^q (z - (\alpha_j + i \beta_j))^{m_j}(z - (\alpha_j - i \beta_j))^{m_j} \prod_{k=1}^p (z - r_k)^{m_k}
+\]
+\[
+    = \prod_{j=1}^q ((z - \alpha_j)^2 + \beta_j^2)^{m_j} \prod_{k=1}^p (z - r_k)^{m_k} - (i\beta_j)^2 = \beta_j^2
+\]
+\[
+    \Sigma_0 = \{ u \in C^\infty(\mathbb{R}) : P(D) u = 0 \} = \mathcal{L} [t^l e^{\alpha_j + i \beta_j t}, t^l e^{\alpha_j - i \beta_j t} : 1 \leq j \leq q, 0 \leq l \leq m_j - 1] + \mathcal{L} [t^h e^{r_k t} : 1 \leq k \leq p, 0 \leq h \leq m_k - 1]
+\]
+\[
+    2m_1 + 2m_2 + \dots + 2m_q + m_{q+1} + m_{q+2} + \dots + m_{q+p} = n
+\]
+
+\begin{corolario}
+    Bajo estas condiciones
+    \[
+        \Sigma_0 = \mathcal{L} [t^l e^{\alpha_j t}\cos(\beta_j t), t^l e^{\alpha_j t} \sin(\beta_j t) : 1 \leq j \leq q, 0 \leq l \leq m_j - 1] + \mathcal{L} [t^h e^{r_k t} : 1 \leq k \leq p, 0 \leq h \leq m_k - 1]
+    \]
+    son una base de $\Sigma_0$.
+\end{corolario}
+
+\begin{proof}
+    \[
+        \sum_{j=1}^q \sum_{l=0}^{m_j - 1} \left[c_{j,l} t^l e^{\alpha_j t} \cos(\beta_j t) + \tilde{c}_{j,l} t^l e^{\alpha_j t} \sin(\beta_j t)\right] + \sum_{k=1}^p \sum_{h=0}^{m_k - 1} \tilde{\tilde{c}}_{k,h} t^h e^{r_k t} = 0
+    \]
+    \[
+        \sum_{j=1}^q \sum_{l=0}^{m_j - 1} \left[ c_{j,l} t^l \frac{e^{\alpha_j t + i \beta_j t} + e^{\alpha_j t - i \beta_j t}}{2} + \tilde{c}_{j,l} t^l \frac{e^{\alpha_j t + i \beta_j t} - e^{\alpha_j t - i \beta_j t}}{2i} \right] + \sum_{k=1}^p \sum_{h=0}^{m_k - 1} \tilde{\tilde{c}}_{k,h} t^h e^{r_k t} = 0
+    \]
+    \[
+        \sum_{j=1}^q \sum_{l=0}^{m_j - 1} \left[ \frac{c_{j,l} - i \tilde{c}_{j,l}}{2} t^l e^{\alpha_j t + i \beta_j t} + \frac{c_{j,l} + i \tilde{c}_{j,l}}{2} t^l e^{\alpha_j t - i \beta_j t} \right] + \sum_{k=1}^p \sum_{h=0}^{m_k - 1} \tilde{\tilde{c}}_{k,h} t^h e^{r_k t} = 0
+    \]
+    \[
+        \frac{c_{j,l}}{2} + \frac{\tilde{c}_{j,l}}{2i} = 0, \quad \frac{c_{j,l}}{2} - \frac{\tilde{c}_{j,l}}{2i} = 0, \quad \tilde{\tilde{c}}_{k,h} = 0
+    \]
+    \[
+        \implies c_{j,l} = 0, \quad \tilde{c}_{j,l} = 0, \quad \tilde{\tilde{c}}_{k,h} = 0
+    \]
+\end{proof}
+
+\ejemplo{
+    \[
+        P(z) = [(z - 1)^2 + 4]^3 (z - 3)^2 (z -1)
+    \]
+    \[
+        P(D) = [(D - 1)^2 + 4]^3 (D - 3)^2 (D - 1), \quad n = 2 \cdot 3 + 2 + 1 = 9
+    \]  
+    Veamos las raíces de $P(z)$:
+    \[
+        (z - 1)^2 + 4 = 0 \implies z = 1 \pm 2i, \quad \text{con multiplicidad algebraica} 3
+    \]
+    \[
+        z - 3 = 0 \implies z = 3, \quad \text{con multiplicidad algebraica} 2
+    \]
+    \[
+        z - 1 = 0 \implies z = 1, \quad \text{con multiplicidad algebraica} 1
+    \]
+    Por lo tanto, una base de soluciones de $P(D) u = 0$ es:
+    \[
+        e^{t} \cos(2t), \quad t e^{t} \cos(2t), \quad t^2 e^{t} \cos(2t), \quad e^{t} \sin(2t), \quad t e^{t} \sin(2t), \quad t^2 e^{t} \sin(2t), \quad e^{3t}, \quad t e^{3t}, \quad e^{t}
+    \]
+}
+
+\subsection{Sistemas $u' = Au+B(t)$ siendo $A$ una matriz de $n \times n$ con coeficientes constantes en $\mathbb{C}$}
+
+\[  
+    h' = Ah, \quad h(t) = e^{t\lambda}v, \quad v \in \mathbb{C}^n \setminus \{0\}
+\]
+
+\[
+    \lambda e^{t\lambda} v = A e^{t\lambda} v \implies Av = \lambda v
+\]
+Luego $\lambda$ es un autovalor de $A$ y $v$ es un autovector asociado a $\lambda$. Al conjunto de autovalores de la matriz $A$ lo denotamos por $\sigma(A)$ (espectro de $A$).
+\[
+    \sigma(A) = \{\lambda_1, \lambda_2, \dots, \lambda_n : \lambda_j \neq \lambda_k \text{ para } j \neq k, 1 \leq j, k \leq n\}
+\]
+\[
+    \lambda \in \sigma(A) \iff |A - \lambda I| = 0 \iff \lambda^n - a_{n-1} \lambda^{n-1} - a_{n-2} \lambda^{n-2} - \dots - a_1 \lambda - a_0 = 0
+\]
