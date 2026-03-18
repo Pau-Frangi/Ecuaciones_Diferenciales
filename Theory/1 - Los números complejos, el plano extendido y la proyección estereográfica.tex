@@ -2623,3 +2623,257 @@ Desarrollando este determinante, obtenemos un polinomio de grado $n$ en $\lambda
 \[
     \det(A - \lambda I) = (-1)^n \left( \lambda^n - a_{n-1} \lambda^{n-1} - \dots - a_1 \lambda - a_0 \right) = 0
 \]
+Una base del espacio de soluciones del sistema homogéneo $h' = Ah$ se construye a partir de los autovectores asociados a cada autovalor. Si $\sigma(A) = \{\lambda_1, \lambda_2, \dots, \lambda_n\}$ con $\lambda_j \neq \lambda_k$ para $j \neq k$, y $v_j$ es un autovector asociado a $\lambda_j$, entonces el conjunto $\{e^{\lambda_1 t} v_1, e^{\lambda_2 t} v_2, \dots, e^{\lambda_n t} v_n\}$ forma una base de soluciones del sistema homogéneo.
+\begin{lema}
+    Sean $\lambda_1, \lambda_2, \dots, \lambda_n$ números complejos distintos dos a dos, y sean $c_1, c_2, \dots, c_n$ constantes tales que 
+    \[
+        c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t} + \dots + c_n e^{\lambda_n t} = 0 \quad \forall t \in \mathbb{R}.
+    \]
+    Entonces, necesariamente $c_j = 0$ para todo $j \in \{1, 2, \dots, n\}$.
+\end{lema}
+
+\begin{proof}
+    Demostraremos el resultado por inducción sobre $n$.
+    
+    \textbf{Caso base ($n=1$):} La ecuación se reduce a $c_1 e^{\lambda_1 t} = 0$. Dado que la función exponencial nunca se anula ($e^{\lambda_1 t} \neq 0$ para todo $t$), se concluye directamente que $c_1 = 0$.
+    
+    \textbf{Hipótesis de inducción:} Supongamos que el resultado es cierto para $n-1$ términos. Es decir, si $c_1 e^{\lambda_1 t} + \dots + c_{n-1} e^{\lambda_{n-1} t} = 0$ para todo $t$, entonces $c_j = 0$ para todo $j \in \{1, 2, \dots, n-1\}$.
+    
+    \textbf{Paso inductivo:} Consideremos la ecuación con $n$ términos:
+    \[
+        c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t} + \dots + c_n e^{\lambda_n t} = 0.
+    \]
+    Derivando ambos lados de la ecuación con respecto a $t$, obtenemos:
+    \[
+        c_1 \lambda_1 e^{\lambda_1 t} + c_2 \lambda_2 e^{\lambda_2 t} + \dots + c_n \lambda_n e^{\lambda_n t} = 0.
+    \]
+    Por otro lado, multiplicando la ecuación original por $\lambda_n$, tenemos:
+    \[
+        c_1 \lambda_n e^{\lambda_1 t} + c_2 \lambda_n e^{\lambda_2 t} + \dots + c_n \lambda_n e^{\lambda_n t} = 0.
+    \]
+    Restando esta última ecuación de la ecuación derivada, el término enésimo se cancela:
+    \[
+        c_1 (\lambda_1 - \lambda_n) e^{\lambda_1 t} + c_2 (\lambda_2 - \lambda_n) e^{\lambda_2 t} + \dots + c_{n-1} (\lambda_{n-1} - \lambda_n) e^{\lambda_{n-1} t} = 0.
+    \]
+    Esta es una combinación lineal de $n-1$ exponenciales que es igual a cero. Por nuestra hipótesis de inducción, los coeficientes que acompañan a cada exponencial deben ser nulos:
+    \[
+        c_j (\lambda_j - \lambda_n) = 0 \quad \text{para todo } j \in \{1, 2, \dots, n-1\}.
+    \]
+    Dado que los $\lambda_j$ son distintos dos a dos por hipótesis, sabemos que $\lambda_j - \lambda_n \neq 0$. Por lo tanto, podemos dividir por este factor y deducir que:
+    \[
+        c_j = 0 \quad \text{para todo } j \in \{1, 2, \dots, n-1\}.
+    \]
+    Sustituyendo estos resultados en la ecuación original de $n$ términos, nos queda simplemente $c_n e^{\lambda_n t} = 0$. Al igual que en el caso base, como $e^{\lambda_n t} \neq 0$, esto implica que $c_n = 0$. 
+    
+    Con esto quedan demostrados todos los coeficientes nulos, completando el paso inductivo y la demostración del lema.
+\end{proof}
+
+\subsection*{Sistemas Lineales Homogéneos: Soluciones Fundamental y Diagonalización}
+
+Consideremos un sistema de ecuaciones diferenciales lineales homogéneo de primer orden con coeficientes constantes, dado por la expresión:
+\[
+    h' = Ah
+\]
+donde $A$ es una matriz de tamaño $n \times n$ con entradas reales o complejas, y $h(t)$ es un vector columna de $n$ funciones desconocidas. 
+
+Supongamos que la matriz $A$ posee $n$ autovalores distintos dos a dos, denotados por $\lambda_1, \lambda_2, \dots, \lambda_n$, con sus respectivos autovectores asociados $v_1, v_2, \dots, v_n$. Sabemos que para cada par autovalor-autovector, la función vectorial $h_j(t) = e^{\lambda_j t} v_j$ es una solución del sistema.
+
+A continuación, demostraremos que este conjunto de $n$ soluciones forma una base para el espacio de soluciones del sistema.
+
+\subsubsection*{1. Independencia lineal de las soluciones}
+
+Para verificar que las soluciones $\{ e^{\lambda_1 t} v_1, e^{\lambda_2 t} v_2, \dots, e^{\lambda_n t} v_n \}$ son linealmente independientes en todo $\mathbb{R}$, planteamos una combinación lineal igualada al vector nulo:
+\[
+    c_1 e^{\lambda_1 t} v_1 + c_2 e^{\lambda_2 t} v_2 + \dots + c_n e^{\lambda_n t} v_n = \mathbf{0} \quad \forall t \in \mathbb{R}
+\]
+
+Podemos agrupar los escalares $c_j$ con los vectores constantes $v_j$, reescribiendo la ecuación vectorial como:
+\[
+    e^{\lambda_1 t} (c_1 v_1) + e^{\lambda_2 t} (c_2 v_2) + \dots + e^{\lambda_n t} (c_n v_n) = \mathbf{0} \quad \forall t \in \mathbb{R}
+\]
+
+Dado que esta igualdad vectorial debe cumplirse componente a componente, podemos aplicar el lema previo (que establece la independencia lineal de funciones exponenciales con exponentes distintos) a cada una de las $n$ coordenadas del sistema. Al hacerlo, deducimos que los vectores coeficientes deben ser nulos:
+\[
+    c_j v_j = \mathbf{0} \quad \forall j \in \{1, 2, \dots, n\}
+\]
+
+Por definición, un autovector nunca es el vector nulo ($v_j \neq \mathbf{0}$). En consecuencia, la única forma de que se cumpla la igualdad anterior es que los escalares sean cero:
+\[
+    c_j = 0 \quad \forall j \in \{1, 2, \dots, n\}
+\]
+
+Esto demuestra que las $n$ soluciones son linealmente independientes. Si denotamos por $\Sigma_0$ al espacio de todas las soluciones del sistema homogéneo, concluimos que su dimensión es exactamente $n$, y que está generado por nuestro conjunto de soluciones:
+\[
+    \dim(\Sigma_0) = n, \quad \Sigma_0 = \mathcal{L}(\{e^{\lambda_j t} v_j : j = 1, 2, \dots, n\})
+\]
+
+\subsubsection*{2. Matriz Fundamental y el Wronskiano}
+
+Dado que hemos encontrado un conjunto fundamental de soluciones, podemos construir la \textbf{matriz fundamental} del sistema, $\Phi(t)$, colocando estas soluciones como columnas de una matriz $n \times n$:
+\[
+    \Phi(t) = \begin{pmatrix} e^{\lambda_1 t} v_1 & e^{\lambda_2 t} v_2 & \dots & e^{\lambda_n t} v_n \end{pmatrix}
+\]
+
+Para garantizar que esta matriz es invertible (es decir, que forma un conjunto fundamental válido en todo instante $t$), calculamos su determinante (también conocido como el Wronskiano del sistema). Utilizando las propiedades del determinante para extraer escalares de las columnas, obtenemos:
+\[
+    |\Phi(t)| = e^{(\lambda_1 + \lambda_2 + \dots + \lambda_n) t} |v_1 v_2 \dots v_n|
+\]
+
+Dado que la función exponencial nunca se anula, y que los vectores $v_1, \dots, v_n$ son linealmente independientes (por estar asociados a autovalores distintos), su determinante $|v_1 v_2 \dots v_n|$ es distinto de cero. Por lo tanto:
+\[
+    |\Phi(t)| \neq 0 \quad \forall t \in \mathbb{R}
+\]
+
+\subsubsection*{3. Base de autovectores y Diagonalización}
+
+Si evaluamos la matriz fundamental en el instante inicial $t = 0$, las exponenciales se evalúan a 1, y nos queda la matriz formada puramente por los autovectores:
+\[
+    \Phi(0) = \begin{pmatrix} v_1 & v_2 & \dots & v_n \end{pmatrix}
+\]
+
+Como demostramos que el determinante de esta matriz es distinto de cero, el conjunto de autovectores forma un sistema generador y libre para el espacio vectorial completo. Es decir:
+\[
+    \mathbb{C}^n = \mathcal{L} [v_1, v_2, \dots, v_n]
+\]
+\[
+    \mathcal{B}_{\mathbb{C}} = \{v_1, v_2, \dots, v_n\} \text{ es una base de } \mathbb{C}^n
+\]
+
+Finalmente, si representamos la matriz original $A$ del sistema (la cual define una transformación lineal) expresada en esta nueva base $\mathcal{B}_{\mathbb{C}}$, obtenemos su forma diagonal, donde los elementos de la diagonal principal son precisamente los autovalores del sistema:
+\[
+    A_{\mathcal{B}_{\mathbb{C}}} = \begin{pmatrix} 
+    \lambda_1 & 0 & \dots & 0 \\ 
+    0 & \lambda_2 & \dots & 0 \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
+    0 & 0 & \dots & \lambda_n 
+    \end{pmatrix}
+\]
+
+Este proceso evidencia cómo la estructura algebraica de la matriz (sus autovalores y autovectores) determina completamente la naturaleza geométrica y analítica de las soluciones del sistema diferencial.
+
+\[
+    A v_j = \lambda_j v_j \quad v_j \in \ker(A - \lambda_j I) \setminus \{0\} \quad \forall j \in \{1, 2, \dots, n\}
+\]
+\[
+    \mathbb{C}^n = \bigoplus_{j=1}^n \ker(A - \lambda_j I) \quad \text{(descomposición espectral)}
+\]
+\[
+    \dim(\ker(A - \lambda_j I) = 1 \quad \forall j \in \{1, 2, \dots, n\}
+\]
+\[
+    u \in \mathbb{C}^n, \quad u = \sum_{j=1}^n c_j v_j \quad \text{(expresión de cualquier vector en la base de autovectores)}
+\]
+
+Ahora si $\sigma(A) = \{\lambda_1, \lambda_2, \dots, \lambda_q\}$ con $q < n$ autovalores distintos, cada uno con su respectiva multiplicidad algebraica $m_j$, tenemos:
+\[
+    \mathbb{C}^n = \bigoplus_{j=1}^q \ker((A - \lambda_j I)^{m_j}), \quad n = \sum_{j=1}^q m_j
+\]
+\[
+    \ker(A - \lambda_j I) = \mathcal{L} [v_{j,1}, v_{j,2}, \dots, v_{j,m_j}]
+\]
+$e^{\lambda_j t} v_{j,l}$ es una solución del sistema homogéneo para cada $l \in \{1, 2, \dots, m_j\}$, y el conjunto de todas estas soluciones para $j = 1, 2, \dots, q$ forma una base del espacio de soluciones $\Sigma_0$.
+
+\begin{teorema}
+    Sea $A \in \mathcal{M}_{n \times n}(\mathbb{C})$ una matriz \textbf{diagonalizable} que tiene $q$ autovalores distintos $\lambda_1, \lambda_2, \dots, \lambda_q$ con multiplicidades algebraicas (y geométricas) $m_1, m_2, \dots, m_q$, de modo que $\sum_{j=1}^q m_j = n$. 
+    
+    Sean $\{v_{j,1}, v_{j,2}, \dots, v_{j,m_j}\}$ bases para cada uno de los subespacios propios asociados a $\lambda_j$. Entonces, el conjunto de $n$ funciones vectoriales:
+    \[
+        \mathcal{B} = \{ e^{\lambda_j t} v_{j,l} : j = 1, 2, \dots, q; \ l = 1, 2, \dots, m_j \}
+    \]
+    forma una base del espacio de soluciones $\Sigma_0$ del sistema lineal homogéneo $h' = Ah$.
+\end{teorema}
+
+\begin{proof}
+    Para demostrar que $\mathcal{B}$ es una base de $\Sigma_0$, debemos probar dos cosas: que sus elementos son soluciones del sistema y que son linealmente independientes. Dado que la teoría general de sistemas lineales nos garantiza que la dimensión de $\Sigma_0$ es $n$, bastará con comprobar que estas $n$ funciones son soluciones y son linealmente independientes.
+
+    \textbf{Verificación de las soluciones.} \\
+    Para cualquier $j \in \{1, \dots, q\}$ y $l \in \{1, \dots, m_j\}$, calculemos la derivada de la función $h_{j,l}(t) = e^{\lambda_j t} v_{j,l}$:
+    \[
+        h_{j,l}'(t) = \lambda_j e^{\lambda_j t} v_{j,l}
+    \]
+    Por otro lado, como $v_{j,l}$ es un autovector asociado a $\lambda_j$, sabemos por definición que $A v_{j,l} = \lambda_j v_{j,l}$. Si evaluamos la acción de la matriz $A$ sobre nuestra función, obtenemos:
+    \[
+        A h_{j,l}(t) = A (e^{\lambda_j t} v_{j,l}) = e^{\lambda_j t} A v_{j,l} = e^{\lambda_j t} \lambda_j v_{j,l} = h_{j,l}'(t)
+    \]
+    Por lo tanto, cada función del conjunto $\mathcal{B}$ satisface la ecuación $h' = Ah$ y es, efectivamente, una solución del sistema homogéneo.
+
+    \textbf{Independencia lineal.} \\
+    Planteamos una combinación lineal de todos los elementos del conjunto igualada al vector nulo para todo instante $t \in \mathbb{R}$:
+    \[
+        \sum_{j=1}^q \sum_{l=1}^{m_j} c_{j,l} e^{\lambda_j t} v_{j,l} = \mathbf{0} \quad \forall t \in \mathbb{R}
+    \]
+    Podemos reorganizar esta suma agrupando los términos que comparten la misma función exponencial $e^{\lambda_j t}$:
+    \[
+        \sum_{j=1}^q \underbrace{\left( \sum_{l=1}^{m_j} c_{j,l} v_{j,l} \right)}_{u_j} e^{\lambda_j t} = \mathbf{0} \quad \forall t \in \mathbb{R}
+    \]
+    Llamemos $u_j$ al vector constante resultante de la suma interior. La ecuación vectorial se reescribe como:
+    \[
+        u_1 e^{\lambda_1 t} + u_2 e^{\lambda_2 t} + \dots + u_q e^{\lambda_q t} = \mathbf{0} \quad \forall t \in \mathbb{R}
+    \]
+    Por el lema previo (independencia lineal de funciones exponenciales con exponentes distintos), deducimos necesariamente que cada uno de los vectores coeficientes debe ser el vector nulo:
+    \[
+        u_j = \mathbf{0} \implies \sum_{l=1}^{m_j} c_{j,l} v_{j,l} = \mathbf{0} \quad \text{para cada } j \in \{1, 2, \dots, q\}
+    \]
+    
+    \textbf{Conclusión sobre los coeficientes.} \\
+    Fijemos un índice $j$. La suma $\sum_{l=1}^{m_j} c_{j,l} v_{j,l} = \mathbf{0}$ representa una combinación lineal nula de los autovectores asociados a $\lambda_j$. Por hipótesis, el conjunto $\{v_{j,1}, \dots, v_{j,m_j}\}$ es una base del subespacio propio asociado a $\lambda_j$ y, por tanto, son vectores linealmente independientes entre sí. Esto obliga a que todos sus coeficientes escalares sean nulos:
+    \[
+        c_{j,l} = 0 \quad \text{para todo } l \in \{1, 2, \dots, m_j\}
+    \]
+    Como este razonamiento es válido para los $q$ autovalores, concluimos que todos los coeficientes $c_{j,l}$ de la combinación lineal original son idénticamente cero.
+
+    Por consiguiente, las $n$ soluciones propuestas son linealmente independientes y forman una base de $\Sigma_0$.
+    
+    \vspace{0.5cm}
+    \textit{Nota de estructura:} En esta base formada íntegramente por autovectores, la matriz original $A$ adopta su forma diagonal (diagonal por bloques escalares), lo cual ilustra el desacoplamiento total del sistema:
+    \[
+        A_{\mathcal{B}} = \begin{pmatrix}
+        \lambda_1 I_{m_1} & \mathbf{0} & \dots & \mathbf{0} \\
+        \mathbf{0} & \lambda_2 I_{m_2} & \dots & \mathbf{0} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \mathbf{0} & \mathbf{0} & \dots & \lambda_q I_{m_q}
+        \end{pmatrix}
+    \]
+\end{proof}
+
+\ejemplo{
+    Sea 
+    \[
+        A = \begin{pmatrix}
+            \lambda & 0 \\
+            1 & \lambda
+        \end{pmatrix}   
+    \]
+    \[
+        \sigma(A) = \{\lambda\} \quad \text{con multiplicidad algebraica } m = 2
+    \]
+
+    \[
+            \begin{cases}
+                Aa = \lambda a \\
+                Ab = \lambda b
+            \end{cases}
+    \]
+
+    \[
+        h' = Ah \quad \text{con} \quad h(t) = e^{\lambda t} (ta+b), \quad a, b \in \mathbb{C}^2
+        a \in \ker(A - \lambda I) \setminus \{0\}, \quad b \in \ker((A - \lambda I)^2) \setminus \ker(A - \lambda I)
+    \]
+    \[
+            (A - \lambda I) b = a, \quad (A - \lambda I)^2 = (A - \lambda I) a = 0
+    \]   
+    
+    \[
+        \ker(A - \lambda I) = \mathcal{L} [a], \quad e^{\lambda t} \begin{pmatrix}
+            0 \\
+            1
+        \end{pmatrix} = h_1(t) \text{ es una solución del sistema}
+    \]
+
+    \[
+        \lambda e^{\lambda t} (ta + b) + e^{\lambda t} a = e^{\lambda t} (tAa + )
+    \]
+}
+
+
+
