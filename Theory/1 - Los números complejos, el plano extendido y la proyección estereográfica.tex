@@ -2836,44 +2836,104 @@ $e^{\lambda_j t} v_{j,l}$ es una solución del sistema homogéneo para cada $l \
     \]
 \end{proof}
 
-\ejemplo{
-    Sea 
-    \[
-        A = \begin{pmatrix}
-            \lambda & 0 \\
-            1 & \lambda
-        \end{pmatrix}   
-    \]
-    \[
-        \sigma(A) = \{\lambda\} \quad \text{con multiplicidad algebraica } m = 2
-    \]
 
-    \[
-            \begin{cases}
-                Aa = \lambda a \\
-                Ab = \lambda b
-            \end{cases}
-    \]
+\section{Sistemas con matrices no diagonalizables y exponencial de matrices}
 
+Para entender el comportamiento de los sistemas de ecuaciones diferenciales cuando la matriz de coeficientes no es diagonalizable, analizaremos el caso más sencillo: un bloque de Jordan de orden 2.
+
+Sea el sistema $h' = Ah$, donde la matriz $A \in \mathcal{M}_{2 \times 2}(\mathbb{C})$ tiene la forma:
+\[
+    A = \begin{pmatrix} \lambda & 0 \\ 1 & \lambda \end{pmatrix}
+\]
+El espectro de esta matriz es $\sigma(A) = \{\lambda\}$. 
+
+Para encontrar las soluciones del sistema, buscamos un autovector $a$ y un autovector generalizado $b$ que satisfagan las relaciones de la cadena:
+\begin{align*}
+    (A - \lambda I)a &= 0 \implies Aa = \lambda a \\
+    (A - \lambda I)b &= a \implies Ab = \lambda b + a
+\end{align*}
+
+Sustituyendo nuestra matriz $A$, la primera ecuación es:
+\[
+    \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \implies a_1 = 0
+\]
+Tomamos como autovector $a = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$. El subespacio propio es por tanto $N[A-\lambda I] = L\left[ \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right]$.
+
+Para el autovector generalizado $b = \begin{pmatrix} x \\ y \end{pmatrix}$, resolvemos la segunda ecuación:
+\[
+    \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \implies x = 1
+\]
+Podemos tomar $b = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$.
+
+Con estos vectores, construimos una solución generalizada de la forma $h(t) = e^{\lambda t}(ta + b)$. Sustituyendo nuestros vectores obtenidos:
+\[
+    h(t) = e^{\lambda t} \left[ t \begin{pmatrix} 0 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \end{pmatrix} \right] = \begin{pmatrix} e^{\lambda t} \\ t e^{\lambda t} \end{pmatrix}
+\]
+
+Esto nos permite construir la Matriz Fundamental de Soluciones (M.F.S.), denotada como $\Phi(t)$:
+\[
+    \Phi(t) = \begin{pmatrix} e^{\lambda t} & 0 \\ t e^{\lambda t} & e^{\lambda t} \end{pmatrix}
+\]
+Cuyo determinante es $|\Phi(t)| = e^{2\lambda t} \neq 0$, garantizando que las columnas forman un sistema fundamental para la solución general $\mathcal{L}(t)$.
+
+\subsection{Cálculo mediante la exponencial de una matriz}
+
+De manera alternativa, sabemos que la solución al sistema $h' = Ah$ viene dada por la matriz exponencial $e^{At}$, definida mediante su serie de Taylor:
+\[
+    e^{At} = \sum_{n \ge 0} \frac{(At)^n}{n!}
+\]
+Para calcularla de forma exacta, descomponemos nuestra matriz $A$ como la suma de su parte diagonal y su parte nilpotente:
+\[
+    A = \lambda I_2 + N = \begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix} + \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}
+\]
+Dado que la matriz identidad conmuta con cualquier matriz ($(\lambda I_2)N = N(\lambda I_2)$), podemos aplicar la propiedad de la exponencial para sumas que conmutan ($AB=BA \implies e^{A+B} = e^A e^B$):
+\[
+    e^{At} = e^{(\lambda I_2 + N)t} = e^{\lambda I_2 t} e^{Nt}
+\]
+
+La matriz $e^{\lambda I_2 t}$ es simplemente $e^{\lambda t} I_2$. Para la matriz nilpotente $N$, notamos que $N^2 = 0$, por lo que la serie de Taylor se trunca abruptamente en el primer término:
+\[
+    e^{Nt} = I_2 + Nt + \frac{(Nt)^2}{2!} + \dots = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} + \begin{pmatrix} 0 & 0 \\ t & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ t & 1 \end{pmatrix}
+\]
+Multiplicando ambos resultados, recuperamos la Matriz Fundamental de Soluciones que obtuvimos por el método anterior:
+\[
+    e^{At} = \left( e^{\lambda t} I_2 \right) \begin{pmatrix} 1 & 0 \\ t & 1 \end{pmatrix} = \begin{pmatrix} e^{\lambda t} & 0 \\ t e^{\lambda t} & e^{\lambda t} \end{pmatrix}
+\]
+
+\subsection{Repaso de Álgebra Lineal: Teorema de Descomposición}
+
+Para extender este proceso a matrices de orden arbitrario, necesitamos recordar los fundamentos teóricos sobre autoespacios generalizados.
+
+Sea $A = (a_{ij})_{1 \le i,j \le N}$ una matriz cuadrada de orden $N$ con coeficientes complejos. Su espectro está formado por las raíces de su polinomio característico:
+\[
+    \sigma(A) = \{ \lambda : \det(A - \lambda I) = 0 \} = \{\lambda_1, \dots, \lambda_q\} \quad \text{con } \lambda_i \neq \lambda_j \text{ si } i \neq j
+\]
+
+Para cada autovalor $\lambda \in \sigma(A)$, definimos su \textbf{autoespacio} (o núcleo) como $N[A-\lambda I]$. Sabemos que la multiplicidad geométrica de un autovalor está acotada por su multiplicidad algebraica:
+\[
+    \text{Mult. Geométrica} = \dim N[A-\lambda I] \leq m_{alg}(\lambda)
+\]
+
+Si evaluamos las potencias sucesivas del operador $(A-\lambda I)$, obtenemos la cadena de inclusiones de los \textbf{autoespacios generalizados}:
+\[
+    N[A-\lambda I] \subsetneq N[(A-\lambda I)^2] \subsetneq \dots \subsetneq N[(A-\lambda I)^{\nu(\lambda)}]
+\]
+Esta cadena de inclusiones es estricta hasta llegar a un cierto entero $\nu(\lambda)$, llamado \textbf{índice} o \textbf{ascendente algebraico} del autovalor, a partir del cual el subespacio se estabiliza y ya no crece más.
+
+Esta estructura se consolida en el \textbf{Teorema de Descomposición (Teorema de Jordan)}, el cual establece:
+\begin{enumerate}
+    \item La multiplicidad algebraica coincide con la dimensión del autoespacio generalizado máximo:
     \[
-        h' = Ah \quad \text{con} \quad h(t) = e^{\lambda t} (ta+b), \quad a, b \in \mathbb{C}^2
-        a \in \ker(A - \lambda I) \setminus \{0\}, \quad b \in \ker((A - \lambda I)^2) \setminus \ker(A - \lambda I)
+        m_{alg}(\lambda_j) = \dim N[(A-\lambda_j I)^{\nu(\lambda_j)}]
     \]
-    \[
-            (A - \lambda I) b = a, \quad (A - \lambda I)^2 = (A - \lambda I) a = 0
-    \]   
     
+    \item El espacio vectorial completo $\mathbb{C}^N$ se puede expresar como suma directa de estos autoespacios generalizados:
     \[
-        \ker(A - \lambda I) = \mathcal{L} [a], \quad e^{\lambda t} \begin{pmatrix}
-            0 \\
-            1
-        \end{pmatrix} = h_1(t) \text{ es una solución del sistema}
+        \mathbb{C}^N = \bigoplus_{j=1}^q N[(A-\lambda_j I)^{\nu(\lambda_j)}]
     \]
-
-    \[
-        \lambda e^{\lambda t} (ta + b) + e^{\lambda t} a = e^{\lambda t} (tAa + )
-    \]
-}
+    
+    \item Cada uno de estos subespacios es invariante bajo la transformación de $A$. Es decir, si restringimos la matriz $A$ al subespacio $j$-ésimo (denotándolo como $A_j$), la matriz global $A$ adopta una forma diagonal por bloques conformada por estas submatrices $A_1, A_2, \dots, A_q$.
+\end{enumerate}
 \subsection{Descomposición y Base de Jordan (Construcción del Cuadro)}
 
 Supongamos que el espectro de la matriz $A$ es $\sigma(A)=\{\lambda_1, \dots, \lambda_s\}$ con autovalores distintos, es decir, $\lambda_i \neq \lambda_j$ si $i \neq j$. 
