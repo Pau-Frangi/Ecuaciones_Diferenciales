@@ -2871,9 +2871,187 @@ $e^{\lambda_j t} v_{j,l}$ es una solución del sistema homogéneo para cada $l \
     \]
 
     \[
-        \lambda e^{\lambda t} (ta + b) + e^{\lambda t} a = e^{\lambda t} (tAa + )
+        \lambda e^{\lambda t} (ta + b) + e^{\lambda t} a = e^{\lambda t} (tAa + Ab)
     \]
+
+    \[
+        \lambda t a + \lambda b + a = t Aa + Ab 
+    \]
+
+    \[
+        a = \begin{pmatrix}
+            0 \\
+            1
+        \end{pmatrix} \quad \begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+        \end{pmatrix} \begin{pmatrix}
+            0 \\
+            1
+        \end{pmatrix} = \begin{pmatrix}
+            0 \\
+            0
+        \end{pmatrix}
+    \]
+    \[
+        \begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+        \end{pmatrix} \begin{pmatrix}
+            x \\
+            y
+        \end{pmatrix} = \begin{pmatrix}
+            0 \\
+            1
+        \end{pmatrix} \implies b = \begin{pmatrix}
+            1 \\
+            0
+        \end{pmatrix}
+    \]
+
+    \[
+        h(t) = e^{\lambda t} \left(t \begin{pmatrix}
+            0 \\
+            1
+        \end{pmatrix} + \begin{pmatrix}
+            1 \\
+            0
+        \end{pmatrix} \right) = e^{\lambda t} \begin{pmatrix}
+            1 \\
+            t
+        \end{pmatrix} = \begin{pmatrix}
+            e^{\lambda t} \\
+            t e^{\lambda t}
+        \end{pmatrix}
+    \]
+
+    \[
+        \Phi(t) = \begin{pmatrix}
+            e^{\lambda t} & t e^{\lambda t} \\
+            t e^{\lambda t} & \frac{t^2}{2} e^{\lambda t}
+        \end{pmatrix} \quad |\Phi(t)| = \frac{t^2}{2} e^{2\lambda t} - t^2 e^{2\lambda t} = -\frac{t^2}{2} e^{2\lambda t} \neq 0 \quad \forall t \in \mathbb{R} \setminus \{0\}
+    \]
+
+    La solución general del sistema es:
+    \[
+        h(t) = \begin{pmatrix}
+            e^{\lambda t} \\
+            t e^{\lambda t}
+        \end{pmatrix} x + \begin{pmatrix}
+            0 \\
+            e^{\lambda t}
+        \end{pmatrix} y \quad \text{con } x, y \in \mathbb{C}
+    \]
+
+    $A$ una matriz cuadrada de orden $n$, $e^{A} = \sum_{k=0}^{\infty} \frac{A^k}{k!}$ es la serie de potencias que define la función exponencial de la matriz $A$. 
+
+    \[
+            e^{A+B} = e^{A} e^{B} \quad \text{si } AB = BA
+    \]
+
+    \[
+        h' = \begin{pmatrix}
+            \lambda & 0 \\
+            1 & \lambda
+        \end{pmatrix} h \qquad h(t) = e^{\begin{pmatrix}
+            \lambda & 0 \\
+            1 & \lambda
+        \end{pmatrix} t} = e^{\begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+        \end{pmatrix}t + \begin{pmatrix}
+            \lambda & 0 \\
+            0 & \lambda
+        \end{pmatrix}t} = e^{\lambda t I_2 + \begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+        \end{pmatrix}t} = e^{\lambda t I_2} e^{\begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+            \end{pmatrix}t} =*
+    \]
+
+    \[
+            e^{\lambda t I_2} = \sum_{n=0}^{\infty} \frac{(\lambda t I_2)^n}{n!} = \sum_{n=0} \frac{(\lambda t)^n}{n!} I_2 = e^{\lambda t} I_2
+    \]
+
+    \[
+            =* e^{\lambda t} I_2 e^{\begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+            \end{pmatrix}t} 
+    \]
+
+    \[
+            e^{\begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+            \end{pmatrix}t} = \begin{pmatrix}
+            1 & 0 \\
+            0 & 1
+            \end{pmatrix} + \begin{pmatrix}
+            0 & 0 \\
+            t & 0
+            \end{pmatrix} + \frac{1}{2!} \begin{pmatrix}
+            0 & 0 \\
+            0 & 0
+            \end{pmatrix} + \dots = \begin{pmatrix}
+            1 & 0 \\
+            t & 1
+            \end{pmatrix}
+    \]    
+
+
+
 }
 
 
+\[
+    A = (a_{ij}) \in \mathcal{M}_{n \times n}(\mathbb{C})
+\]
 
+\[
+    \sigma(A) = \{z : \det(A-zI) = 0\} = \{\lambda_1, \lambda_2, \dots, \lambda_q\} \quad \lambda_i \neq \lambda_j \text{ para } i \neq j
+\]
+
+\[
+    \lambda \in \sigma(A) \implies \dim(\ker(A - \lambda I)) = \text{mult.geom.}(\lambda) \leq \text{mult.alg.}(\lambda)
+\]
+
+\[
+    \ker(A - \lambda I) \subsetneq \ker((A - \lambda I)^2) \subsetneq \dots \subsetneq \ker((A - \lambda I)^{\nu (\lambda)}) = \ker((A - \lambda I)^{\nu (\lambda)+j}) \quad \forall j \in \mathbb{N}
+\]
+
+Se estabiliza en el espacio euclideo y en dimensión finita, pero en general no ocurre en cualquier espacio de Banach.
+
+$\nu(\lambda)$ es el ascendente algebraico de $\lambda$.
+
+\begin{teorema} [Teorema de Jordan]
+    Sea $A \in \mathcal{M}_{n \times n}(\mathbb{C})$ una matriz cuadrada de orden $n$ tal que $\sigma(A) = \{\lambda_1, \lambda_2, \dots, \lambda_q\}$, $\lambda_i \neq \lambda_j$ para $i \neq j$, y cada autovalor $\lambda_j$ tiene multiplicidad algebraica $m_j$ y multiplicidad geométrica $g_j$. Entonces se tiene que:
+    \begin{enumerate}
+        \item $m_j = \dim(\ker((A - \lambda_j I)^{m_j}))$ para cada $j \in \{1, 2, \dots, q\}$.
+        \item $\mathbb{C}^n = \bigoplus_{j=1}^q \ker((A - \lambda_j I)^{m_j})$ (descomposición espectral).
+        \item $A(\ker((A - \lambda_j I)^{m_j})) \subset \ker((A - \lambda_j I)^{m_j})$ para cada $j \in \{1, 2, \dots, q\}$.
+    \end{enumerate}
+\end{teorema}
+
+Sea $\lambda \in \{\lambda_1, \lambda_2, \dots, \lambda_q\}$ un autovalor de $A$ con multiplicidad algebraica $m$ y multiplicidad geométrica $g$. Entonces
+\[
+    \ker((A - \lambda I)^{m}) = \bigoplus_{k=1}^m \ker((A - \lambda I)^k) \setminus \ker((A - \lambda I)^{k-1})
+\]
+
+\[
+    v_1, v_2, \dots, v_{g-1} \in \ker((A - \lambda I)^{m}) \setminus \ker((A - \lambda I)^{m-1})
+\]
+
+\[
+    (A - \lambda I) v_1, (A - \lambda I) v_2, \dots, (A - \lambda I) v_{g-1} \in \ker((A - \lambda I)^{m-1}) \setminus \ker((A - \lambda I)^{m-2})
+\]
+
+\[
+\vdots
+\]
+
+\[
+    (A - \lambda I)^{m-1} v_1, (A - \lambda I)^{m-1} v_2, \dots, (A - \lambda I)^{m-1} v_{g-1} \in \ker((A - \lambda I)) \setminus \{0\}
+\]
