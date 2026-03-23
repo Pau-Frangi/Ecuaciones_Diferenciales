@@ -2836,222 +2836,321 @@ $e^{\lambda_j t} v_{j,l}$ es una solución del sistema homogéneo para cada $l \
     \]
 \end{proof}
 
-\ejemplo{
-    Sea 
-    \[
-        A = \begin{pmatrix}
-            \lambda & 0 \\
-            1 & \lambda
-        \end{pmatrix}   
-    \]
-    \[
-        \sigma(A) = \{\lambda\} \quad \text{con multiplicidad algebraica } m = 2
-    \]
 
-    \[
-            \begin{cases}
-                Aa = \lambda a \\
-                Ab = \lambda b
-            \end{cases}
-    \]
+\section{Sistemas con matrices no diagonalizables y exponencial de matrices}
 
+Para entender el comportamiento de los sistemas de ecuaciones diferenciales cuando la matriz de coeficientes no es diagonalizable, analizaremos el caso más sencillo: un bloque de Jordan de orden 2.
+
+Sea el sistema $h' = Ah$, donde la matriz $A \in \mathcal{M}_{2 \times 2}(\mathbb{C})$ tiene la forma:
+\[
+    A = \begin{pmatrix} \lambda & 0 \\ 1 & \lambda \end{pmatrix}
+\]
+El espectro de esta matriz es $\sigma(A) = \{\lambda\}$. 
+
+Para encontrar las soluciones del sistema, buscamos un autovector $a$ y un autovector generalizado $b$ que satisfagan las relaciones de la cadena:
+\begin{align*}
+    (A - \lambda I)a &= 0 \implies Aa = \lambda a \\
+    (A - \lambda I)b &= a \implies Ab = \lambda b + a
+\end{align*}
+
+Sustituyendo nuestra matriz $A$, la primera ecuación es:
+\[
+    \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \implies a_1 = 0
+\]
+Tomamos como autovector $a = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$. El subespacio propio es por tanto $N[A-\lambda I] = L\left[ \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right]$.
+
+Para el autovector generalizado $b = \begin{pmatrix} x \\ y \end{pmatrix}$, resolvemos la segunda ecuación:
+\[
+    \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \implies x = 1
+\]
+Podemos tomar $b = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$.
+
+Con estos vectores, construimos una solución generalizada de la forma $h(t) = e^{\lambda t}(ta + b)$. Sustituyendo nuestros vectores obtenidos:
+\[
+    h(t) = e^{\lambda t} \left[ t \begin{pmatrix} 0 \\ 1 \end{pmatrix} + \begin{pmatrix} 1 \\ 0 \end{pmatrix} \right] = \begin{pmatrix} e^{\lambda t} \\ t e^{\lambda t} \end{pmatrix}
+\]
+
+Esto nos permite construir la Matriz Fundamental de Soluciones (M.F.S.), denotada como $\Phi(t)$:
+\[
+    \Phi(t) = \begin{pmatrix} e^{\lambda t} & 0 \\ t e^{\lambda t} & e^{\lambda t} \end{pmatrix}
+\]
+Cuyo determinante es $|\Phi(t)| = e^{2\lambda t} \neq 0$, garantizando que las columnas forman un sistema fundamental para la solución general $\mathcal{L}(t)$.
+
+\subsection{Cálculo mediante la exponencial de una matriz}
+
+De manera alternativa, sabemos que la solución al sistema $h' = Ah$ viene dada por la matriz exponencial $e^{At}$, definida mediante su serie de Taylor:
+\[
+    e^{At} = \sum_{n \ge 0} \frac{(At)^n}{n!}
+\]
+Para calcularla de forma exacta, descomponemos nuestra matriz $A$ como la suma de su parte diagonal y su parte nilpotente:
+\[
+    A = \lambda I_2 + N = \begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix} + \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}
+\]
+Dado que la matriz identidad conmuta con cualquier matriz ($(\lambda I_2)N = N(\lambda I_2)$), podemos aplicar la propiedad de la exponencial para sumas que conmutan ($AB=BA \implies e^{A+B} = e^A e^B$):
+\[
+    e^{At} = e^{(\lambda I_2 + N)t} = e^{\lambda I_2 t} e^{Nt}
+\]
+
+La matriz $e^{\lambda I_2 t}$ es simplemente $e^{\lambda t} I_2$. Para la matriz nilpotente $N$, notamos que $N^2 = 0$, por lo que la serie de Taylor se trunca abruptamente en el primer término:
+\[
+    e^{Nt} = I_2 + Nt + \frac{(Nt)^2}{2!} + \dots = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} + \begin{pmatrix} 0 & 0 \\ t & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ t & 1 \end{pmatrix}
+\]
+Multiplicando ambos resultados, recuperamos la Matriz Fundamental de Soluciones que obtuvimos por el método anterior:
+\[
+    e^{At} = \left( e^{\lambda t} I_2 \right) \begin{pmatrix} 1 & 0 \\ t & 1 \end{pmatrix} = \begin{pmatrix} e^{\lambda t} & 0 \\ t e^{\lambda t} & e^{\lambda t} \end{pmatrix}
+\]
+
+\subsection{Repaso de Álgebra Lineal: Teorema de Descomposición}
+
+Para extender este proceso a matrices de orden arbitrario, necesitamos recordar los fundamentos teóricos sobre autoespacios generalizados.
+
+Sea $A = (a_{ij})_{1 \le i,j \le N}$ una matriz cuadrada de orden $N$ con coeficientes complejos. Su espectro está formado por las raíces de su polinomio característico:
+\[
+    \sigma(A) = \{ \lambda : \det(A - \lambda I) = 0 \} = \{\lambda_1, \dots, \lambda_q\} \quad \text{con } \lambda_i \neq \lambda_j \text{ si } i \neq j
+\]
+
+Para cada autovalor $\lambda \in \sigma(A)$, definimos su \textbf{autoespacio} (o núcleo) como $N[A-\lambda I]$. Sabemos que la multiplicidad geométrica de un autovalor está acotada por su multiplicidad algebraica:
+\[
+    \text{Mult. Geométrica} = \dim N[A-\lambda I] \leq m_{alg}(\lambda)
+\]
+
+Si evaluamos las potencias sucesivas del operador $(A-\lambda I)$, obtenemos la cadena de inclusiones de los \textbf{autoespacios generalizados}:
+\[
+    N[A-\lambda I] \subsetneq N[(A-\lambda I)^2] \subsetneq \dots \subsetneq N[(A-\lambda I)^{\nu(\lambda)}]
+\]
+Esta cadena de inclusiones es estricta hasta llegar a un cierto entero $\nu(\lambda)$, llamado \textbf{índice} o \textbf{ascendente algebraico} del autovalor, a partir del cual el subespacio se estabiliza y ya no crece más.
+
+Esta estructura se consolida en el \textbf{Teorema de Descomposición (Teorema de Jordan)}, el cual establece:
+\begin{enumerate}
+    \item La multiplicidad algebraica coincide con la dimensión del autoespacio generalizado máximo:
     \[
-        h' = Ah \quad \text{con} \quad h(t) = e^{\lambda t} (ta+b), \quad a, b \in \mathbb{C}^2
-        a \in \ker(A - \lambda I) \setminus \{0\}, \quad b \in \ker((A - \lambda I)^2) \setminus \ker(A - \lambda I)
+        m_{alg}(\lambda_j) = \dim N[(A-\lambda_j I)^{\nu(\lambda_j)}]
     \]
-    \[
-            (A - \lambda I) b = a, \quad (A - \lambda I)^2 = (A - \lambda I) a = 0
-    \]   
     
+    \item El espacio vectorial completo $\mathbb{C}^N$ se puede expresar como suma directa de estos autoespacios generalizados:
     \[
-        \ker(A - \lambda I) = \mathcal{L} [a], \quad e^{\lambda t} \begin{pmatrix}
-            0 \\
-            1
-        \end{pmatrix} = h_1(t) \text{ es una solución del sistema}
+        \mathbb{C}^N = \bigoplus_{j=1}^q N[(A-\lambda_j I)^{\nu(\lambda_j)}]
     \]
+    
+    \item Cada uno de estos subespacios es invariante bajo la transformación de $A$. Es decir, si restringimos la matriz $A$ al subespacio $j$-ésimo (denotándolo como $A_j$), la matriz global $A$ adopta una forma diagonal por bloques conformada por estas submatrices $A_1, A_2, \dots, A_q$.
+\end{enumerate}
+\subsection{Descomposición y Base de Jordan (Construcción del Cuadro)}
 
-    \[
-        \lambda e^{\lambda t} (ta + b) + e^{\lambda t} a = e^{\lambda t} (tAa + Ab)
-    \]
+Supongamos que el espectro de la matriz $A$ es $\sigma(A)=\{\lambda_1, \dots, \lambda_s\}$ con autovalores distintos, es decir, $\lambda_i \neq \lambda_j$ si $i \neq j$. 
 
-    \[
-        \lambda t a + \lambda b + a = t Aa + Ab 
-    \]
-
-    \[
-        a = \begin{pmatrix}
-            0 \\
-            1
-        \end{pmatrix} \quad \begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-        \end{pmatrix} \begin{pmatrix}
-            0 \\
-            1
-        \end{pmatrix} = \begin{pmatrix}
-            0 \\
-            0
-        \end{pmatrix}
-    \]
-    \[
-        \begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-        \end{pmatrix} \begin{pmatrix}
-            x \\
-            y
-        \end{pmatrix} = \begin{pmatrix}
-            0 \\
-            1
-        \end{pmatrix} \implies b = \begin{pmatrix}
-            1 \\
-            0
-        \end{pmatrix}
-    \]
-
-    \[
-        h(t) = e^{\lambda t} \left(t \begin{pmatrix}
-            0 \\
-            1
-        \end{pmatrix} + \begin{pmatrix}
-            1 \\
-            0
-        \end{pmatrix} \right) = e^{\lambda t} \begin{pmatrix}
-            1 \\
-            t
-        \end{pmatrix} = \begin{pmatrix}
-            e^{\lambda t} \\
-            t e^{\lambda t}
-        \end{pmatrix}
-    \]
-
-    \[
-        \Phi(t) = \begin{pmatrix}
-            e^{\lambda t} & t e^{\lambda t} \\
-            t e^{\lambda t} & \frac{t^2}{2} e^{\lambda t}
-        \end{pmatrix} \quad |\Phi(t)| = \frac{t^2}{2} e^{2\lambda t} - t^2 e^{2\lambda t} = -\frac{t^2}{2} e^{2\lambda t} \neq 0 \quad \forall t \in \mathbb{R} \setminus \{0\}
-    \]
-
-    La solución general del sistema es:
-    \[
-        h(t) = \begin{pmatrix}
-            e^{\lambda t} \\
-            t e^{\lambda t}
-        \end{pmatrix} x + \begin{pmatrix}
-            0 \\
-            e^{\lambda t}
-        \end{pmatrix} y \quad \text{con } x, y \in \mathbb{C}
-    \]
-
-    $A$ una matriz cuadrada de orden $n$, $e^{A} = \sum_{k=0}^{\infty} \frac{A^k}{k!}$ es la serie de potencias que define la función exponencial de la matriz $A$. 
-
-    \[
-            e^{A+B} = e^{A} e^{B} \quad \text{si } AB = BA
-    \]
-
-    \[
-        h' = \begin{pmatrix}
-            \lambda & 0 \\
-            1 & \lambda
-        \end{pmatrix} h \qquad h(t) = e^{\begin{pmatrix}
-            \lambda & 0 \\
-            1 & \lambda
-        \end{pmatrix} t} = e^{\begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-        \end{pmatrix}t + \begin{pmatrix}
-            \lambda & 0 \\
-            0 & \lambda
-        \end{pmatrix}t} = e^{\lambda t I_2 + \begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-        \end{pmatrix}t} = e^{\lambda t I_2} e^{\begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-            \end{pmatrix}t} =*
-    \]
-
-    \[
-            e^{\lambda t I_2} = \sum_{n=0}^{\infty} \frac{(\lambda t I_2)^n}{n!} = \sum_{n=0} \frac{(\lambda t)^n}{n!} I_2 = e^{\lambda t} I_2
-    \]
-
-    \[
-            =* e^{\lambda t} I_2 e^{\begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-            \end{pmatrix}t} 
-    \]
-
-    \[
-            e^{\begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-            \end{pmatrix}t} = \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-            \end{pmatrix} + \begin{pmatrix}
-            0 & 0 \\
-            t & 0
-            \end{pmatrix} + \frac{1}{2!} \begin{pmatrix}
-            0 & 0 \\
-            0 & 0
-            \end{pmatrix} + \dots = \begin{pmatrix}
-            1 & 0 \\
-            t & 1
-            \end{pmatrix}
-    \]    
-
-
-
-}
-
-
+El espacio vectorial completo se puede expresar como suma directa de los subespacios propios generalizados:
 \[
-    A = (a_{ij}) \in \mathcal{M}_{n \times n}(\mathbb{C})
+    \mathbb{C}^N = \bigoplus_{j=1}^s N[(A-\lambda_j I)^{\nu(\lambda_j)}]
 \]
 
+Nuestro objetivo es construir la base de Jordan en cada uno de estos subespacios $N[(A-\lambda_j I)^{\nu(\lambda_j)}]$. Centrémonos en un autovalor genérico $\lambda$, cuyo índice de estabilización es $\nu$.
+
+Para hallar la base, descomponemos el núcleo máximo estabilizado en una suma directa de las "capas" o diferencias entre los núcleos iterados consecutivos:
+\begin{align*}
+    N[(A-\lambda I)^\nu] &= \left( N[(A-\lambda I)^\nu] \setminus N[(A-\lambda I)^{\nu-1}] \right) \\
+    &\quad \oplus \left( N[(A-\lambda I)^{\nu-1}] \setminus N[(A-\lambda I)^{\nu-2}] \right) \\
+    &\quad \oplus \dots \\
+    &\quad \oplus \left( N[(A-\lambda I)^2] \setminus N[(A-\lambda I)] \right) \\
+    &\quad \oplus N[(A-\lambda I)]
+\end{align*}
+
+\subsubsection*{El algoritmo: Construcción del cuadro de cadenas}
+
+Vamos a rellenar cada sumando (cada capa) de arriba hacia abajo. Esto se representa mediante una tabla donde cada fila es un nivel ("sumando") y cada columna es una "cadena" de vectores generada por el $(A-\lambda I)$.
+
+\begin{itemize}
+    \item \textbf{1º Sumando (Nivel $\nu$):} Tomamos los vectores que faltan para rellenar la dimensión de la capa más alta. Los llamamos $v_{h_{\nu-1}+1}, \dots, v_{h_\nu}$.
+    \item \textbf{2º Sumando (Nivel $\nu-1$):} Primero, bajamos los vectores del nivel anterior aplicando el operador $(A-\lambda I)$. Después, si la dimensión de esta capa lo requiere, añadimos nuevos vectores independientes para rellenar este nivel: $v_{h_{\nu-2}+1}, \dots, v_{h_{\nu-1}}$.
+    \item Repetimos el proceso aplicando el ascensor $(A-\lambda I)$ a \textit{todos} los vectores que ya tenemos, bajándolos al siguiente nivel y añadiendo nuevos solo si hace falta.
+    \item \textbf{Último Sumando (Nivel 1):} Llegamos a la capa de autovectores puros. Las cadenas terminan aquí.
+\end{itemize}
+
+El esquema visual (Cuadro de Jordan) queda así:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{l c c c}
+\textbf{1º sumando:} & $v_{h_{\nu-1}+1}, \dots, v_{h_\nu}$ & & \\
+& $\downarrow \scriptstyle{(A-\lambda I)}$ & & \\
+\textbf{2º sumando:} & $(A-\lambda I)v_{h_{\nu-1}+1}, \dots$ & $v_{h_{\nu-2}+1}, \dots, v_{h_{\nu-1}}$ & \\
+& $\downarrow \scriptstyle{(A-\lambda I)}$ & $\downarrow \scriptstyle{(A-\lambda I)}$ & \\
+\textbf{3º sumando:} & $(A-\lambda I)^2 v_{h_{\nu-1}+1}, \dots$ & $(A-\lambda I)v_{h_{\nu-2}+1}, \dots$ & $v_{h_{\nu-3}+1}, \dots$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
+\textbf{Último sumando:} & $(A-\lambda I)^{\nu-1}v_{h_{\nu-1}+1}, \dots$ & $(A-\lambda I)^{\nu-2}v_{h_{\nu-2}+1}, \dots$ & $\dots \quad v_1, \dots, v_{h_1}$
+\end{tabular}
+\end{center}
+
+Al final de este proceso, \textbf{hemos completado la base de Jordan}. Cada columna de esta tabla es una "cadena" que generará un bloque (o caja) en la matriz de Jordan. La longitud de la columna nos dirá el tamaño de esa caja.
+
+Tomemos una de estas cadenas generada a partir de un vector cabeza:
+\begin{align*}
+    w_1 &= v_1 \\
+    w_2 &= (A-\lambda I)w_1 \\
+    w_3 &= (A-\lambda I)w_2 = (A-\lambda I)^2 w_1 \\
+    w_4 &= (A-\lambda I)w_3 \\
+    &\vdots \\
+    w_\nu &= (A-\lambda I)w_{\nu-1}
+\end{align*}
+
+Despejando la acción de la matriz $A$ sobre los vectores de esta cadena, obtenemos:
+\begin{align*}
+    A w_1 &= \lambda w_1 + w_2 \\
+    A w_2 &= \lambda w_2 + w_3 \\
+    A w_3 &= \lambda w_3 + w_4 \\
+    &\vdots \\
+    A w_{\nu-1} &= \lambda w_{\nu-1} + w_\nu \\
+    A w_\nu &= \lambda w_\nu \quad \text{(autovector)}
+\end{align*}
+
+Matricialmente, la actuación de $A$ sobre esta base $\{w_1, w_2, \dots, w_\nu\}$ da lugar a una caja de Jordan $J_{\lambda, \nu}$:
 \[
-    \sigma(A) = \{z : \det(A-zI) = 0\} = \{\lambda_1, \lambda_2, \dots, \lambda_q\} \quad \lambda_i \neq \lambda_j \text{ para } i \neq j
+    J_{\lambda, \nu} = \begin{pmatrix} 
+    \lambda & 0 & 0 & \dots & 0 \\ 
+    1 & \lambda & 0 & \dots & 0 \\ 
+    0 & 1 & \lambda & \dots & 0 \\ 
+    \vdots & \vdots & \ddots & \ddots & \vdots \\ 
+    0 & 0 & \dots & 1 & \lambda 
+    \end{pmatrix}
 \]
 
+El número de cajas de Jordan asociadas a cada sumando (nivel) se deduce de las diferencias de dimensiones de los núcleos:
+\begin{itemize}
+    \item \textbf{1º sumando:} $h_\nu - h_{\nu-1}$ cajas de Jordan $J_{\lambda, \nu}$
+    \item \textbf{2º sumando:} $h_{\nu-1} - h_{\nu-2}$ cajas de Jordan $J_{\lambda, \nu-1}$
+    \item \textbf{3º sumando:} $h_{\nu-2} - h_{\nu-3}$ cajas de Jordan $J_{\lambda, \nu-2}$
+    \item \dots
+    \item \textbf{Penúltimo sumando:} $h_2 - h_1$ cajas de Jordan $J_{\lambda, 2}$
+    \item \textbf{Último sumando:} $h_1 - h_0$ cajas de Jordan $J_{\lambda, 1}$
+\end{itemize}
+
+Las cajas de Jordan tienen la siguiente estructura (con los unos en la subdiagonal):
 \[
-    \lambda \in \sigma(A) \implies \dim(\ker(A - \lambda I)) = \text{mult.geom.}(\lambda) \leq \text{mult.alg.}(\lambda)
+    J_{\lambda, 1} = (\lambda), \quad 
+    J_{\lambda, 2} = \begin{pmatrix} \lambda & 0 \\ 1 & \lambda \end{pmatrix}, \quad 
+    J_{\lambda, 3} = \begin{pmatrix} \lambda & 0 & 0 \\ 1 & \lambda & 0 \\ 0 & 1 & \lambda \end{pmatrix}, \quad 
+    J_{\lambda, 4} = \begin{pmatrix} \lambda & 0 & 0 & 0 \\ 1 & \lambda & 0 & 0 \\ 0 & 1 & \lambda & 0 \\ 0 & 0 & 1 & \lambda \end{pmatrix}
 \]
 
+Para cada autovalor $\lambda$, la matriz de Jordan asociada se construye colocando estos bloques en la diagonal principal. El número de bloques de cada tamaño viene dado por las diferencias de dimensiones de los núcleos iterados ($h_k$). Visualmente, la matriz $J$ asociada a $\lambda$ queda así:
+
 \[
-    \ker(A - \lambda I) \subsetneq \ker((A - \lambda I)^2) \subsetneq \dots \subsetneq \ker((A - \lambda I)^{\nu (\lambda)}) = \ker((A - \lambda I)^{\nu (\lambda)+j}) \quad \forall j \in \mathbb{N}
+J = \begin{pmatrix}
+    \begin{matrix} J_{\lambda,\nu} \\ & \ddots \\ & & J_{\lambda,\nu} \end{matrix} & & & & \\
+    & \begin{matrix} J_{\lambda,\nu-1} \\ & \ddots \\ & & J_{\lambda,\nu-1} \end{matrix} & & & \\
+    & & \ddots & & \\
+    & & & \begin{matrix} J_{\lambda,2} \\ & \ddots \\ & & J_{\lambda,2} \end{matrix} & \\
+    & & & & \begin{matrix} J_{\lambda,1} \\ & \ddots \\ & & J_{\lambda,1} \end{matrix}
+\end{pmatrix}
+\begin{matrix}
+    \left.\begin{matrix} \vphantom{J_{\lambda,\nu}} \\ \vphantom{\ddots} \\ \vphantom{J_{\lambda,\nu}} \end{matrix}\right\} & h_\nu - h_{\nu-1} \text{ cajas} \\
+    \left.\begin{matrix} \vphantom{J_{\lambda,\nu-1}} \\ \vphantom{\ddots} \\ \vphantom{J_{\lambda,\nu-1}} \end{matrix}\right\} & h_{\nu-1} - h_{\nu-2} \text{ cajas} \\
+    \vphantom{\ddots} & \vdots \\
+    \left.\begin{matrix} \vphantom{J_{\lambda,2}} \\ \vphantom{\ddots} \\ \vphantom{J_{\lambda,2}} \end{matrix}\right\} & h_2 - h_1 \text{ cajas} \\
+    \left.\begin{matrix} \vphantom{J_{\lambda,1}} \\ \vphantom{\ddots} \\ \vphantom{J_{\lambda,1}} \end{matrix}\right\} & h_1 - h_0 \text{ cajas}
+\end{matrix}
 \]
 
-Se estabiliza en el espacio euclideo y en dimensión finita, pero en general no ocurre en cualquier espacio de Banach.
+\vspace{0.5cm}
 
-$\nu(\lambda)$ es el ascendente algebraico de $\lambda$.
-
-\begin{teorema} [Teorema de Jordan]
-    Sea $A \in \mathcal{M}_{n \times n}(\mathbb{C})$ una matriz cuadrada de orden $n$ tal que $\sigma(A) = \{\lambda_1, \lambda_2, \dots, \lambda_q\}$, $\lambda_i \neq \lambda_j$ para $i \neq j$, y cada autovalor $\lambda_j$ tiene multiplicidad algebraica $m_j$ y multiplicidad geométrica $g_j$. Entonces se tiene que:
+\ejemplo{
+    Sea $A$ una matriz con espectro $\sigma(A) = \{\alpha, \beta, \gamma\}$, donde $\alpha \neq \beta$, $\beta \neq \gamma$ y $\alpha \neq \gamma$. Se conocen las siguientes dimensiones de sus núcleos iterados:
+    
+    \begin{itemize}
+        \item Para el autovalor $\alpha$:
+        \[ \dim N[(A-\alpha I)] = 3, \quad \dim N[(A-\alpha I)^2] = 3 \]
+        
+        \item Para el autovalor $\beta$:
+        \[ \dim N[(A-\beta I)] = 3, \quad \dim N[(A-\beta I)^2] = 4 \]
+        \[ \dim N[(A-\beta I)^3] = 5, \quad \dim N[(A-\beta I)^4] = 5 \]
+        
+        \item Para el autovalor $\gamma$:
+        \[ \dim N[(A-\gamma I)] = 2, \quad \dim N[(A-\gamma I)^2] = 3 \]
+        \[ \dim N[(A-\gamma I)^3] = 3 \]
+    \end{itemize}
+    
+    Se pide:
     \begin{enumerate}
-        \item $m_j = \dim(\ker((A - \lambda_j I)^{m_j}))$ para cada $j \in \{1, 2, \dots, q\}$.
-        \item $\mathbb{C}^n = \bigoplus_{j=1}^q \ker((A - \lambda_j I)^{m_j})$ (descomposición espectral).
-        \item $A(\ker((A - \lambda_j I)^{m_j})) \subset \ker((A - \lambda_j I)^{m_j})$ para cada $j \in \{1, 2, \dots, q\}$.
+        \item Orden de A.
+        \item Multiplicidad algebraica de $\alpha, \beta, \gamma$.
+        \item Forma canónica de Jordan de A.
     \end{enumerate}
-\end{teorema}
+    \textbf{Índices:}
+    \begin{align*}
+        \nu(\alpha) = 1 &\implies m_{alg}(\alpha) = \dim N[(A-\alpha I)^1] = 3 \\
+        \nu(\beta) = 3 &\implies m_{alg}(\beta) = \dim N[(A-\beta I)^3] = 5 \\
+        \nu(\gamma) = 2 &\implies m_{alg}(\gamma) = \dim N[(A-\gamma I)^2] = 3
+    \end{align*}
 
-Sea $\lambda \in \{\lambda_1, \lambda_2, \dots, \lambda_q\}$ un autovalor de $A$ con multiplicidad algebraica $m$ y multiplicidad geométrica $g$. Entonces
-\[
-    \ker((A - \lambda I)^{m}) = \bigoplus_{k=1}^m \ker((A - \lambda I)^k) \setminus \ker((A - \lambda I)^{k-1})
-\]
+    \textbf{Suma directa:}
+    \[
+        \mathbb{C}^{11} = \underbrace{N[(A-\alpha I)]}_{\dim 3} \oplus \underbrace{N[(A-\beta I)^3]}_{\dim 5} \oplus \underbrace{N[(A-\gamma I)^2]}_{\dim 3}
+    \]
 
-\[
-    v_1, v_2, \dots, v_{g-1} \in \ker((A - \lambda I)^{m}) \setminus \ker((A - \lambda I)^{m-1})
-\]
+    \textbf{Orden de A:}
+    \[
+        N = 3 + 5 + 3 = 11
+    \]
 
-\[
-    (A - \lambda I) v_1, (A - \lambda I) v_2, \dots, (A - \lambda I) v_{g-1} \in \ker((A - \lambda I)^{m-1}) \setminus \ker((A - \lambda I)^{m-2})
-\]
+    Vamos a calcular la base de Jordan:
 
-\[
-\vdots
-\]
+    \textbf{1) Para el autovalor $\alpha$:}
+    Analizamos el núcleo $N[(A-\alpha I)]$:
+    \[
+        \begin{matrix}
+            v_{\alpha,1} \\
+            v_{\alpha,2} \\
+            v_{\alpha,3} 
+        \end{matrix}
+        \quad (A-\alpha I)v_{\alpha,i} = 0 \implies A v_{\alpha,i} = \alpha v_{\alpha,i}
+    \]
+    Estos tres vectores son autovectores y generarán tres cajas $J_{\alpha,1}$.
 
-\[
-    (A - \lambda I)^{m-1} v_1, (A - \lambda I)^{m-1} v_2, \dots, (A - \lambda I)^{m-1} v_{g-1} \in \ker((A - \lambda I)) \setminus \{0\}
-\]
+    \textbf{2) Para el autovalor $\beta$:}
+    Analizamos el núcleo de índice máximo:
+    \[
+        N[(A-\beta I)^3] = \left( N[(A-\beta I)^3] \setminus N[(A-\beta I)^2] \right) \oplus \left( N[(A-\beta I)^2] \setminus N[(A-\beta I)] \right) \oplus N[(A-\beta I)]
+    \]
+
+    Construimos la cadena de forma descendente:
+    \begin{align*}
+        v_{\beta,2} &= (A-\beta I)v_{\beta,1} \\
+        v_{\beta,3} &= (A-\beta I)v_{\beta,2} = (A-\beta I)^2 v_{\beta,1}
+    \end{align*}
+
+    Despejando la acción de $A$ sobre la cadena:
+    \begin{align*}
+        A v_{\beta,1} &= \beta v_{\beta,1} + v_{\beta,2} \\
+        A v_{\beta,2} &= \beta v_{\beta,2} + v_{\beta,3} \\
+        A v_{\beta,3} &= \beta v_{\beta,3}
+    \end{align*}
+
+    Esto da lugar a la primera caja de orden 3:
+    \[
+        \implies \begin{pmatrix} \beta & 0 & 0 \\ 1 & \beta & 0 \\ 0 & 1 & \beta \end{pmatrix} = J_{\beta,3}
+    \]
+
+    Ahora completamos bases. No hay que añadir nada en el $2º$ sumando. En el autoespacio completamos con $v_{\beta,4}$ y $v_{\beta,5}$, lo que aportará dos cajas $J_{\beta,1}$.
+
+    \textbf{Matriz de Jordan $J$ final:}
+    Agrupando los bloques para $\alpha$, $\beta$ (y asumiendo el desarrollo análogo para $\gamma$), la matriz completa en la base de Jordan es:
+
+    \[
+    J = \left(
+    \begin{array}{ccc|ccccc|ccc}
+    \alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & \alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & \alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    \hline
+    0 & 0 & 0 & \beta & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & \beta & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & \beta & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & \beta & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & \beta & 0 & 0 & 0 \\
+    \hline
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \gamma & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & \gamma & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \gamma
+    \end{array}
+    \right)
+    \]
+}
