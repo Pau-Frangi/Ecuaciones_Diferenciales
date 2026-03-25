@@ -3154,3 +3154,150 @@ J = \begin{pmatrix}
     \right)
     \]
 }
+
+
+\subsection{Forma Canónica Real}
+
+\subsubsection{Introducción y Propiedades Fundamentales}
+
+Consideremos una matriz cuadrada con coeficientes reales $A = (a_{ij})_{1 \le i,j \le N} \in \mathcal{M}_{N \times N}(\mathbb{R})$. 
+
+Su polinomio característico, denotado como $P(z) = \det(A - zI)$, es un polinomio con coeficientes estrictamente reales. Por el Teorema Fundamental del Álgebra y las propiedades de la conjugación compleja, sabemos que si un número complejo $\lambda$ es raíz del polinomio, su conjugado $\overline{\lambda}$ también lo es, y ambos comparten la misma multiplicidad algebraica:
+$$ P(\lambda) = 0 \iff P(\overline{\lambda}) = 0, \quad \text{siendo } m_{alg}(\lambda) = m_{alg}(\overline{\lambda}) $$
+
+Esta simetría no se limita a los autovalores, sino que se traslada directamente a los espacios de autovectores y autovectores generalizados. Para cualquier entero $k \ge 1$, las ecuaciones que definen el núcleo se conjugan de forma natural, ya que la matriz $A$ es real ($\overline{A} = A$):
+$$ (A - \lambda I)^k u = 0 \iff (A - \overline{\lambda} I)^k \overline{u} = 0 $$
+
+Por lo tanto, un vector pertenece al núcleo generalizado de $\lambda$ si y solo si su conjugado pertenece al núcleo generalizado de $\overline{\lambda}$:
+$$ u \in \ker(A - \lambda I)^k \iff \overline{u} \in \ker(A - \overline{\lambda} I)^k $$
+Lo cual implica que los subespacios son mutuamente conjugados:
+$$ \ker(A - \overline{\lambda} I)^k = \overline{\ker(A - \lambda I)^k} $$
+
+\subsubsection{Descomposición del Espacio y Bases Reales}
+
+Por el Teorema de Descomposición Primaria, el espacio vectorial complejo $\mathbb{C}^N$ se puede expresar como suma directa de los núcleos generalizados asociados a cada autovalor. Si separamos explícitamente un autovalor complejo $\lambda$ y su conjugado $\overline{\lambda}$ del resto del espectro, tenemos:
+$$ \mathbb{C}^N = \ker(A - \lambda_1 I)^{\nu_1} \oplus \dots \oplus \ker(A - \lambda I)^{\nu(\lambda)} \oplus \ker(A - \overline{\lambda} I)^{\nu(\overline{\lambda})} $$
+
+Donde $\nu(\lambda)$ representa el índice del autovalor (el tamaño del bloque de Jordan más grande asociado a $\lambda$). Si hallamos una base de autovectores generalizados para el subespacio asociado a $\lambda$:
+$$ \mathcal{B}_\lambda = \{u_{\lambda,1}, u_{\lambda,2}, \dots, u_{\lambda,m_{\lambda}}\} $$
+Automáticamente, conjugando cada elemento, obtenemos una base para el subespacio de $\overline{\lambda}$:
+$$ \mathcal{B}_{\overline{\lambda}} = \{\overline{u_{\lambda,1}}, \overline{u_{\lambda,2}}, \dots, \overline{u_{\lambda,m_{\lambda}}}\} $$
+
+\textbf{Transición a la base real:} La unión de $\mathcal{B}_\lambda$ y $\mathcal{B}_{\overline{\lambda}}$ proporciona una base compleja para la suma directa de ambos subespacios. Sin embargo, para obtener una matriz semejante con coeficientes puramente reales, debemos transformar esta base compleja en una \textbf{base real}. Esto se logra extrayendo las partes reales e imaginarias de los vectores de las cadenas de Jordan, usando las combinaciones:
+$$ u + \overline{u} = 2\Re(u), \quad i(u - \overline{u}) = -2\Im(u) $$
+
+Definimos la base real equivalente agrupando las partes reales e imaginarias. Para cada vector $u_{\lambda, j}$, introducimos el par $\{\Re(u_{\lambda, j}), \Im(u_{\lambda, j})\}$, de modo que el subespacio generado por el par complejo $\{u, \overline{u}\}$ es exactamente el mismo que el generado por el par real $\{\Re(u), \Im(u)\}$.
+
+\subsubsection{Estructura del Bloque de Jordan Real}
+
+Antes de ilustrar el ejemplo, es conveniente definir el bloque estándar de rotación-dilatación. Si $\lambda = \alpha + i\beta$ con $\beta \neq 0$, la acción de $A$ sobre un autovector complejo $v = \Re(v) + i\Im(v)$ se traduce en un bloque real $2 \times 2$ de la forma:
+$$ D_{\lambda} = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix} $$
+Un \textbf{Bloque de Jordan Real} de tamaño $2k \times 2k$ asociado a $\lambda = \alpha + i\beta$ tiene la forma de una matriz bidiagonal por bloques:
+$$ J_{\mathbb{R}}(\lambda, k) = \begin{pmatrix}
+D_{\lambda} & 0 & \cdots & 0 \\
+I_2 & D_{\lambda} & \cdots & 0 \\
+\vdots & \ddots & \ddots & \vdots \\
+0 & \cdots & I_2 & D_{\lambda}
+\end{pmatrix} $$
+Donde $I_2$ es la matriz identidad de tamaño $2 \times 2$.
+
+\ejemplo{
+    Supongamos que una matriz real $A$ tiene un espectro puramente complejo formado por un par conjugado:
+    $$ \sigma(A) = \{\lambda, \overline{\lambda}\}, \quad \text{donde } \lambda = \alpha + i\beta, \; (\beta > 0) \quad \text{y} \quad \overline{\lambda} = \alpha - i\beta $$
+
+    Analizamos las dimensiones de sus núcleos para determinar la estructura. Supongamos las siguientes dimensiones:
+    $$ \dim(\ker(A - \lambda I)) = 1 $$
+    $$ \dim(\ker(A - \lambda I)^2) = \dim(\ker(A - \lambda I)^3) = 2 $$
+
+    Esto indica que las cadenas se estabilizan en el paso 2, por lo que el índice es $\nu(\lambda) = 2$. La multiplicidad algebraica es $m_{alg}(\lambda) = m_{alg}(\overline{\lambda}) = 2$.
+
+    \paragraph{Construcción de la Base Compleja.}
+    Buscamos un vector que esté en el núcleo de orden 2 pero no en el de orden 1:
+    $$ v_{\lambda,1} \in \ker((A - \lambda I)^2) \setminus \ker(A - \lambda I) $$
+    Generamos la cadena de Jordan aplicando la transformación:
+    $$ (A - \lambda I) v_{\lambda,1} = v_{\lambda,2} $$
+    Como $v_{\lambda,2} \in \ker(A - \lambda I)$, es un autovector propio ($Av_{\lambda,2} = \lambda v_{\lambda,2}$). La base para $\lambda$ es $\mathcal{B} = \{v_{\lambda,1}, v_{\lambda,2}\}$. 
+
+    Por conjugación, la base para $\overline{\lambda}$ es $\overline{\mathcal{B}} = \{v_{\overline{\lambda},1}, v_{\overline{\lambda},2}\}$, donde $v_{\overline{\lambda},1} = \overline{v_{\lambda,1}}$ y $v_{\overline{\lambda},2} = \overline{v_{\lambda,2}}$.
+
+    En la base compleja total $L = \{v_{\lambda,1}, v_{\lambda,2}, v_{\overline{\lambda},1}, v_{\overline{\lambda},2}\}$, la matriz adopta su forma canónica de Jordan compleja:
+    $$ A |_{L} = \begin{pmatrix}
+        J_{\lambda,2} & 0 \\
+        0 & J_{\overline{\lambda},2}
+    \end{pmatrix} = \begin{pmatrix}
+        \lambda & 0 & 0 & 0 \\
+        1 & \lambda & 0 & 0 \\
+        0 & 0 & \overline{\lambda} & 0 \\
+        0 & 0 & 1 & \overline{\lambda}
+    \end{pmatrix} $$
+
+    \paragraph{Paso a la Forma Canónica Real.}
+    A partir de la cadena de Jordan, tenemos el sistema:
+    $$ \begin{cases}
+        A v_{\lambda,1} = \lambda v_{\lambda,1} + v_{\lambda,2} \\
+        A v_{\lambda,2} = \lambda v_{\lambda,2}
+    \end{cases} $$
+
+    Sustituimos $v_{\lambda, j} = \Re(v_{\lambda, j}) + i \Im(v_{\lambda, j})$ y separamos la parte real de la imaginaria. 
+    Para el autovector ($v_2$):
+    $$ A(\Re(v_2) + i \Im(v_2)) = (\alpha + i\beta)(\Re(v_2) + i \Im(v_2)) = (\alpha \Re(v_2) - \beta \Im(v_2)) + i(\beta \Re(v_2) + \alpha \Im(v_2)) $$
+    Igualando componentes:
+    $$ A \Re(v_2) = \alpha \Re(v_2) - \beta \Im(v_2) $$
+    $$ A (-\Im(v_2)) = \beta \Re(v_2) + \alpha (-\Im(v_2)) $$
+
+    Repitiendo el proceso para el vector generalizado ($v_1$):
+    $$ A \Re(v_1) = \alpha \Re(v_1) - \beta \Im(v_1) + \Re(v_2) $$
+    $$ A (-\Im(v_1)) = \beta \Re(v_1) + \alpha (-\Im(v_1)) + (-\Im(v_2)) $$
+
+    Definimos nuestra base real ordenada:
+    $$ \mathcal{B}_{\mathbb{R}} = \{\Re(v_{\lambda,1}), -\Im(v_{\lambda,1}), \Re(v_{\lambda,2}), -\Im(v_{\lambda,2})\} $$
+
+    Si escribimos los coeficientes de estas ecuaciones por columnas, la matriz $A$ restringida a esta base adopta su Forma Canónica Real definitiva:
+    $$ A |_{\mathcal{B}_{\mathbb{R}}} = \begin{pmatrix}
+        \alpha & -\beta & 0 & 0 \\
+        \beta & \alpha & 0 & 0 \\
+        1 & 0 & \alpha & -\beta \\
+        0 & 1 & \beta & \alpha
+    \end{pmatrix} $$
+    Esta matriz revela de forma explícita la estructura de dilatación ($\alpha$), rotación ($\beta$) y acoplamiento nilpotente ($I_2$) del sistema original.
+}
+
+
+\begin{teorema}
+    Para cada matriz $A \in \mathcal{M}_{N \times N}(\mathbb{C})$, la sucesión de sumas parciales 
+    \[
+        S_n (A) = \sum_{k=0}^n \frac{A^k}{k!}, \quad n \ge 0
+    \]
+    es convergente en $\mathcal{M}_{N \times N}(\mathbb{C})$ y su límite se denomina \textbf{exponencial de la matriz $A$}, denotado como $e^A$:
+    \[
+        e^A = \lim_{n \to \infty} S_n(A) = \sum_{k=0}^\infty \frac{A^k}{k!}
+    \]
+\end{teorema}
+
+\begin{proof}
+    Tomamos la norma operador
+    \[
+        \|T\|_{\mathcal{L}(\mathbb{C}^N)} = \max_{\|x\|=1} \|Tx\|
+    \]
+    que cumple $\|T^2x\| \le \|T\| \|Tx\|$ y, por inducción, $\|T^k x\| \le \|T\|^k \|x\|$ para todo $k \ge 1$.
+    Tenemos que $\|x\| = 1$, por lo que $\|T^k x\| \le \|T\|^k$. Por lo tanto,
+    \[
+        \|T^k\| = \max_{\|x\|=1} \|T^k x\| \le \|T\|^k
+    \]
+    Queremos mostrar que $\{S_n(A)\}$ es una sucesión de Cauchy. 
+    \[
+        \|S_{n+m} (A) - S_n(A)\|_{\mathcal{L}(\mathbb{C}^N)} = \left\| \sum_{k=n+1}^{n+m} \frac{A^k}{k!} \right\|_{\mathcal{L}(\mathbb{C}^N)} \le \sum_{k=n+1}^{n+m} \frac{\|A^k\|_{\mathcal{L}(\mathbb{C}^N)}}{k!} \le \sum_{k=n+1}^{n+m} \frac{\|A\|_{\mathcal{L}(\mathbb{C}^N)}^k}{k!}
+    \]
+    Pero sabemos que la siguiente serie es convergente:
+    \[
+        e^{\|A\|_{\mathcal{L}(\mathbb{C}^N)}} = \sum_{k=0}^\infty \frac{\|A\|_{\mathcal{L}(\mathbb{C}^N)}^k}{k!} < \infty
+    \]
+    luego $\forall \varepsilon > 0$, $\exists N_\varepsilon$ tal que $\sum_{k=n+1}^\infty \frac{\|A\|_{\mathcal{L}(\mathbb{C}^N)}^k}{k!} < \varepsilon$ para todo $n \ge N_\varepsilon$. Por lo tanto, $\{S_n(A)\}$ es una sucesión de Cauchy y converge a un límite que denominamos $e^A$.
+\end{proof}
+
+
+\paragraph{Propiedades}
+
+\begin{itemize}
+    \item 
+\end{itemize}
