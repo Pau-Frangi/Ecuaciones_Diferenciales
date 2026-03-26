@@ -3381,3 +3381,127 @@ Donde $I_2$ es la matriz identidad de tamaño $2 \times 2$.
     \]
 
 \end{proof}
+
+\begin{teorema}
+    Para cada $u_0 \in \mathbb{C}^N$ y $t_0 \in \mathbb{R}$, la única solución del problema de valor inicial
+    \[
+        \begin{cases}
+            u' = Au + B(t) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    donde $B : \mathbb{R} \to \mathbb{C}^N$ es continua, ($[\alpha,\beta] \rightarrow \mathbb{C}, t_0 \in [\alpha,\beta]$) es:
+    \[
+        u(t) = e^{(t-t_0)A} u_0 + \int_{t_0}^t e^{(t-s)A} B(s) \, ds
+    \]
+\end{teorema}
+
+\begin{proof}
+    Sabemos que $e^{tA} = \Phi(t)$ es la Matriz Fundamental de Soluciones (M.F.S.) de $h' = Ah$.
+    
+    Proponemos $u(t) = e^{tA} v(t)$ (Variación de coeficientes).
+    Sustituyendo en la ecuación $u' = Au + B(t)$:
+    \[
+        A \cdot e^{tA} v(t) + e^{tA} \cdot v'(t) = A \cdot e^{tA} \cdot v(t) + B(t)
+    \]
+    Cancelando términos nos queda:
+    \[
+        e^{tA} \cdot v'(t) = B(t) \implies v'(t) = (e^{tA})^{-1} \cdot B(t) = e^{-tA} \cdot B(t)
+    \]
+    Y la condición inicial nos da: $u(t_0) = e^{t_0 A} v(t_0) = u_0 \implies v(t_0) = e^{-t_0 A} u_0$.
+    
+    Integrando:
+    \[
+        v(t) = v(t_0) + \int_{t_0}^t v'(s) \, ds = e^{-t_0 A} u_0 + \int_{t_0}^t e^{-sA} B(s) \, ds
+    \]
+    Por tanto, multiplicando por $e^{tA}$:
+    \[
+        u(t) = e^{tA} v(t) = e^{tA} \left( e^{-t_0 A} u_0 + \int_{t_0}^t e^{-sA} B(s) \, ds \right) = e^{(t-t_0)A} u_0 + \int_{t_0}^t e^{(t-s)A} B(s) \, ds
+    \]
+\end{proof}
+
+\subsection*{Cálculo de exponenciales}
+
+Usando la forma de Jordan $A = P J P^{-1}$ (donde las columnas de $P$ son los autovectores/autovectores generalizados):
+\[
+    tA = P \cdot (tJ) \cdot P^{-1} \implies e^{tA} = P \cdot e^{tJ} \cdot P^{-1}
+\]
+
+Sabemos que $J$ es diagonal por bloques:
+\[
+    J = \begin{pmatrix} J_1 & & \\ & \ddots & \\ & & J_k \end{pmatrix}, \quad J_i \in \{J_{\lambda,n}, \lambda \in \sigma(A), n \in \{1, \dots, \nu(\lambda)\}\}
+\]
+Por definición de la exponencial por serie de Taylor:
+\[
+    e^{tJ} = \sum_{k=0}^{\infty} \frac{(tJ)^k}{k!} = \sum_{k=0}^{\infty} \frac{t^k}{k!} \begin{pmatrix} J_1^k & & \\ & \ddots & \\ & & J_k^k \end{pmatrix} = \begin{pmatrix} e^{tJ_1} & & \\ & \ddots & \\ & & e^{tJ_k} \end{pmatrix}
+\]
+
+Para una caja genérica $\overline{J}_{\lambda,n}$ de orden $n$:
+\[
+    \overline{J}_{\lambda,n} = \begin{pmatrix} 
+    \lambda & 0 & \dots & 0 \\ 
+    1 & \lambda & \dots & 0 \\
+    \vdots & \ddots & \ddots & \vdots \\
+    0 & \dots & 1 & \lambda 
+    \end{pmatrix} = \lambda \cdot I_n + N_n
+\]
+Donde $N_n$ es la matriz nilpotente (unos en la subdiagonal). Notemos que sus potencias van desplazando la diagonal de unos hacia abajo, hasta que $N_n^n = 0$ (nilpotente).
+
+Como $(\lambda I_n) N_n = N_n (\lambda I_n)$, conmutan:
+\[
+    t \cdot J_{\lambda,n} = t \cdot \lambda \cdot I_n + t \cdot N_n \implies e^{t J_{\lambda,n}} = e^{t \lambda I_n + t N_n} = e^{t \lambda I_n} \cdot e^{t N_n}
+\]
+Desarrollando la serie (que se trunca al llegar a la potencia $n$):
+\[
+    e^{t J_{\lambda,n}} = e^{\lambda t} \sum_{k=0}^{\infty} \frac{(t N_n)^k}{k!} = e^{\lambda t} \left[ I_n + t N_n + \frac{t^2}{2!} N_n^2 + \frac{t^3}{3!} N_n^3 + \dots + \frac{t^{n-1}}{(n-1)!} N_n^{n-1} \right]
+\]
+
+Al sumar estas matrices, obtenemos la siguiente forma matricial para la exponencial de la caja de Jordan:
+\[
+    e^{t J_{\lambda,n}} = e^{\lambda t} 
+    \begin{pmatrix}
+        1 & 0 & \dots & 0 & 0 \\
+        t & 1 & \ddots & \vdots & \vdots \\
+        \frac{t^2}{2!} & t & \ddots & 0 & 0 \\
+        \vdots & \vdots & \ddots & 1 & 0 \\
+        \frac{t^{n-1}}{(n-1)!} & \dots & \frac{t^2}{2!} & t & 1
+    \end{pmatrix}
+\]
+
+Veamos cómo son las cajas cuando los autovalores son complejos:
+Si $\lambda = \alpha + i\beta$ y $\overline{\lambda} = \alpha - i\beta$, en base real aportan un bloque fundamental $J_{\lambda,2}$:
+\[
+    \begin{pmatrix} \lambda \\ & \overline{\lambda} \end{pmatrix} \xrightarrow{\text{Base Real}} \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix}
+\]
+
+Queremos poder calcular directamente la exponencial de esta matriz en $\mathbb{R}$ en vez de en $\mathbb{C}$. Para la matriz real de orden 2, tenemos:
+\[
+    \exp \left[ t \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix} \right] = \exp \left[ t\alpha I_2 + t\beta \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right] = e^{t\alpha I_2} \cdot \exp \left[ t\beta \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right]
+\]
+
+Llamemos $K = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$. Desarrollando por Taylor la segunda exponencial:
+\[
+    \exp(t\beta K) = I_2 + t\beta K + \frac{(t\beta)^2}{2!} K^2 + \frac{(t\beta)^3}{3!} K^3 + \frac{(t\beta)^4}{4!} K^4 + \dots
+\]
+
+Calculamos las potencias de la matriz $K$:
+\begin{align*}
+    K^2 &= \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix} = -I_2 \\
+    K^3 &= K^2 K = -I_2 K = -K = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \\
+    K^4 &= K^2 K^2 = (-I_2)(-I_2) = I_2
+\end{align*}
+
+Agrupando términos, reconocemos las series de Taylor del seno y el coseno:
+\begin{align*}
+    \exp(t\beta K) &= I_2 + t\beta K - \frac{(t\beta)^2}{2!} I_2 - \frac{(t\beta)^3}{3!} K + \frac{(t\beta)^4}{4!} I_2 + \dots \\
+    &= \left( 1 - \frac{(t\beta)^2}{2!} + \frac{(t\beta)^4}{4!} - \dots \right) I_2 + \left( t\beta - \frac{(t\beta)^3}{3!} + \dots \right) K \\
+    &= \cos(\beta t) I_2 + \sin(\beta t) K \\
+    &= \begin{pmatrix} \cos(\beta t) & \sin(\beta t) \\ -\sin(\beta t) & \cos(\beta t) \end{pmatrix}
+\end{align*}
+
+Por lo tanto, multiplicando por la primera exponencial $e^{t\alpha I_2} = e^{\alpha t} I_2$, llegamos al resultado final:
+\[
+    \exp \left[ t \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix} \right] = e^{\alpha t} \begin{pmatrix} \cos(\beta t) & \sin(\beta t) \\ -\sin(\beta t) & \cos(\beta t) \end{pmatrix}
+\]
+
+\textbf{Nota:} Esto es análogo a la fórmula de Euler: $e^{(\alpha + i\beta)t} = e^{\alpha t} (\cos(\beta t) + i \sin(\beta t))$.
