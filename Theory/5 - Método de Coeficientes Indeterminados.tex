@@ -1,0 +1,125 @@
+﻿\section{Método de Coeficientes Indeterminados}
+
+Consideramos la ecuación diferencial lineal de segundo orden con coeficientes constantes en su forma estándar:
+\[
+    u'' - a_1 u' - a_0 u = b(t), \quad a_0, a_1 \in \mathbb{C} 
+\]
+La ecuación homogénea asociada es $h'' - a_1 h' - a_0 h = 0$. Al proponer soluciones de la forma $h(t) = e^{\lambda t}$, obtenemos el \textbf{polinomio característico}:
+\[ P(\lambda) = \lambda^2 - a_1 \lambda - a_0 = 0 \]
+Sean $\lambda_1, \lambda_2 \in \mathbb{C}$ las raíces de $P(\lambda)$. La base del espacio de soluciones $\mathcal{B}$ se define según la multiplicidad de las raíces:
+\begin{itemize}
+    \item \textbf{Caso 1 ($\lambda_1 \neq \lambda_2$):} Las raíces son distintas. 
+    \[ \mathcal{B} = \{e^{\lambda_1 t}, e^{\lambda_2 t}\} \]
+    \item \textbf{Caso 2 ($\lambda_1 = \lambda_2 = \lambda$):} Raíz real doble. 
+    \[ \mathcal{B} = \{e^{\lambda t}, t e^{\lambda t}\} \]
+    \item \textbf{Caso 3 ($\lambda_{1,2} = \alpha \pm i\beta$):} Raíces complejas conjugadas. 
+    \[ \mathcal{B} = \{e^{\alpha t} \cos(\beta t), e^{\alpha t} \sin(\beta t)\} \]
+\end{itemize}
+
+Si el término fuente es una constante $b(t) = b$, la solución particular $u_p(t)$ depende de si la constante es solución de la homogénea (es decir, si $\lambda=0$ es raíz):
+
+\begin{itemize}
+    \item \textbf{Si $a_0 \neq 0$:} ($0$ no es raíz). Proponemos $u_p = A$. Sustituyendo: $-a_0 A = b \implies A = -\frac{b}{a_0}$.
+    \item \textbf{Si $a_0 = 0$ y $a_1 \neq 0$:} ($0$ es raíz simple). Proponemos $u_p = At$. Sustituyendo: $-a_1 A = b \implies A = -\frac{b}{a_1}$.
+    \item \textbf{Si $a_0 = a_1 = 0$:} ($0$ es raíz doble). Proponemos $u_p = At^2$. Sustituyendo: $2A = b \implies A = \frac{b}{2}$.
+\end{itemize}
+
+Para funciones $b(t)$ más complejas, se utiliza la siguiente tabla de formas candidatas para $u_p(t)$. Si algún término de la propuesta ya existe en la solución homogénea, se debe multiplicar por $t^k$ (donde $k$ es la multiplicidad de la raíz).
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Forma de $b(t)$} & \textbf{Propuesta para $u_p(t)$} \\ \hline
+Polinomio $P_n(t)$ de grado $n$ & $A_n t^n + A_{n-1} t^{n-1} + \dots + A_0$ \\ \hline
+Exponencial $e^{\alpha t}$ & $A e^{\alpha t}$ \\ \hline
+Seno o Coseno $\sin(\beta t)$ o $\cos(\beta t)$ & $A \cos(\beta t) + B \sin(\beta t)$ \\ \hline
+Producto $P_n(t) e^{\alpha t} \cos(\beta t)$ & $e^{\alpha t} \left[ Q_n(t) \cos(\beta t) + R_n(t) \sin(\beta t) \right]$ \\ \hline
+\end{tabular}
+\end{table}
+
+Si el término no homogéneo es una suma $b(t) = b_1(t) + b_2(t)$, la solución particular es la suma de las soluciones particulares individuales: $u_p(t) = u_{p_1}(t) + u_{p_2}(t)$.
+
+\ejemplo{
+Consideramos la ecuación diferencial inhomogénea: 
+\[ u'' = a_0 u + a_1 u' + m e^{\lambda t}, \quad m, \lambda, a_0, a_1 \in \mathbb{C} \] 
+
+Proponemos una solución particular de la forma: 
+\[ u(t) = C e^{\lambda t} \] 
+
+Derivamos y sustituimos en la ecuación original: 
+\[ C \lambda^2 e^{\lambda t} = a_0 C e^{\lambda t} + a_1 C \lambda e^{\lambda t} + m e^{\lambda t} \] 
+
+Dividiendo toda la expresión por $e^{\lambda t}$ (que nunca es cero): 
+\[ C \lambda^2 = a_0 C + a_1 C \lambda + m \] 
+
+Agrupando los términos con $C$: 
+\[ C (\lambda^2 - a_1 \lambda - a_0) = m \] 
+
+Despejando la constante $C$, asumiendo que el denominador no se anula ($\neq 0$): 
+\[ C = \frac{m}{\lambda^2 - a_1 \lambda - a_0} \] 
+
+Recordemos que el polinomio característico de la ecuación homogénea es: 
+\[ P(z) = z^2 - a_1 z - a_0 \] 
+
+Pero teníamos que $P(\lambda) \neq 0$, luego $\lambda$ no es raíz característica. 
+Por consiguiente, no es solución de la ecuación homogénea asociada, y una solución particular es: 
+\[ \boxed{ u_p(t) = \frac{m}{P(\lambda)} e^{\lambda t} } \] 
+
+Suponemos que ahora que $P(\lambda) = 0$, y $P'(\lambda) \neq 0$. En este caso, $\lambda$ es una raíz simple del polinomio característico, lo que implica que $e^{\lambda t}$ es una solución de la ecuación homogénea asociada. Hacemos una reducción del orden igualando $u$ a la solución homogénea multiplicada por una función desconocida $v(t)$:
+\[ u(t) = v(t) e^{\lambda t} \]
+\[
+    \lambda^2 e^{\lambda t} v + 2 \lambda e^{\lambda t} v' + e^{\lambda t} v'' = a_0 e^{\lambda t} v + a_1 (\lambda e^{\lambda t} v + e^{\lambda t} v') + m e^{\lambda t}
+\]
+\[
+    = a_0 e^{\lambda t} v + a_1 \lambda e^{\lambda t} v + a_1 e^{\lambda t} v' + m e^{\lambda t}
+\]
+\[
+    \lambda^2 v + 2 \lambda v' + v'' = a_0 v + a_1 \lambda v + a_1 v' + m
+\]
+\[
+    \underbrace{(\lambda^2 - a_1 \lambda - a_0)}_{P(\lambda) = 0} v + \underbrace{(2 \lambda - a_1)}_{P'(\lambda) \neq 0} v' + v'' = m
+\]
+\[
+    v'' + (2 \lambda - a_1) v' = m
+\]
+Tomando $w = v'$, obtenemos la ecuación diferencial de primer orden:
+\[
+    w' + (2 \lambda - a_1) w = m
+\]
+Esta es una ecuación diferencial lineal de primer orden, y una solución particular es la solución constante $w = \frac{m}{P'(\lambda)}$. 
+
+\[
+    u(t) =\frac{m}{P'(\lambda)} t e^{\lambda t}, \quad v'(t) = \frac{m}{P'(\lambda)} \implies v(t) = \frac{m}{P'(\lambda)} t + x, \quad x \in \mathbb{C}
+\]
+
+Cuando $P(\lambda) = P'(\lambda) = 0$, entonces obtenemos que $v'' = m$, luego $v' = mt + x$ y $v(t) = m\frac{t^2}{2} + xt + y$ con $x,y \in \mathbb{C}$. 
+
+\[
+    u(t) = e^{\lambda t} \left( m\frac{t^2}{2} + xt + y \right) = \underbrace{x t e^{\lambda t} + y e^{\lambda t}}_{\text{sol. ec. gen. hom.}} + \underbrace{m\frac{t^2}{2} e^{\lambda t}}_{\text{solución particular}}
+\]
+
+\begin{enumerate}
+    \item Si $P(\lambda) \neq 0$, entonces $u(t) = \frac{m}{P(\lambda)} e^{\lambda t}$ es solución particular.
+    \item Si $P(\lambda) = 0$ y $P'(\lambda) \neq 0$, entonces $u(t) = \frac{m}{P'(\lambda)} t e^{\lambda t}$ es solución particular.
+    \item Si $P(\lambda) = P'(\lambda) = 0$, entonces $u(t) = m\frac{t^2}{P''(\lambda)} e^{\lambda t}$ es solución particular.
+\end{enumerate}
+
+}
+
+\ejemplo{
+    \[
+        u''= a_0 u + a_1 u' + b_1(t) + b_2(t)    
+    \]
+    \[
+        u''= a_0 u + a_1 u' + b_1(t) \quad u_1
+    \]
+    \[
+        u''= a_0 u + a_1 u' + b_2(t) \quad u_2
+    \]
+    \[
+        (u_1 + u_2)'' = u_1''+u_2'' = a_0 (u_1 + u_2) + a_1 (u_1' + u_2') + b_1(t) + b_2(t)
+    \]
+    Tomando $v = u_1 + u_2$, se tiene que $v'' = a_0 v + a_1 v' + b_1(t) + b_2(t)$.
+}

@@ -1,0 +1,259 @@
+﻿\section{Construcción de bases para ecuaciones homogéneas de orden arbitrario con coeficientes constantes}
+
+Consideremos una ecuación diferencial lineal homogénea de orden $n$ con coeficientes constantes. Su forma general es:
+\[
+    u^{(n)} + a_{n-1} u^{(n-1)} + \dots + a_1 u' + a_0 u = 0, \quad a_0, a_1, \dots, a_{n-1} \in \mathbb{C}
+\]
+
+Sea $\Sigma_0$ el espacio vectorial de las soluciones de esta ecuación. Por la teoría general de ecuaciones diferenciales lineales, sabemos que la dimensión de este espacio es $\dim(\Sigma_0) = n$. 
+
+Introduciendo el operador diferencial $D = \frac{d}{dt}$, podemos denotar la $j$-ésima derivada como $u^{(j)} = D^j u$. Sustituyendo esto en la ecuación original, obtenemos:
+\[
+    D^n u + a_{n-1} D^{n-1} u + \dots + a_1 D u + a_0 u = 0
+\]
+
+Factorizando la función $u$, la ecuación se puede reescribir en forma de operador diferencial:
+\[
+    (D^n + a_{n-1} D^{n-1} + \dots + a_1 D + a_0) u = 0
+\]
+
+Definimos el \textbf{polinomio característico} de la ecuación diferencial como el polinomio de grado $n$ dado por:
+\[
+    P(z) = z^n + a_{n-1} z^{n-1} + \dots + a_1 z + a_0
+\]
+
+De este modo, el operador diferencial aplicado a $u$ es precisamente $P(D)$, y la ecuación se simplifica a $P(D)u = 0$.
+
+\subsection{Búsqueda de soluciones fundamentales}
+
+Para encontrar las soluciones de la ecuación, proponemos una función de la forma $u(t) = e^{\lambda t}$ con $\lambda \in \mathbb{C}$. Al aplicar el operador diferencial $D^j$ a esta función, obtenemos $D^j e^{\lambda t} = \lambda^j e^{\lambda t}$. Sustituyendo en la ecuación original, resulta:
+\[
+    P(D)e^{\lambda t} = (\lambda^n + a_{n-1} \lambda^{n-1} + \dots + a_1 \lambda + a_0) e^{\lambda t} = 0
+\]
+
+Dado que $e^{\lambda t} \neq 0$ para todo $t \in \mathbb{R}$, la igualdad se cumple si y solo si:
+\[
+    \lambda^n + a_{n-1} \lambda^{n-1} + \dots + a_1 \lambda + a_0 = 0 \iff P(\lambda) = 0
+\]
+
+Por lo tanto, $\lambda$ debe ser una raíz del polinomio característico $P(z)$. Por el Teorema Fundamental del Álgebra, el polinomio se puede factorizar completamente en $\mathbb{C}$ como:
+\[
+    P(z) = (z - \lambda_1)^{m_1} (z - \lambda_2)^{m_2} \dots (z - \lambda_q)^{m_q}
+\]
+donde $\lambda_1, \lambda_2, \dots, \lambda_q$ son las raíces distintas de $P(z)$, y $m_1, m_2, \dots, m_q$ son sus respectivas multiplicidades algebraicas, cumpliéndose que $\sum_{k=1}^q m_k = n$.
+
+\subsection{Relación entre coeficientes y raíces (Fórmulas de Cardano-Vieta)}
+
+Para comprender la estructura del operador $P(D)$, es útil recordar cómo se relacionan los coeficientes $a_k$ con las raíces $\lambda_j$. 
+
+\textbf{Caso de orden 2 ($n=2$):}\\
+Sean $\lambda_1, \lambda_2$ las raíces (no necesariamente distintas). El polinomio es:
+\[
+    P(z) = (z - \lambda_1)(z - \lambda_2) = z^2 - (\lambda_1 + \lambda_2)z + \lambda_1 \lambda_2 = z^2 + a_1 z + a_0
+\]
+Por las relaciones de Cardano-Vieta, identificamos que $a_1 = -(\lambda_1 + \lambda_2)$ y $a_0 = \lambda_1 \lambda_2$.
+En términos del operador diferencial, esto nos permite factorizar $P(D)$:
+\[
+    P(D) = D^2 + a_1 D + a_0 = (D - \lambda_1)(D - \lambda_2)
+\]
+Lo cual implica que la ecuación se puede escribir como $(D-\lambda_1)(D-\lambda_2) u = 0$.
+
+\textbf{Caso de orden 3 ($n=3$):}\\
+Con raíces $\lambda_1, \lambda_2, \lambda_3$, tenemos:
+\[
+    P(z) = (z - \lambda_1)(z - \lambda_2)(z - \lambda_3) = z^3 - (\lambda_1 + \lambda_2 + \lambda_3) z^2 + (\lambda_1 \lambda_2 + \lambda_1 \lambda_3 + \lambda_2 \lambda_3) z - \lambda_1 \lambda_2 \lambda_3
+\]
+Al igualar con $P(z) = z^3 + a_2 z^2 + a_1 z + a_0$, obtenemos los coeficientes. Análogamente, el operador se factoriza como:
+\[
+    P(D) = (D - \lambda_1)(D - \lambda_2)(D - \lambda_3)
+\]
+
+\textbf{Caso general:}\\
+Para un polinomio de grado $n$ con raíces $\lambda_1, \lambda_2, \dots, \lambda_n$ (contando multiplicidades), el coeficiente $a_k$ viene dado por:
+\[
+    a_k = (-1)^{n-k} \sum_{1 \leq j_1 < j_2 < \dots < j_{n-k} \leq n} \lambda_{j_1} \lambda_{j_2} \dots \lambda_{j_{n-k}}
+\]
+De forma equivalente, el operador diferencial lineal siempre puede factorizarse como una composición de operadores de primer orden:
+\[
+    P(D) = (D - \lambda_1)(D - \lambda_2) \dots (D - \lambda_n)
+\]
+
+\subsection{Construcción de soluciones para raíces múltiples}
+
+Si una raíz $\lambda_k$ tiene multiplicidad $m_k > 1$, la función $e^{\lambda_k t}$ solo proporciona una solución, pero necesitamos $m_k$ soluciones linealmente independientes para generar el subespacio correspondiente.
+
+Sabemos que el operador total es $P(D) = Q(D)(D - \lambda_k)^{m_k}$, donde $Q(D)$ engloba al resto de las raíces. Veamos qué ocurre al aplicar $(D - \lambda_k)^{m_k}$ a funciones de la forma $t^l e^{\lambda_k t}$ para $0 \leq l < m_k$.
+Utilizando la regla del producto, observamos la siguiente propiedad de reducción del grado:
+\[
+    (D - \lambda_k)(t^l e^{\lambda_k t}) = l t^{l-1} e^{\lambda_k t} + \lambda_k t^l e^{\lambda_k t} - \lambda_k t^l e^{\lambda_k t} = l t^{l-1} e^{\lambda_k t}
+\]
+Aplicando el operador repetidamente, la potencia de $t$ disminuye en cada paso:
+\[
+    (D - \lambda_k)^2 (t^l e^{\lambda_k t}) = (D - \lambda_k) (l t^{l-1} e^{\lambda_k t}) = l(l-1) t^{l-2} e^{\lambda_k t}
+\]
+Siguiendo este proceso recursivamente, al aplicar el operador $l+1$ veces, la expresión se anula. Como $l \leq m_k - 1$, se cumple trivialmente que:
+\[
+    (D - \lambda_k)^{m_k} (t^l e^{\lambda_k t}) = 0, \quad \forall l \in \{0, 1, \dots, m_k - 1\}
+\]
+Por tanto, $P(D) (t^l e^{\lambda_k t}) = 0$. 
+
+\ejemplo{
+    Dado el polinomio característico $P(z) = (z-\lambda_1)^3 (z-\lambda_2)^2 (z-\lambda_3)^4 (z-\lambda_4)$. Las soluciones fundamentales de la ecuación diferencial $P(D) u = 0$ se construyen asociando a cada raíz tantas funciones como indique su multiplicidad:
+    \[
+        e^{\lambda_1 t}, \quad t e^{\lambda_1 t}, \quad t^2 e^{\lambda_1 t}
+    \]
+    \[
+        e^{\lambda_2 t}, \quad t e^{\lambda_2 t}
+    \]
+    \[
+        e^{\lambda_3 t}, \quad t e^{\lambda_3 t}, \quad t^2 e^{\lambda_3 t}, \quad t^3 e^{\lambda_3 t}
+    \]
+    \[
+        e^{\lambda_4 t}
+    \]
+}
+
+\begin{teorema}
+    Si $P(z) = (z-\lambda_1)^{m_1} (z-\lambda_2)^{m_2} \dots (z-\lambda_q)^{m_q}$ es el polinomio característico de la ecuación $P(D)u = 0$, entonces el conjunto:
+    \[
+        \mathcal{B} = \{ t^l e^{\lambda_k t} : k = 1, 2, \dots, q, \quad l = 0, 1, \dots, m_k - 1 \}
+    \]
+    constituye una base del espacio de soluciones $\Sigma_0$.
+\end{teorema}
+
+\begin{proof}
+    Por la derivación anterior, cada elemento del conjunto anula el operador $P(D)$, luego todas son soluciones. Además, la cantidad total de funciones es $\sum_{k=1}^q m_k = n = \dim(\Sigma_0)$. Resta ver que es un sistema linealmente independiente.
+    
+    Supongamos una combinación lineal nula:
+    \[
+        \sum_{k=1}^q \sum_{l=0}^{m_k - 1} c_{k,l} t^l e^{\lambda_k t} = 0, \quad \forall t \in \mathbb{R}, \quad c_{k,l} \in \mathbb{C}
+    \]
+    Dado que exponenciales con argumentos distintos $\lambda_k t$ poseen tasas de crecimiento asintótico diferentes (o frecuencias distintas si son imaginarias), y los polinomios en $t$ no pueden compensar este comportamiento asintótico global, la única forma de que la suma se anule idénticamente para todo $t$ es que los polinomios coeficientes se anulen, es decir, $c_{k,l} = 0$ para todo $k, l$. Por lo tanto, forman una base.
+\end{proof}
+
+Para dotar de rigor matemático a este argumento de independencia lineal y justificar que los coeficientes polinómicos deben anularse, demostramos el siguiente lema:
+
+\begin{lema}
+ Sean $\lambda_1, \dots, \lambda_q \in \mathbb{C}$ distintos dos a dos ($\lambda_i \neq \lambda_j$ si $i \neq j$). Si se cumple que
+ \[
+ \sum_{j=1}^q P_j(t) e^{\lambda_j t} = 0 \quad \forall t \in \mathbb{R}
+ \]
+ donde los $P_j(t)$ son polinomios en $t$, entonces $P_j(t) \equiv 0$ para todo $j \in \{1, \dots, q\}$.
+\end{lema}
+
+\begin{proof}
+Procedemos por inducción sobre $q$.
+ 
+ \textbf{Caso base ($q=1$):}
+ Partimos de $P_1(t) e^{\lambda_1 t} = 0$. Como $e^{\lambda_1 t} \neq 0$ para todo $t \in \mathbb{R}$, necesariamente se cumple que $P_1(t) = 0$.
+
+ \textbf{Hipótesis de inducción:}
+ Supongamos que el resultado es cierto para $q-1$. Es decir, $\sum_{j=1}^{q-1} P_j(t) e^{\lambda_j t} = 0 \implies P_j \equiv 0$ para todo $j \in \{1, \dots, q-1\}$.
+
+ \textbf{Paso inductivo:}
+ Consideremos la suma hasta $q$: $\sum_{j=1}^q P_j(t) e^{\lambda_j t} = 0$. Multiplicando toda la ecuación por $e^{-\lambda_q t}$, obtenemos:
+ \[
+ \sum_{j=1}^{q-1} P_j(t) e^{(\lambda_j - \lambda_q) t} + P_q(t) = 0 \implies \sum_{j=1}^{q-1} P_j(t) e^{(\lambda_j - \lambda_q) t} = -P_q(t)
+ \]
+ Sea $k = \text{gr}(P_q) + 1$. Aplicamos el operador derivada $k$ veces (es decir, $D^k$) a ambos lados. Al derivar un polinomio de grado $k-1$ unas $k$ veces, el lado derecho se anula:
+ \[
+ 0 = D^k (-P_q(t)) = \sum_{j=1}^{q-1} D^k \left( P_j(t) e^{(\lambda_j - \lambda_q) t} \right)
+ \]
+ Aplicando la regla de Leibniz de derivación, podemos reescribir esto como:
+ \[
+ \sum_{j=1}^{q-1} \left[ \sum_{l=0}^k \binom{k}{l} (D^l P_j(t)) (\lambda_j - \lambda_q)^{k-l} \right] e^{(\lambda_j - \lambda_q) t} = 0
+ \]
+ El término entre corchetes es un nuevo polinomio. Dado que $\lambda_j \neq \lambda_q$ para todo $j \neq q$, los exponentes de esta suma de $q-1$ términos son todos distintos. Aplicando nuestra hipótesis de inducción, cada polinomio coeficiente debe anularse:
+ \[
+ \sum_{l=0}^k \binom{k}{l} (\lambda_j - \lambda_q)^{k-l} D^l P_j(t) = 0 \quad \forall j \in \{1, \dots, q-1\}
+ \]
+ Notamos que el operador aplicado a $P_j$ es exactamente el desarrollo del binomio del operador diferencial $(D + \lambda_j - \lambda_q)^k$. Es decir:
+ \[
+ (D + \lambda_j - \lambda_q)^k P_j(t) = 0
+ \]
+ Definamos $Q_j(t) = (D + \lambda_j - \lambda_q)^{k-1} P_j(t)$. Entonces tenemos $(D + \lambda_j - \lambda_q) Q_j(t) = 0$, que es una ecuación diferencial de primer orden:
+ \[
+ Q_j'(t) = (\lambda_q - \lambda_j) Q_j(t)
+ \]
+ La solución general es $Q_j(t) = C e^{(\lambda_q - \lambda_j) t}$. Sin embargo, sabemos que $Q_j(t)$ es una combinación de derivadas del polinomio original $P_j(t)$, por lo que debe seguir siendo un polinomio. Un polinomio solo puede igualar a una exponencial si la constante es nula, es decir, $C = 0$. Esto implica que $Q_j(t) \equiv 0$.
+
+ Repitiendo este razonamiento recursivamente y bajando una unidad en la potencia del operador $(D + \lambda_j - \lambda_q)$, deducimos finalmente que $P_j(t) \equiv 0$ para todo $j \in \{1, \dots, q-1\}$.
+ 
+ Sustituyendo estos nulos en la ecuación original nos queda $P_q(t) e^{\lambda_q t} = 0$, lo que implica que $P_q(t) \equiv 0$, quedando así demostrada la independencia lineal.
+\end{proof}
+
+\subsection{Caso de coeficientes reales: Soluciones trigonométricas}
+
+Si los coeficientes $a_k$ del polinomio $P(z)$ son números reales, el Teorema de las Raíces Complejas Conjugadas asegura que si $\lambda = \alpha + i\beta$ es una raíz con multiplicidad $m$, su conjugada $\bar{\lambda} = \alpha - i\beta$ también es raíz con la misma multiplicidad $m$.
+
+El producto de los factores correspondientes en el polinomio es estrictamente real:
+\[
+    (z - (\alpha + i\beta))(z - (\alpha - i\beta)) = (z - \alpha)^2 - (i\beta)^2 = (z - \alpha)^2 + \beta^2
+\]
+
+Por consiguiente, el polinomio característico se puede reescribir agrupando $q$ pares de raíces complejas y $p$ raíces reales $r_k$:
+\[
+    P(z) = \prod_{j=1}^q \left( (z - \alpha_j)^2 + \beta_j^2 \right)^{m_j} \prod_{k=1}^p (z - r_k)^{\tilde{m}_k}
+\]
+donde $2(m_1 + m_2 + \dots + m_q) + \tilde{m}_1 + \tilde{m}_2 + \dots + \tilde{m}_p = n$.
+
+Usando la base compleja previamente deducida, el espacio de soluciones $\Sigma_0$ está generado por:
+\[
+    \Sigma_0 = \text{span}_{\mathbb{C}} \left\{ t^l e^{(\alpha_j \pm i \beta_j)t} \right\}_{j,l} \oplus \text{span}_{\mathbb{R}} \left\{ t^h e^{r_k t} \right\}_{k,h}
+\]
+
+\begin{corolario}
+    Bajo la suposición de coeficientes reales, una base real para el espacio de soluciones $\Sigma_0$ está dada por:
+    \[
+        \mathcal{B}_{\mathbb{R}} = \left\{ t^l e^{\alpha_j t}\cos(\beta_j t), \quad t^l e^{\alpha_j t} \sin(\beta_j t) : 1 \leq j \leq q, \ 0 \leq l \leq m_j - 1 \right\} \cup \left\{ t^h e^{r_k t} : 1 \leq k \leq p, \ 0 \leq h \leq \tilde{m}_k - 1 \right\}
+    \]
+\end{corolario}
+
+\begin{proof}
+    Para demostrar que estas funciones son linealmente independientes, consideremos una combinación lineal nula:
+    \[
+        \sum_{j=1}^q \sum_{l=0}^{m_j - 1} \left[ c_{j,l} t^l e^{\alpha_j t} \cos(\beta_j t) + \tilde{c}_{j,l} t^l e^{\alpha_j t} \sin(\beta_j t) \right] + \sum_{k=1}^p \sum_{h=0}^{\tilde{m}_k - 1} \hat{c}_{k,h} t^h e^{r_k t} = 0
+    \]
+    Aplicando las fórmulas de Euler, $\cos(\theta) = \frac{e^{i\theta} + e^{-i\theta}}{2}$ y $\sin(\theta) = \frac{e^{i\theta} - e^{-i\theta}}{2i}$, sustituimos las funciones trigonométricas:
+    \[
+        \sum_{j=1}^q \sum_{l=0}^{m_j - 1} t^l e^{\alpha_j t} \left[ c_{j,l} \frac{e^{i \beta_j t} + e^{-i \beta_j t}}{2} + \tilde{c}_{j,l} \frac{e^{i \beta_j t} - e^{-i \beta_j t}}{2i} \right] + \dots = 0
+    \]
+    Agrupando los términos que acompañan a las exponenciales conjugadas $e^{(\alpha_j + i\beta_j)t}$ y $e^{(\alpha_j - i\beta_j)t}$, obtenemos:
+    \[
+        \sum_{j=1}^q \sum_{l=0}^{m_j - 1} \left[ \left( \frac{c_{j,l} - i \tilde{c}_{j,l}}{2} \right) t^l e^{(\alpha_j + i \beta_j) t} + \left( \frac{c_{j,l} + i \tilde{c}_{j,l}}{2} \right) t^l e^{(\alpha_j - i \beta_j) t} \right] + \sum_{k=1}^p \sum_{h=0}^{\tilde{m}_k - 1} \hat{c}_{k,h} t^h e^{r_k t} = 0
+    \]
+    Como sabemos por el Teorema anterior que las funciones exponenciales complejas forman una base (son linealmente independientes), todos sus coeficientes deben ser nulos:
+    \[
+        \frac{c_{j,l} - i \tilde{c}_{j,l}}{2} = 0, \quad \frac{c_{j,l} + i \tilde{c}_{j,l}}{2} = 0, \quad \hat{c}_{k,h} = 0
+    \]
+    De las dos primeras ecuaciones se deduce trivialmente que $c_{j,l} = 0$ y $\tilde{c}_{j,l} = 0$. Esto demuestra que la nueva familia de funciones reales es linealmente independiente y, al tener la misma cardinalidad $n$, conforma una base.
+\end{proof}
+
+\ejemplo{
+    Consideremos la ecuación cuyo operador diferencial tiene el siguiente polinomio característico:
+    \[
+        P(z) = [(z - 1)^2 + 4]^3 (z - 3)^2 (z - 1)
+    \]
+    Aquí, el orden de la ecuación es $n = (2 \cdot 3) + 2 + 1 = 9$.
+    
+    Analicemos las raíces de $P(z) = 0$:
+    \begin{enumerate}
+        \item $(z - 1)^2 + 4 = 0 \implies (z - 1)^2 = -4 \implies z = 1 \pm 2i$. Es un par de raíces complejas conjugadas con multiplicidad algebraica $m_1 = 3$. Aquí $\alpha = 1, \beta = 2$.
+        \item $(z - 3)^2 = 0 \implies z = 3$, con multiplicidad algebraica $m_2 = 2$.
+        \item $z - 1 = 0 \implies z = 1$, con multiplicidad algebraica $m_3 = 1$.
+    \end{enumerate}
+    
+    Por lo tanto, utilizando el Corolario, una base de soluciones de $P(D) u = 0$ está formada por las siguientes $9$ funciones:
+    \[
+        e^{t} \cos(2t), \quad t e^{t} \cos(2t), \quad t^2 e^{t} \cos(2t)
+    \]
+    \[
+        e^{t} \sin(2t), \quad t e^{t} \sin(2t), \quad t^2 e^{t} \sin(2t)
+    \]
+    \[
+        e^{3t}, \quad t e^{3t}
+    \]
+    \[
+        e^{t}
+    \]
+}

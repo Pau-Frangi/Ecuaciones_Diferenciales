@@ -1,0 +1,524 @@
+﻿\section{Ecuaciones de orden $n$}
+
+\subsection{Ecuaciones de orden $2$}
+
+\[
+    u'' = a_0(t) u + a_1(t) u' + b(t), \quad t \in [\alpha, \beta], \quad a_0, a_1, b \in C([\alpha, \beta], \mathbb{K})
+\]
+solución $u \in C^2([\alpha, \beta], \mathbb{K})$. Escrbiéndola en forma matricial:
+
+\[
+    \begin{pmatrix}
+        u_1 \\
+        u_2
+    \end{pmatrix} = \begin{pmatrix}
+        u \\
+        u'
+    \end{pmatrix} \quad \begin{pmatrix}
+        u_1' \\
+        u_2'
+    \end{pmatrix} = \begin{pmatrix}
+        u' \\
+        u''
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        a_0(t) u + a_1(t) u' + b(t)
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        a_0(t) u_1 + a_1(t) u_2 
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
+
+\[
+    \begin{pmatrix}
+        u_1 \\
+        u_2
+    \end{pmatrix}' = \begin{pmatrix}
+        0 & 1 \\
+        a_0(t) & a_1(t)
+    \end{pmatrix} \begin{pmatrix}
+        u_1 \\
+        u_2
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
+Denotando $U=\begin{pmatrix}
+    u_1 \\
+    u_2
+\end{pmatrix}$, $A(t) = \begin{pmatrix}
+    0 & 1 \\
+    a_0(t) & a_1(t)
+\end{pmatrix}$ y $B(t) = \begin{pmatrix}
+
+    0 \\
+    b(t)
+\end{pmatrix}$, entonces el sistema matricial asociado es:
+\[
+    U' = A(t) U + B(t), \quad t \in [\alpha, \beta]
+\]
+
+\begin{lema}
+    \[
+        \Sigma_b^e \xrightarrow{D} \Sigma_B^s
+    \]
+    \[
+        u \mapsto D(u) = \begin{pmatrix}
+            u \\
+            u'
+        \end{pmatrix}
+    \]
+    es una biyección entre el espacio de soluciones del sistema de orden $2$ y el espacio de soluciones del sistema matricial asociado.
+\end{lema}
+
+\begin{proof}
+    $D$ está bien definida, es inyectiva, pues si $D(u) = D(v)$, entonces $u = v$ y $u' = v'$, lo que implica que $u$ y $v$ son la misma función. Además, $D$ es sobreyectiva, ya que dada una solución $U(t) = \begin{pmatrix}
+        u_1(t) \\
+        u_2(t)
+    \end{pmatrix}$ del sistema matricial, podemos definir $u(t) = u_1(t)$, y entonces $D(u) = U$. Por tanto, $D$ es una biyección entre $\Sigma_b^e$ y $\Sigma_B^s$.
+\end{proof}
+
+\begin{corolario}
+    Para cada $U_0 = \begin{pmatrix}
+        u_0^1 \\
+        u_0^2
+        \end{pmatrix} \in \mathbb{K}^2$ y cada $t_0 \in [\alpha, \beta]$, el problema de valores inciciales:
+        \[
+            \begin{cases}
+                u'' = a_0(t) u + a_1(t) u' + b(t), \quad t \in [\alpha, \beta] \\
+                u(t_0) = u_0^1 \\
+                u'(t_0) = u_0^2
+            \end{cases}
+        \]
+        tiene una única solución $u(t; t_0, U_0) \in C^2([\alpha, \beta], \mathbb{K})$ (porque $\begin{cases}
+            U' = A(t) U + B(t) \\
+            U(t_0) = U_0
+        \end{cases}$). Además, $u(t; t_0, U_0)$ es la primera componente de la solución $U(t; t_0, U_0)$ del sistema matricial asociado, y $u'(t; t_0, U_0)$ es la segunda componente de $U(t; t_0, U_0)$.
+\end{corolario}
+
+\subsection{Ecuaciones de orden $3$}
+
+\[
+    u''' = a_0(t) u + a_1(t) u' + a_2(t) u'' + b(t), \quad t \in [\alpha, \beta], \quad a_0, a_1, a_2, b \in C([\alpha, \beta], \mathbb{K})
+\]
+Conjunto de soluciones $\Sigma_b^e$. Sea $u \in \Sigma_b^e$, entonces:
+\[
+    \begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        u_3
+    \end{pmatrix} = \begin{pmatrix}
+        u \\
+        u' \\
+        u''
+    \end{pmatrix} 
+\] 
+\[    
+    \begin{pmatrix}
+        u_1' \\
+        u_2' \\
+        u_3'
+    \end{pmatrix} = \begin{pmatrix}
+        u' \\
+        u'' \\
+        u'''
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        u_3 \\
+        a_0(t) u + a_1(t) u' + a_2(t) u'' + b(t)
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        u_3 \\
+        a_0(t) u_1 + a_1(t) u_2 + a_2(t) u_3
+    \end{pmatrix} + \begin{pmatrix}
+        0 \\
+        0 \\
+        b(t)
+    \end{pmatrix}
+\]
+\[
+    \underbrace{\begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        u_3
+    \end{pmatrix}'}_{U'} = \underbrace{\begin{pmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+        a_0(t) & a_1(t) & a_2(t)
+    \end{pmatrix}}_{A(t)} \underbrace{\begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        u_3
+    \end{pmatrix}}_{U} + \underbrace{\begin{pmatrix}
+        0 \\
+        0 \\
+        b(t)
+    \end{pmatrix}}_{B(t)}
+\]
+
+\begin{proof}
+    De manera análoga al caso de orden $2$, se puede demostrar que la aplicación:
+    \[
+        \Sigma_b^e \xrightarrow{D} \Sigma_B^s
+    \]
+    \[
+        u \mapsto D(u) = \begin{pmatrix}
+            u \\
+            u' \\
+            u''
+        \end{pmatrix}
+    \]
+    Es una biyección entre el espacio de soluciones del sistema de orden $3$ y el espacio de soluciones del sistema matricial asociado. Por tanto, para cada $U_0 = \begin{pmatrix}
+        u_0^1 \\
+        u_0^2 \\
+        u_0^3
+    \end{pmatrix} \in \mathbb{K}^3$ y cada $t_0 \in [\alpha, \beta]$, el problema de valores inciciales:
+    \[
+        \begin{cases}
+            u''' = a_0(t) u + a_1(t) u' + a_2(t) u'' + b(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0^1 \\
+            u'(t_0) = u_0^2 \\
+            u''(t_0) = u_0^3
+        \end{cases}
+    \]
+    Tiene una única solución $u(t; t_0, U_0)$. Además, $u(t; t_0, U_0)$ es la primera componente de la solución $U(t; t_0, U_0)$ del sistema matricial asociado, $u'(t; t_0, U_0)$ es la segunda componente de $U(t; t_0, U_0)$ y $u''(t; t_0, U_0)$ es la tercera componente de $U(t; t_0, U_0)$.
+\end{proof}
+
+\subsection{Ecuaciones de orden $n$}
+
+\[
+    u^{(n)} = a_0(t) u + a_1(t) u' + a_2(t) u'' + \ldots + a_{n-1}(t) u^{(n-1)} + b(t), \quad t \in [\alpha, \beta], \quad a_0, a_1, \ldots, a_{n-1}, b \in C([\alpha, \beta], \mathbb{K})
+\]
+
+Sea $u \in C^n([\alpha, \beta], \mathbb{K})$ una solución de la ecuación diferencial de orden $n$. Ecuación homogénea asociada:
+\[
+    h^{(n)} = a_0(t) h + a_1(t) h' + a_2(t) h'' + \ldots + a_{n-1}(t) h^{(n-1)}, \quad t \in [\alpha, \beta]
+\]
+conjunto de soluciones $\Sigma_0^e$.\\
+
+\textbf{Propiedades de estructura:} \\
+ $h_1, h_2 \in \Sigma_0^e, \lambda, \mu \in \mathbb{K} \implies \lambda h_1 + \mu h_2 \in \Sigma_0^e$ subvariedad lineal vectorial de $C^n([\alpha, \beta], \mathbb{K})$. $\underbrace{\lambda h_1 + \mu h_2}_{\in \Sigma_0^e} + \delta h_3, \quad u_1, u_2 \in \Sigma_0^e, \quad u_1-u_2 = h \in \Sigma_0^e$. $u \in \Sigma_b^e, \quad h \in \Sigma_0^e \implies u + h \in \Sigma_b^e$. $\Sigma_b^e$ es subvariedad lineal afín paralela a $\Sigma_0^e$ en $C^n([\alpha, \beta], \mathbb{K})$.
+
+ \[
+    \begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        \vdots \\
+        u_n
+    \end{pmatrix} \equiv_{\text{def.}} \begin{pmatrix}
+        u \\
+        u' \\
+        \vdots \\
+        u^{(n-1)}
+    \end{pmatrix}
+\]
+
+\[
+    \begin{cases}
+        u_1' = u' = u_2 \\
+        u_2' = u'' = u_3 \\
+        \vdots \\
+        u_{n-1}' = u^{(n-1)} = u_n \\
+        u_n' = u^{(n)} = \sum_{k=0}^{n-1} a_k(t) u^{(k)} + b(t) = a_0(t) u_1 + a_1(t) u_2 + \ldots + a_{n-1}(t) u_n + b(t)
+    \end{cases}
+\]
+
+\[
+    \begin{pmatrix}
+        u_1' \\
+        u_2' \\
+        \vdots \\
+        u_n'
+    \end{pmatrix} = \begin{pmatrix}
+        u' \\
+        u'' \\
+        \vdots \\
+        u^{(n)}
+    \end{pmatrix} = \begin{pmatrix}
+        u_2 \\
+        u_3 \\
+        \vdots \\
+        a_0(t) u + a_1(t) u' + a_2(t) u'' + \ldots + a_{n-1}(t) u^{(n-1)} + b(t)
+    \end{pmatrix}  
+\]  
+\[
+    = \underbrace{\begin{pmatrix}
+        0 & 1 & 0 & \ldots & 0 \\
+        0 & 0 & 1 & \ldots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \ldots & 1 \\
+        a_0(t) & a_1(t) & a_2(t) & \ldots & a_{n-1}(t)
+    \end{pmatrix}}_{A(t)} \underbrace{\begin{pmatrix}
+        u_1 \\
+        u_2 \\
+        \vdots \\
+        u_n
+    \end{pmatrix}}_{U} + \underbrace{\begin{pmatrix}
+        0 \\
+        0 \\
+        \vdots \\
+        0 \\
+        b(t)
+    \end{pmatrix}}_{B(t)}
+\]
+
+\begin{lema}
+    La aplicación 
+    \[
+        \mathcal{D} : \Sigma_b^e \to \Sigma_B^s
+    \]
+    \[
+        u \mapsto \mathcal{D}(u) = \begin{pmatrix}
+            u \\
+            u' \\
+            \vdots \\
+            u^{(n-1)}
+        \end{pmatrix}
+    \]
+    Es una biyección entre el espacio de soluciones del sistema de orden $n$ y el espacio de soluciones del sistema matricial asociado. Además, $\mathcal{D}$ es un isomorfismo vectorial.
+\end{lema}
+
+\begin{proof}
+    Veamos primero que es inyectiva. Sean $u, v \in \Sigma_b^e$ tales que $\mathcal{D}(u) = \mathcal{D}(v)$. Entonces:
+    \[
+        \begin{pmatrix}
+            u \\
+            u' \\
+            \vdots \\
+            u^{(n-1)}
+        \end{pmatrix} = \begin{pmatrix}
+            v \\
+            v' \\
+            \vdots \\
+            v^{(n-1)}
+        \end{pmatrix}
+    \]
+    lo que implica que $u = v$, $u' = v'$, $\ldots$, $u^{(n-1)} = v^{(n-1)}$. Por tanto, $u$ y $v$ son la misma función, y $\mathcal{D}$ es inyectiva.\\
+    Veamos ahora que es sobreyectiva. Sea $U(t) = \begin{pmatrix}
+        u_1(t) \\
+        u_2(t) \\
+        \vdots \\
+        u_n(t)
+    \end{pmatrix}$ una solución del sistema matricial asociado. Definimos la función $u(t) = u_1(t)$. Entonces, $u'(t) = u_2(t)$, $u''(t) = u_3(t)$, $\ldots$, $u^{(n-1)}(t) = u_n(t)$. Además, $u^{(n)}(t) = a_0(t) u_1(t) + a_1(t) u_2(t) + \ldots + a_{n-1}(t) u_n(t) + b(t)$, lo que implica que $u$ es una solución de la ecuación diferencial de orden $n$. Por tanto, $\mathcal{D}(u) = U$, y $\mathcal{D}$ es sobreyectiva.\\
+\end{proof}
+
+    Sea $U_0 = \begin{pmatrix}
+        u_0^1 \\
+        u_0^2 \\
+        \vdots \\
+        u_0^n
+    \end{pmatrix} \in \mathbb{K}^n$ y $t_0 \in [\alpha, \beta]$. Consideramos el problema de valores inciciales asociado al sistema matricial:
+
+    \[
+        \begin{cases}
+            U' = A(t) U + B(t), \quad t \in [\alpha, \beta] \\
+            U(t_0) = U_0
+        \end{cases}
+    \]
+
+    El teorema fundamental asgura que $(P)_s$ tiene una única solución $U(t; t_0, U_0)$ en $C^1([\alpha, \beta], \mathbb{K}^n)$. Por el lema anterior, existe una única solución $u(t; t_0, U_0) \in C^n([\alpha, \beta], \mathbb{K})$ del problema de valores inciciales asociado a la ecuación diferencial de orden $n$ tal que $\mathcal{D}(u(t; t_0, U_0)) = U(t; t_0, U_0)$ para todo $t \in [\alpha, \beta]$. Además, $u(t; t_0, U_0)$ es la primera componente de $U(t; t_0, U_0)$, $u'(t; t_0, U_0)$ es la segunda componente de $U(t; t_0, U_0)$, $\ldots$, $u^{(n-1)}(t; t_0, U_0)$ es la última componente de $U(t; t_0, U_0)$. Por tanto:
+    \[
+        u(t_0) = u_0^1, \quad u'(t_0) = u_0^2, \quad \ldots, \quad u^{(n-1)}(t_0) = u_0^n
+    \]
+    luego a partir de $(P)_s$ se obtiene la solución de $(P)_e$.
+    \[
+        \begin{cases}
+            u^{(n)} = a_0(t) u + a_1(t) u' + a_2(t) u'' + \ldots + a_{n-1}(t) u^{(n-1)} + b(t), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0^1 \\
+            u'(t_0) = u_0^2 \\
+            \vdots \\
+            u^{(n-1)}(t_0) = u_0^n
+        \end{cases}
+    \]
+
+\begin{corolario}
+    Para cada $U_0 \in \mathbb{K}^n$ y cada $t_0 \in [\alpha, \beta]$, el problema de valores inciciales asociado a la ecuación diferencial de orden $n$ tiene una única solución $u(t; t_0, U_0) \in C^n([\alpha, \beta], \mathbb{K})$. Esa única solución es la primera coordenada de la única solución asociada al sistema de primer orden matricial asociado al sistema de orden $n$.
+\end{corolario}
+
+\begin{teorema}
+    El operador solución
+    \[
+        \begin{matrix}
+            S_0 : \mathbb{K}^n \to \Sigma_0^e \\
+            U_0 \mapsto h(t; t_0, U_0)
+        \end{matrix}
+    \]
+    es un isomorfismo vectorial entre $\mathbb{K}^n$ y $\Sigma_0^e$. En particular, el operador solución $S_b : \mathbb{K}^n \to \Sigma_b^e$ es un isomorfismo afín entre $\mathbb{K}^n$ y $\Sigma_b^e$.
+\end{teorema}
+
+
+\begin{proof}
+Visualizando:
+\[
+\begin{matrix}
+\mathbb{K}^N & \longrightarrow & \Sigma^l (\text{escalar}) \\
+x & \longmapsto & h \\
+\downarrow & & \downarrow \Delta \\
+x & \longmapsto & H \in \Sigma^e (\text{sistema})
+\end{matrix}
+\]
+
+Es un isomorfismo vectorial.
+Así tenemos la relación entre soluciones: $u(t; t_0, x) = h(t; t_0, x) + u(t; t_0, 0)$, luego $S_b^e(x) = S_0^e(x) + u(t; t_0, 0), x \in \mathbb{K}^N$.
+Además, $\dim \Sigma_0^e = \dim \Sigma_b^e = N$.
+Como los isomorfismos mandan bases en bases, si $\mathbb{K}^N = L[e_1, \dots, e_N]$ (base canónica), entonces:
+    \[ \Sigma_0^e = L[H(t; t_0, e_1), \dots, H(t; t_0, e_N)] \]
+\end{proof}
+
+\textbf{Método de Variación de las Constantes}\\
+
+Definimos el operador $\Delta$, que transforma una solución escalar en su correspondiente vector de estado, como:
+\[ 
+\Delta : \Sigma_0^e \longrightarrow \Sigma_0^s, \quad \Delta(h) = \begin{pmatrix} h \\ h' \\ \vdots \\ h^{(N-1)} \end{pmatrix} 
+\]
+
+En consecuencia, el espacio de soluciones del sistema, $\Sigma_0^s$, está generado por la combinación lineal de los vectores asociados a la base de soluciones $\{h_1, \dots, h_N\}$:
+\[ 
+\Sigma_0^s = \mathcal{L} \left\{ \Delta(h_1), \Delta(h_2), \dots, \Delta(h_N) \right\} 
+\]
+
+Esto nos permite definir la \textbf{Matriz Wronskiana} de las soluciones $h_1, \dots, h_N$ como:
+\[
+W(t) = \begin{pmatrix} 
+h_1(t) & h_2(t) & \dots & h_N(t) \\ 
+h_1'(t) & h_2'(t) & \dots & h_N'(t) \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+h_1^{(N-1)}(t) & h_1^{(N-1)}(t) & \dots & h_N^{(N-1)}(t) 
+\end{pmatrix}
+\] 
+
+Dicha matriz es una \textbf{Matriz Fundamental de Soluciones (M.F.S.)} del sistema homogéneo $H' = A(t)H$, cumpliendo por tanto la relación $W'(t) = A(t)W(t)$.
+
+Para hallar una solución particular $U(t)$ del sistema completo $U' = A(t)U + B(t)$, proponemos una solución de la forma:
+\[ 
+U(t) = W(t) c(t), \quad \text{donde } c(t) = \begin{pmatrix} c_1(t) \\ \vdots \\ c_N(t) \end{pmatrix} 
+\]
+
+Derivando respecto al tiempo mediante la regla del producto:
+\[ 
+U'(t) = W'(t)c(t) + W(t)c'(t) 
+\]
+
+Sustituyendo $U(t)$ y su derivada en la ecuación diferencial original:
+\[ 
+\underbrace{A(t)W(t)c(t)}_{W'(t)c(t)} + W(t)c'(t) = A(t)\underbrace{\left(W(t)c(t)\right)}_{U(t)} + B(t) 
+\]
+
+Al simplificar los términos idénticos a ambos lados de la igualdad, obtenemos el sistema lineal:
+\[ 
+W(t)c'(t) = B(t) 
+\]
+
+Finalmente, despejamos el vector de derivadas de los coeficientes multiplicando por la inversa de la matriz Wronskiana (que es invertible por la independencia lineal de las soluciones):
+\[ 
+c'(t) = W^{-1}(t)B(t) 
+\]
+
+\ejemplo{
+Consideremos la ecuación diferencial lineal de segundo orden con coeficientes constantes $a_1, a_0 \in \mathbb{C}$:
+\[ h'' - a_1 h' - a_0 h = 0 \]
+Definimos el \textbf{operador diferencial} $P(D) = D^2 - a_1 D - a_0$, donde $D$ representa la derivada respecto al tiempo. Este operador se conoce como el \textbf{símbolo de la ecuación}, permitiendo escribirla de forma compacta como $P(D)h = 0$.
+
+Para hallar las soluciones del sistema, buscamos funciones de tipo exponencial $h(t) = e^{\lambda t}$. Al derivar e introducir esta expresión en la ecuación original, obtenemos:
+\[ \lambda^2 e^{\lambda t} - a_1 \lambda e^{\lambda t} - a_0 e^{\lambda t} = 0 \implies (\lambda^2 - a_1 \lambda - a_0)e^{\lambda t} = 0 \]
+Dado que la función exponencial $e^{\lambda t}$ nunca es nula, esta igualdad se satisface si y solo si $\lambda$ es raíz del \textbf{polinomio característico}:
+\[ P(\lambda) = \lambda^2 - a_1 \lambda - a_0 = 0 \]
+Las raíces de este polinomio se denominan \textbf{raíces características}. Bajo la hipótesis de que el discriminante es no nulo ($a_1^2 + 4a_0 \neq 0$), las raíces son:
+\[ \lambda = \frac{a_1 \pm (a_1^2 + 4a_0)^{1/2}}{2} \]
+Donde $(a_1^2 + 4a_0)^{1/2} = \{z \in \mathbb{C} : z^2 = a_1^2 + 4a_0\} = \{\lambda_1, \lambda_2\}$. Al ser las raíces distintas ($\lambda_1 \neq \lambda_2$), las soluciones $h_1(t) = e^{\lambda_1 t}$ y $h_2(t) = e^{\lambda_2 t}$ son linealmente independientes y el espacio de soluciones viene dado por su envolvente lineal:
+\[ \Sigma_0 = \mathcal{L}\{e^{\lambda_1 t}, e^{\lambda_2 t}\} \]
+Para verificar dicha independencia, planteamos la combinación lineal $c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t} = 0$. Evaluando en $t=0$ y analizando su derivada en el mismo punto, obtenemos el sistema:
+\[ \begin{pmatrix} 1 & 1 \\ \lambda_1 & \lambda_2 \end{pmatrix} \begin{pmatrix} c_1 \\ c_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix} \]
+Puesto que $\lambda_1 \neq \lambda_2$, el determinante de la matriz es no nulo, lo que implica necesariamente que $c_1 = c_2 = 0$.
+
+Para abordar el caso inhomogéneo, consideramos el sistema de primer orden asociado:
+\[ \begin{cases} u' = v \\ v' = a_1 v + a_0 u + b(t) \end{cases} \]
+La \textbf{matriz Wronskiana} $W(t)$, que constituye una matriz fundamental de soluciones (M.F.S.) del sistema homogéneo $H' = AH$, se define como:
+\[ W(t) = \begin{pmatrix} e^{\lambda_1 t} & e^{\lambda_2 t} \\ \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} \end{pmatrix} \]
+Resolvemos el sistema inhomogéneo mediante el método de \textbf{variación de los parámetros}, planteando la solución como:
+\[ \begin{pmatrix} u \\ v \end{pmatrix} = W(t) C(t) \implies W'(t)C(t) + W(t)C'(t) = A(t)W(t)C(t) + B(t) \]
+Utilizando la propiedad de que $W(t)$ es solución del sistema homogéneo ($W'(t) = A(t)W(t)$), simplificamos a:
+\[ W(t)C'(t) = B(t) \implies \begin{pmatrix} e^{\lambda_1 t} & e^{\lambda_2 t} \\ \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} \end{pmatrix} \begin{pmatrix} c_1'(t) \\ c_2'(t) \end{pmatrix} = \begin{pmatrix} 0 \\ b(t) \end{pmatrix} \]
+Aplicando la regla de Cramer para resolver el sistema algebraico resultante:
+\[ c_1'(t) = \frac{\begin{vmatrix} 0 & e^{\lambda_2 t} \\ b(t) & \lambda_2 e^{\lambda_2 t} \end{vmatrix}}{\det W(t)} = \frac{-b(t)e^{\lambda_2 t}}{(\lambda_2 - \lambda_1) e^{(\lambda_1 + \lambda_2)t}} = -\frac{b(t)e^{-\lambda_1 t}}{\lambda_2 - \lambda_1} \]
+\[ \implies c_1(t) = -\int_{t_0}^{t} \frac{b(s)e^{-\lambda_1 s}}{\lambda_2 - \lambda_1} ds + x_1, \quad x_1 \in \mathbb{C} \]
+Procediendo de igual manera para el segundo parámetro:
+\[ c_2'(t) = \frac{\begin{vmatrix} e^{\lambda_1 t} & 0 \\ \lambda_1 e^{\lambda_1 t} & b(t) \end{vmatrix}}{\det W(t)} = \frac{b(t)e^{\lambda_1 t}}{(\lambda_2 - \lambda_1) e^{(\lambda_1 + \lambda_2)t}} = \frac{b(t)e^{-\lambda_2 t}}{\lambda_2 - \lambda_1} \]
+\[ \implies c_2(t) = \int_{t_0}^{t} \frac{b(s)e^{-\lambda_2 s}}{\lambda_2 - \lambda_1} ds + x_2, \quad x_2 \in \mathbb{C} \]
+Finalmente, la solución general $u(t)$ se obtiene combinando los resultados anteriores:
+\[ u(t) = e^{\lambda_1 t} c_1(t) + e^{\lambda_2 t} c_2(t) = e^{\lambda_1 t} \left( x_1 - \int_{t_0}^{t} \frac{b(s)e^{-\lambda_1 s}}{\lambda_2 - \lambda_1} ds \right) + e^{\lambda_2 t} \left( x_2 + \int_{t_0}^{t} \frac{b(s)e^{-\lambda_2 s}}{\lambda_2 - \lambda_1} ds \right) \]
+Ordenando los términos, obtenemos la expresión final de la solución general para la ecuación de segundo orden:
+\[ u(t) = x_1 e^{\lambda_1 t} + x_2 e^{\lambda_2 t} + \int_{t_0}^{t} \frac{b(s)}{\lambda_2 - \lambda_1} \left( e^{\lambda_2 (t-s)} - e^{\lambda_1 (t-s)} \right) ds \]
+
+}
+
+\ejemplo{
+    Supongamos ahora que $a_0,a_1 \in \mathbb{R}$ y $b(t) : [\alpha, \beta] \to \mathbb{R}$ es una función real. Si el discriminante del polinomio característico es positivo, entonces las raíces $\lambda_1, \lambda_2$ son reales y la solución general es:
+    \[
+        u(t) = x_1 e^{\lambda_1 t} + x_2 e^{\lambda_2 t} + \int_{t_0}^{t} \frac{b(s)}{\lambda_2 - \lambda_1} \left( e^{\lambda_2 (t-s)} - e^{\lambda_1 (t-s)} \right) ds
+    \]
+    Si el discriminante es negativo, entonces las raíces $\lambda_1, \lambda_2$ son complejas conjugadas, es decir, $\lambda_1 = \alpha + i \beta$ y $\lambda_2 = \alpha - i \beta$ con $\alpha, \beta \in \mathbb{R}$ y $\beta \neq 0$. En este caso, las soluciones $h_1(t) = e^{\lambda_1 t}$ y $h_2(t) = e^{\lambda_2 t}$ no son reales, pero podemos obtener soluciones reales a partir de ellas utilizando la fórmula de Euler:
+    \[
+        h_1(t) = e^{\lambda_1 t} = e^{(\alpha + i \beta) t} = e^{\alpha t} (\cos(\beta t) + i \sin(\beta t))
+    \]
+    \[
+        h_2(t) = e^{\lambda_2 t} = e^{(\alpha - i \beta) t} = e^{\alpha t} (\cos(\beta t) - i \sin(\beta t))
+    \]
+    De esta forma, las funciones
+    \[
+        \frac{h_1(t) + h_2(t)}{2} = e^{\alpha t} \cos(\beta t) \quad \text{y} \quad \frac{h_1(t) - h_2(t)}{2i} = e^{\alpha t} \sin(\beta t)
+    \]
+    son soluciones reales de la ecuación diferencial homogénea asociada, y el espacio de soluciones es:
+    \[
+        \Sigma_0 = L[e^{\alpha t} \cos(\beta t), e^{\alpha t} \sin(\beta t)]
+    \]
+    Veamos que estas funciones son linealmente independientes. Planteamos la combinación lineal $c_1 e^{\alpha t} \cos(\beta t) + c_2 e^{\alpha t} \sin(\beta t) = 0$. Esta combinación lineal es una función holomorfa, y por el principio de identidad para funciones holomorfas, si se anula en un intervalo, entonces se anula en todo el dominio. Evaluando en $t=0$ y derivando, obtenemos el sistema:
+    \[
+        \begin{pmatrix}
+            1 & 0 \\
+            \alpha & \beta
+        \end{pmatrix} \begin{pmatrix}
+            c_1 \\
+            c_2
+        \end{pmatrix} = \begin{pmatrix}
+            0 \\
+            0
+        \end{pmatrix}
+    \]
+    Como $\beta \neq 0$, el determinante es no nulo, lo que implica $c_1 = c_2 = 0$. Por tanto, las funciones $e^{\alpha t} \cos(\beta t)$ y $e^{\alpha t} \sin(\beta t)$ son linealmente independientes.
+    \[
+        W(t) = \begin{pmatrix}
+            e^{\alpha t} \cos(\beta t) & e^{\alpha t} \sin(\beta t) \\
+            -\beta e^{\alpha t} \sin(\beta t) + \alpha e^{\alpha t} \cos(\beta t) & \beta e^{\alpha t} \cos(\beta t) + \alpha e^{\alpha t} \sin(\beta t)
+        \end{pmatrix}
+    \]
+    \[
+        det W(t) = e^{2 \alpha t} (\beta \cos^2(\beta t) + \beta \sin^2(\beta t)) = \beta e^{2 \alpha t} \neq 0
+    \]
+    Variamos coeficientes:
+    \[
+        c_1'(t) = \frac{\begin{vmatrix}
+            0 & e^{\alpha t} \sin(\beta t) \\
+            b(t) & \beta e^{\alpha t} \cos(\beta t) + \alpha e^{\alpha t} \sin(\beta t)
+        \end{vmatrix}}{\det W(t)} = -\frac{b(t)e^{-\alpha t} \sin(\beta t)}{\beta} 
+    \]
+    \[
+        \implies c_1(t) = -\int_{t_0}^{t} \frac{b(s)e^{-\alpha s} \sin(\beta s)}{\beta} ds + x_1, \quad x_1 \in \mathbb{R}
+    \]
+    \[
+        c_2'(t) = \frac{\begin{vmatrix}
+            e^{\alpha t} \cos(\beta t) & 0 \\
+            -\beta e^{\alpha t} \sin(\beta t) + \alpha e^{\alpha t} \cos(\beta t) & b(t)
+        \end{vmatrix}}{\det W(t)} = \frac{b(t)e^{-\alpha t} \cos(\beta t)}{\beta}
+    \]
+    \[
+        \implies c_2(t) = \int_{t_0}^{t} \frac{b(s)e^{-\alpha s} \cos(\beta s)}{\beta} ds + x_2, \quad x_2 \in \mathbb{R}
+    \]
+    \[
+        u(t) = e^{\alpha t} \left( x_1 - \int_{t_0}^{t} \frac{b(s)e^{-\alpha s} \sin(\beta s)}{\beta} ds \right) + e^{\alpha t} \left( x_2 + \int_{t_0}^{t} \frac{b(s)e^{-\alpha s} \cos(\beta s)}{\beta} ds \right)
+    \]
+}

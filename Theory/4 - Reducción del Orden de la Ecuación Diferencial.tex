@@ -1,0 +1,106 @@
+﻿\section{Reducción del Orden de la Ecuación Diferencial}
+
+Considérese la ecuación diferencial lineal de segundo orden con coeficientes variables:
+\[
+    u'' - a_1(t) u' - a_0(t) u = b(t) \label{eq:edo_reduccion}
+\]
+donde $a_0, a_1, b \in C([\alpha, \beta], \mathbb{C})$. 
+
+Sea $h(t)$ una solución conocida, no nula, de la ecuación homogénea asociada $h'' - a_1 h' - a_0 h = 0$. Buscamos una solución general de la forma $u(t) = v(t)h(t)$. Aplicando la regla del producto, calculamos sus derivadas:
+\[
+    u' = v'h + vh', \quad u'' = v''h + 2v'h' + vh''
+\]
+
+Sustituyendo estas expresiones en la ecuación diferencial original:
+\[
+    (v''h + 2v'h' + vh'') - a_1(v'h + vh') - a_0(vh) = b(t)
+\]
+Agrupando términos respecto a $v$:
+\[
+    v''h + v'(2h' - a_1h) + v(\underbrace{h'' - a_1h' - a_0h}_{0}) = b(t)
+\]
+Como $h(t)$ es solución del homogéneo, el término en $v$ desaparece, resultando en:
+\[
+    v''h + (2h' - a_1h)v' = b(t) \implies v'' + \left( \frac{2h'}{h} - a_1 \right)v' = \frac{b(t)}{h}
+\]
+
+Definimos la variable auxiliar $w(t) = v'(t)$. La ecuación se reduce a una EDO lineal de primer orden para $w$:
+\[
+    w' + \left( \frac{2h'(t)}{h(t)} - a_1(t) \right)w = \frac{b(t)}{h(t)} 
+\]
+
+Utilizando el factor integrante $\mu(\theta) = \exp\left( \int_{t_0}^{\theta} \left( \frac{2h'}{h} - a_1 \right) dr \right)$, la solución para $w(\theta)$ es:
+\[
+    w(\theta) = e^{-\int_{t_0}^{\theta} \left( \frac{2h'}{h} - a_1 \right) dr} \left( x + \int_{t_0}^{\theta} \frac{b(s)}{h(s)} e^{\int_{t_0}^{s} \left( \frac{2h'}{h} - a_1 \right) dr} ds \right)
+\]
+Simplificando mediante la propiedad $e^{\int \frac{h'}{h} = h}$, observamos que $\exp(\int_{t_0}^{\theta} \frac{2h'}{h} dr) = \frac{h^2(\theta)}{h^2(t_0)}$. Introduciendo esto en la expresión:
+\[
+    w(\theta) = \frac{h^2(t_0) e^{\int_{t_0}^{\theta} a_1 dr}}{h^2(\theta)} \left( x + \int_{t_0}^{\theta} \frac{b(s)}{h(s)} \frac{h^2(s) e^{-\int_{t_0}^{s} a_1 dr}}{h^2(t_0)} ds \right)
+\]
+
+Finalmente, integramos $w(\theta)$ para hallar $v(t)$ y multiplicamos por $h(t)$:
+\[
+    v(t) = \int_{t_0}^{t} w(\theta) d\theta + y, \quad y \in \mathbb{C}
+\]
+La solución general $u(t) = h(t)v(t)$ se expresa como:
+\[
+    u(t) = h(t)y + h(t) \int_{t_0}^{t} \frac{e^{\int_{t_0}^{\theta} a_1 dr}}{h^2(\theta)} \left( X + \int_{t_0}^{\theta} b(s)h(s)e^{-\int_{t_0}^{s} a_1 dr} ds \right) d\theta
+\]
+donde $y, X \in \mathbb{C}$ son las constantes de integración.
+
+\ejemplo{
+    Consideramos la siguiente ecuación diferencial de segundo orden con coeficientes variables:
+    \[ u'' - tu' + u = e^{t^2/2} \]
+    Veamos primero a ojo una solución del homogéneo asociado $h'' - t h' + h = 0$. Probamos con $h(t) = t$, y obtenemos $h'' - t h' + h = 0 - t \cdot 1 + t = 0$, por lo que $h(t) = t$ es una solución del homogéneo.
+    
+    Se nos sugiere el cambio de variable $u(t) = tv(t)$. Derivando esta expresión respecto a $t$, obtenemos la primera y segunda derivada de $u$:
+    \begin{align*}
+    u'(t) &= v(t) + tv'(t) \\
+    u''(t) &= 2v'(t) + tv''(t)
+    \end{align*}
+
+    Sustituimos $u$, $u'$ y $u''$ en la ecuación diferencial original:
+    \[ (2v' + tv'') - t(v + tv') + tv = e^{t^2/2} \]
+    Expandiendo y agrupando términos:
+    \[ 2v' + tv'' - tv - t^2v' + tv = e^{t^2/2} \]
+    \[ tv'' + (2 - t^2)v' = e^{t^2/2} \]
+    Dividiendo entre $t$, despejamos $v''$:
+    \[ v'' = \left(t - \frac{2}{t}\right)v' + t^{-1}e^{t^2/2} \]
+
+    Para resolver esta ecuación, hacemos un nuevo cambio de variable bajando el orden, definiendo $w = v'$. La ecuación se transforma en una ecuación diferencial lineal de primer orden para $w$:
+    \[ w' = \left(t - \frac{2}{t}\right)w + t^{-1}e^{t^2/2} \]
+
+    Primero resolvemos la ecuación homogénea asociada $h' = \left(t - \frac{2}{t}\right)h$. Buscamos una solución de la forma $h(t) = e^{f(t)}$. Derivando e igualando:
+    \[ f'(t)e^{f(t)} = \left(t - \frac{2}{t}\right)e^{f(t)} \implies f'(t) = t - \frac{2}{t} \]
+    Integrando $f'(t)$:
+    \[ f(t) = \frac{t^2}{2} - 2\ln t = \frac{t^2}{2} + \ln t^{-2} \]
+    Por lo tanto, la solución homogénea es:
+    \[ h(t) = e^{\frac{t^2}{2} + \ln t^{-2}} = t^{-2}e^{t^2/2} \]
+
+    Ahora aplicamos el método de variación de la constante, proponiendo $w(t) = h(t)z(t)$. Derivando:
+    \[ w'(t) = h'(t)z(t) + h(t)z'(t) \]
+    Sustituyendo en la ecuación diferencial de $w$:
+    \[ h'(t)z(t) + h(t)z'(t) = \left(t - \frac{2}{t}\right)h(t)z(t) + t^{-1}e^{t^2/2} \]
+    Como $h(t)$ es solución de la homogénea, $h'(t) = \left(t - \frac{2}{t}\right)h(t)$, los términos se cancelan y queda:
+    \[ h(t)z'(t) = t^{-1}e^{t^2/2} \]
+    Sustituyendo el valor de $h(t)$:
+    \[ t^{-2}e^{t^2/2} z'(t) = t^{-1}e^{t^2/2} \implies z'(t) = \frac{t^{-1}}{t^{-2}} = t \]
+    Integrando para hallar $z(t)$:
+    \[ z(t) = \frac{t^2}{2} + x, \quad x \in \mathbb{R} \]
+
+    Recuperamos la función $w(t)$:
+    \[ w(t) = h(t)z(t) = t^{-2}e^{t^2/2} \left(\frac{t^2}{2} + x\right) = \frac{1}{2}e^{t^2/2} + x t^{-2}e^{t^2/2} \]
+
+    Como $v'(t) = w(t)$, integramos para obtener $v(t)$:
+    \[ v(t) = \int w(t) dt = \frac{1}{2}\int e^{t^2/2} dt + x\int t^{-2}e^{t^2/2} dt + y, \quad y \in \mathbb{R} \]
+
+    Finalmente, deshacemos el primer cambio de variable $u(t) = tv(t)$ para encontrar la solución general:
+    \[ u(t) = \frac{t}{2}\int e^{t^2/2} dt + x t\int t^{-2}e^{t^2/2} dt + yt, \quad x, y \in \mathbb{R} \]
+
+    Podemos identificar la estructura de la solución general de la forma $u(t) = u_p(t) + h_1(t)x + h_2(t)y$. 
+    Si tomamos $x = y = 0$, obtenemos la solución particular $u_p(t) \in \Sigma_b$:
+    \[ u_p(t) = \frac{t}{2}\int e^{t^2/2} dt \]
+    Por otra parte, $u(t) - \frac{t}{2}\int t^{-2}e^{t^2/2} dt $, pertenece al espacio $\Sigma_0$, y por tanto $h_1(t)x + h_2(t)y$ también están en $\Sigma_0$.
+    En particular, si tomamos $x = 1$ y $y = 0$, se tiene que $h_1(t) \in \Sigma_0$.
+    Si tomamos $x = 0$ y $y = 1$, se tiene que $h_2(t) \in \Sigma_0$.
+}
