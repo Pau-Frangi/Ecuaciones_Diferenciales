@@ -666,3 +666,219 @@ Por lo tanto, multiplicando por la primera exponencial $e^{t\alpha I_2} = e^{\al
 \]
 
 \textbf{Nota:} Esto es análogo a la fórmula de Euler: $e^{(\alpha + i\beta)t} = e^{\alpha t} (\cos(\beta t) + i \sin(\beta t))$.
+
+
+\ejemplo{
+    Dada la matriz 
+    \[
+        J = \begin{pmatrix}
+            \alpha & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & \alpha & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & \beta & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & \beta & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 & \beta & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & \gamma & 0 \\
+            0 & 0 & 0 & 0 & 0 & 1 & \gamma
+        \end{pmatrix}
+    \]
+    entonces 
+    \[
+        e^{tJ} = \begin{pmatrix}
+            e^{\alpha t} & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & e^{\alpha t} & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & e^{\beta t} & 0 & 0 & 0 & 0 \\
+            0 & 0 & t e^{\beta t} & e^{\beta t} & 0 & 0 & 0 \\
+            0 & 0 & \frac{t^2}{2!} e^{\beta t} & t e^{\beta t} & e^{\beta t} & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & e^{\gamma t} & 0 \\
+            0 & 0 & 0 & 0 & 0 & t e^{\gamma t} & e^{\gamma t}
+        \end{pmatrix}
+    \]
+}
+
+Sea $A \in \mathcal{M}_N(\mathbb{R}), \ a_{ij} \in \mathbb{R}$, tal que $\lambda = \alpha + i\beta$ es un autovalor complejo de $A$ con $\beta > 0$ y $\overline{\lambda} \in \sigma(A)$ su conjugado.
+
+\[
+        \begin{pmatrix}
+            \alpha & -\beta \\
+            \beta & \alpha
+        \end{pmatrix} = J_{\mathbb{R}}(\lambda, 1) \xrightarrow{\text{Exponencial}} e^{t J_{\mathbb{R}}(\lambda, 1)} = e^{\alpha t} \begin{pmatrix} \cos(\beta t) & \sin(\beta t) \\ -\sin(\beta t) & \cos(\beta t) \end{pmatrix}
+\]
+
+\[
+        \begin{pmatrix}
+            \lambda & 0 & 0 & 0 \\
+            1 & \lambda & 0 & 0 \\
+            0 & 0 & \overline{\lambda} & 0 \\
+            0 & 0 & 1 & \overline{\lambda}
+        \end{pmatrix} \xrightarrow{\text{Base Real}} \begin{pmatrix}
+            \alpha & -\beta & 0 & 0 \\
+            \beta & \alpha & 0 & 0 \\
+            1 & 0 & \alpha & -\beta \\
+            0 & 1 & \beta & \alpha
+        \end{pmatrix} = J_{\mathbb{R}}(\lambda, 4)
+\]
+
+\[
+        e^{t \begin{pmatrix}
+            J_{\mathbb{R}}(\lambda, 2) & 0_2 \\
+            I_2 & J_{\mathbb{R}}(\lambda, 2)
+            \end{pmatrix}} = e^{t \begin{pmatrix}
+            J_{\mathbb{R}}(\lambda, 2) & 0_2 \\
+            0_2 & J_{\mathbb{R}}(\lambda, 2)
+            \end{pmatrix} + t \begin{pmatrix}
+            0_2 & 0_2 \\
+            I_2 & 0_2
+            \end{pmatrix}}
+\]
+
+\[
+        = e^{t \begin{pmatrix}
+            J_{\mathbb{R}}(\lambda, 2) & 0_2 \\
+            0_2 & J_{\mathbb{R}}(\lambda, 2)
+            \end{pmatrix}} \cdot e^{t \begin{pmatrix}
+            0_2 & 0_2 \\
+            I_2 & 0_2
+            \end{pmatrix}} = \begin{pmatrix}
+                e^{t J_{\mathbb{R}}(\lambda, 2)} & 0_2 \\
+                0_2 & e^{t J_{\mathbb{R}}(\lambda, 2)}
+            \end{pmatrix} \cdot \begin{pmatrix}
+                I_2 & 0_2 \\
+                t I_2 & I_2
+            \end{pmatrix} = \begin{pmatrix}
+                e^{t J_{\mathbb{R}}(\lambda, 2)} &
+                0_2 \\
+                t e^{t J_{\mathbb{R}}(\lambda, 2)} & e^{t J_{\mathbb{R}}(\lambda, 2)}
+            \end{pmatrix}
+\]
+
+\[
+        = \begin{pmatrix}
+            e^{\alpha t} \cos(\beta t) & e^{\alpha t} \sin(\beta t) & 0 & 0 \\
+            -e^{\alpha t} \sin(\beta t) & e^{\alpha t} \cos(\beta t) & 0 & 0 \\
+            t e^{\alpha t} \cos(\beta t) & t e^{\alpha t} \sin(\beta t) & e^{\alpha t} \cos(\beta t) & e^{\alpha t} \sin(\beta t) \\
+            -t e^{\alpha t} \sin(\beta t) & t e^{\alpha t} \cos(\beta t) & -e^{\alpha t} \sin(\beta t) & e^{\alpha t} \cos(\beta t)
+        \end{pmatrix}
+\]
+
+
+\ejemplo{
+    Si tenemos dos cajas de Jordan 
+    \[
+        J_{\lambda,3} = \begin{pmatrix}
+            \lambda & 0 & 0 \\
+            1 & \lambda & 0 \\
+            0 & 1 & \lambda
+        \end{pmatrix}
+    \]
+    con base $\mathcal{B} = \{v_1, v_2, v_3\}$ y
+    \[
+        J_{\overline{\lambda},3} = \begin{pmatrix}
+            \overline{\lambda} & 0 & 0 \\
+            1 & \overline{\lambda} & 0 \\
+            0 & 1 & \overline{\lambda}
+        \end{pmatrix}
+    \]
+    con base $\overline{\mathcal{B}} = \{\overline{v_1}, \overline{v_2}, \overline{v_3}\}$ 
+    entonces la matriz de $A$ restringida al espacio generado por estas cadenas de Jordan con base real es:
+        
+    \[
+        \begin{pmatrix}
+            J_{\mathbb{R}}(\lambda, 2) & 0_2 & 0_2 \\
+            I_2 & J_{\mathbb{R}}(\lambda, 2) & 0_2 \\
+            0_2 & I_2 & J_{\mathbb{R}}(\lambda, 2) 
+        \end{pmatrix}  
+    \]
+    En general, si las cajas son de orden $n$, la matriz de $A$ restringida al espacio generado por estas cadenas de Jordan con base real es:
+    \[
+        J_{\mathbb{R}}(\lambda, 2n) = \begin{pmatrix}
+            J_{\mathbb{R}}(\lambda, 2) & 0_2 & \dots & 0_2 \\
+            I_2 & J_{\mathbb{R}}(\lambda, 2) & \dots & 0_2 \\
+            \vdots & \ddots & \ddots & \vdots \\
+            0_2 & \dots & I_2 & J_{\mathbb{R}}(\lambda, 2)
+        \end{pmatrix}
+    \]
+    Calculamos la exponencial de esta matriz para el caso general. Sea $S$ la matriz diagonal por bloques y $N$ la matriz nilpotente inferior por bloques:
+    \[
+        e^{t J_{\mathbb{R}}(\lambda, 2n)} = e^{t S + t N} = e^{t S} \cdot e^{t N}
+    \]
+    Donde:
+    \[
+        e^{t S} = \begin{pmatrix}
+            e^{t J_{\mathbb{R}}(\lambda, 2)} & 0_2 & \dots & 0_2 \\
+            0_2 & e^{t J_{\mathbb{R}}(\lambda, 2)} & \dots & 0_2 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0_2 & 0_2 & \dots & e^{t J_{\mathbb{R}}(\lambda, 2)}
+        \end{pmatrix}, \quad 
+        e^{t N} = \sum_{k=0}^{n-1} \frac{t^k N^k}{k!} = \begin{pmatrix}
+            I_2 & 0_2 & \dots & 0_2 \\
+            t I_2 & I_2 & \dots & 0_2 \\
+            \vdots & \ddots & \ddots & \vdots \\
+            \frac{t^{n-1}}{(n-1)!} I_2 & \dots & t I_2 & I_2
+        \end{pmatrix}
+    \]
+    Realizando el producto, obtenemos la matriz final:
+    \[
+        e^{t J_{\mathbb{R}}(\lambda, 2n)} = \begin{pmatrix}
+            e^{t J_{\mathbb{R}}(\lambda, 2)} & 0_2 & \dots & 0_2 \\
+            t e^{t J_{\mathbb{R}}(\lambda, 2)} & e^{t J_{\mathbb{R}}(\lambda, 2)} & \dots & 0_2 \\
+            \vdots & \ddots & \ddots & \vdots \\
+            \frac{t^{n-1}}{(n-1)!} e^{t J_{\mathbb{R}}(\lambda, 2)} & \dots & t e^{t J_{\mathbb{R}}(\lambda, 2)} & e^{t J_{\mathbb{R}}(\lambda, 2)}
+        \end{pmatrix}
+    \]
+    donde, si $\lambda = a + ib$, entonces $e^{t J_{\mathbb{R}}(\lambda, 2)} = e^{at} \begin{pmatrix} \cos(bt) & -\sin(bt) \\ \sin(bt) & \cos(bt) \end{pmatrix}$.
+}
+
+Sabemos que por el Teorema de Descomposición Primaria, el espacio se descompone en suma directa de los núcleos:
+\[
+    \mathbb{C}^N = \ker(A - \lambda_1 I)^{\nu(\lambda_1)} \oplus \ker(A - \lambda_2 I)^{\nu(\lambda_2)} \oplus \dots \oplus \ker(A - \lambda_q I)^{\nu(\lambda_q)}
+\]
+Sea $m_i = m_{alg}(\lambda_i)$ la multiplicidad algebraica de $\lambda_i$ y sean
+\[
+    \mathcal{B}_1 = \{v_{1,1}, \dots, v_{1,m_1}\} \quad \text{base de} \quad \ker(A - \lambda_1 I)^{\nu(\lambda_1)}
+\]
+\[
+    \mathcal{B}_2 = \{v_{2,1}, \dots, v_{2,m_2}\} \quad \text{base de} \quad \ker(A - \lambda_2 I)^{\nu(\lambda_2)}
+\]
+\[
+    \vdots
+\]
+\[
+    \mathcal{B}_q = \{v_{q,1}, \dots, v_{q,m_q}\} \quad \text{base de} \quad \ker(A - \lambda_q I)^{\nu(\lambda_q)}
+\]
+entonces $\mathcal{B} = \mathcal{B}_1 \cup \mathcal{B}_2 \cup \dots \cup \mathcal{B}_q$ es una base de $\mathbb{C}^N$.
+
+Consideremos el problema de valor inicial asociado al sistema de ecuaciones diferenciales:
+\[
+    \begin{cases}
+        u' = A u \qquad u(t) = e^{tA} u_0 \\
+        u(0) = u_0
+    \end{cases}
+\]
+Descomponemos la condición inicial $u_0$ en la base de la suma directa:
+\[
+    u_0 = u_{0,1} + u_{0,2} + \dots + u_{0,q}, \quad u_{0,j} \in \ker(A - \lambda_j I)^{\nu(\lambda_j)}, \quad j = 1, \dots, q
+\]
+Expresando cada término de la suma en función de la base de cada núcleo, tenemos:
+\[
+    u_0 = \sum_{j=1}^q \sum_{k=1}^{m_j} c_{j,k} v_{j,k}, \quad c_{j,k} \in \mathbb{C}
+\]
+Para calcular la solución $u(t) = e^{tA} u_0$, aplicamos la linealidad y operamos sobre cada componente $u_{0,j}$:
+\[
+    u(t) = e^{tA} \left( \sum_{j=1}^q u_{0,j} \right) = \sum_{j=1}^q e^{tA} u_{0,j}
+\]
+Para cada término de la suma, reescribimos el exponente como $tA = t(\lambda_j I + A - \lambda_j I)$. Como $\lambda_j I$ conmuta con cualquier matriz, podemos separar la exponencial:
+\[
+    e^{tA} u_{0,j} = e^{\lambda_j t I} e^{t(A - \lambda_j I)} u_{0,j} = e^{\lambda_j t} \left( \sum_{k=0}^{\infty} \frac{t^k}{k!} (A - \lambda_j I)^k \right) u_{0,j}
+\] 
+Dado que $u_{0,j} \in \ker(A - \lambda_j I)^{\nu(\lambda_j)}$, se cumple que $(A - \lambda_j I)^k u_{0,j} = 0$ para todo $k \geq \nu(\lambda_j)$. Por lo tanto, la serie infinita se trunca y obtenemos la solución exacta en forma finita:
+\[
+    u(t) = \sum_{j=1}^q e^{\lambda_j t} \left[ \sum_{k=0}^{\nu(\lambda_j)-1} \frac{t^k}{k!} (A - \lambda_j I)^k u_{0,j} \right]
+\]
+Consideramos ahora el problema anterior pero con la condición inicial $u(0) = v_{j,k}$, es decir, con cada vector de la base de cada núcleo:
+\[
+    u(t,0,v_{j,k}) = e^{tA} v_{j,k}
+\]
+entonces $\{e^{tA} v_{j,k} : j = 1, \dots, q, k = 1, \dots, m_j\}$ es una base de soluciones del sistema homogéneo $u' = A u$.
+\[
+    \Phi(t) = (e^{tA} v_{j,k})_{j=1,\dots,q; k=1,\dots,m_j} = e^{tA} C \quad \text{donde} \quad |C| \neq 0
+\]

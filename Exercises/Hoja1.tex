@@ -1185,7 +1185,72 @@
     $$P(D)u = b(t),$$
     donde $b \in C([\alpha, \beta]; \mathbb{R})$ para algunos $\alpha < \beta$.
 }{
+    Para resolver esta ecuación diferencial, primero encontramos la solución general de la ecuación homogénea asociada $P(D)u = 0$. Dado que $P(D)$ se factoriza como $(D - \lambda_1)(D - \lambda_2)(D - \lambda_3)$, las soluciones del homogéneo son:
+    \[
+        u_h(t) = C_1 e^{\lambda_1 t} + C_2 e^{\lambda_2 t} + C_3 e^{\lambda_3 t}
+    \]
+    donde $C_1, C_2, C_3$ son constantes arbitrarias. Estas funciones forman un conjunto fundamental de soluciones para el homogéneo.
 
+    Calculamos el Wronskiano de estas soluciones para asegurarnos de que son linealmente independientes:
+    \[
+        W =
+        \begin{vmatrix}
+            e^{\lambda_1 t} & e^{\lambda_2 t} & e^{\lambda_3 t} \\
+            \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} & \lambda_3 e^{\lambda_3 t} \\
+            \lambda_1^2 e^{\lambda_1 t} & \lambda_2^2 e^{\lambda_2 t} & \lambda_3^2 e^{\lambda_3 t}
+        \end{vmatrix}
+    \]
+    Factorizando $e^{(\lambda_1 + \lambda_2 + \lambda_3) t}$, obtenemos:
+    \[
+        W = e^{(\lambda_1 + \lambda_2 + \lambda_3) t}
+        \begin{vmatrix}
+            1 & 1 & 1 \\
+            \lambda_1 & \lambda_2 & \lambda_3 \\
+            \lambda_1^2 & \lambda_2^2 & \lambda_3^2
+        \end{vmatrix}
+    \]
+    El determinante de la matriz es el producto de las diferencias de los $\lambda_j$:
+    \[
+        \begin{vmatrix}
+            1 & 1 & 1 \\
+            \lambda_1 & \lambda_2 & \lambda_3 \\
+            \lambda_1^2 & \lambda_2^2 & \lambda_3^2
+        \end{vmatrix} = (\lambda_2 - \lambda_1)(\lambda_3 - \lambda_1)(\lambda_3 - \lambda_2) \neq 0
+    \]
+    Por lo tanto, las soluciones $e^{\lambda_1 t}, e^{\lambda_2 t}, e^{\lambda_3 t}$ son linealmente independientes, y el Wronskiano es:
+    \[
+        W = e^{(\lambda_1 + \lambda_2 + \lambda_3) t} (\lambda_2 - \lambda_1)(\lambda_3 - \lambda_1)(\lambda_3 - \lambda_2) \neq 0
+    \]
+    Aplicamos ahora el método de variación de coeficientes: $U(t) = W(t) C(t)$, 
+    \[
+        U'(t) = W'(t) C(t) + W(t) C'(t) = A W(t) C(t) + B(t)
+    \]
+    \[
+        \implies W(t) C'(t) = B(t) \implies
+        \begin{pmatrix}
+            e^{\lambda_1 t} & e^{\lambda_2 t} & e^{\lambda_3 t} \\
+            \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} & \lambda_3 e^{\lambda_3 t} \\
+            \lambda_1^2 e^{\lambda_1 t} & \lambda_2^2 e^{\lambda_2 t} & \lambda_3^2 e^{\lambda_3 t}
+        \end{pmatrix}
+        \begin{pmatrix}
+            C_1' \\ C_2' \\ C_3'
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0 \\ 0 \\ b(t)
+        \end{pmatrix}
+    \]
+    Ahora, aplicando la regla de Cramer, obtenemos:
+    \[
+        C_1' = \frac{1}{W} \begin{vmatrix}
+            0 & e^{\lambda_2 t} & e^{\lambda_3 t} \\
+            0 & \lambda_2 e^{\lambda_2 t} & \lambda_3 e^{\lambda_3 t} \\
+            b(t) & \lambda_2^2 e^{\lambda_2 t} & \lambda_3^2 e^{\lambda_3 t}
+        \end{vmatrix} = \frac{b(t) \begin{vmatrix}
+            e^{\lambda_2 t} & e^{\lambda_3 t} \\
+            \lambda_2 e^{\lambda_2 t} & \lambda_3 e^{\lambda_3 t}
+        \end{vmatrix} }{W} = \frac{b(t) e^{(\lambda_2 + \lambda_3) t} (\lambda_3 - \lambda_2)}{W}
+    \]
 }
 
 % Ejercicio 24
