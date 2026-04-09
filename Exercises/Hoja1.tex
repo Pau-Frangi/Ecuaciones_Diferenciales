@@ -1,8 +1,11 @@
-\hojaejercicio{Ecuaciones Lineales de Primer Orden y Variación de Constantes}
+﻿\hojaejercicio{Ecuaciones Lineales de Primer Orden y Variación de Constantes}
 
+% Posibilidades para los ejercicios:
+% enunciado, medio, resuelto
+% profesor, no
 
 % Ejercicio 1
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Demuestra el siguiente principio de superposición generalizado. Sea $m \geq 2$ un número entero, y
     \[
     A(t) := (a_{ij}(t))_{1 \leq i,j \leq N} \quad \text{y} \quad B_k(t) := (b_{i,k}(t))_{1 \leq i \leq N, \atop 1 \leq k \leq m}
@@ -46,7 +49,7 @@
 }
 
 % Ejercicio 2
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentra la solución general de la ecuación lineal escalar
     \[
     u' - 2tu = t.
@@ -99,7 +102,7 @@
 }
 
 % Ejercicio 3
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentra la solución única del problema de valor inicial
     \[
     \begin{cases}
@@ -168,7 +171,7 @@
 }
 
 % Ejercicio 4
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentra la solución única del problema de valor inicial
     \[
     \begin{cases}
@@ -214,7 +217,7 @@
 }
 
 % Ejercicio 5
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentra la solución única del problema de valor inicial
     \[
     \begin{cases}
@@ -256,7 +259,7 @@
 }
 
 % Ejercicio 6
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentra la solución única continua del problema de valor inicial
     \[
     \begin{cases}
@@ -304,7 +307,7 @@
 }
 
 % Ejercicio 7
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Sean $a, m, \omega \in \mathbb{R}$ tales que $a > 0$ y $\omega > 0$. Encuentra la solución general de
     \[
     u' = -au + me^{-\omega t}
@@ -339,7 +342,7 @@
 }
 
 % Ejercicio 8
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Sean $a, b \in \mathcal{C}(\mathbb{R}; \mathbb{R})$ tales que
     \[
     \sup_{\mathbb{R}} a \leq -c < 0 \quad \text{y} \quad \lim_{t \uparrow \infty} b(t) = 0,
@@ -401,7 +404,7 @@
 }
 
 % Ejercicio 9
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Sea la siguiente ecuación diferencial:
     \[
         N'(t) = - \lambda N(t)
@@ -419,7 +422,7 @@
 }
 
 % Ejercicio 10
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Sean $\alpha < \beta$, $t_0 \in [\alpha, \beta]$, $\eta > 0$ y sea una norma $\|\cdot\|$ en $\mathcal{C}([\alpha, \beta]; \mathbb{R}^N)$. Demuestra que:
     \[
     \|u\|_\eta := \sup_{t \in [\alpha, \beta]} e^{-\eta(t - t_0)} \|u(t)\|
@@ -456,7 +459,7 @@
 
 
 % Ejercicio 11
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Para cada entero $n \geq 1$, considere la función $u_n(t) = t^n$, $t \in [0, 1]$. Demuestre que $\{u_n\}_{n \geq 1}$ converge puntualmente en $[0, 1]$ pero no puede converger uniformemente en $[0, 1]$ cuando $n \to \infty$.
 }{
     Sea la sucesión de funciones $\{u_n\}_{n \geq 1}$ definida por $u_n(t) = t^n$ en el intervalo $t \in [0, 1]$. Vamos a dividir la demostración en dos partes: primero probaremos la convergencia puntual y luego demostraremos que dicha convergencia no puede ser uniforme.
@@ -504,7 +507,7 @@
 }
 
 % Ejercicio 12
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
 
     Consideramos que en el espcacio vectoy
     Dados $\mathbb{K} \in \{\mathbb{R}, \mathbb{C}\}$ y $\alpha, \beta \in \mathbb{R}$ con $\alpha < \beta$, denotemos por $C^1([\alpha, \beta]; \mathbb{K}^N)$ el espacio vectorial de todas las funciones $u : [\alpha, \beta] \to \mathbb{K}^N$ tales que $u'(t)$ existe para todo $t \in [\alpha, \beta]$ y $u' \in C([\alpha, \beta]; \mathbb{K}^N)$. Demuestre que
@@ -545,7 +548,7 @@
 
 
 % Ejercicio 13
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Demuestre que la norma de operador $\|\cdot\|_{\mathcal{L}(\mathbb{K}^N)}$ inducida por una norma $\|\cdot\|$ de $\mathbb{K}^N$, la cual se define como
     $$ \|A\|_{\mathcal{L}(\mathbb{K}^N)} = \max\{\|Ax\| : \|x\| = 1\} $$
     es una norma en el espacio $\mathcal{L}(\mathbb{K}^N)$ de los operadores lineales de $\mathbb{K}^N$ en $\mathbb{K}^N$.
@@ -593,7 +596,7 @@
 }
 
 % Ejercicio 14
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Demuestre que, si $\|\cdot\|_{\mathcal{L}(\mathbb{K}^N)}$ es la norma de operador inducida por la norma $p$ de $\mathbb{K}^N$, en general, se tiene que $\|A\|_{\mathcal{L}(\mathbb{K}^N)} \neq \|A\|_p$, donde en esta última norma, se considera $A$ como un vector de $\mathbb{K}^{N^2}$.
 }{
     Para demostrar que una afirmación matemática no se cumple "en general", es suficiente con exhibir un contraejemplo donde la igualdad falle. 
@@ -633,7 +636,7 @@
 
 
 % Ejercicio 15
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Suponga que $\mathbb{K} \in \{\mathbb{R}, \mathbb{C}\}$, $\alpha \in \mathbb{R} \cup \{-\infty\}$, $\beta \in \mathbb{R} \cup \{+\infty\}$, $\alpha < \beta$, y $a_{ij}, b_i \in C((\alpha, \beta); \mathbb{K}^N)$ para todo $i, j \in \{1, \dots, N\}$. Demuestre que, para cada $t_0 \in (\alpha, \beta)$ y $u_0 \in \mathbb{K}^N$, el problema
     $$\begin{cases} u' = A(t)u + B(t), \\ u(t_0) = u_0, \end{cases}$$
     donde $A(t) = (a_{ij}(t))_{1 \le i, j \le N}$ y $B(t) = (b_i(t))_{1 \le i \le N}$, posee una solución única en $(\alpha, \beta)$.
@@ -696,7 +699,7 @@
 
 
 % Ejercicio 16
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Para cada uno de los siguientes problemas de valor inicial, calcule las iteraciones de Picard-Lindelöf asociadas y demuestre que convergen a la solución única correspondiente:
     \begin{multicols}{2}
         \begin{enumerate}[label=\alph*)]
@@ -776,7 +779,7 @@
 
 
 % Ejercicio 17
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Use inducción sobre $N$ para demostrar la identidad (1.23).
 }{
 
@@ -784,7 +787,7 @@
 
 
 % Ejercicio 18
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentre la solución general de la ecuación diferencial
     $$u'' - 3u' + 2u = \pi + e^{\sqrt{2}t}$$
     utilizando cada uno de los siguientes métodos:
@@ -878,7 +881,7 @@
 }
 
 % Ejercicio 19
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Repita el ejercicio anterior con la siguiente ecuación diferencial:
     $$u'' - 2u' + u = 1 + e^{2t}.$$
 }{
@@ -886,7 +889,7 @@
 }
 
 % Ejercicio 20
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Encuentre la solución única del problema
     $$\begin{cases} u'' + u = \sec^3 t, \\ u(0) = 1, \ u'(0) = \frac{1}{2} \end{cases}$$
     en el intervalo $\left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$.
@@ -989,7 +992,7 @@
 
 
 % Ejercicio 21
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Suponga que $\gamma$ y $\omega$ son números reales positivos (distintos) y que $F_0 \in \mathbb{R}$.
     \begin{enumerate}
         \item[(a)] Encuentre la solución, $u_\gamma(t)$, del problema
@@ -1171,14 +1174,14 @@
 }
 
 % Ejercicio 22
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Use las soluciones determinadas en el ejercicio anterior para obtener las soluciones de la correspondiente ecuación diferencial con condiciones iniciales arbitrarias: $u(0) = u_0, u'(0) = v_0$.
 }{
 
 }
 
 % Ejercicio 23
-\ejercicio{
+\ejercicio{resuelto}{no}{
     Sean $\lambda_j \in \mathbb{R}, j \in \{1, 2, 3\}$, tres números reales diferentes, y considere el operador diferencial
     $$P(D) := (D - \lambda_1)(D - \lambda_2)(D - \lambda_3).$$
     Encuentre la solución general de
@@ -1251,19 +1254,92 @@
             \lambda_2 e^{\lambda_2 t} & \lambda_3 e^{\lambda_3 t}
         \end{vmatrix} }{W} = \frac{b(t) e^{(\lambda_2 + \lambda_3) t} (\lambda_3 - \lambda_2)}{W}
     \]
+    \[
+        C_2' = \frac{1}{W} \begin{vmatrix}
+            e^{\lambda_1 t} & 0 & e^{\lambda_3 t} \\
+            \lambda_1 e^{\lambda_1 t} & 0 & \lambda_3 e^{\lambda_3 t} \\
+            \lambda_1^2 e^{\lambda_1 t} & b(t) & \lambda_3^2 e^{\lambda_3 t}
+        \end{vmatrix} = -\frac{b(t) e^{(\lambda_1 + \lambda_3) t} (\lambda_3 - \lambda_1)}{W}
+    \]
+    \[
+        C_3' = \frac{1}{W} \begin{vmatrix}
+            e^{\lambda_1 t} & e^{\lambda_2 t} & 0 \\
+            \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} & 0 \\
+            \lambda_1^2 e^{\lambda_1 t} & \lambda_2^2 e^{\lambda_2 t} & b(t)
+        \end{vmatrix} = \frac{b(t) e^{(\lambda_1 + \lambda_2) t} (\lambda_2 - \lambda_1)}{W}
+    \]
+    Integrando $C_1', C_2', C_3'$, obtenemos
+    \[
+        C_1(t) = \int \frac{b(s) e^{(\lambda_2 + \lambda_3) s} (\lambda_3 - \lambda_2)}{W(s)} ds
+    \]
+    \[
+        C_2(t) = -\int \frac{b(s) e^{(\lambda_1 + \lambda_3) s} (\lambda_3 - \lambda_1)}{W(s)} ds
+    \]
+    \[
+        C_3(t) = \int \frac{b(s) e^{(\lambda_1 + \lambda_2) s} (\lambda_2 - \lambda_1)}{W(s)} ds
+    \]
+    Por lo tanto, la solución particular de la ecuación diferencial es:
+    \[
+        u_p(t) = C_1(t) e^{\lambda_1 t} + C_2(t) e^{\lambda_2 t} + C_3(t) e^{\lambda_3 t}
+    \]
+
 }
 
 % Ejercicio 24
-\ejercicio{
+\ejercicio{resuelto}{profesor}{
     Sean $r, \kappa \in \mathbb{R}$. Demuestre que el cambio de escala temporal $t = e^s, s \in \mathbb{R}$, transforma la \textbf{ecuación de Euler}
     $$t^2 u'' + r t u' + \kappa u = 0, \quad t > 0,$$
     en una ecuación diferencial con coeficientes constantes. Encuentre una base para el conjunto de soluciones de la ecuación de Euler de acuerdo con todos los valores posibles de los parámetros $r$ y $\kappa$.
 }{
-
+    Primero definamos:
+    \[
+        v(s) = u(t) = u(e^s)
+    \]
+    Por lo tanto, derivando:
+    \[
+        v'(s) = u'(e^s) e^s = u'(t) t
+    \]
+    \[
+        v''(s) = u''(e^s) e^{2s} + u'(e^s) e^s = u''(t) t^2 + \underbrace{u'(t) t}_{v'(s)}
+    \]
+    Fijemonos en que:
+    \[
+        t^2 u'' = v''(s) - v'(s) \, \qquad
+        tu' = v'(s)
+    \]
+    Por lo tanto, sustituyendo en la ecuación de Euler, obtenemos:
+    \[
+        v''(s) - v'(s) + r v'(s) + \kappa v(s) = 0 \implies
+        v''(s) + (r-1) v'(s) + \kappa v(s) = 0
+    \]
+    Resolviendo la ecuación característica de esta ecuación diferencial con coeficientes constantes, obtenemos:
+    \[
+        \lambda^2 + (r-1) \lambda + \kappa = 0 \implies
+        \lambda = \frac{-(r-1) \pm \sqrt{(r-1)^2 - 4\kappa}}{2}
+    \]
+    Ahora podemos distinguir los siguientes casos:
+    \begin{enumerate}
+        \item Si $(r-1)^2 - 4\kappa > 0$, entonces las raíces son reales y distintas, y una base para el conjunto de soluciones de la ecuación de Euler es:
+        \[
+            v(s) = e^{\lambda_1 s} x_1 + e^{\lambda_2 s} x_2 \implies
+            u(t) = t^{\lambda_1} x_1 + t^{\lambda_2} x_2
+        \]
+        \item Si $(r-1)^2 - 4\kappa = 0$, entonces las raíces son reales e iguales, y una base para el conjunto de soluciones de la ecuación de Euler es (usando que $t = e^s \iff s = \ln t$):
+        \[
+            v(s) = e^{\lambda s} x_1 + s e^{\lambda s} x_2 =
+            e^{\lambda s} (x_1 + x_2 s) \implies
+            u(t) = t^{\lambda} (x_1 + x_2 \ln t)
+        \]
+        \item Si $(r-1)^2 - 4\kappa < 0$, entonces las raíces son complejas conjugadas, y una base para el conjunto de soluciones de la ecuación de Euler es, deontando a las soluciones de la ecuación característica como $\lambda = \alpha + i \beta$ y $\overline{\lambda} = \alpha - i \beta$:
+        \[
+            v(s) = e^{\alpha s} (x_1 \cos(\beta s) + x_2 \sin(\beta s)) \implies
+            u(t) = t^{\alpha} (x_1 \cos(\beta \ln t) + x_2 \sin(\beta \ln t))
+        \]
+    \end{enumerate}
 }
 
 % Ejercicio 25
-\ejercicio{
+\ejercicio{medio}{profesor}{
     Sean $\lambda, \mu, \omega \in \mathbb{C}$ tres números complejos distintos.
     \begin{enumerate}
         \item[(a)] Encuentre la solución única, $u_\omega$, del problema de Cauchy
@@ -1275,11 +1351,42 @@
         $$\begin{cases} (D - \lambda)^2 u = e^{\lambda t}, \quad t \in \mathbb{R}, \\ u(0) = u'(0) = 0. \end{cases}$$
     \end{enumerate}
 }{
-
+    Resolvamos cada apartado:
+    \begin{enumerate}
+        \item[(a)] En este caso, el operador diferencial es $P(D) = (D - \lambda)(D - \mu)$, el polinomio característico asociado al homogéneo es $P(z) = (z - \lambda)(z - \mu)$ cuyas raices son $\lambda$ y $\mu$, por lo que deducimos que una base para el conjunto de soluciones del homogéneo asociado es:
+        \[
+            B = \{e^{\lambda t}, e^{\mu t}\} \, \qquad \text{base de } \Sigma_0
+        \]
+        Para sacar la solución particular, aplicamos el método de variación de coeficientes, proponiendo $u(t) = v(t) e^{\lambda t}$ y nos deja:
+        \[
+            \begin{cases}
+                v' e^{\lambda t} = 0 \\
+                v' e^{\mu t} = e^{\omega t}
+            \end{cases} \implies
+            \lambda^2 e^{\lambda t} v + 2 \lambda e^{\lambda t} v' + e^{\lambda t} v'' - (\lambda + \mu) \lambda e^{\lambda t} v - (\lambda + \mu) e^{\lambda t} v' + \lambda \mu e^{\lambda t} v = e^{\omega t}
+        \]
+        \[
+            v' \left( 2 \lambda e^{\lambda t} - (\lambda + \mu) e^{\lambda t} \right) + v'' e^{\lambda t} = e^{\omega t} \implies
+            v'' + (\lambda - \mu) v' = e^{(\omega - \lambda) t}
+        \]
+        Otra forma de hacerlo es buscar la solución general de esta ecuación diferencial con coeficientes constantes:
+        \[
+            u(t) = e^{\lambda t} x + e^{\mu t} y + p(t)
+        \]
+        Donde $p(t)$ es una solución particular de la ecuación diferencial anterior, que podemos encontrar usando que:
+        \[
+        p(t) = m e^{\omega t} \implies
+        u = \frac{e^{\omega t}}{P(D)}
+        \]
+        Dejando la solución particular como:
+        \[
+            p(t) = \frac{e^{\omega t}}{(\omega - \lambda)(\omega - \mu)}
+        \]
+    \end{enumerate}
 }
 
 % Ejercicio 26
-\ejercicio{
+\ejercicio{enunciado}{no}{
     26. Dado $L > 0$, sea $U_d$ el espacio vectorial de las funciones $u \in C^2([0, L]; \mathbb{R})$ tales que $u(0) = u(L) = 0$, y considere el operador diferencial
     $$-D^2 : U_d \to V := C([0, L]; \mathbb{R}),$$
     definido como
@@ -1290,7 +1397,7 @@
 }
 
 % Ejercicio 27
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Dado $L > 0$, sea $U_n$ el espacio vectorial de las funciones $u \in C^2([0, L]; \mathbb{R})$ tales que $u'(0) = u'(L) = 0$, y considere el operador diferencial
     $$-D^2 : U_n \to V := C([0, L]; \mathbb{R}),$$
     definido como
@@ -1301,7 +1408,7 @@
 }
 
 % Ejercicio 28
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Demuestre que la función $u(t) = e^t$ resuelve la ecuación diferencial
     $$u'' - tu' + (t - 1)u = 0, \quad t \in \mathbb{R}.$$
     Encuentre la solución general de
@@ -1311,7 +1418,7 @@
 }
 
 % Ejercicio 29
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Dada la ecuación diferencial
     $$u'' + \frac{1}{t}u' + \left(1 - \frac{1}{4t^2}\right)u = 0, \quad t > 0, \quad (1.96)$$
     utilice el cambio de variable $u(t) = t^\alpha v(t)$, para una elección adecuada de $\alpha$, con el fin de encontrar la solución general de (1.96). Luego, encuentre la solución general de la ecuación no homogénea
@@ -1321,7 +1428,7 @@
 }
 
 % Ejercicio 30
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Encuentre la solución general de la ecuación diferencial no homogénea
     $$u''' + 3u'' + 3u' + u = \pi + e^t.$$
 }{
@@ -1329,7 +1436,7 @@
 }
 
 % Ejercicio 31
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Para un $\omega > 0$ dado, encuentre la solución general (real y compleja) de cada una de las siguientes ecuaciones diferenciales:
     \begin{enumerate}
         \item[(a)] $u^{(6)} - 8u^{(5)} + 25u^{(4)} - 32u''' - u'' + 40u' - 25u = 1 + e^{2t}$.
@@ -1341,7 +1448,7 @@
 }
 
 % Ejercicio 32
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Dado un entero $N \ge 2$ y $a_0, \dots, a_{N-1} \in \mathbb{C}$, considere la ecuación diferencial de orden $N$
     $$u^{(N)} = a_{N-1}u^{(N-1)} + \dots + a_1 u' + a_0 u,$$
     y suponga que $e^{\lambda_j t}$ es una solución para todo $j \in \{1, \dots, N\}$, con $\lambda_j \in \mathbb{C}$ y $\lambda_j \neq \lambda_k$ si $j \neq k$.
@@ -1358,14 +1465,14 @@
 }
 
 % Ejercicio 33
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Considere todas las soluciones de las ecuaciones diferenciales de este capítulo que no están definidas en todo $\mathbb{R}$. Analice el comportamiento de tales soluciones en la frontera de su dominio de definición.
 }{
 
 }
 
 % Ejercicio 34
-\ejercicio{
+\ejercicio{enunciado}{no}{
     Suponga que
     $$A(t) = (a_{ij}(t))_{1 \le i, j \le N} \in \mathcal{M}_N(C([\alpha, \beta]; \mathbb{K})),$$
     con
@@ -1381,28 +1488,28 @@
 }
 
 % Ejercicio 35
-\ejercicio{
+\ejercicio{enunciado}{no}{
 
 }{
 
 }
 
 % Ejercicio 36
-\ejercicio{
+\ejercicio{enunciado}{no}{
 
 }{
 
 }
 
 % Ejercicio 37
-\ejercicio{
+\ejercicio{enunciado}{no}{
 
 }{
 
 }
 
 % Ejercicio 38
-\ejercicio{
+\ejercicio{enunciado}{no}{
 
 }{
 
