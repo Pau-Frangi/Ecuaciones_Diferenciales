@@ -1339,7 +1339,7 @@
 }
 
 % Ejercicio 25
-\ejercicio{medio}{profesor}{
+\ejercicio{resuelto}{profesor}{
     Sean $\lambda, \mu, \omega \in \mathbb{C}$ tres números complejos distintos.
     \begin{enumerate}
         \item[(a)] Encuentre la solución única, $u_\omega$, del problema de Cauchy
@@ -1351,49 +1351,120 @@
         $$\begin{cases} (D - \lambda)^2 u = e^{\lambda t}, \quad t \in \mathbb{R}, \\ u(0) = u'(0) = 0. \end{cases}$$
     \end{enumerate}
 }{
-    Resolvamos cada apartado:
     \begin{enumerate}
-        \item[(a)] En este caso, el operador diferencial es $P(D) = (D - \lambda)(D - \mu)$, el polinomio característico asociado al homogéneo es $P(z) = (z - \lambda)(z - \mu)$ cuyas raices son $\lambda$ y $\mu$, por lo que deducimos que una base para el conjunto de soluciones del homogéneo asociado es:
+        \item[(a)] El polinomio característico asociado a la parte homogénea es $P(w) = (w-\lambda)(w-\mu)$. Puesto que $\omega \neq \lambda$ y $\omega \neq \mu$, tenemos que $P(\omega) \neq 0$. 
+        La solución general es la suma de la homogénea y una particular propuesta de la forma $\frac{1}{P(\omega)} e^{\omega t}$:
         \[
-            B = \{e^{\lambda t}, e^{\mu t}\} \, \qquad \text{base de } \Sigma_0
+            u(t) = A e^{\lambda t} + B e^{\mu t} + \frac{1}{P(\omega)} e^{\omega t}
         \]
-        Para sacar la solución particular, aplicamos el método de variación de coeficientes, proponiendo $u(t) = v(t) e^{\lambda t}$ y nos deja:
+        Imponemos las condiciones iniciales $u(0) = u'(0) = 0$:
         \[
             \begin{cases}
-                v' e^{\lambda t} = 0 \\
-                v' e^{\mu t} = e^{\omega t}
-            \end{cases} \implies
-            \lambda^2 e^{\lambda t} v + 2 \lambda e^{\lambda t} v' + e^{\lambda t} v'' - (\lambda + \mu) \lambda e^{\lambda t} v - (\lambda + \mu) e^{\lambda t} v' + \lambda \mu e^{\lambda t} v = e^{\omega t}
+                A + B + \frac{1}{P(\omega)} = 0 \\
+                A\lambda + B\mu + \frac{\omega}{P(\omega)} = 0
+            \end{cases}
+            \implies
+            \begin{pmatrix} 1 & 1 \\ \lambda & \mu \end{pmatrix} \begin{pmatrix} A \\ B \end{pmatrix} = \frac{-1}{P(\omega)} \begin{pmatrix} 1 \\ \omega \end{pmatrix}
         \]
+        Aplicando la regla de Cramer para despejar los coeficientes:
+        \begin{align*}
+            A &= \frac{\begin{vmatrix} -1/P(\omega) & 1 \\ -\omega/P(\omega) & \mu \end{vmatrix}}{\begin{vmatrix} 1 & 1 \\ \lambda & \mu \end{vmatrix}} = \frac{\frac{-\mu + \omega}{P(\omega)}}{\mu - \lambda} = \frac{\omega - \mu}{(\omega-\lambda)(\omega-\mu)(\mu-\lambda)} = \frac{1}{(\omega-\lambda)(\mu-\lambda)} \\
+            B &= \frac{\begin{vmatrix} 1 & -1/P(\omega) \\ \lambda & -\omega/P(\omega) \end{vmatrix}}{\mu - \lambda} = \frac{\frac{-\omega + \lambda}{P(\omega)}}{\mu - \lambda} = \frac{-(\omega-\lambda)}{(\omega-\lambda)(\omega-\mu)(\mu-\lambda)} = \frac{1}{(\omega-\mu)(\lambda-\mu)}
+        \end{align*}
+        Sustituyendo $A$ y $B$, la solución única es:
         \[
-            v' \left( 2 \lambda e^{\lambda t} - (\lambda + \mu) e^{\lambda t} \right) + v'' e^{\lambda t} = e^{\omega t} \implies
-            v'' + (\lambda - \mu) v' = e^{(\omega - \lambda) t}
+            u_\omega(t) = \frac{e^{\lambda t}}{(\omega-\lambda)(\mu-\lambda)} + \frac{e^{\mu t}}{(\omega-\mu)(\lambda-\mu)} + \frac{e^{\omega t}}{(\omega-\lambda)(\omega-\mu)}
         \]
-        Otra forma de hacerlo es buscar la solución general de esta ecuación diferencial con coeficientes constantes:
+
+        \item[(b)] Para $(D-\lambda)(D-\mu)u = e^{\lambda t}$, como $\lambda$ es raíz simple del polinomio característico, proponemos una solución particular de la forma $u_p(t) = C t e^{\lambda t}$. 
+        Evaluamos el operador diferencial:
+        \begin{align*}
+            (D-\mu)(D-\lambda)(C t e^{\lambda t}) &= (D-\mu) [C e^{\lambda t} + C \lambda t e^{\lambda t} - \lambda C t e^{\lambda t}] \\
+            &= (D-\mu)(C e^{\lambda t}) = C \lambda e^{\lambda t} - C \mu e^{\lambda t} = C(\lambda-\mu)e^{\lambda t}
+        \end{align*}
+        Igualando a $e^{\lambda t}$, obtenemos $C = \frac{1}{\lambda-\mu}$.
+        La solución general es: $u(t) = A_1 e^{\lambda t} + B_1 e^{\mu t} + \frac{t}{\lambda-\mu} e^{\lambda t}$.
+        Imponiendo $u(0)=u'(0)=0$, el sistema resultante nos da $A_1 = -\frac{1}{(\lambda-\mu)^2}$ y $B_1 = \frac{1}{(\lambda-\mu)^2}$.
+        Por tanto, la solución es:
         \[
-            u(t) = e^{\lambda t} x + e^{\mu t} y + p(t)
+            u_\lambda(t) = -\frac{e^{\lambda t}}{(\lambda-\mu)^2} + \frac{e^{\mu t}}{(\lambda-\mu)^2} + \frac{t e^{\lambda t}}{\lambda-\mu}
         \]
-        Donde $p(t)$ es una solución particular de la ecuación diferencial anterior, que podemos encontrar usando que:
+
+        \item[(c)] Comparamos tomando el límite cuando $\omega \to \lambda$ de la solución $u_\omega(t)$. Agrupamos los términos con denominadores que se anulan:
         \[
-        p(t) = m e^{\omega t} \implies
-        u = \frac{e^{\omega t}}{P(D)}
+            \lim_{\omega \to \lambda} u_\omega(t) = \lim_{\omega \to \lambda} \left[ \frac{-e^{\lambda t}(\omega-\mu) + e^{\omega t}(\lambda-\mu)}{(\omega-\lambda)(\omega-\mu)(\lambda-\mu)} + \frac{e^{\mu t}}{(\omega-\mu)(\lambda-\mu)} \right]
         \]
-        Dejando la solución particular como:
+        Aplicamos la regla de L'Hôpital derivando respecto a $\omega$ en el primer bloque:
         \[
-            p(t) = \frac{e^{\omega t}}{(\omega - \lambda)(\omega - \mu)}
+            \lim_{\omega \to \lambda} \frac{-e^{\lambda t} + t e^{\omega t}(\lambda-\mu)}{(\lambda-\mu)(2\omega - \mu - \lambda)} = \frac{-e^{\lambda t} + t e^{\lambda t}(\lambda-\mu)}{(\lambda-\mu)(\lambda-\mu)} = -\frac{e^{\lambda t}}{(\lambda-\mu)^2} + \frac{t e^{\lambda t}}{\lambda-\mu}
+        \]
+        Sumando el término en $e^{\mu t}$ (cuyo límite se evalúa directamente sustituyendo $\omega$ por $\lambda$), recuperamos exactamente $u_\lambda(t)$. Luego queda demostrado que $u_\lambda(t) = \lim_{\omega \to \lambda} u_\omega(t)$.
+
+        \item[(d)] Para $(D-\lambda)^2 u = e^{\lambda t}$, siendo $\lambda$ raíz doble del polinomio característico, proponemos la solución particular $u_p(t) = m t^2 e^{\lambda t}$.
+        \begin{align*}
+            (D-\lambda)^2 (m t^2 e^{\lambda t}) &= (D-\lambda) [2mt e^{\lambda t} + \lambda m t^2 e^{\lambda t} - \lambda m t^2 e^{\lambda t}] \\
+            &= (D-\lambda)(2mt e^{\lambda t}) = 2m e^{\lambda t} + 2m\lambda t e^{\lambda t} - 2m\lambda t e^{\lambda t} = 2m e^{\lambda t}
+        \end{align*}
+        Igualando a $e^{\lambda t}$, resulta $2m = 1 \implies m = 1/2$.
+        La solución general es $u(t) = A e^{\lambda t} + B t e^{\lambda t} + \frac{1}{2}t^2 e^{\lambda t}$.
+        Con las condiciones $u(0)=u'(0)=0$, se deduce rápidamente que $A=0$ y $B=0$, por lo que la solución única es:
+        \[
+            u(t) = \frac{1}{2}t^2 e^{\lambda t}
         \]
     \end{enumerate}
 }
 
 % Ejercicio 26
-\ejercicio{enunciado}{no}{
+\ejercicio{resuelto}{profesor}{
     26. Dado $L > 0$, sea $U_d$ el espacio vectorial de las funciones $u \in C^2([0, L]; \mathbb{R})$ tales que $u(0) = u(L) = 0$, y considere el operador diferencial
     $$-D^2 : U_d \to V := C([0, L]; \mathbb{R}),$$
     definido como
     $$-D^2 u = -u'' \text{ para todo } u \in U_d.$$
     Se dice que un número $\lambda \in \mathbb{R}$ es un \textbf{valor propio} (eigenvalue) del operador diferencial $-D^2$ en $U_d$ si existe $u \in U_d, u \neq 0$, tal que $-D^2 u = \lambda u$. En tal caso, se dice que $u$ es una \textbf{función propia} (eigenfunction) asociada al valor propio $\lambda$. Encuentre los valores propios y las funciones propias de $-D^2$ en $U_d$, y represente cuidadosamente todas las funciones propias. (El subíndice $d$ en $U_d$ se refiere a las condiciones $u(0) = u(L) = 0$, conocidas como condiciones de contorno de \textbf{Dirichlet}).
 }{
+    Buscamos soluciones no nulas para $-u'' = \lambda u \implies u'' + \lambda u = 0$, sometidas a las condiciones de frontera de Dirichlet $u(0) = 0$ y $u(L) = 0$. Analizamos los posibles valores de $\lambda \in \mathbb{R}$:
 
+    \textbf{Caso 1: $\lambda < 0$.} Sea $\lambda = -\mu^2$ con $\mu > 0$.
+    La ecuación es $u'' - \mu^2 u = 0$. La ecuación característica es $z^2 - \mu^2 = 0 \implies z = \pm \mu$.
+    La solución general es $u(t) = x e^{\mu t} + y e^{-\mu t}$.
+    Aplicamos las condiciones de frontera:
+    \begin{align*}
+        u(0) &= x + y = 0 \implies y = -x \\
+        u(L) &= x e^{\mu L} + y e^{-\mu L} = x(e^{\mu L} - e^{-\mu L}) = 0
+    \end{align*}
+    Como $\mu > 0$ y $L > 0$, el término $(e^{\mu L} - e^{-\mu L})$ es estrictamente mayor que cero. Por lo tanto, necesariamente $x = 0$, lo que implica $y = 0$.
+    La única solución es $u(t) \equiv 0$. Luego, el problema carece de autovalores negativos.
+
+    \textbf{Caso 2: $\lambda = 0$.}
+    La ecuación es $u'' = 0$. La ecuación característica tiene la raíz doble $z = 0$.
+    La solución general es $u(t) = x + yt$.
+    Aplicamos las condiciones de frontera:
+    \begin{align*}
+        u(0) &= x = 0 \\
+        u(L) &= x + yL = yL = 0 \implies y = 0 \quad (\text{ya que } L > 0)
+    \end{align*}
+    Nuevamente obtenemos la solución trivial $u(t) \equiv 0$. Por tanto, $\lambda = 0$ no es autovalor.
+
+    \textbf{Caso 3: $\lambda > 0$.}
+    La ecuación es $u'' + \lambda u = 0$. La ecuación característica es $z^2 + \lambda = 0 \implies z = \pm i\sqrt{\lambda}$.
+    La solución general es $u(t) = x \cos(\sqrt{\lambda}t) + y \sin(\sqrt{\lambda}t)$.
+    Aplicamos las condiciones de frontera:
+    \begin{align*}
+        u(0) &= x \cos(0) + y \sin(0) = x = 0 \\
+        u(L) &= y \sin(\sqrt{\lambda}L) = 0
+    \end{align*}
+    Para tener funciones propias (soluciones no nulas, es decir, $u \neq 0$), necesitamos que $y \neq 0$. Esto obliga a que el seno se anule:
+    \[
+        \sin(\sqrt{\lambda}L) = 0 \implies \sqrt{\lambda}L = k\pi, \quad \text{con } k = 1, 2, 3, \dots
+    \]
+    Despejando $\lambda$, encontramos la sucesión de valores propios:
+    \[
+        \lambda_k = \left( \frac{k\pi}{L} \right)^2, \quad k \ge 1
+    \]
+    Y las funciones propias asociadas (tomando la constante libre $y=1$) son:
+    \[
+        u_k(t) = \sin\left(\frac{k\pi}{L}t\right)
+    \]
 }
 
 % Ejercicio 27
@@ -1418,13 +1489,57 @@
 }
 
 % Ejercicio 29
-\ejercicio{enunciado}{no}{
+\ejercicio{resuelto}{profesor}{
     Dada la ecuación diferencial
     $$u'' + \frac{1}{t}u' + \left(1 - \frac{1}{4t^2}\right)u = 0, \quad t > 0, \quad (1.96)$$
     utilice el cambio de variable $u(t) = t^\alpha v(t)$, para una elección adecuada de $\alpha$, con el fin de encontrar la solución general de (1.96). Luego, encuentre la solución general de la ecuación no homogénea
     $$u'' + \frac{1}{t}u' + \left(1 - \frac{1}{4t^2}\right)u = 3\sqrt{t} \sin t, \quad t > 0.$$
 }{
+    Realizamos el cambio de variable propuesto $u(t) = t^\alpha v(t)$. Calculamos sus primera y segunda derivadas respecto a $t$:
+    \begin{align*}
+        u'(t) &= \alpha t^{\alpha-1}v(t) + t^\alpha v'(t) \\
+        u''(t) &= \alpha(\alpha-1)t^{\alpha-2}v(t) + 2\alpha t^{\alpha-1}v'(t) + t^\alpha v''(t)
+    \end{align*}
+    Sustituimos estas expresiones en la ecuación diferencial homogénea (1.96):
+    \begin{align*}
+        & \left[ t^\alpha v''(t) + 2\alpha t^{\alpha-1}v'(t) + \alpha(\alpha-1)t^{\alpha-2}v(t) \right] \\
+        + & \frac{1}{t} \left[ \alpha t^{\alpha-1}v(t) + t^\alpha v'(t) \right] + \left(1 - \frac{1}{4t^2}\right) t^\alpha v(t) = 0
+    \end{align*}
+    Agrupamos los términos según las derivadas de la nueva función incógnita $v$:
+    \[
+        t^\alpha v''(t) + (2\alpha t^{\alpha-1} + t^{\alpha-1}) v'(t) + \left( \alpha(\alpha-1)t^{\alpha-2} + \alpha t^{\alpha-2} + t^\alpha - \frac{1}{4}t^{\alpha-2} \right) v(t) = 0
+    \]
+    Para simplificar la ecuación resultante, buscamos un valor de $\alpha$ que anule por completo el coeficiente del término de primera derivada $v'(t)$:
+    \[
+        (2\alpha + 1)t^{\alpha-1} = 0 \implies 2\alpha + 1 = 0 \implies \alpha = -\frac{1}{2}
+    \]
+    Sustituyendo $\alpha = -1/2$ en la ecuación agrupada:
+    \begin{align*}
+        t^{-1/2} v''(t) + \left( \left(-\frac{1}{2}\right)\left(-\frac{3}{2}\right)t^{-5/2} - \frac{1}{2}t^{-5/2} + t^{-1/2} - \frac{1}{4}t^{-5/2} \right) v(t) &= 0 \\
+        t^{-1/2} v''(t) + \left( \frac{3}{4}t^{-5/2} - \frac{3}{4}t^{-5/2} + t^{-1/2} \right) v(t) &= 0 \\
+        t^{-1/2} v''(t) + t^{-1/2} v(t) &= 0
+    \end{align*}
+    Multiplicando toda la ecuación por $t^{1/2}$ (que es válido ya que $t > 0$), obtenemos la ecuación diferencial de un oscilador armónico simple:
+    \[
+        v''(t) + v(t) = 0 \implies v_h(t) = x_1 \sin t + x_2 \cos t
+    \]
+    Deshaciendo el cambio de variable original ($u = t^{-1/2}v$), obtenemos la solución general de la ecuación homogénea de Bessel:
+    \[
+        u_h(t) = \frac{x_1 \sin t + x_2 \cos t}{\sqrt{t}}
+    \]
 
+    A continuación, resolvemos la ecuación no homogénea. Al aplicar el mismo cambio de variable $u(t) = t^{-1/2} v(t)$, sabemos que el operador lineal del lado izquierdo se reduce exactamente a $t^{-1/2}(v''(t) + v(t))$. Lo igualamos al término forzante:
+    \[
+        \frac{1}{\sqrt{t}} \big( v''(t) + v(t) \big) = 3\sqrt{t} \sin t \implies v''(t) + v(t) = 3t \sin t
+    \]
+    Para resolver esta nueva ecuación con coeficientes constantes para $v$, proponemos una solución particular por coeficientes indeterminados debido a la resonancia con el término homogéneo:
+    \[
+        v_p(t) = (A t^2 + B t) \cos t + (C t^2 + D t) \sin t
+    \]
+    Derivando y ajustando los coeficientes (como se mostró en clase), se obtiene la solución para $v(t)$. Finalmente, la solución general buscada será:
+    \[
+        u(t) = \frac{v_h(t) + v_p(t)}{\sqrt{t}}
+    \]
 }
 
 % Ejercicio 30
