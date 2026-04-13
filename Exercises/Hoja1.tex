@@ -1547,31 +1547,55 @@
     Encuentre la solución general de la ecuación diferencial no homogénea
     $$u''' + 3u'' + 3u' + u = \pi + e^t.$$
 }{
+    Resolvamos la ecuación diferencial dada:
     \[
-        P(D) = D^3 + 3D^2 + 3D + 1 = (D+1)^3
+        u''' + 3u'' + 3u' + u = \pi + e^t
+    \]
+    \textbf{1. Solución de la ecuación homogénea ($u_h$)}
+
+    El polinomio característico asociado a la ecuación diferencial es:
+    \[
+        P(z) = z^3 + 3z^2 + 3z + 1
+    \]
+    Reconocemos de inmediato que esta expresión es el desarrollo de un binomio al cubo:
+    \[
+        P(z) = (z+1)^3
+    \]
+    Igualando a cero, vemos que la única raíz es $z = -1$, la cual tiene una multiplicidad de 3 (raíz triple). Por lo tanto, una base de soluciones para el espacio homogéneo $\Sigma_0$ es:
+    \[
+        \mathcal{B} = \{ e^{-t}, t e^{-t}, t^2 e^{-t} \}
+    \]
+    La solución general de la ecuación homogénea es:
+    \[
+        u_h(t) = c_1 e^{-t} + c_2 t e^{-t} + c_3 t^2 e^{-t}
     \]
 
-    \[
-        \mathcal{B} = \{ e^{-t}, te^{-t}, t^2 e^{-t} \} \text{ base de } \Sigma_0
-    \]
+    \textbf{2. Solución particular ($u_p$)}
 
-    \[
-        P(D) u = \pi \implies p_1(t) = \pi
-    \]
-    \[
-        P(D) u = e^t \implies p_2(t) = B e^t
-    \]
+    Por el principio de superposición, calculamos una solución particular para cada término del lado derecho $f(t) = \pi + e^t$.
 
+    \textit{Para el término constante $\pi$:}
+    Como $0$ no es raíz del polinomio característico ($P(0) = 1 \neq 0$), no hay resonancia. Proponemos una solución constante $u_{p1} = A$:
     \[
-        P(D) (B e^t) = e^t 
+        P(D) u_{p1} = \pi \implies P(D) A = \pi \implies A = \pi
     \]
-    \[
-        BP(D) (e^t) = BP(1) e^t = 8B e^t \implies B = \frac{1}{8}
-    \]
+    (Al evaluar el operador diferencial sobre una constante, todas las derivadas se anulan y solo sobrevive el término $1 \cdot A$). Así, $u_{p1} = \pi$.
 
+    \textit{Para el término exponencial $e^t$:}
+    Como $1$ no es raíz del polinomio característico ($P(1) = (1+1)^3 = 8 \neq 0$), proponemos la forma estándar $u_{p2} = B e^t$.
+    Utilizando la propiedad de las exponenciales $P(D)e^{\alpha t} = P(\alpha)e^{\alpha t}$, tenemos:
     \[
-        u(t) = x_1 e^{-t} + x_2 te^{-t} + x_3 t^2 e^{-t} + \pi + \frac{1}{8} e^t
+        P(D)(B e^t) = e^t \implies B \cdot P(1) e^t = e^t \implies 8B e^t = e^t \implies 8B = 1 \implies B = \frac{1}{8}
     \]
+    Por lo tanto, $u_{p2} = \frac{1}{8}e^t$.
+
+    \textbf{3. Solución general}
+
+    La solución general de la ecuación diferencial es la suma de la solución homogénea y las soluciones particulares calculadas ($u = u_h + u_{p1} + u_{p2}$):
+    \[
+        u(t) = c_1 e^{-t} + c_2 t e^{-t} + c_3 t^2 e^{-t} + \pi + \frac{1}{8} e^t
+    \]
+    donde $c_1, c_2, c_3 \in \mathbb{R}$ son constantes arbitrarias.
 }
 
 % Ejercicio 31
@@ -1701,7 +1725,7 @@
             P(D)(m e^{2t}) = e^{2t} \implies m P(2) e^{2t} = e^{2t} \implies 27m = 1 \implies u_{p2} = \frac{1}{27}e^{2t}
         \]
 
-        \textit{Para el término trigonométrico $\cos(\omega t)$ (Método de la exponencial compleja):}
+        \textit{Para el término trigonométrico $\cos(\omega t)$:}
         Reescribimos el coseno usando la fórmula de Euler: $\cos(\omega t) = \text{Re}(e^{i\omega t})$. 
         Resolvemos primero la ecuación compleja $P(D)U = e^{i\omega t}$. Puesto que las raíces complejas de $P(z)$ tienen parte real $2$, el valor puramente imaginario $i\omega$ nunca será raíz del polinomio para ningún $\omega > 0$. Por tanto, no hay resonancia.
         Proponemos la solución compleja $U_p = M e^{i\omega t}$:
@@ -1737,6 +1761,82 @@
         \[
             \alpha = \omega^4 - 12\omega^2 - 13 \quad \text{y} \quad \beta = 4\omega^3 + 4\omega
         \]
+        \item[(c)] 
+        Resolvamos la ecuación diferencial:
+        \[
+            u^{(5)} + 3u^{(4)} + 3u''' + u'' = 1 + e^{2t}
+        \]
+
+        \textbf{1. Solución de la ecuación homogénea ($u_h$)}
+
+        El polinomio característico asociado a la ecuación homogénea es:
+        \[
+            P(z) = z^5 + 3z^4 + 3z^3 + z^2
+        \]
+        Factorizamos extrayendo $z^2$ como factor común:
+        \[
+            P(z) = z^2 (z^3 + 3z^2 + 3z + 1)
+        \]
+        Reconocemos que el término entre paréntesis es el desarrollo de un cubo perfecto, $(z+1)^3$. Por lo tanto, el polinomio factorizado es:
+        \[
+            P(z) = z^2 (z+1)^3
+        \]
+        Las raíces del polinomio característico son:
+        \begin{itemize}
+            \item $z = 0$, raíz real doble (multiplicidad 2).
+            \item $z = -1$, raíz real triple (multiplicidad 3).
+        \end{itemize}
+        Las funciones linealmente independientes asociadas a estas raíces forman la base del espacio nulo $\Sigma_0$:
+        \[
+            \mathcal{B} = \{ 1, t, e^{-t}, t e^{-t}, t^2 e^{-t} \}
+        \]
+        La solución general de la ecuación homogénea es:
+        \[
+            u_h(t) = c_1 + c_2 t + e^{-t}(c_3 + c_4 t + c_5 t^2)
+        \]
+
+        \textbf{2. Solución particular ($u_p$)}
+
+        Aplicamos el principio de superposición para los términos del lado derecho $f(t) = 1 + e^{2t}$.
+
+        \textit{Para el término constante $1$:}
+        Normalmente propondríamos una constante $A$. Sin embargo, como $z = 0$ es raíz del polinomio característico con multiplicidad $s = 2$, la constante $1$ y la función $t$ ya forman parte de la solución homogénea. Por la regla de resonancia, debemos multiplicar nuestra propuesta por $t^2$:
+        \[
+            u_{p1} = A t^2
+        \]
+        Calculamos sus derivadas para sustituir en la ecuación:
+        \[
+            u_{p1}' = 2At, \quad u_{p1}'' = 2A, \quad u_{p1}''' = u_{p1}^{(4)} = u_{p1}^{(5)} = 0
+        \]
+        Sustituyendo en $P(D)u_{p1} = 1$:
+        \[
+            0 + 3(0) + 3(0) + 2A = 1 \implies 2A = 1 \implies A = \frac{1}{2}
+        \]
+        Por lo tanto, $u_{p1} = \frac{1}{2}t^2$.
+
+        \textit{Para el término exponencial $e^{2t}$:}
+        Como $2$ no es raíz del polinomio característico, evaluamos $P(2)$:
+        \[
+            P(2) = 2^2 (2+1)^3 = 4 \cdot 3^3 = 4 \cdot 27 = 108
+        \]
+        Proponemos $u_{p2} = B e^{2t}$ y usamos la propiedad $P(D)e^{\alpha t} = P(\alpha)e^{\alpha t}$:
+        \[
+            P(D)(B e^{2t}) = e^{2t} \implies B \cdot P(2) e^{2t} = e^{2t} \implies 108 B = 1 \implies B = \frac{1}{108}
+        \]
+        Por lo tanto, $u_{p2} = \frac{1}{108}e^{2t}$.
+
+        La solución particular total es:
+        \[
+            u_p(t) = u_{p1} + u_{p2} = \frac{1}{2}t^2 + \frac{1}{108}e^{2t}
+        \]
+
+        \textbf{3. Solución general}
+
+        La solución general de la ecuación diferencial es la suma de la solución homogénea y la solución particular ($u = u_h + u_p$):
+        \[
+            u(t) = c_1 + c_2 t + e^{-t}(c_3 + c_4 t + c_5 t^2) + \frac{1}{2}t^2 + \frac{1}{108}e^{2t}
+        \]
+        donde $c_1, c_2, c_3, c_4, c_5 \in \mathbb{R}$ son constantes arbitrarias.
     \end{enumerate}
 }
 
