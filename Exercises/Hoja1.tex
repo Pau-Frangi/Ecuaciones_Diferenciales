@@ -1585,39 +1585,157 @@
 }{
     \begin{enumerate}
         \item[(a)] 
-        Aplicando Ruffini, 
+        Resolvamos la ecuación diferencial:
         \[
-            P(z) = (z-1)(z+1)(z^4-8z^3+26z^2-40z+25) 
+            u^{(6)} - 8u^{(5)} + 25u^{(4)} - 32u''' - u'' + 40u' - 25u = 1 + e^{2t}
         \]
+
+        \textbf{1. Solución de la ecuación homogénea ($u_h$)}
+
+        El polinomio característico asociado a la ecuación homogénea es:
+        \[
+            P(z) = z^6 - 8z^5 + 25z^4 - 32z^3 - z^2 + 40z - 25
+        \]
+        Aplicando la regla de Ruffini, podemos comprobar que $1$ y $-1$ son raíces evidentes del polinomio. Al factorizar, obtenemos:
+        \[
+            P(z) = (z-1)(z+1)(z^4 - 8z^3 + 26z^2 - 40z + 25) 
+        \]
+        Para factorizar el polinomio de cuarto grado restante, nos apoyamos en el desarrollo de $(z-2)^4$:
         \[
             (z-2)^4 = z^4 - 8z^3 + 24z^2 - 32z + 16
         \]
+        Reescribimos el factor de grado 4 buscando esta estructura:
+        \begin{align*}
+            z^4 - 8z^3 + 26z^2 - 40z + 25 &= (z-2)^4 + 2z^2 - 8z + 9 \\
+            &= (z-2)^4 + 2(z^2 - 4z + 4) + 1 \\
+            &= (z-2)^4 + 2(z-2)^2 + 1 \\
+            &= \left( (z-2)^2 + 1 \right)^2
+        \end{align*}
+        Por lo tanto, la factorización completa del polinomio es:
         \[
-            z^4 - 8z^3 + 26z^2 - 40z + 25 = (z-2)^4 + 2z^2 -8z + 9 = (z-2)^4 + 2(z^2-4z+4) + 1 
+            P(z) = (z-1)(z+1) \left( (z-2)^2 + 1 \right)^2
         \]
+        De aquí deducimos que las raíces del polinomio característico son $1, -1$ (raíces reales simples) y $2 \pm i$ (raíces complejas conjugadas dobles). 
+
+        En consecuencia, una base de soluciones reales para el espacio nulo $\Sigma_0$ es:
         \[
-            = (z-2)^4 + 2(z-2)^2 + 1 = ((z-2)^2 + 1)^2
+            \mathcal{B}_{\mathbb{R}} = \{ e^t, e^{-t}, e^{2t} \cos t, e^{2t} \sin t, t e^{2t} \cos t, t e^{2t} \sin t \}
         \]
-        Luego las raíces del polinomio característico son $1, -1$ simples y $2 + i, 2 - i$ dobles. Por lo tanto, una base de $\Sigma_0$ es
+        Y la base de soluciones complejas es:
         \[
-            \mathcal{B} = \{ e^t, e^{-t}, e^{2t} \cos t, e^{2t} \sin t, t e^{2t} \cos t, t e^{2t} \sin t \}
+            \mathcal{B}_{\mathbb{C}} = \{ e^t, e^{-t}, e^{(2+i)t}, e^{(2-i)t}, t e^{(2+i)t}, t e^{(2-i)t} \}
         \]
+
+        \textbf{2. Solución particular ($u_p$)}
+
+        Aplicamos el principio de superposición para el término no homogéneo $f(t) = 1 + e^{2t}$.
+
+        Para el término constante $1$, como $0$ no es raíz del polinomio característico, proponemos una constante $u_{p1} = K$:
         \[
-            P(D) u = 1 \implies P(D) K = 1 \iff - 25 K = 1 \implies K = -\frac{1}{25}
+            P(D) u_{p1} = 1 \implies P(D) K = 1 \iff -25K = 1 \implies K = -\frac{1}{25}
         \]
+
+        Para el término exponencial $e^{2t}$, como $2$ no es raíz de $P(z)$, proponemos $u_{p2} = m e^{2t}$. Utilizamos la propiedad $P(D)e^{\alpha t} = P(\alpha)e^{\alpha t}$:
         \[
-            P(D) u = e^{2t} \implies P(D) (m e^{2t}) = e^{2t} \iff m P(D) ( e^{2t} ) = e^{2t} 
+            P(D) (m e^{2t}) = e^{2t} \implies m P(2) e^{2t} = e^{2t}
         \]
+        Evaluamos $P(z)$ en $z=2$:
         \[
-            m P(2) e^{2t} = e^{2t} \implies m (1 \cdot 3 (12-2)^2+1)e^{2t} = e^{2t} \implies m = \frac{1}{3}
+            P(2) = (2-1)(2+1)\left( (2-2)^2 + 1 \right)^2 = (1)(3)(1)^2 = 3
         \]
+        Sustituyendo en la ecuación:
+        \[
+            m \cdot 3 \cdot e^{2t} = e^{2t} \implies 3m = 1 \implies m = \frac{1}{3}
+        \]
+        La solución particular total es:
+        \[
+            u_p(t) = -\frac{1}{25} + \frac{1}{3}e^{2t}
+        \]
+
+        \textbf{3. Solución general}
+
+        La solución general de la ecuación diferencial es la suma de la solución homogénea y la particular ($u = u_h + u_p$).
+        \[
+            u(t) = c_1 e^t + c_2 e^{-t} + e^{2t}(c_3 \cos t + c_4 \sin t + c_5 t \cos t + c_6 t \sin t) - \frac{1}{25} + \frac{1}{3}e^{2t}
+        \]
+        donde $c_i \in \mathbb{R}$ son constantes arbitrarias.
         \item[(b)]
+        Resolvamos la ecuación diferencial:
         \[
-            P(z) = z^4 - 4z^3 + 12z^2 + 4z - 13 = (z-1)(z+1)((z-2)^2 + 9)
+            u^{(4)} - 4u''' + 12u'' + 4u' - 13u = 1 + e^{2t} + \cos(\omega t) \quad (\text{con } \omega > 0)
         \]
-        Luego las raíces del polinomio característico son $1, -1$ simples y $2 + 3i, 2 - 3i$ dobles. Por lo tanto, una base de $\Sigma_0$ es
+
+        \textbf{1. Solución de la ecuación homogénea ($u_h$)}
+
+        El polinomio característico asociado es:
         \[
-            \mathcal{B} = \{ e^t, e^{-t}, e^{2t} \cos(3t), e^{2t} \sin(3t), t e^{2t} \cos(3t), t e^{2t} \sin(3t) \}
+            P(z) = z^4 - 4z^3 + 12z^2 + 4z - 13
+        \]
+        Buscamos raíces racionales probando los divisores del término independiente ($-13$). Evaluando, encontramos que $P(1) = 0$ y $P(-1) = 0$. Por tanto, el polinomio es divisible por $(z-1)(z+1) = z^2 - 1$.
+        Dividiendo $P(z)$ entre $z^2 - 1$ obtenemos la factorización:
+        \[
+            P(z) = (z^2 - 1)(z^2 - 4z + 13)
+        \]
+        Las raíces del factor cuadrático se obtienen mediante la fórmula general:
+        \[
+            z = \frac{4 \pm \sqrt{16 - 52}}{2} = \frac{4 \pm \sqrt{-36}}{2} = 2 \pm 3i
+        \]
+        Las raíces son $1, -1$ (reales simples) y $2 \pm 3i$ (complejas conjugadas simples). La solución general de la ecuación homogénea es:
+        \[
+            u_h(t) = c_1 e^t + c_2 e^{-t} + e^{2t}(c_3 \cos(3t) + c_4 \sin(3t))
+        \]
+
+        \textbf{2. Solución particular ($u_p$)}
+
+        Por el principio de superposición, buscamos $u_p = u_{p1} + u_{p2} + u_{p3}$ para cada término del lado derecho $f(t) = 1 + e^{2t} + \cos(\omega t)$.
+
+        \textit{Para el término constante $1$:}
+        Como $0$ no es raíz de $P(z)$ ($P(0) = -13$), proponemos $u_{p1} = K$:
+        \[
+            P(D)K = 1 \implies -13K = 1 \implies u_{p1} = -\frac{1}{13}
+        \]
+
+        \textit{Para el término exponencial $e^{2t}$:}
+        Como $2$ no es raíz de $P(z)$, calculamos $P(2) = 16 - 32 + 48 + 8 - 13 = 27$. Proponemos $u_{p2} = m e^{2t}$:
+        \[
+            P(D)(m e^{2t}) = e^{2t} \implies m P(2) e^{2t} = e^{2t} \implies 27m = 1 \implies u_{p2} = \frac{1}{27}e^{2t}
+        \]
+
+        \textit{Para el término trigonométrico $\cos(\omega t)$ (Método de la exponencial compleja):}
+        Reescribimos el coseno usando la fórmula de Euler: $\cos(\omega t) = \text{Re}(e^{i\omega t})$. 
+        Resolvemos primero la ecuación compleja $P(D)U = e^{i\omega t}$. Puesto que las raíces complejas de $P(z)$ tienen parte real $2$, el valor puramente imaginario $i\omega$ nunca será raíz del polinomio para ningún $\omega > 0$. Por tanto, no hay resonancia.
+        Proponemos la solución compleja $U_p = M e^{i\omega t}$:
+        \[
+            P(D)(M e^{i\omega t}) = e^{i\omega t} \implies M \cdot P(i\omega) = 1 \implies U_p = \frac{e^{i\omega t}}{P(i\omega)}
+        \]
+        Evaluamos $P(i\omega)$:
+        \begin{align*}
+            P(i\omega) &= (i\omega)^4 - 4(i\omega)^3 + 12(i\omega)^2 + 4(i\omega) - 13 \\
+            &= \omega^4 + 4i\omega^3 - 12\omega^2 + 4i\omega - 13
+        \end{align*}
+        Agrupamos la parte real ($\alpha$) y la parte imaginaria ($\beta$):
+        \[
+            P(i\omega) = \underbrace{(\omega^4 - 12\omega^2 - 13)}_{\alpha} + i \underbrace{(4\omega^3 + 4\omega)}_{\beta} = \alpha + i\beta
+        \]
+        Sustituimos en nuestra solución compleja y multiplicamos por el conjugado para separar la parte real:
+        \begin{align*}
+            U_p &= \frac{\cos(\omega t) + i\sin(\omega t)}{\alpha + i\beta} \cdot \frac{\alpha - i\beta}{\alpha - i\beta} \\
+            &= \frac{(\alpha \cos(\omega t) + \beta \sin(\omega t)) + i(\alpha \sin(\omega t) - \beta \cos(\omega t))}{\alpha^2 + \beta^2}
+        \end{align*}
+        La solución particular real $u_{p3}$ es la parte real de $U_p$:
+        \[
+            u_{p3} = \text{Re}(U_p) = \frac{\alpha \cos(\omega t) + \beta \sin(\omega t)}{\alpha^2 + \beta^2}
+        \]
+
+        \textbf{3. Solución general}
+
+        Combinando todos los resultados, la solución general de la ecuación diferencial es:
+        \[
+            u(t) = c_1 e^t + c_2 e^{-t} + e^{2t}(c_3 \cos(3t) + c_4 \sin(3t)) - \frac{1}{13} + \frac{1}{27}e^{2t} + \frac{\alpha \cos(\omega t) + \beta \sin(\omega t)}{\alpha^2 + \beta^2}
+        \]
+        donde:
+        \[
+            \alpha = \omega^4 - 12\omega^2 - 13 \quad \text{y} \quad \beta = 4\omega^3 + 4\omega
         \]
     \end{enumerate}
 }
