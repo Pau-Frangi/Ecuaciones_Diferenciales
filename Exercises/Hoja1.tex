@@ -1543,7 +1543,7 @@
 }
 
 % Ejercicio 30
-\ejercicio{enunciado}{no}{
+\ejercicio{enunciado}{profesor}{
     Encuentre la solución general de la ecuación diferencial no homogénea
     $$u''' + 3u'' + 3u' + u = \pi + e^t.$$
 }{
@@ -1599,7 +1599,7 @@
 }
 
 % Ejercicio 31
-\ejercicio{enunciado}{no}{
+\ejercicio{enunciado}{profesor}{
     Para un $\omega > 0$ dado, encuentre la solución general (real y compleja) de cada una de las siguientes ecuaciones diferenciales:
     \begin{enumerate}
         \item[(a)] $u^{(6)} - 8u^{(5)} + 25u^{(4)} - 32u''' - u'' + 40u' - 25u = 1 + e^{2t}$.
@@ -1854,6 +1854,83 @@
         es invertible.
     \end{enumerate}
 }{
+    \begin{enumerate}
+        \item[(a)] Para escribir la ecuación diferencial de orden $N$ como un sistema de primer orden, definimos el vector $U(t) \in \mathbb{C}^N$ como:
+        \[
+            U(t) = \begin{pmatrix} u(t) \\ u'(t) \\ \vdots \\ u^{(N-1)}(t) \end{pmatrix}
+        \]
+        Entonces, la derivada de $U$ respecto a $t$ es:
+        \[
+            U'(t) = \begin{pmatrix} u'(t) \\ u''(t) \\ \vdots \\ u^{(N)}(t) \end{pmatrix}
+        \]
+        Utilizando la ecuación diferencial dada, podemos expresar $u^{(N)}$ en términos de las derivadas anteriores:
+        \[
+            u^{(N)} = a_{N-1}u^{(N-1)} + \dots + a_1 u' + a_0 u
+        \]
+        Por lo tanto, el sistema de primer orden equivalente es:
+        \[
+            U'(t) = \begin{pmatrix} 0 & 1 & 0 & \dots & 0 \\ 0 & 0 & 1 & \dots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \dots & 1 \\ a_0 & a_1 & a_2 & \dots & a_{N-1} \end{pmatrix} U(t)
+        \]
+        donde la matriz $A$ es la matriz compañera del polinomio característico asociado a la ecuación diferencial.
+        \item[(b)]
+        \[
+            P(z) = \det(zI - A) = \begin{vmatrix}
+                z & -1 & 0 & \dots & 0 \\
+                0 & z & -1 & \dots & 0 \\
+                \vdots & \vdots & \vdots & \ddots & \vdots \\
+                0 & 0 & 0 & \dots & -1 \\
+                -a_0 & -a_1 & -a_2 & \dots & z - a_{N-1}
+            \end{vmatrix}
+        \]     
+        \[   
+            = (z-a_{N-1}) \begin{vmatrix}
+                z & -1 & 0 & \dots & 0 & 0 \\
+                0 & z & -1 & \dots & 0 & 0 \\
+                \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+                0 & 0 & 0 & \dots & z & -1 \\
+                0 & 0 & 0 & \dots & 0 & z
+            \end{vmatrix} + \begin{vmatrix}
+                z & -1 & 0 & \dots & 0 & 0 \\
+                0 & z & -1 & \dots & 0 & 0 \\
+                \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+                0 & 0 & 0 & \dots & z & -1 \\
+                -a_0 & -a_1 & -a_2 & \dots & -a_{N-3} & -a_{N-2}
+            \end{vmatrix}
+        \]
+        \[
+            = (z-a_{N-1})z^{N-1} + a_{N-2}z^{N-2} + \begin{vmatrix}
+                z & -1 & 0 & \dots & 0 & 0 \\
+                0 & z & -1 & \dots & 0 & 0 \\
+                \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+                0 & 0 & 0 & \dots & z & -1 \\
+                -a_0 & -a_1 & -a_2 & \dots & -a_{N-4} & -a_{N-3}
+            \end{vmatrix} 
+        \]    
+        \[
+            = z^N - a_{N-1}z^{N-1} - a_{N-2}z^{N-2} - \dots - a_1 z - a_0
+        \]
+        Los autovalores de $A$ son las raíces $\lambda_1, \dots, \lambda_N$ del polinomio característico $P(z)$. Dado que $e^{\lambda_j t}$ es una solución de la ecuación diferencial para cada $j$, se deduce que cada $\lambda_j$ es un autovalor de $A$ con un autovector asociado que corresponde a la solución $e^{\lambda_j t}$.
+        Por el teorema de Jordan, podemos formar una base de vectores del sistema homogéneo a partir de los $\lambda_j$ y con ellos la matriz fundamental de soluciones $W(t)$ (Wronskiano) que es invertible para todo $t$.
+        \[
+            W(t) = \begin{pmatrix}
+                e^{\lambda_1 t} & e^{\lambda_2 t} & \dots & e^{\lambda_N t} \\
+                \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} & \dots & \lambda_N e^{\lambda_N t} \\
+                \vdots & \vdots & \ddots & \vdots \\
+                \lambda_1^{N-1} e^{\lambda_1 t} & \lambda_2^{N-1} e^{\lambda_2 t} & \dots & \lambda_N^{N-1} e^{\lambda_N t}
+            \end{pmatrix}
+        \]
+        Con esta matriz de soluciones, podemos obtener los autovectores de $A$:
+        \[
+            \begin{pmatrix}
+                1 & 1 & \dots & 1 \\
+                \lambda_1 & \lambda_2 & \dots & \lambda_N \\
+                \vdots & \vdots & \ddots & \vdots \\
+                \lambda_1^{N-1} & \lambda_2^{N-1} & \dots & \lambda_N^{N-1}
+            \end{pmatrix}
+        \]
+
+
+    \end{enumerate}
 
 }
 
@@ -1877,7 +1954,21 @@
     Demuestre que, para cada $t \in [\alpha, \beta]$, $\Phi_t := \Phi(t)$ es un isomorfismo lineal de $\mathbb{K}^N$ que preserva el volumen, en el sentido de que, para cada conjunto medible $A \subset \mathbb{K}^N$,
     $$\text{vol}(A) := \int_A 1 \, dx = \int_{\Phi_t(A)} 1 \, dy =: \text{vol}(\Phi_t(A)).$$
 }{
-
+    \[
+        \Phi_t (\lambda x + \mu y) = h(t; \alpha, \lambda x + \mu y) = \lambda h(t; \alpha, x) + \mu h(t; \alpha, y) = \lambda \Phi_t(x) + \mu \Phi_t(y)
+    \]
+    luego $\Phi_t$ es un operador lineal de $\mathbb{K}^N$ en sí mismo. Veamos que es inyectivo:
+    \[
+        \Phi_t(x) = 0 \implies h(t; \alpha, x) = 0 \implies h(\alpha; \alpha, x) = x = 0
+    \]
+    Ahora veamos los suprayectividad, o sea, que dado $y \in \mathbb{K}^N$, existe $x \in \mathbb{K}^N$ tal que $\Phi_t(x) = y$. Para esto, consideremos la solución $h(t; \alpha, y)$ del sistema de ecuaciones diferenciales con condición inicial $y$:
+    \[
+        \begin{cases}
+            h' = A(t)h \\
+            h(\alpha) = y
+        \end{cases}
+    \]
+    Dado que $A(t)$ es continua, el teorema de existencia y unicidad de soluciones garantiza que existe una solución única para cada condición inicial. Por lo tanto, existe un $x \in \mathbb{K}^N$ tal que $h(t; \alpha, x) = y$, lo que implica que $\Phi_t$ es suprayectivo.
 }
 
 % Ejercicio 35
