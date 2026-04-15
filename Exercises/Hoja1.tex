@@ -1841,7 +1841,7 @@
 }
 
 % Ejercicio 32
-\ejercicio{enunciado}{no}{
+\ejercicio{resuelto}{no}{
     Dado un entero $N \ge 2$ y $a_0, \dots, a_{N-1} \in \mathbb{C}$, considere la ecuación diferencial de orden $N$
     $$u^{(N)} = a_{N-1}u^{(N-1)} + \dots + a_1 u' + a_0 u,$$
     y suponga que $e^{\lambda_j t}$ es una solución para todo $j \in \{1, \dots, N\}$, con $\lambda_j \in \mathbb{C}$ y $\lambda_j \neq \lambda_k$ si $j \neq k$.
@@ -1855,83 +1855,67 @@
     \end{enumerate}
 }{
     \begin{enumerate}
-        \item[(a)] Para escribir la ecuación diferencial de orden $N$ como un sistema de primer orden, definimos el vector $U(t) \in \mathbb{C}^N$ como:
-        \[
-            U(t) = \begin{pmatrix} u(t) \\ u'(t) \\ \vdots \\ u^{(N-1)}(t) \end{pmatrix}
-        \]
-        Entonces, la derivada de $U$ respecto a $t$ es:
-        \[
-            U'(t) = \begin{pmatrix} u'(t) \\ u''(t) \\ \vdots \\ u^{(N)}(t) \end{pmatrix}
-        \]
-        Utilizando la ecuación diferencial dada, podemos expresar $u^{(N)}$ en términos de las derivadas anteriores:
-        \[
-            u^{(N)} = a_{N-1}u^{(N-1)} + \dots + a_1 u' + a_0 u
-        \]
-        Por lo tanto, el sistema de primer orden equivalente es:
-        \[
-            U'(t) = \begin{pmatrix} 0 & 1 & 0 & \dots & 0 \\ 0 & 0 & 1 & \dots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \dots & 1 \\ a_0 & a_1 & a_2 & \dots & a_{N-1} \end{pmatrix} U(t)
-        \]
-        donde la matriz $A$ es la matriz compañera del polinomio característico asociado a la ecuación diferencial.
-        \item[(b)]
-        \[
-            P(z) = \det(zI - A) = \begin{vmatrix}
-                z & -1 & 0 & \dots & 0 \\
-                0 & z & -1 & \dots & 0 \\
-                \vdots & \vdots & \vdots & \ddots & \vdots \\
-                0 & 0 & 0 & \dots & -1 \\
-                -a_0 & -a_1 & -a_2 & \dots & z - a_{N-1}
-            \end{vmatrix}
-        \]     
-        \[   
-            = (z-a_{N-1}) \begin{vmatrix}
-                z & -1 & 0 & \dots & 0 & 0 \\
-                0 & z & -1 & \dots & 0 & 0 \\
-                \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
-                0 & 0 & 0 & \dots & z & -1 \\
-                0 & 0 & 0 & \dots & 0 & z
-            \end{vmatrix} + \begin{vmatrix}
-                z & -1 & 0 & \dots & 0 & 0 \\
-                0 & z & -1 & \dots & 0 & 0 \\
-                \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
-                0 & 0 & 0 & \dots & z & -1 \\
-                -a_0 & -a_1 & -a_2 & \dots & -a_{N-3} & -a_{N-2}
-            \end{vmatrix}
-        \]
-        \[
-            = (z-a_{N-1})z^{N-1} + a_{N-2}z^{N-2} + \begin{vmatrix}
-                z & -1 & 0 & \dots & 0 & 0 \\
-                0 & z & -1 & \dots & 0 & 0 \\
-                \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
-                0 & 0 & 0 & \dots & z & -1 \\
-                -a_0 & -a_1 & -a_2 & \dots & -a_{N-4} & -a_{N-3}
-            \end{vmatrix} 
-        \]    
-        \[
-            = z^N - a_{N-1}z^{N-1} - a_{N-2}z^{N-2} - \dots - a_1 z - a_0
-        \]
-        Los autovalores de $A$ son las raíces $\lambda_1, \dots, \lambda_N$ del polinomio característico $P(z)$. Dado que $e^{\lambda_j t}$ es una solución de la ecuación diferencial para cada $j$, se deduce que cada $\lambda_j$ es un autovalor de $A$ con un autovector asociado que corresponde a la solución $e^{\lambda_j t}$.
-        Por el teorema de Jordan, podemos formar una base de vectores del sistema homogéneo a partir de los $\lambda_j$ y con ellos la matriz fundamental de soluciones $W(t)$ (Wronskiano) que es invertible para todo $t$.
-        \[
-            W(t) = \begin{pmatrix}
-                e^{\lambda_1 t} & e^{\lambda_2 t} & \dots & e^{\lambda_N t} \\
-                \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} & \dots & \lambda_N e^{\lambda_N t} \\
-                \vdots & \vdots & \ddots & \vdots \\
-                \lambda_1^{N-1} e^{\lambda_1 t} & \lambda_2^{N-1} e^{\lambda_2 t} & \dots & \lambda_N^{N-1} e^{\lambda_N t}
-            \end{pmatrix}
-        \]
-        Con esta matriz de soluciones, podemos obtener los autovectores de $A$:
-        \[
-            \begin{pmatrix}
-                1 & 1 & \dots & 1 \\
-                \lambda_1 & \lambda_2 & \dots & \lambda_N \\
-                \vdots & \vdots & \ddots & \vdots \\
-                \lambda_1^{N-1} & \lambda_2^{N-1} & \dots & \lambda_N^{N-1}
-            \end{pmatrix}
-        \]
+        \item[(a)] Para convertir la ecuación diferencial escalar de orden $N$ en un sistema de primer orden, definimos el vector de estado $U(t) \in \mathbb{C}^N$ que contiene a la función y sus $N-1$ primeras derivadas:
+        $$U(t) = \begin{pmatrix} u(t) \\ u'(t) \\ \vdots \\ u^{(N-1)}(t) \end{pmatrix}$$
+        Derivando $U(t)$ con respecto a $t$, obtenemos:
+        $$U'(t) = \begin{pmatrix} u'(t) \\ u''(t) \\ \vdots \\ u^{(N)}(t) \end{pmatrix}$$
+        Despejando $u^{(N)}$ de la ecuación diferencial original, sabemos que $u^{(N)} = a_0 u + a_1 u' + \dots + a_{N-1}u^{(N-1)}$. Sustituyendo esto en la última componente del vector derivado, podemos escribir el sistema matricial $U'(t) = A U(t)$ como:
+        $$U'(t) = \begin{pmatrix} 
+            0 & 1 & 0 & \dots & 0 \\ 
+            0 & 0 & 1 & \dots & 0 \\ 
+            \vdots & \vdots & \vdots & \ddots & \vdots \\ 
+            0 & 0 & 0 & \dots & 1 \\ 
+            a_0 & a_1 & a_2 & \dots & a_{N-1} 
+        \end{pmatrix} \begin{pmatrix} u(t) \\ u'(t) \\ \vdots \\ u^{(N-2)}(t) \\ u^{(N-1)}(t) \end{pmatrix}$$
+        La matriz $A \in \mathcal{M}_N(\mathbb{C})$ obtenida recibe el nombre de \textit{matriz compañera} (o matriz acompañante) asociada a la ecuación diferencial.
 
+        \item[(b)] \textbf{Polinomio característico y valores propios:}
+        El polinomio característico de $A$ se define como $P(z) = \det(zI - A)$. Por las propiedades de la matriz compañera, al desarrollar el determinante iterativamente (por ejemplo, por la última fila), se obtiene:
+        $$P(z) = z^N - a_{N-1}z^{N-1} - a_{N-2}z^{N-2} - \dots - a_1 z - a_0$$
+        El enunciado nos indica que $u_j(t) = e^{\lambda_j t}$ es solución de la ecuación para cada $j \in \{1, \dots, N\}$. Sustituyendo $u_j(t)$ y sus derivadas $u_j^{(k)}(t) = \lambda_j^k e^{\lambda_j t}$ en la ecuación diferencial original, tenemos:
+        $$\lambda_j^N e^{\lambda_j t} = \left( a_{N-1}\lambda_j^{N-1} + \dots + a_1 \lambda_j + a_0 \right) e^{\lambda_j t}$$
+        Como $e^{\lambda_j t} \neq 0$, podemos dividir por este factor para obtener:
+        $$\lambda_j^N - a_{N-1}\lambda_j^{N-1} - \dots - a_1 \lambda_j - a_0 = 0$$
+        Esto demuestra que $P(\lambda_j) = 0$. Por tanto, los escalares $\lambda_1, \dots, \lambda_N$ son precisamente las raíces del polinomio característico y, en consecuencia, los \textbf{valores propios} de $A$. Como por hipótesis los $\lambda_j$ son distintos entre sí, tenemos $N$ valores propios simples.
 
+        \textbf{Vectores propios:}
+        Para hallar el vector propio $\mathbf{v}_j$ asociado al valor propio $\lambda_j$, debemos resolver el sistema $(A - \lambda_j I)\mathbf{v}_j = 0$, o equivalentemente, $A\mathbf{v}_j = \lambda_j \mathbf{v}_j$. Sea $\mathbf{v}_j = (v_1, v_2, \dots, v_N)^T$. Al multiplicar $A$ por $\mathbf{v}_j$, la estructura de la matriz impone que:
+        $$v_2 = \lambda_j v_1, \quad v_3 = \lambda_j v_2, \quad \dots \quad, v_N = \lambda_j v_{N-1}$$
+        Fijando el primer componente $v_1 = 1$, obtenemos recursivamente la forma del vector propio:
+        $$\mathbf{v}_j = \begin{pmatrix} 1 \\ \lambda_j \\ \lambda_j^2 \\ \vdots \\ \lambda_j^{N-1} \end{pmatrix}$$
+        La última fila de la ecuación matricial $A\mathbf{v}_j = \lambda_j \mathbf{v}_j$ se satisface automáticamente, ya que equivale exactamente a $P(\lambda_j) = 0$.
+
+        \item[(c)] Un sistema lineal homogéneo con coeficientes constantes $U' = AU$ admite soluciones vectoriales de la forma $U_j(t) = e^{\lambda_j t} \mathbf{v}_j$, donde $\lambda_j$ es un valor propio y $\mathbf{v}_j$ su vector propio asociado. 
+        Usando los resultados del apartado (b), formamos $N$ soluciones vectoriales:
+        $$U_j(t) = e^{\lambda_j t} \begin{pmatrix} 1 \\ \lambda_j \\ \lambda_j^2 \\ \vdots \\ \lambda_j^{N-1} \end{pmatrix} = \begin{pmatrix} e^{\lambda_j t} \\ \lambda_j e^{\lambda_j t} \\ \lambda_j^2 e^{\lambda_j t} \\ \vdots \\ \lambda_j^{N-1} e^{\lambda_j t} \end{pmatrix}, \quad j = 1, \dots, N$$
+        Una matriz de soluciones (o matriz fundamental) $\Phi(t)$ se construye disponiendo estas $N$ soluciones vectoriales como columnas:
+        $$\Phi(t) = \begin{pmatrix}
+            e^{\lambda_1 t} & e^{\lambda_2 t} & \dots & e^{\lambda_N t} \\
+            \lambda_1 e^{\lambda_1 t} & \lambda_2 e^{\lambda_2 t} & \dots & \lambda_N e^{\lambda_N t} \\
+            \lambda_1^2 e^{\lambda_1 t} & \lambda_2^2 e^{\lambda_2 t} & \dots & \lambda_N^2 e^{\lambda_N t} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \lambda_1^{N-1} e^{\lambda_1 t} & \lambda_2^{N-1} e^{\lambda_2 t} & \dots & \lambda_N^{N-1} e^{\lambda_N t}
+        \end{pmatrix}$$
+        Esta matriz $\Phi(t)$ corresponde exactamente a la matriz Wronskiana asociada a las soluciones escalares originales.
+
+        \item[(d)] La teoría de ecuaciones diferenciales lineales establece que si tenemos $N$ soluciones $U_1(t), \dots, U_N(t)$ para un sistema $N \times N$, estas forman un conjunto fundamental de soluciones (y por ende son linealmente independientes en todo $\mathbb{R}$) si y solo si el determinante de su matriz de soluciones, $\det(\Phi(t))$, es distinto de cero para algún (y por tanto, por la fórmula de Liouville, para todo) punto $t \in \mathbb{R}$.
+
+        Dado que las $\lambda_j$ son distintas, los vectores propios $\mathbf{v}_j$ asociados a valores propios distintos son linealmente independientes. Esto implica que las soluciones vectoriales $U_j(t)$ construyen una matriz fundamental válida, por lo que la matriz $\Phi(t)$ es invertible para todo $t$. 
+        
+        Si evaluamos esta matriz fundamental en $t = 0$, obtenemos:
+        $$\Phi(0) = \begin{pmatrix}
+            e^0 & e^0 & \dots & e^0 \\
+            \lambda_1 e^0 & \lambda_2 e^0 & \dots & \lambda_N e^0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \lambda_1^{N-1} e^0 & \lambda_2^{N-1} e^0 & \dots & \lambda_N^{N-1} e^0
+        \end{pmatrix} = \begin{pmatrix} 
+            1 & 1 & \dots & 1 \\ 
+            \lambda_1 & \lambda_2 & \dots & \lambda_N \\ 
+            \vdots & \vdots & \ddots & \vdots \\ 
+            \lambda_1^{N-1} & \lambda_2^{N-1} & \dots & \lambda_N^{N-1} 
+        \end{pmatrix}$$
+        Esta es exactamente la matriz de Vandermonde. Como $\Phi(t)$ es invertible para cualquier valor de $t$, su evaluación en $t=0$ también debe serlo. Por consiguiente, queda demostrado de forma elegante que la matriz de Vandermonde es invertible si todos los $\lambda_j$ son distintos.
     \end{enumerate}
-
 }
 
 % Ejercicio 33
@@ -1940,9 +1924,8 @@
 }{
 
 }
-
 % Ejercicio 34
-\ejercicio{enunciado}{no}{
+\ejercicio{resuelto}{profesor}{
     Suponga que
     $$A(t) = (a_{ij}(t))_{1 \le i, j \le N} \in \mathcal{M}_N(C([\alpha, \beta]; \mathbb{K})),$$
     con
@@ -1954,21 +1937,42 @@
     Demuestre que, para cada $t \in [\alpha, \beta]$, $\Phi_t := \Phi(t)$ es un isomorfismo lineal de $\mathbb{K}^N$ que preserva el volumen, en el sentido de que, para cada conjunto medible $A \subset \mathbb{K}^N$,
     $$\text{vol}(A) := \int_A 1 \, dx = \int_{\Phi_t(A)} 1 \, dy =: \text{vol}(\Phi_t(A)).$$
 }{
+    En primer lugar, demostraremos que $\Phi_t$ es un operador lineal para cada $t \in [\alpha, \beta]$. Sean $x, y \in \mathbb{K}^N$ y $\lambda, \mu \in \mathbb{K}$. Por la linealidad del sistema de ecuaciones diferenciales, la función $z(s) = \lambda h(s; \alpha, x) + \mu h(s; \alpha, y)$ satisface la ecuación diferencial $z' = A(s)z$. Además, su condición inicial es $z(\alpha) = \lambda x + \mu y$. Por el teorema de existencia y unicidad de soluciones (teorema de Picard-Lindelöf), esta solución es única, lo que garantiza que $z(s) = h(s; \alpha, \lambda x + \mu y)$. Evaluando en $s = t$, obtenemos:
     \[
-        \Phi_t (\lambda x + \mu y) = h(t; \alpha, \lambda x + \mu y) = \lambda h(t; \alpha, x) + \mu h(t; \alpha, y) = \lambda \Phi_t(x) + \mu \Phi_t(y)
+        \Phi_t(\lambda x + \mu y) = h(t; \alpha, \lambda x + \mu y) = \lambda h(t; \alpha, x) + \mu h(t; \alpha, y) = \lambda \Phi_t(x) + \mu \Phi_t(y).
     \]
-    luego $\Phi_t$ es un operador lineal de $\mathbb{K}^N$ en sí mismo. Veamos que es inyectivo:
+    Por consiguiente, $\Phi_t$ es lineal.
+
+    A continuación, probaremos que $\Phi_t$ es un isomorfismo empleando la matriz fundamental del sistema. Consideremos la base canónica $\{e_1, e_2, \dots, e_N\}$ de $\mathbb{K}^N$. La representación matricial del operador $\Phi_t$ en dicha base tiene por columnas a $\Phi_t(e_j) = h(t; \alpha, e_j)$. Es decir, la matriz asociada es:
     \[
-        \Phi_t(x) = 0 \implies h(t; \alpha, x) = 0 \implies h(\alpha; \alpha, x) = x = 0
+        M_{\Phi_t} = \begin{pmatrix}
+            h(t; \alpha, e_1) & h(t; \alpha, e_2) & \dots & h(t; \alpha, e_N)
+        \end{pmatrix}.
     \]
-    Ahora veamos los suprayectividad, o sea, que dado $y \in \mathbb{K}^N$, existe $x \in \mathbb{K}^N$ tal que $\Phi_t(x) = y$. Para esto, consideremos la solución $h(t; \alpha, y)$ del sistema de ecuaciones diferenciales con condición inicial $y$:
+    Notemos que $M_{\Phi_t}$ es la matriz fundamental de soluciones del sistema matricial $M' = A(t)M$ que satisface la condición inicial $M_{\Phi_\alpha} = I_N$ (la matriz identidad).
+
+    Para calcular el determinante de $M_{\Phi_t}$, invocamos la fórmula de Liouville (o identidad de Jacobi-Liouville), la cual establece que:
     \[
-        \begin{cases}
-            h' = A(t)h \\
-            h(\alpha) = y
-        \end{cases}
+        \det(M_{\Phi_t}) = \det(M_{\Phi_\alpha}) \exp\left( \int_\alpha^t \text{tr } A(s) \, ds \right).
     \]
-    Dado que $A(t)$ es continua, el teorema de existencia y unicidad de soluciones garantiza que existe una solución única para cada condición inicial. Por lo tanto, existe un $x \in \mathbb{K}^N$ tal que $h(t; \alpha, x) = y$, lo que implica que $\Phi_t$ es suprayectivo.
+    Por hipótesis, $\text{tr } A(s) = 0$ para todo $s \in [\alpha, \beta]$. Puesto que $M_{\Phi_\alpha} = I_N$, se sigue que $\det(M_{\Phi_\alpha}) = 1$. Sustituyendo, obtenemos:
+    \[
+        \det(M_{\Phi_t}) = 1 \cdot e^0 = 1.
+    \]
+    Como $\det(M_{\Phi_t}) = 1 \neq 0$, la matriz es no singular, lo que demuestra formalmente que $\Phi_t$ es biyectiva y, por ende, un isomorfismo lineal de $\mathbb{K}^N$.
+
+    Finalmente, demostraremos que $\Phi_t$ preserva el volumen. Sea $A \subset \mathbb{K}^N$ un conjunto medible. Consideremos la integral que define el volumen de la imagen $\Phi_t(A)$:
+    \[
+        \text{vol}(\Phi_t(A)) = \int_{\Phi_t(A)} 1 \, dy.
+    \]
+    Aplicamos el teorema del cambio de variable para integrales múltiples mediante la transformación $y = \Phi_t(x)$. Dado que $\Phi_t$ es un operador lineal, su matriz jacobiana $D_x\Phi_t(x)$ coincide con su matriz asociada $M_{\Phi_t}$ en todo punto $x$. En consecuencia, el valor absoluto del determinante jacobiano (necesario en la fórmula de cambio de variable) es:
+    \[
+        |\det(D_x\Phi_t(x))| = |\det(M_{\Phi_t})| = |1| = 1.
+    \]
+    Sustituyendo en la integral, concluimos la demostración:
+    \[
+        \text{vol}(\Phi_t(A)) = \int_{\Phi_t(A)} 1 \, dy = \int_A |\det(D_x\Phi_t(x))| \, dx = \int_A 1 \, dx = \text{vol}(A).
+    \]
 }
 
 % Ejercicio 35
