@@ -712,6 +712,9 @@ INPUT Exercises\Hojas.tex
 INPUT .\Exercises\Hoja1.tex
 INPUT .\Exercises\Hoja1.tex
 INPUT Exercises\Hoja1.tex
+INPUT .\Exercises\Hoja2.tex
+INPUT .\Exercises\Hoja2.tex
+INPUT Exercises\Hoja2.tex
 INPUT .\Appendix\Appendix.tex
 INPUT .\Appendix\Appendix.tex
 INPUT Appendix\Appendix.tex
