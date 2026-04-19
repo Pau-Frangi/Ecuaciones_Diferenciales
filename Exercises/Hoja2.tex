@@ -123,7 +123,7 @@
 }
 
 % Ejercicio 2
-\ejercicio{enunciado}{no}{
+\ejercicio{resuelto}{profesor}{
     Determine las formas canónicas compleja y real de la matriz
     \[
     A = \begin{pmatrix} 
@@ -133,16 +133,71 @@
     0 & 1 & -1 & 2 
     \end{pmatrix},
     \]
-    así como la matriz exponencial $e^{zA}$ a partir de la forma canónica real de $A$.
+    así como la matriz exponencial $e^{tA}$ a partir de la forma canónica real de $A$.
 }{
-
+    Primero, hallamos el polinomio característico de la matriz $A$:
+    \[
+        p(z) = \det(A - zI) = ((z-2)^2 + 1)^2 = (z - (2-i))^2 (z - (2+i))^2
+    \]
+    El espectro de $A$ es $\sigma(A) = \{2-i, 2+i\}$, donde ambas son raíces dobles. 
+    
+    Para el autovalor $\lambda = 2-i$, estudiamos los núcleos de la matriz desplazada:
+    \[
+        A - (2-i)I = \begin{pmatrix} i & 2 & -1 & -1 \\ -1 & 1+i & -1 & 1 \\ 1 & 1 & -1+i & 0 \\ 0 & 1 & -1 & i \end{pmatrix}
+    \]
+    El rango de esta matriz es 3, por lo que la dimensión de su núcleo es $\dim N[A - (2-i)I] = 1$. Al ser menor que la multiplicidad algebraica (que es 2), necesitamos calcular el cuadrado de la matriz para hallar los autovectores generalizados:
+    \[
+        (A - (2-i)I)^2 = \begin{pmatrix} -4 & 4i & -2i & 2-2i \\ -2-2i & -2i & -2i & 2+2i \\ -2+2i & -2i & 2+2i & 2+2i \\ -2 & 2i & -2i & 0 \end{pmatrix}
+    \]
+    Se tiene que $\dim N[(A - (2-i)I)^2] = 2$. 
+    
+    Tomamos un vector $v_1 \in N[(A - (2-i)I)^2] \setminus N[A - (2-i)I]$, por ejemplo:
+    \[
+        v_1 = \begin{pmatrix} 2 \\ 0 \\ 2i \\ 1+i \end{pmatrix}
+    \]
+    Generamos la cadena de Jordan iterando con la matriz desplazada:
+    \[
+        v_2 = (A - (2-i)I)v_1 \implies \begin{cases} A v_1 = (2-i)v_1 + v_2 \\ A v_2 = (2-i)v_2 \end{cases}
+    \]
+    La \textbf{Forma Canónica Compleja} asociada a los vectores de la base $\{v_1, v_2, \overline{v}_1, \overline{v}_2\}$ (donde los unos están en la subdiagonal) es:
+    \[
+        \bar{J}_\mathbb{C} = \begin{pmatrix} 2-i & 0 & 0 & 0 \\ 1 & 2-i & 0 & 0 \\ 0 & 0 & 2+i & 0 \\ 0 & 0 & 1 & 2+i \end{pmatrix}
+    \]
+    Para hallar la \textbf{Forma Canónica Real}, definimos la base real $\mathcal{B}_\mathbb{R}$ separando la parte real y la imaginaria de los vectores de la cadena de Jordan:
+    \[
+        \mathcal{B}_\mathbb{R} = \{\text{Re}(v_1), \text{Im}(v_1), \text{Re}(v_2), \text{Im}(v_2)\}
+    \]
+    Aplicando las igualdades de las partes reales e imaginarias, la forma de Jordan real adquiere la siguiente estructura de bloques:
+    \[
+        J_\mathbb{R} = \begin{pmatrix} 2 & -1 & 0 & 0 \\ 1 & 2 & 0 & 0 \\ 1 & 0 & 2 & -1 \\ 0 & 1 & 1 & 2 \end{pmatrix}
+    \]
+    Y la \textbf{matriz exponencial} de esta caja de Jordan real se calcula mediante la fórmula estándar para bloques complejos, apareciendo los términos seculares $t$:
+    \[
+        e^{t J_\mathbb{R}} = e^{2t} \begin{pmatrix} \cos t & -\sin t & 0 & 0 \\ \sin t & \cos t & 0 & 0 \\ t\cos t & -t\sin t & \cos t & -\sin t \\ t\sin t & t\cos t & \sin t & \cos t \end{pmatrix}
+    \]
 }
 
 % Ejercicio 3
-\ejercicio{enunciado}{no}{
-
+\ejercicio{resuelto}{profesor}{
+    Sea $A$ una matriz cuadrada real tal que $\sigma(A) = \{\alpha \pm i\beta\}$, con $\alpha, \beta \in \mathbb{R}$, $\beta > 0$, de modo que
+    $$ \dim N[A - (\alpha+i\beta)I] = 1, \quad \dim N[(A - (\alpha+i\beta)I)^2] = 2, $$
+    $$ \dim N[(A - (\alpha+i\beta)I)^3] = \dim N[(A - (\alpha+i\beta)I)^4] = 3. $$
+    Determine su orden, su forma canónica real y $e^{zA}$.
 }{
-
+    A partir de las dimensiones de los núcleos dadas en el enunciado, observamos que la sucesión se estabiliza al llegar a la potencia 3:
+    $$ \dim N[(A - (\alpha+i\beta)I)^3] = \dim N[(A - (\alpha+i\beta)I)^4] = 3 $$
+    Esto significa que el subespacio propio generalizado asociado a $\lambda = \alpha + i\beta$ tiene dimensión 3. Por lo tanto, la multiplicidad algebraica de este autovalor es $m_a(\alpha+i\beta) = 3$.
+    
+    Dado que la matriz $A$ es real, el autovalor conjugado $\overline{\lambda} = \alpha - i\beta$ también debe tener la misma multiplicidad algebraica de 3. Como el espectro solo contiene a estos dos autovalores, la suma de las multiplicidades algebraicas es $3 + 3 = 6$. Por tanto, \textbf{el orden de la matriz $A$ es $6$}.
+    
+    Como la dimensión del primer núcleo es $\dim N[A - (\alpha+i\beta)I] = 1$, existe un único bloque de Jordan para este autovalor complejo, que será de tamaño $3 \times 3$ sobre $\mathbb{C}$. 
+    Para obtener la \textbf{forma canónica real}, cada entrada de la caja de Jordan compleja se sustituye por sub-bloques de tamaño $2 \times 2$. El autovalor $\alpha + i\beta$ se transforma en el bloque de rotación con escalado $D = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}$ en la diagonal principal, y los unos de la subdiagonal se transforman en matrices identidad $I_2$. Así, la forma canónica real $J_\mathbb{R}$ es una matriz de $6 \times 6$:
+    $$ J_\mathbb{R} = \begin{pmatrix} \alpha & -\beta & 0 & 0 & 0 & 0 \\ \beta & \alpha & 0 & 0 & 0 & 0 \\ 1 & 0 & \alpha & -\beta & 0 & 0 \\ 0 & 1 & \beta & \alpha & 0 & 0 \\ 0 & 0 & 1 & 0 & \alpha & -\beta \\ 0 & 0 & 0 & 1 & \beta & \alpha \end{pmatrix} $$
+    
+    Finalmente, la \textbf{matriz exponencial} de la forma canónica $e^{z J_\mathbb{R}}$ se calcula usando la fórmula estándar para cajas de Jordan reales. Aparece la exponencial de la parte real $e^{\alpha z}$, la matriz de rotación pura en la diagonal principal de bloques, y los términos polinómicos seculares en las subdiagonales de bloques:
+    $$ e^{z J_\mathbb{R}} = e^{\alpha z} \begin{pmatrix} \cos(\beta z) & -\sin(\beta z) & 0 & 0 & 0 & 0 \\ \sin(\beta z) & \cos(\beta z) & 0 & 0 & 0 & 0 \\ z \cos(\beta z) & -z \sin(\beta z) & \cos(\beta z) & -\sin(\beta z) & 0 & 0 \\ z \sin(\beta z) & z \cos(\beta z) & \sin(\beta z) & \cos(\beta z) & 0 & 0 \\ \frac{z^2}{2} \cos(\beta z) & -\frac{z^2}{2} \sin(\beta z) & z \cos(\beta z) & -z \sin(\beta z) & \cos(\beta z) & -\sin(\beta z) \\ \frac{z^2}{2} \sin(\beta z) & \frac{z^2}{2} \cos(\beta z) & z \sin(\beta z) & z \cos(\beta z) & \sin(\beta z) & \cos(\beta z) \end{pmatrix} $$
+    
+    Por lo tanto, la matriz exponencial pedida es $e^{zA} = P e^{z J_\mathbb{R}} P^{-1}$, donde $P$ es la matriz de paso (formada por las partes reales e imaginarias de los autovectores generalizados) que verifica $A = P J_\mathbb{R} P^{-1}$.
 }
 
 % Ejercicio 4
