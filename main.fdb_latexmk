@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1776609667.02323 "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" "main.pdf" "main" 1776609680.60311 0
+["pdflatex"] 1776609711.32898 "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" "main.pdf" "main" 1776609723.85024 0
   "Appendix/Agradecimientos.tex" 1770045791 628 99fc62e09a551f1ea508feb8630e6ea1 ""
   "Appendix/Appendix.tex" 1773045687 180 2541486e775b01cf504fcdb93c79c18b ""
   "Appendix/Criterios de convergencia de series.tex" 1770045791 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -385,12 +385,12 @@
   "C:/Users/diego/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-abspage.sty" 1750428951 2269 2de6c7a5fd634dfef00a960544463a38 ""
   "C:/Users/diego/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-base.sty" 1750428951 20785 198a9cb2e04238d92c320d0d9edbd76a ""
   "Exercises/Hoja1.tex" 1776330752 116099 a5e182e5bb117f226e22141410f63d18 ""
-  "Exercises/Hoja2.tex" 1776330752 9247 075c173e5bd0f44673ad6f400974eadf ""
+  "Exercises/Hoja2.tex" 1776609698 15140 39073b6de583799a5efa1656b18bd980 ""
   "Exercises/Hojas.tex" 1776330752 103 386f921040c6d66c7e93f8b4059dead1 ""
   "Preamble/Diagonal Matrix Command.tex" 1770045791 994 86797f6883aa9637224e9e09b84c6f7c ""
   "Preamble/Introduction.tex" 1770045791 3294 3b1de0cc1eb984b69c4cc4cecd7737af ""
   "Preamble/Preamble.tex" 1776069115 16243 6d9df69b67a10981af6b3676aedd1ec7 ""
-  "Theory/1 - Sistemas lineales generales Teoría general.tex" 1776331803 63188 068642f65894bab38ae9ed55c2c683b0 ""
+  "Theory/1 - Sistemas lineales generales Teoría general.tex" 1776609713 63188 068642f65894bab38ae9ed55c2c683b0 ""
   "Theory/2 - Ecuaciones de orden n.tex" 1775163430 23345 fca7a80e1a01e205304f81fb676c912f ""
   "Theory/3 - Variación de Parámetros en el Sistema de Primer Orden Asociado.tex" 1775168264 3346 a1470af047084019921bde082cbb1549 ""
   "Theory/4 - Reducción del Orden de la Ecuación Diferencial.tex" 1775168264 6025 64b2812fb1ba2c9dfd827cfeae651de8 ""
@@ -402,10 +402,10 @@
   "Theory/Theory.tex" 1775168148 769 8dbbaaddb373ad175d83ea1eeb36a9a0 ""
   "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" 1773302582 4434 daa4753c912f3dbb7d01f75aa6b46e8f ""
   "images/logo.png" 1770045791 444144 2cb7926de033eda7c58a3b31d8e065e6 ""
-  "main.aux" 1776609680 39820 5f8a4fd3506bfa1660527f0c85e91cef "pdflatex"
-  "main.out" 1776609680 12784 ec517e6dc5b34fa9ba1599ac8ceebc9a "pdflatex"
+  "main.aux" 1776609723 39820 fec17e0d691059dfabe7233c35f08028 "pdflatex"
+  "main.out" 1776609723 12784 ec517e6dc5b34fa9ba1599ac8ceebc9a "pdflatex"
   "main.tex" 1773302582 4434 daa4753c912f3dbb7d01f75aa6b46e8f ""
-  "main.toc" 1776609680 5973 1e63a103924fd3a22c482dc886c71274 "pdflatex"
+  "main.toc" 1776609723 5973 fe8e29526771eb4bf3485469c51ff922 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
