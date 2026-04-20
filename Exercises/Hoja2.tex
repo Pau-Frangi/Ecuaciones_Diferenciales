@@ -1,5 +1,7 @@
-%Ejercicio 1
+\hojaejercicio{Ecuaciones diferenciales lineales de coeficientes constantes}
 
+
+%Ejercicio 1
 \ejercicio{resuelto}{profesor}{
     Determine la solución general del sistema $u' = Au$ (tanto compleja como real) para cada una de las siguientes matrices reales $A$:
     \[
@@ -184,26 +186,345 @@
     $$ \dim N[(A - (\alpha+i\beta)I)^3] = \dim N[(A - (\alpha+i\beta)I)^4] = 3. $$
     Determine su orden, su forma canónica real y $e^{zA}$.
 }{
-    A partir de las dimensiones de los núcleos dadas en el enunciado, observamos que la sucesión se estabiliza al llegar a la potencia 3:
-    $$ \dim N[(A - (\alpha+i\beta)I)^3] = \dim N[(A - (\alpha+i\beta)I)^4] = 3 $$
-    Esto significa que el subespacio propio generalizado asociado a $\lambda = \alpha + i\beta$ tiene dimensión 3. Por lo tanto, la multiplicidad algebraica de este autovalor es $m_a(\alpha+i\beta) = 3$.
-    
-    Dado que la matriz $A$ es real, el autovalor conjugado $\overline{\lambda} = \alpha - i\beta$ también debe tener la misma multiplicidad algebraica de 3. Como el espectro solo contiene a estos dos autovalores, la suma de las multiplicidades algebraicas es $3 + 3 = 6$. Por tanto, \textbf{el orden de la matriz $A$ es $6$}.
-    
+    \subsection*{Análisis de los Núcleos y Orden de la Matriz}
+
+    A partir de las dimensiones de los núcleos dadas en el enunciado, denotemos $N_k = \dim N[(A - (\alpha+i\beta)I)^k]$. Observamos que la sucesión de dimensiones crece estrictamente hasta estabilizarse al llegar a la potencia 3:
+    \[
+        N_1 = 1, \quad N_2 = 2, \quad N_3 = 3, \quad N_4 = 3
+    \]
+    Esto significa que el índice de nilpotencia del bloque es $\nu(\lambda) = 3$. En consecuencia, el subespacio propio generalizado asociado a $\lambda = \alpha + i\beta$ tiene una dimensión máxima de 3. Por lo tanto, la multiplicidad algebraica de este autovalor es:
+    \[
+        m_{alg}(\lambda) = 3
+    \]
+
+    Dado que la matriz $A$ tiene entradas estrictamente reales, los autovalores complejos deben presentarse en pares conjugados. Así, el autovalor conjugado $\overline{\lambda} = \alpha - i\beta$ también debe tener la misma estructura de bloques y la misma multiplicidad algebraica de 3. Como el espectro de la matriz $\sigma(A)$ solo contiene a estos dos autovalores, la suma de las multiplicidades algebraicas nos da la dimensión total del espacio: $3 + 3 = 6$. Por tanto, \textbf{el orden de la matriz $A$ es $6 \times 6$}.
+
+    \subsection*{Vectores Propios Generalizados y Forma Canónica Real}
+
     Como la dimensión del primer núcleo es $\dim N[A - (\alpha+i\beta)I] = 1$, existe un único bloque de Jordan para este autovalor complejo, que será de tamaño $3 \times 3$ sobre $\mathbb{C}$. 
-    Para obtener la \textbf{forma canónica real}, cada entrada de la caja de Jordan compleja se sustituye por sub-bloques de tamaño $2 \times 2$. El autovalor $\alpha + i\beta$ se transforma en el bloque de rotación con escalado $D = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}$ en la diagonal principal, y los unos de la subdiagonal se transforman en matrices identidad $I_2$. Así, la forma canónica real $J_\mathbb{R}$ es una matriz de $6 \times 6$:
-    $$ J_\mathbb{R} = \begin{pmatrix} \alpha & -\beta & 0 & 0 & 0 & 0 \\ \beta & \alpha & 0 & 0 & 0 & 0 \\ 1 & 0 & \alpha & -\beta & 0 & 0 \\ 0 & 1 & \beta & \alpha & 0 & 0 \\ 0 & 0 & 1 & 0 & \alpha & -\beta \\ 0 & 0 & 0 & 1 & \beta & \alpha \end{pmatrix} $$
-    
-    Finalmente, la \textbf{matriz exponencial} de la forma canónica $e^{z J_\mathbb{R}}$ se calcula usando la fórmula estándar para cajas de Jordan reales. Aparece la exponencial de la parte real $e^{\alpha z}$, la matriz de rotación pura en la diagonal principal de bloques, y los términos polinómicos seculares en las subdiagonales de bloques:
-    $$ e^{z J_\mathbb{R}} = e^{\alpha z} \begin{pmatrix} \cos(\beta z) & -\sin(\beta z) & 0 & 0 & 0 & 0 \\ \sin(\beta z) & \cos(\beta z) & 0 & 0 & 0 & 0 \\ z \cos(\beta z) & -z \sin(\beta z) & \cos(\beta z) & -\sin(\beta z) & 0 & 0 \\ z \sin(\beta z) & z \cos(\beta z) & \sin(\beta z) & \cos(\beta z) & 0 & 0 \\ \frac{z^2}{2} \cos(\beta z) & -\frac{z^2}{2} \sin(\beta z) & z \cos(\beta z) & -z \sin(\beta z) & \cos(\beta z) & -\sin(\beta z) \\ \frac{z^2}{2} \sin(\beta z) & \frac{z^2}{2} \cos(\beta z) & z \sin(\beta z) & z \cos(\beta z) & \sin(\beta z) & \cos(\beta z) \end{pmatrix} $$
-    
-    Por lo tanto, la matriz exponencial pedida es $e^{zA} = P e^{z J_\mathbb{R}} P^{-1}$, donde $P$ es la matriz de paso (formada por las partes reales e imaginarias de los autovectores generalizados) que verifica $A = P J_\mathbb{R} P^{-1}$.
+
+    Podemos construir una base de vectores propios generalizados $\{v_1, v_2, v_3\}$ asociados a $\lambda = \alpha + i\beta$. Siguiendo la cadena de transformaciones, planteamos el siguiente sistema lineal donde cada vector se mapea al anterior:
+    \[
+        \begin{cases}
+            A v_1 = (\alpha + i\beta)v_1 + v_2 \\
+            A v_2 = (\alpha + i\beta)v_2 + v_3 \\
+            A v_3 = (\alpha + i\beta)v_3
+        \end{cases}
+    \]
+
+    Para obtener la \textbf{forma canónica real}, separamos cada vector complejo de la cadena en sus partes real e imaginaria, es decir, $v_k = \Re(v_k) + i\Im(v_k)$. Sustituyendo en el sistema anterior obtenemos:
+    \[
+        \begin{cases}
+            A (\Re(v_1) + i\Im(v_1)) = (\alpha + i\beta)(\Re(v_1) + i\Im(v_1)) + (\Re(v_2) + i\Im(v_2)) \\
+            A (\Re(v_2) + i\Im(v_2)) = (\alpha + i\beta)(\Re(v_2) + i\Im(v_2)) + (\Re(v_3) + i\Im(v_3)) \\
+            A (\Re(v_3) + i\Im(v_3)) = (\alpha + i\beta)(\Re(v_3) + i\Im(v_3))
+        \end{cases}
+    \]
+
+    Desarrollando los productos complejos y agrupando por separado las partes reales y las partes imaginarias, el sistema de 3 ecuaciones complejas se despliega en un sistema de 6 ecuaciones reales:
+    \[
+        \begin{cases}
+            A \Re (v_1) = \alpha \Re(v_1) - \beta \Im(v_1) + \Re(v_2) \\
+            A \Im (v_1) = \beta \Re(v_1) + \alpha \Im(v_1) + \Im(v_2) \\
+            A \Re (v_2) = \alpha \Re(v_2) - \beta \Im(v_2) + \Re(v_3) \\
+            A \Im (v_2) = \beta \Re(v_2) + \alpha \Im(v_2) + \Im(v_3) \\
+            A \Re (v_3) = \alpha \Re(v_3) - \beta \Im(v_3) \\
+            A \Im (v_3) = \beta \Re(v_3) + \alpha \Im(v_3)
+        \end{cases}
+    \]
+
+    Al expresar la transformación lineal en la nueva base real ordenada $\mathcal{B} = \{\Re(v_1), \Im(v_1), \Re(v_2), \Im(v_2), \Re(v_3), \Im(v_3)\}$, obtenemos la matriz en su forma canónica de Jordan real $J_\mathbb{R}$. 
+
+    \textit{Nota importante de corrección:} En la estructura de la matriz de Jordan real, los bloques subdiagonales que unen a los vectores generalizados son matrices identidad puras ($I_2$). No contienen fracciones. La fracción $\frac{1}{2}$ aparecerá más adelante como resultado de la serie de Taylor al calcular la exponencial, pero no forma parte de la matriz canónica en sí. Por lo tanto, la matriz de Jordan real correcta es:
+    \[
+        J_\mathbb{R} = 
+        \begin{pmatrix} 
+            \alpha & \beta & 0 & 0 & 0 & 0 \\ 
+            -\beta & \alpha & 0 & 0 & 0 & 0 \\ 
+            1 & 0 & \alpha & \beta & 0 & 0 \\ 
+            0 & 1 & -\beta & \alpha & 0 & 0 \\ 
+            0 & 0 & 1 & 0 & \alpha & \beta \\ 
+            0 & 0 & 0 & 1 & -\beta & \alpha 
+        \end{pmatrix}
+    \]
+
+    \subsection*{Cálculo de la Matriz Exponencial $e^{zA}$}
+
+    Sabiendo que $A$ y $J_\mathbb{R}$ son matrices semejantes mediante una matriz de paso $P$ (cuyas columnas son justamente los vectores de la base $\mathcal{B}$ que hemos construido), se cumple que:
+    \[
+        A = P J_\mathbb{R} P^{-1} \implies e^{zA} = P e^{z J_\mathbb{R}} P^{-1}
+    \]
+
+    Para calcular $e^{z J_\mathbb{R}}$, descomponemos la matriz canónica en una parte semisimple (diagonal por bloques) y una parte nilpotente, las cuales conmutan entre sí:
+    \[
+        J_\mathbb{R} = J^{\mathbb{R}}_{\lambda,3} + N \implies e^{z J_\mathbb{R}} = e^{z(J^{\mathbb{R}}_{\lambda,3}+N)} = e^{z J^{\mathbb{R}}_{\lambda,3}} e^{zN} 
+    \]
+
+    Definimos el bloque fundamental de rotación y las matrices componentes de la descomposición:
+    \[
+        J_{\lambda,2} = \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix}, \quad 
+        J^{\mathbb{R}}_{\lambda,3} = \begin{pmatrix} J_{\lambda,2} & 0_2 & 0_2 \\ 0_2 & J_{\lambda,2} & 0_2 \\ 0_2 & 0_2 & J_{\lambda,2} \end{pmatrix}, \quad 
+        N = \begin{pmatrix} 0_2 & 0_2 & 0_2 \\ I_2 & 0_2 & 0_2 \\ 0_2 & I_2 & 0_2 \end{pmatrix}
+    \]
+
+    Calculamos la exponencial de la parte semisimple, la cual se aplica bloque a bloque en la diagonal principal:
+    \[
+        e^{z J_{\lambda,2}} = e^{\alpha z} \begin{pmatrix} \cos(\beta z) & \sin(\beta z) \\ -\sin(\beta z) & \cos(\beta z) \end{pmatrix}
+    \]
+    \[
+        e^{z J^{\mathbb{R}}_{\lambda,3}} = 
+        \begin{pmatrix}
+            e^{z J_{\lambda,2}} & 0_2 & 0_2 \\
+            0_2 & e^{z J_{\lambda,2}} & 0_2 \\
+            0_2 & 0_2 & e^{z J_{\lambda,2}}
+        \end{pmatrix}
+    \]
+
+    Por otro lado, estudiamos las potencias de la matriz nilpotente $N$:
+    \[
+        N^2 = \begin{pmatrix} 0_2 & 0_2 & 0_2 \\ 0_2 & 0_2 & 0_2 \\ I_2 & 0_2 & 0_2 \end{pmatrix}, \quad N^k = 0 \quad \forall k \ge 3
+    \]
+    Dado que $N$ es nilpotente de índice 3, la serie de Taylor para la matriz exponencial se trunca en el término cuadrático (y aquí es donde aparece naturalmente el divisor $2$ originado por el factorial $2!$):
+    \[
+        e^{zN} = I + zN + \frac{z^2}{2}N^2 = 
+        \begin{pmatrix}
+            I_2 & 0_2 & 0_2 \\
+            z I_2 & I_2 & 0_2 \\
+            \frac{z^2}{2} I_2 & z I_2 & I_2
+        \end{pmatrix}
+    \]
+
+    Finalmente, multiplicamos ambas componentes para obtener la matriz exponencial canónica completa:
+    \[
+        e^{z J_\mathbb{R}} = e^{z J^{\mathbb{R}}_{\lambda,3}} e^{zN} = 
+        \begin{pmatrix}
+            e^{z J_{\lambda,2}} & 0_2 & 0_2 \\
+            0_2 & e^{z J_{\lambda,2}} & 0_2 \\
+            0_2 & 0_2 & e^{z J_{\lambda,2}}
+        \end{pmatrix}
+        \begin{pmatrix}
+            I_2 & 0_2 & 0_2 \\
+            z I_2 & I_2 & 0_2 \\
+            \frac{z^2}{2} I_2 & z I_2 & I_2
+        \end{pmatrix}
+    \]
+    \[
+        e^{z J_\mathbb{R}} = 
+        \begin{pmatrix}
+            e^{z J_{\lambda,2}} & 0_2 & 0_2 \\
+            z e^{z J_{\lambda,2}} & e^{z J_{\lambda,2}} & 0_2 \\
+            \frac{z^2}{2} e^{z J_{\lambda,2}} & z e^{z J_{\lambda,2}} & e^{z J_{\lambda,2}}
+        \end{pmatrix}
+    \]
+
+    Con esto, el problema queda completamente desarrollado, garantizando que el paso final a $e^{zA}$ sea únicamente realizar el producto matricial con la matriz de cambio de base $P$.
+
 }
 
 % Ejercicio 4
-\ejercicio{enunciado}{no}{
-
+\ejercicio{resuelto}{profesor}{
+    Sea $A$ una matriz cuadrada real tal que
+    $$ \sigma(A) = \{\lambda, \mu, \alpha \pm i\beta\}, $$
+    para algunos $\lambda, \mu, \alpha, \beta \in \mathbb{R}$, con $\beta > 0$, para los cuales
+    \begin{align*}
+    \dim N[A - \lambda I] = 2, & \quad \dim N[(A - \lambda I)^2] = 4, \\
+    \dim N[(A - \lambda I)^3] = & \dim N[(A - \lambda I)^4] = 6, \\
+    \dim N[A - \mu I] = 4, & \quad \dim N[(A - \mu I)^2] = 8, \\
+    \dim N[(A - \mu I)^3] = & \dim N[(A - \mu I)^4] = 10, \\
+    \dim N[A - (\alpha + i\beta)I] = & \ 1, \\
+    \dim N[(A - (\alpha + i\beta)I)^2] = & \dim N[(A - (\alpha + i\beta)I)^3] = 2.
+    \end{align*}
+    Determine el orden de $A$, su forma canónica real y $e^{zA}$.
 }{
+
+    Para determinar la estructura de la matriz $A$, analizaremos la sucesión de las dimensiones de los núcleos $N_k(\sigma) = \dim N[(A - \sigma I)^k]$ para cada autovalor del espectro $\sigma(A) = \{\lambda, \mu, \alpha \pm i\beta\}$. La diferencia $d_k = N_k - N_{k-1}$ nos da el número de bloques de tamaño mayor o igual a $k$.
+
+    \textbf{Autovalor $\lambda$:}
+    Tenemos la sucesión de dimensiones: $N_1 = 2$, $N_2 = 4$, $N_3 = 6$, $N_4 = 6$.
+    \begin{itemize}
+        \item $d_1 = 2 - 0 = 2 \implies$ Hay 2 bloques de Jordan asociados a $\lambda$.
+        \item $d_2 = 4 - 2 = 2 \implies$ Hay 2 bloques de tamaño $\ge 2$.
+        \item $d_3 = 6 - 4 = 2 \implies$ Hay 2 bloques de tamaño $\ge 3$.
+        \item $d_4 = 6 - 6 = 0 \implies$ No hay bloques de tamaño $\ge 4$. La sucesión se estabiliza.
+    \end{itemize}
+    Concluimos que para $\lambda$ existen exactamente \textbf{dos bloques de tamaño $3 \times 3$}. Su multiplicidad algebraica es $m_a(\lambda) = 6$.
+
+    \textbf{Autovalor $\mu$:}
+    Sucesión de dimensiones: $N_1 = 4$, $N_2 = 8$, $N_3 = 10$, $N_4 = 10$.
+    \begin{itemize}
+        \item $d_1 = 4 - 0 = 4 \implies$ Hay 4 bloques en total para $\mu$.
+        \item $d_2 = 8 - 4 = 4 \implies$ Los 4 bloques tienen tamaño $\ge 2$.
+        \item $d_3 = 10 - 8 = 2 \implies$ Solo 2 bloques tienen tamaño $\ge 3$.
+        \item $d_4 = 10 - 10 = 0 \implies$ La sucesión se estabiliza.
+    \end{itemize}
+    Concluimos que para $\mu$ existen \textbf{dos bloques de tamaño $3 \times 3$} y \textbf{dos bloques de tamaño $2 \times 2$}. Su multiplicidad algebraica es $m_a(\mu) = 10$.
+
+    \textbf{Autovalores complejos conjugados $\gamma = \alpha + i\beta$ y $\overline{\gamma} = \alpha - i\beta$:}
+    Sucesión para $\gamma$: $N_1 = 1$, $N_2 = 2$, $N_3 = 2$.
+    \begin{itemize}
+        \item $d_1 = 1 - 0 = 1 \implies$ Hay 1 bloque complejo asociado a $\gamma$.
+        \item $d_2 = 2 - 1 = 1 \implies$ El bloque tiene tamaño $\ge 2$.
+        \item $d_3 = 2 - 2 = 0 \implies$ La sucesión se estabiliza.
+    \end{itemize}
+    Existe \textbf{un bloque de tamaño $2 \times 2$} sobre $\mathbb{C}$ para $\gamma$. Su multiplicidad algebraica es $m_a(\gamma) = 2$. Como la matriz es real, el conjugado $\overline{\gamma}$ aporta exactamente la misma estructura y multiplicidad ($m_a(\overline{\gamma}) = 2$).
+
+    \textbf{Orden de la matriz:}
+    Sumando las multiplicidades algebraicas de todo el espectro:
+    \[
+        \text{Orden}(A) = m_a(\lambda) + m_a(\mu) + m_a(\gamma) + m_a(\overline{\gamma}) = 6 + 10 + 2 + 2 = 20.
+    \]
+    Por lo tanto, el \textbf{orden de la matriz $A$ es $20$}.
+
+    \subsection*{Forma Canónica Real de Jordan ($J_\mathbb{R}$)}
+
+    Debido a que el orden de la matriz es muy grande, expresaremos su forma canónica real como una matriz diagonal por bloques:
+    \[
+        J_\mathbb{R} = \text{diag}(J_\lambda, J_\mu, J_{\alpha \pm i\beta})
+    \]
+    A continuación, detallamos la construcción de cada bloque a partir de sus vectores propios generalizados. Adoptaremos la convención de los unos (o identidades) en la subdiagonal.
+
+    \begin{itemize}
+        \item \textbf{Bloque $J_\lambda$ ($6 \times 6$)}
+        Elegimos bases para los subespacios de modo que formemos dos cadenas de longitud 3.
+        Sean $v_{\lambda,1}, v_{\lambda,4} \in N[(A - \lambda I)^3] \setminus N[(A - \lambda I)^2]$. Generamos las cadenas aplicando el operador $(A - \lambda I)$:
+        \[
+            \begin{cases}
+                A v_{\lambda,1} = \lambda v_{\lambda,1} + v_{\lambda,2} \\
+                A v_{\lambda,2} = \lambda v_{\lambda,2} + v_{\lambda,3} \\
+                A v_{\lambda,3} = \lambda v_{\lambda,3}
+            \end{cases}
+            \quad \text{y} \quad
+            \begin{cases}
+                A v_{\lambda,4} = \lambda v_{\lambda,4} + v_{\lambda,5} \\
+                A v_{\lambda,5} = \lambda v_{\lambda,5} + v_{\lambda,6} \\
+                A v_{\lambda,6} = \lambda v_{\lambda,6}
+            \end{cases}
+        \]
+        El bloque de Jordan asociado es:
+        \[
+            J_\lambda = 
+            \begin{pmatrix}
+                \lambda & 0 & 0 & 0 & 0 & 0 \\
+                1 & \lambda & 0 & 0 & 0 & 0 \\
+                0 & 1 & \lambda & 0 & 0 & 0 \\
+                0 & 0 & 0 & \lambda & 0 & 0 \\
+                0 & 0 & 0 & 1 & \lambda & 0 \\
+                0 & 0 & 0 & 0 & 1 & \lambda
+            \end{pmatrix}
+        \]
+        \item \textbf{Bloque $J_\mu$ ($10 \times 10$)}
+        Generamos dos cadenas de longitud 3 y dos cadenas de longitud 2.
+        Sean $v_{\mu,1}, v_{\mu,4} \in N[(A - \mu I)^3] \setminus N[(A - \mu I)^2]$ para las cadenas de longitud 3, y $v_{\mu,7}, v_{\mu,9} \in N[(A - \mu I)^2] \setminus N[A - \mu I]$ vectores independientes adicionales para las cadenas de longitud 2. Aplicando $(A-\mu I)$ iterativamente obtenemos el sistema:
+        \[
+            \begin{cases}
+                A v_{\mu,1} = \mu v_{\mu,1} + v_{\mu,2} \\
+                A v_{\mu,2} = \mu v_{\mu,2} + v_{\mu,3} \\
+                A v_{\mu,3} = \mu v_{\mu,3}
+            \end{cases}, \quad
+            \begin{cases}
+                A v_{\mu,4} = \mu v_{\mu,4} + v_{\mu,5} \\
+                A v_{\mu,5} = \mu v_{\mu,5} + v_{\mu,6} \\
+                A v_{\mu,6} = \mu v_{\mu,6}
+            \end{cases}
+        \]
+        \[
+            \begin{cases}
+                A v_{\mu,7} = \mu v_{\mu,7} + v_{\mu,8} \\
+                A v_{\mu,8} = \mu v_{\mu,8}
+            \end{cases}, \quad
+            \begin{cases}
+                A v_{\mu,9} = \mu v_{\mu,9} + v_{\mu,10} \\
+                A v_{\mu,10} = \mu v_{\mu,10}
+            \end{cases}
+        \]
+        El bloque de Jordan correspondiente de orden 10 es:
+        \[
+            J_\mu = \text{diag}(J_{\mu,3}, J_{\mu,3}, J_{\mu,2}, J_{\mu,2}) = 
+            \begin{pmatrix}
+                \mu & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                1 & \mu & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & \mu & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & \mu & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & \mu & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & \mu & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & \mu & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & \mu & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \mu & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & \mu
+            \end{pmatrix}
+        \]
+        \item \textbf{Bloque Complejo $J_{\alpha \pm i\beta}$ ($4 \times 4$)}
+        Sea $\gamma = \alpha + i\beta$. Dado que el núcleo se estabiliza en la potencia 2 y la dimensión máxima es 2, generamos una cadena compleja $\{v_{\gamma,1}, v_{\gamma,2}\}$ tal que:
+        \[
+            A v_{\gamma,1} = \gamma v_{\gamma,1} + v_{\gamma,2}, \quad A v_{\gamma,2} = \gamma v_{\gamma,2}
+        \]
+        Separando en partes real e imaginaria ($v_k = \Re(v_k) + i\Im(v_k)$), obtenemos cuatro vectores reales independientes que forman la base del subespacio: $\{\Re(v_1), \Im(v_1), \Re(v_2), \Im(v_2)\}$. Al aplicar $A$ a esta base, el autovalor complejo se transforma en el bloque de rotación $D = \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix}$ y el "1" que une la cadena se transforma en la identidad $I_2$:
+        \[
+            J_{\alpha \pm i\beta} = 
+            \begin{pmatrix} 
+                \alpha & \beta & 0 & 0 \\ 
+                -\beta & \alpha & 0 & 0 \\ 
+                1 & 0 & \alpha & \beta \\ 
+                0 & 1 & -\beta & \alpha 
+            \end{pmatrix}
+        \]
+    \end{itemize}
+
+    \subsection*{Cálculo de la Matriz Exponencial $e^{zA}$}
+
+    Sabiendo que $A = P J_\mathbb{R} P^{-1}$ (donde las columnas de $P$ son las bases encontradas ordenadas sistemáticamente), la matriz exponencial viene dada por:
+    \[
+        e^{zA} = P e^{z J_\mathbb{R}} P^{-1}
+    \]
+    Dado que $J_\mathbb{R}$ es diagonal por bloques, su exponencial es la matriz diagonal por bloques de las exponenciales:
+    \[
+        e^{z J_\mathbb{R}} = \text{diag}\left( e^{z J_\lambda}, e^{z J_\mu}, e^{z J_{\alpha \pm i\beta}} \right)
+    \]
+    Calculamos explícitamente cada uno de estos bloques:
+
+    \textbf{Bloques para $\lambda$:} 
+    Cada caja de tamaño $3 \times 3$ tiene la forma estándar para un autovalor real:
+    \[
+        \exp\left( z \begin{pmatrix} \lambda & 0 & 0 \\ 1 & \lambda & 0 \\ 0 & 1 & \lambda \end{pmatrix} \right) = 
+        e^{\lambda z} \begin{pmatrix} 
+            1 & 0 & 0 \\ 
+            z & 1 & 0 \\ 
+            \frac{z^2}{2!} & z & 1 
+        \end{pmatrix}
+    \]
+    Por tanto, $e^{z J_\lambda}$ consta de dos bloques de este tipo en su diagonal principal.
+
+    \textbf{Bloques para $\mu$:}
+    El cálculo es idéntico. Para los bloques de tamaño 3 se usa la expresión anterior sustituyendo $\lambda$ por $\mu$. Para los bloques de tamaño 2, la serie de Taylor se trunca en el término lineal:
+    \[
+        \exp\left( z \begin{pmatrix} \mu & 0 \\ 1 & \mu \end{pmatrix} \right) = 
+        e^{\mu z} \begin{pmatrix} 
+            1 & 0 \\ 
+            z & 1 
+        \end{pmatrix}
+    \]
+    Así, $e^{z J_\mu}$ combina en su diagonal dos matrices de tamaño 3 y dos de tamaño 2.
+
+    \textbf{Bloque complejo $\alpha \pm i\beta$:}
+    Separando la matriz en su componente semisimple $\Lambda = \text{diag}(D, D)$ y nilpotente $N$ (con $I_2$ en la subdiagonal), obtenemos $e^{z J_{\alpha \pm i\beta}} = e^{z\Lambda} e^{zN}$. Como es una cadena de longitud 2, $N^2 = 0$, y el desarrollo de Taylor llega solo hasta el primer grado ($z$):
+    \[
+        e^{z J_{\alpha \pm i\beta}} = 
+        \begin{pmatrix} 
+            e^{zD} & 0_2 \\ 
+            z e^{zD} & e^{zD} 
+        \end{pmatrix}
+    \]
+    Sustituyendo el valor explícito de la rotación escalada $e^{zD}$, la matriz final de orden 4 es:
+    \[
+        e^{z J_{\alpha \pm i\beta}} = e^{\alpha z}
+        \begin{pmatrix}
+            \cos(\beta z) & \sin(\beta z) & 0 & 0 \\
+            -\sin(\beta z) & \cos(\beta z) & 0 & 0 \\
+            z\cos(\beta z) & z\sin(\beta z) & \cos(\beta z) & \sin(\beta z) \\
+            -z\sin(\beta z) & z\cos(\beta z) & -\sin(\beta z) & \cos(\beta z)
+        \end{pmatrix}
+    \]
+    Sustituyendo estos resultados en la diagonal por bloques y multiplicando por las matrices de paso, el cálculo queda totalmente determinado sin tener que escribir en extenso una intratable matriz de $20 \times 20$.
 
 }
 
@@ -283,3 +604,5 @@
 }{
 
 }
+
+
