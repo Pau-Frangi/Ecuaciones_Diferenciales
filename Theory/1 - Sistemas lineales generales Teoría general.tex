@@ -1,649 +1,388 @@
 ﻿\section{Sistemas lineales generales: Teoría general}
 
-Dada la ecuación diferencial
-\[
-u' = A(t) u + B(t)
-\]
-donde \(u\) es una función vectorial de dimensión \(n\):
-\[
-    u(t) = \begin{pmatrix}
-    u_1(t) \\
-    \vdots \\
-    u_n(t)
-    \end{pmatrix}, \qquad \alpha, \beta \in \mathbb{R}, \ \alpha < \beta, \ t \in [\alpha, \beta]
-\]
-\(A(t)\) es una matriz de dimensión \(n \times n\) cuyas entradas son funciones continuas en el intervalo \([\alpha, \beta]\):
-\[
-    A(t) = \begin{pmatrix}
-    a_{11}(t) & \cdots & a_{1n}(t) \\
-    \vdots & \ddots & \vdots \\
-    a_{n1}(t) & \cdots & a_{nn}(t)
-    \end{pmatrix}, \quad a_{ij}(t) \in C([\alpha, \beta], \mathbb{K})
-\]
-y \(B(t)\) es una función vectorial de dimensión \(n\) (término independiente) con entradas continuas:
-\[
-    B(t) = \begin{pmatrix}
-    b_1(t) \\
-    \vdots \\
-    b_n(t)
-    \end{pmatrix}, \quad b_{i}(t) \in C([\alpha, \beta], \mathbb{K})
-\]
-al sistema $u' = A(t) u + B(t)$ se le denomina \textbf{sistema lineal general} o \textbf{sistema lineal inhomogéneo}. 
+En este capítulo abordaremos el estudio sistemático de las ecuaciones diferenciales ordinarias lineales de primer orden. Comenzaremos estableciendo el marco general para sistemas multidimensionales, analizando la estructura algebraica subyacente de sus espacios de soluciones, para luego establecer los resultados fundamentales de existencia y unicidad.
 
-Si consideramos el caso $B(t) \equiv 0$, obtenemos el sistema:
-\[
-u' = A(t) u
-\]
-al cual se le denomina \textbf{sistema lineal homogéneo}.
+\subsection{Definiciones fundamentales y notación}
 
-Nos preguntamos cuáles son las soluciones en el intervalo \([\alpha, \beta]\) de estos sistemas. Definimos los conjuntos de soluciones como:
+Consideremos un intervalo cerrado $[\alpha, \beta] \subset \mathbb{R}$ con $\alpha < \beta$, y denotemos por $\mathbb{K}$ al cuerpo de escalares (que habitualmente será $\mathbb{R}$ o $\mathbb{C}$). 
+
+\begin{definición}[Sistema lineal general]
+    Dada una función vectorial incógnita $u: [\alpha, \beta] \to \mathbb{K}^n$, definida en componentes como $u(t) = (u_1(t), \dots, u_n(t))^T$, llamaremos \textbf{sistema lineal general} o \textbf{sistema lineal inhomogéneo} a la ecuación diferencial matricial de la forma:
+    \[
+        u'(t) = A(t) u(t) + B(t), \quad t \in [\alpha, \beta],
+    \]
+    donde:
+    \begin{itemize}
+        \item $A(t) \in \mathcal{M}_{n \times n}(\mathbb{K})$ es una matriz cuadrada cuyas entradas son funciones continuas en el intervalo, es decir, $a_{ij} \in C([\alpha, \beta], \mathbb{K})$ para todo $i,j \in \{1, \dots, n\}$.
+        \item $B(t) \in \mathbb{K}^n$ es una función vectorial (denominada \textit{término forzante} o \textit{término independiente}) cuyas componentes también son funciones continuas, $b_i \in C([\alpha, \beta], \mathbb{K})$.
+    \end{itemize}
+\end{definición}
+
+\begin{definición}[Sistema lineal homogéneo]
+    Si el término forzante es idénticamente nulo, es decir, $B(t) \equiv 0$ para todo $t \in [\alpha, \beta]$, obtenemos el sistema asociado:
+    \[
+        u'(t) = A(t) u(t), \quad t \in [\alpha, \beta],
+    \]
+    al cual denominaremos \textbf{sistema lineal homogéneo}.
+\end{definición}
+
+Nuestro objetivo principal es caracterizar las funciones $u$ que satisfacen estas ecuaciones en el intervalo dado. Para ello, resulta conveniente denotar y estudiar los conjuntos que agrupan a todas las soluciones posibles. Definimos formalmente los conjuntos de soluciones del sistema inhomogéneo y homogéneo, respectivamente, como:
 \[
-    \Sigma_{B} = S_B = \{u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u' = A(t) u + B(t), \ t \in [\alpha, \beta]\}
+    \Sigma_{B} = \left\{ u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u'(t) = A(t) u(t) + B(t), \ \forall t \in [\alpha, \beta] \right\},
 \]
 \[
-    \Sigma_{0} = S_0 = \{u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u' = A(t) u, \ t \in [\alpha, \beta]\}
+    \Sigma_{0} = \left\{ u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u'(t) = A(t) u(t), \ \forall t \in [\alpha, \beta] \right\}.
 \]
 
-\subsubsection*{Propiedades generales de los espacios de soluciones}
+\subsection{Estructura algebraica de los espacios de soluciones}
+
+Antes de desarrollar métodos constructivos para hallar las soluciones, es imprescindible comprender la geometría y estructura algebraica de los conjuntos $\Sigma_0$ y $\Sigma_B$. Como veremos a continuación, el comportamiento de las soluciones de ecuaciones diferenciales lineales hereda las propiedades estructurales del álgebra lineal.
 
 \begin{proposición}
-    El espacio de funciones
+    El conjunto de funciones derivables con continuidad, definido como
     \[
-        E \equiv C^{1}([\alpha, \beta], \mathbb{K}^n)
+        E \equiv C^{1}([\alpha, \beta], \mathbb{K}^n),
     \]
-    es un espacio vectorial sobre el cuerpo \(\mathbb{K}\).
-\end{proposición}
-\begin{proof}
-    Las operaciones de suma y producto por escalar se definen punto a punto. Si $u,v \in E$ y $\lambda \in \mathbb{K}$:
-    \[
-        (u+v)(t) = u(t) + v(t), \quad (\lambda u)(t) = \lambda u(t) \quad \forall t \in [\alpha, \beta].
-    \]
-    Dado que la suma de funciones derivables con continuidad es derivable con continuidad, la estructura es cerrada y cumple los axiomas de espacio vectorial.
-\end{proof}
-
-\begin{proposición}
-    El conjunto de soluciones del sistema homogéneo, $\Sigma_0$, es un subespacio vectorial de $E$. Es decir, para cada $\lambda, \mu \in \mathbb{K}$ y $h_1, h_2 \in \Sigma_0$, se cumple que $\lambda h_1 + \mu h_2 \in \Sigma_0$.
+    constituye un espacio vectorial sobre el cuerpo \(\mathbb{K}\).
 \end{proposición}
 
 \begin{proof}
-    Sean $h_1, h_2 \in \Sigma_0$. Por definición, cumplen:
+    Las operaciones de suma de funciones y producto por un escalar se definen puntualmente. Si tomamos $u,v \in E$ y $\lambda \in \mathbb{K}$:
     \[
-    h_1' = A(t) h_1, \quad h_2' = A(t) h_2, \quad \forall t \in [\alpha, \beta]
+        (u+v)(t) = u(t) + v(t), \qquad (\lambda u)(t) = \lambda u(t), \quad \forall t \in [\alpha, \beta].
     \]
-    Consideramos la combinación lineal $w = \lambda h_1 + \mu h_2$. Derivando y usando la linealidad de la matriz $A(t)$:
-    \[
-    w'(t) = (\lambda h_1 + \mu h_2)'(t) = \lambda h_1'(t) + \mu h_2'(t) 
-    \]
-    Sustituyendo las ecuaciones diferenciales:
-    \[
-    = \lambda A(t) h_1(t) + \mu A(t) h_2(t) = A(t) \left( \lambda h_1(t) + \mu h_2(t) \right) = A(t) w(t)
-    \]
-    Por lo tanto, $\lambda h_1 + \mu h_2$ es solución del sistema lineal homogéneo, lo que implica $\lambda h_1 + \mu h_2 \in \Sigma_0$.
+    Dado que las reglas de derivación garantizan que la suma de funciones derivables con continuidad es nuevamente derivable con continuidad (y análogamente para el producto por escalar), el conjunto $E$ es cerrado bajo estas operaciones y satisface de manera trivial todos los axiomas de espacio vectorial.
 \end{proof}
 
 \begin{proposición}
-    El conjunto de soluciones del sistema general, $\Sigma_B$, es una subvariedad afín de $E$ paralela al subespacio $\Sigma_0$.
+    El conjunto de soluciones del sistema homogéneo, $\Sigma_0$, es un subespacio vectorial de $E$. Es decir, toda combinación lineal de soluciones del sistema homogéneo es, a su vez, una solución del mismo.
 \end{proposición}
 
-Esta estructura se demuestra mediante las dos propiedades siguientes:
-
-\begin{enumerate}
-    \item Si tomamos dos soluciones particulares $u_1, u_2 \in \Sigma_B$, su diferencia $u_2 - u_1$ es solución del sistema homogéneo.
-    \begin{proof}
-        \[
-            (u_2 - u_1)' = u_2' - u_1' = [A(t) u_2 + B(t)] - [A(t) u_1 + B(t)] = A(t) [u_2 - u_1].
-        \]
-        Luego, $u_2 - u_1 \in \Sigma_0$.
-    \end{proof}
+\begin{proof}
+    Para demostrar que $\Sigma_0$ es un subespacio, dados $\lambda, \mu \in \mathbb{K}$ y $h_1, h_2 \in \Sigma_0$, debemos verificar que la función combinación lineal $w = \lambda h_1 + \mu h_2$ también pertenece a $\Sigma_0$. 
     
-    \item Dado un punto $u_0 \in \Sigma_B$ (solución particular) y un vector director $h \in \Sigma_0$ (solución homogénea), la suma $u_0 + h$ es solución del sistema general.
-    \begin{proof}
-        \[
-            (u_0 + h)' = u_0' + h' = [A(t) u_0 + B(t)] + A(t) h = A(t) [u_0 + h] + B(t).
-        \]
-        Luego, $u_0 + h \in \Sigma_B$.
-    \end{proof}
-\end{enumerate}
+    Por hipótesis, $h_1$ y $h_2$ satisfacen:
+    \[
+        h_1'(t) = A(t) h_1(t), \qquad h_2'(t) = A(t) h_2(t), \quad \forall t \in [\alpha, \beta].
+    \]
+    Derivando la función $w(t)$ y utilizando la linealidad del operador derivada y del producto matricial, obtenemos:
+    \begin{align*}
+        w'(t) &= (\lambda h_1 + \mu h_2)'(t) = \lambda h_1'(t) + \mu h_2'(t) \\
+        &= \lambda A(t) h_1(t) + \mu A(t) h_2(t) \\
+        &= A(t) \big( \lambda h_1(t) + \mu h_2(t) \big) \\
+        &= A(t) w(t).
+    \end{align*}
+    En consecuencia, $w$ satisface la ecuación diferencial homogénea, lo que prueba que $\lambda h_1 + \mu h_2 \in \Sigma_0$.
+\end{proof}
 
 \begin{proposición}
-    Sean $B_1, B_2: [\alpha, \beta] \to \mathbb{K}^n$ dos funciones continuas. Si $u_1 \in \Sigma_{B_1}$ es solución de $u' = A(t)u + B_1(t)$ y $u_2 \in \Sigma_{B_2}$ es solución de $u' = A(t)u + B_2(t)$, entonces la suma $u_1 + u_2$ pertenece a $\Sigma_{B_1 + B_2}$.
+    El conjunto de soluciones del sistema general, $\Sigma_B$, posee estructura de subvariedad afín del espacio $E$, siendo paralela al subespacio director $\Sigma_0$.
 \end{proposición}
 
 \begin{proof}
-    Por hipótesis, las funciones satisfacen:
+    Para demostrar que $\Sigma_B$ es una variedad afín con espacio director $\Sigma_0$, debemos comprobar dos afirmaciones complementarias:
+    
+    \textbf{1. La diferencia de dos soluciones del sistema inhomogéneo es solución del homogéneo:} \\
+    Sean $u_1, u_2 \in \Sigma_B$. Restando sus respectivas ecuaciones diferenciales:
     \[
-        u_1'(t) = A(t) u_1(t) + B_1(t) \quad \text{y} \quad u_2'(t) = A(t) u_2(t) + B_2(t)
+        (u_2 - u_1)'(t) = u_2'(t) - u_1'(t) = [A(t) u_2(t) + B(t)] - [A(t) u_1(t) + B(t)] = A(t) [u_2(t) - u_1(t)].
     \]
-    Consideramos la función suma $w(t) = u_1(t) + u_2(t)$. Derivando y agrupando términos:
+    Esto implica directamente que $u_2 - u_1 \in \Sigma_0$.
+    
+    \textbf{2. La suma de una solución particular y una solución del homogéneo genera una nueva solución particular:} \\
+    Dado un punto $u_p \in \Sigma_B$ (solución particular) y un vector $h \in \Sigma_0$ (solución homogénea), evaluamos la derivada de su suma:
     \[
-        w'(t) = (u_1 + u_2)'(t) = u_1'(t) + u_2'(t)
+        (u_p + h)'(t) = u_p'(t) + h'(t) = [A(t) u_p(t) + B(t)] + A(t) h(t) = A(t) [u_p(t) + h(t)] + B(t).
     \]
-    Sustituyendo las ecuaciones diferenciales correspondientes:
-    \[
-        = [A(t) u_1(t) + B_1(t)] + [A(t) u_2(t) + B_2(t)]
-    \]
-    Utilizando la propiedad distributiva del producto matriz-vector para agrupar respecto a $A(t)$:
-    \[
-        = A(t) [u_1(t) + u_2(t)] + [B_1(t) + B_2(t)] = A(t) w(t) + (B_1 + B_2)(t)
-    \]
-    Esto demuestra que $w$ satisface la ecuación diferencial con término inhomogéneo $B_1 + B_2$. Por tanto:
-    \[
-        u_1 + u_2 \in \Sigma_{B_1 + B_2}.
-    \]
+    Por lo tanto, $u_p + h \in \Sigma_B$. Esta estructura garantiza que la solución general del sistema completo siempre puede expresarse como la suma de una solución particular del mismo y la solución general del sistema homogéneo asociado.
 \end{proof}
 
-\subsubsection*{Existencia y Unicidad}
+\begin{proposición}[Principio de Superposición]
+    Sean $B_1, B_2: [\alpha, \beta] \to \mathbb{K}^n$ dos funciones continuas que actúan como términos independientes. Si $u_1 \in \Sigma_{B_1}$ y $u_2 \in \Sigma_{B_2}$, entonces la función suma $u_1 + u_2$ es solución del sistema cuyo término forzante es la suma de los anteriores, es decir, $u_1 + u_2 \in \Sigma_{B_1 + B_2}$.
+\end{proposición}
 
-\begin{teorema} [Resolución del sistema lineal escalar, caso $n=1$]
-    Para cada $t_0 \in [\alpha, \beta]$ y $u_0 \in \mathbb{K}$, el problema escalar
+\begin{proof}
+    Consideramos la función $w(t) = u_1(t) + u_2(t)$. Derivando y agrupando convenientemente los términos, tenemos:
+    \begin{align*}
+        w'(t) &= u_1'(t) + u_2'(t) \\
+        &= [A(t) u_1(t) + B_1(t)] + [A(t) u_2(t) + B_2(t)] \\
+        &= A(t) [u_1(t) + u_2(t)] + [B_1(t) + B_2(t)] \\
+        &= A(t) w(t) + (B_1 + B_2)(t).
+    \end{align*}
+    El resultado confirma que la linealidad del sistema permite descomponer problemas con forzamientos complejos en la suma de problemas más simples.
+\end{proof}
+
+\subsection{El problema de Cauchy escalar y la variación de las constantes}
+
+Como paso previo para abordar la existencia y unicidad en sistemas vectoriales de dimensión $n$, analizaremos detalladamente el caso escalar ($n=1$). Este análisis no solo nos proporcionará una fórmula analítica explícita, sino que introducirá conceptualmente el \textit{método de variación de las constantes}, una técnica que generalizaremos más adelante para el caso matricial.
+
+\begin{teorema}[Resolución del problema lineal escalar]
+    Para cada $t_0 \in [\alpha, \beta]$ y cada valor inicial $u_0 \in \mathbb{K}$, el problema de Cauchy escalar:
     \[
         P : \begin{cases}
-            u' = a(t) u + b(t), \quad t \in [\alpha, \beta] \\
+            u'(t) = a(t) u(t) + b(t), \quad t \in [\alpha, \beta] \\
             u(t_0) = u_0
         \end{cases}
     \]
-    tiene una única solución $u(t,t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K})$. La fórmula explícita viene dada por:
+    tiene una única solución $u(\cdot; t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K})$. Dicha solución viene dada por la fórmula explícita:
     \[
-        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds, \quad \forall t \in [\alpha, \beta]
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds, \quad \forall t \in [\alpha, \beta].
     \]
 \end{teorema}
 
 \begin{proof}
-    La demostración se basa en el método de \textbf{variación de las constantes}.
-
-    Definimos la función auxiliar $h(t)$, que actúa como factor integrante, de la siguiente forma:
+    Comenzaremos definiendo una función auxiliar $h(t)$, conocida como el \textbf{factor integrante} (o solución fundamental del problema homogéneo asociado), de la siguiente forma:
     \[
-        h(t) := e^{\int_{t_0}^{t} a(s) ds}
+        h(t) := e^{\int_{t_0}^{t} a(s) ds}.
     \]
-    Observemos que $h(t_0) = e^0 = 1$. Además, aplicando el Teorema Fundamental del Cálculo y la regla de la cadena, su derivada es:
+    Notemos que, por definición, $h(t_0) = e^0 = 1$. Además, aplicando el Teorema Fundamental del Cálculo y la regla de la cadena, su derivada es:
     \[
-        h'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a(s) ds \right) e^{\int_{t_0}^{t} a(s) ds} = a(t) h(t)
+        h'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a(s) ds \right) e^{\int_{t_0}^{t} a(s) ds} = a(t) h(t).
     \]
     
-    Proponemos una solución de la forma $u(t) = h(t)v(t)$, donde $v(t)$ es una función a determinar. Derivando respecto a $t$ obtenemos:
+    Siguiendo el \textbf{método de variación de las constantes} de Lagrange, proponemos buscar una solución de la forma $u(t) = h(t)v(t)$, donde $v(t)$ es una función incógnita que debemos determinar. Derivando nuestra propuesta obtenemos:
     \[
-        u'(t) = h'(t)v(t) + h(t)v'(t)
+        u'(t) = h'(t)v(t) + h(t)v'(t).
     \]
-    Sustituyendo $u$ y $u'$ en la ecuación original $u' = a(t)u + b(t)$:
+    Sustituimos $u(t)$ y $u'(t)$ en la ecuación diferencial original $u' = a(t)u + b(t)$:
     \[
-        h'(t)v(t) + h(t)v'(t) = a(t) \big( h(t)v(t) \big) + b(t)
+        h'(t)v(t) + h(t)v'(t) = a(t) \big( h(t)v(t) \big) + b(t).
     \]
-    Dado que $h'(t) = a(t)h(t)$, los términos correspondientes se simplifican, resultando en:
+    Dado que sabemos que $h'(t) = a(t)h(t)$, el primer término del lado izquierdo se cancela exactamente con el primer término del lado derecho, reduciendo la ecuación a:
     \[
-        h(t)v'(t) = b(t) \implies v'(t) = \frac{b(t)}{h(t)}
+        h(t)v'(t) = b(t) \implies v'(t) = \frac{b(t)}{h(t)}.
     \]
-    Esta operación es lícita pues la función exponencial $h(t)$ no se anula en el intervalo dado.
+    Esta división es lícita ya que la función exponencial $h(t)$ no se anula para ningún $t \in [\alpha, \beta]$.
     
-    De la condición inicial $u(t_0) = u_0$, y sabiendo que $h(t_0) = 1$, deducimos que $v(t_0) = u_0$. Integrando la expresión para $v'(s)$ en el intervalo $[t_0, t]$:
+    Para encontrar $v(t)$, imponemos la condición inicial. Sabiendo que $u(t_0) = u_0$ y $h(t_0) = 1$, deducimos obligatoriamente que $v(t_0) = u_0$. Integrando la expresión para $v'(s)$ en el intervalo $[t_0, t]$, obtenemos:
     \[
-        v(t) - v(t_0) = \int_{t_0}^{t} \frac{b(s)}{h(s)} ds \implies v(t) = u_0 + \int_{t_0}^{t} b(s) e^{-\int_{t_0}^{s} a(r) dr} ds
+        v(t) - v(t_0) = \int_{t_0}^{t} \frac{b(s)}{h(s)} ds \implies v(t) = u_0 + \int_{t_0}^{t} b(s) e^{-\int_{t_0}^{s} a(r) dr} ds.
     \]
     
-    Sustituyendo $v(t)$ en nuestra propuesta $u(t) = h(t)v(t)$:
+    Finalmente, recuperamos nuestra variable original multiplicando por $h(t)$, es decir, $u(t) = h(t)v(t)$:
     \[
-        u(t) = e^{\int_{t_0}^{t} a(s) ds} \left( u_0 + \int_{t_0}^{t} b(s) e^{-\int_{t_0}^{s} a(r) dr} ds \right)
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} \left( u_0 + \int_{t_0}^{t} b(s) e^{-\int_{t_0}^{s} a(r) dr} ds \right).
     \]
-    Al distribuir el término exponencial e introducirlo en la integral, obtenemos:
+    Al distribuir el factor exponencial externo e introducirlo dentro de la integral, las propiedades de los exponentes nos dan:
     \[
-        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} b(s) e^{\left( \int_{t_0}^{t} a(r) dr - \int_{t_0}^{s} a(r) dr \right)} ds
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} b(s) e^{\left( \int_{t_0}^{t} a(r) dr - \int_{t_0}^{s} a(r) dr \right)} ds.
     \]
-    Finalmente, aplicando la propiedad de aditividad de la integral ($\int_{t_0}^{t} - \int_{t_0}^{s} = \int_{s}^{t}$):
+    Aplicando la propiedad de aditividad del cálculo integral en el exponente ($\int_{t_0}^{t} - \int_{t_0}^{s} = \int_{s}^{t}$), llegamos a la expresión definitiva:
     \[
-        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds
+        u(t) = e^{\int_{t_0}^{t} a(s) ds} u_0 + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds.
     \]
-    A la ecuación anterior le llamamos \textbf{fórmula de variación de las constantes de Lagrange}.
+    Esta identidad es universalmente conocida como la \textbf{fórmula de variación de las constantes de Lagrange}.
 \end{proof}
 
-Cuando $a(t) \equiv a$ es constante, la fórmula se simplifica a la conocida:
-\[
-    u(t) = e^{a(t - t_0)} u_0 + \int_{t_0}^{t} e^{a(t - s)} b(s) ds
-\]
-En particular, si $b(t) \equiv 0$, resulta que $h(t,t_0,u_0) = e^{\int_{t_0}^{t} a(s) ds} u_0$ es la solución única del problema de Cauchy homogéneo:
-\[
-    \begin{cases}
-    h' = a(t) h, \quad t \in [\alpha, \beta] \\
-    h(t_0) = u_0
-    \end{cases}
-\]
-
-\subsection{Fórmulas de variación de las constantes (de Lagrange)}
-
-\textbf{Método de variación de las constantes}\\
-
-\[
-    u(t,t_0,u_0) = h(t,t_0,u_0) + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds, \quad \forall t \in [\alpha, \beta]
-\]
-
-\[
-    \implies u(t,t_0,0) = \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds = \underbrace{u(t,t_0,u_0)}_{\in \Sigma_B} + (- \underbrace{h(t,t_0,u_0)}_{\in \Sigma_0}) \in \Sigma_B 
-\]
-Luego la solución anterior es la solución particular del sistema inhomogéneo que anula la condición inicial. Por tanto:
-\[
-    u(t,t_0,u_0) = h(t,t_0,u_0) + u(t,t_0,0)
-\]
-
-\begin{teorema}
-    El operador solución
+\begin{observación}
+    Resulta instructivo observar el caso particular en el que el coeficiente $a(t) \equiv a$ es constante. En este escenario, la integral del exponente se simplifica trivialmente y la fórmula general se reduce a la conocida expresión de la exponencial trasladada:
     \[
-        S_0 : \mathbb{K} \to \Sigma_0
+        u(t) = e^{a(t - t_0)} u_0 + \int_{t_0}^{t} e^{a(t - s)} b(s) ds.
     \]
-    \[
-        x \mapsto S_0(x) := h(t,t_0,x), \quad \forall t \in [\alpha, \beta]
-    \]
-    $S_0$ es la única solución de $\begin{cases}
-        h' = a(t) h, \quad t \in [\alpha, \beta] \\
-        h(t_0) = x
-    \end{cases}$ es un isomorfismo entre espacios vectoriales. En particular $\dim(\Sigma_0) = 1$ (es una recta vectorial). Por lo tanto, el operador solución del sistema inhomogéneo
-    \[
-        S_B : \mathbb{K} \to \Sigma_B
-    \]
-    \[
-        x \mapsto S_B(x) := u(t,t_0,x), \quad \forall t \in [\alpha, \beta]
-    \]
-    es un isomorfismo entre espacios afines. En particular, $\Sigma_B$ es una recta afín paralela a $\Sigma_0$.
+    Por otra parte, si consideramos el caso homogéneo donde $b(t) \equiv 0$, el término integral desaparece, y corroboramos que la única solución del problema de Cauchy homogéneo es simplemente $u(t) = u_0 e^{\int_{t_0}^{t} a(s) ds}$.
+\end{observación}
 
+\subsection{El operador solución y la estructura geométrica en el caso escalar}
+
+A partir de la fórmula de variación de las constantes deducida en la sección anterior, podemos reinterpretar la solución del problema escalar desde una perspectiva algebraica, definiendo operadores que actúan sobre las condiciones iniciales.
+
+Recordemos que la solución general del problema de Cauchy unidimensional se expresa como:
+\[
+    u(t; t_0,u_0) = h(t; t_0,u_0) + \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds, \quad \forall t \in [\alpha, \beta].
+\]
+Si evaluamos el caso particular donde la condición inicial es nula ($u_0 = 0$), obtenemos la solución particular generada exclusivamente por el término forzante:
+\[
+    u(t; t_0,0) = \int_{t_0}^{t} e^{\int_{s}^{t} a(r) dr} b(s) ds.
+\]
+Sustituyendo esta expresión en la fórmula general, observamos que toda solución se descompone de forma natural en dos partes:
+\[
+    u(t; t_0,u_0) = \underbrace{h(t; t_0,u_0)}_{\in \Sigma_0} + \underbrace{u(t; t_0,0)}_{\in \Sigma_B}.
+\]
+
+\begin{teorema}[Isomorfismo del operador solución escalar]
+    Sea el operador solución del sistema homogéneo, definido como:
+    \begin{align*}
+        S_0 : \mathbb{K} &\to \Sigma_0 \\
+        x &\mapsto S_0(x) := h(\cdot; t_0,x)
+    \end{align*}
+    donde $h(t; t_0, x)$ es la única solución del problema de valor inicial $h' = a(t)h$ con $h(t_0) = x$. 
+    Entonces, $S_0$ es un isomorfismo de espacios vectoriales. En particular, $\dim(\Sigma_0) = 1$ (es una recta vectorial). 
+    
+    Consecuentemente, el operador solución del sistema inhomogéneo, definido por:
+    \begin{align*}
+        S_B : \mathbb{K} &\to \Sigma_B \\
+        x &\mapsto S_B(x) := u(\cdot; t_0,x)
+    \end{align*}
+    es un isomorfismo de espacios afines, lo que implica que $\Sigma_B$ es una recta afín paralela a $\Sigma_0$.
 \end{teorema}
 
 \begin{proof}
-    Veamos primero que $S_0$ es lineal. Sean $x,y \in \mathbb{K}$ y $\lambda, \mu \in \mathbb{K}$, entonces:
+    Comprobaremos primero que $S_0$ es una aplicación lineal. Dados $x,y \in \mathbb{K}$ y $\lambda, \mu \in \mathbb{K}$, por la linealidad de la integral y de la función exponencial obtenemos:
+    \begin{align*}
+        S_0(\lambda x + \mu y)(t) &= e^{\int_{t_0}^{t} a(s) ds} (\lambda x + \mu y) \\
+        &= \lambda \left( e^{\int_{t_0}^{t} a(s) ds} x \right) + \mu \left( e^{\int_{t_0}^{t} a(s) ds} y \right) \\
+        &= \lambda S_0(x)(t) + \mu S_0(y)(t).
+    \end{align*}
+    
+    Para verificar la inyectividad, supongamos que existe $z \in \mathbb{K}$ tal que $S_0(z) = 0$ (la función nula). Entonces, para todo $t \in [\alpha, \beta]$:
     \[
-        S_0(\lambda x + \mu y) = e^{\int_{t_0}^{t} a(s) ds} (\lambda x + \mu y) = \lambda e^{\int_{t_0}^{t} a(s) ds} x + \mu e^{\int_{t_0}^{t} a(s) ds} y = \lambda S_0(x) + \mu S_0(y)
+        e^{\int_{t_0}^{t} a(s) ds} z = 0.
     \]
-    Además, $S_0$ es inyectiva, pues si $S_0(x) = S_0(y)$, por ser $S_0$ lineal, se cumple que $S_0(x - y) = 0$, lo que implica que $x - y = 0$, es decir, $x = y$.
+    Dado que la función exponencial nunca se anula, necesariamente $z = 0$, lo que demuestra que $\ker(S_0) = \{0\}$.
+    
+    Finalmente, para la sobreyectividad, tomemos un elemento arbitrario $h \in \Sigma_0$. Por definición, $h$ es solución de $h' = a(t)h$. Si evaluamos esta función en $t_0$, obtenemos un escalar $x = h(t_0) \in \mathbb{K}$. Por el teorema de unicidad, debe cumplirse que:
     \[
-        S_0(z) = 0 \implies e^{\int_{t_0}^{t} a(s) ds} z = 0 \implies z = 0
+        h(t) = e^{\int_{t_0}^{t} a(s) ds} x = S_0(x)(t).
     \]
-    Finalmente, $S_0$ es sobreyectiva, ya que para cualquier $h \in \Sigma_0$, tenemos que $h'(t) = a(t) h(t), \ \forall t \in [\alpha, \beta]$, $h(t_0) = x$ para algún $x \in \mathbb{K}$. Por lo tanto, $h = S_0(x)$.
-    \[
-        h(t) = e^{\int_{t_0}^{t} a(s) ds} x = S_0(x)
-    \]
+    Por lo tanto, $S_0$ es un isomorfismo vectorial. La generalización a $S_B$ se sigue de manera directa observando que $S_B(x) = S_0(x) + u(\cdot; t_0, 0)$, lo que constituye una traslación afín.
 \end{proof}
 
-Las soluciones de $\Sigma_0$ son todos los puntos de la recta vectorial generada por el vector $e^{\int_{t_0}^{t} a(s) ds}$, es decir:
+De este resultado se deduce visualmente la estructura paramétrica de las soluciones. Las soluciones de $\Sigma_0$ conforman la recta vectorial generada por la función exponencial:
 \[
-    \Sigma_0 = \{ \lambda e^{\int_{t_0}^{t} a(s) ds} : \lambda \in \mathbb{K} \}
+    \Sigma_0 = \left\{ t \mapsto \lambda e^{\int_{t_0}^{t} a(s) ds} : \lambda \in \mathbb{K} \right\}.
 \]
-Por otro lado, las soluciones de $\Sigma_B$ son todos los puntos de la recta afín paralela a $\Sigma_0$ que pasa por el punto $u(t,t_0,0)$, es decir:
+Análogamente, las soluciones de $\Sigma_B$ constituyen una recta afín paralela a $\Sigma_0$ que pasa por el "punto" (función) $u(\cdot; t_0, 0)$:
 \[
-    \Sigma_B = \{ u(t,t_0,0) + \lambda e^{\int_{t_0}^{t} a(s) ds} : \lambda \in \mathbb{K} \}
+    \Sigma_B = \left\{ t \mapsto u(t; t_0,0) + \lambda e^{\int_{t_0}^{t} a(s) ds} : \lambda \in \mathbb{K} \right\}.
 \]
+
+A continuación, presentaremos tres ejemplos paradigmáticos que ilustran la aplicación práctica de estos conceptos algebraicos en la resolución analítica de ecuaciones diferenciales escalares.
 
 \ejemplo{
-    Sea el problema de valor inicial definido por la ecuación diferencial lineal de primer orden $u' = au + b$, con $a, b \in \mathbb{R}$, $a \neq 0$ y la condición inicial $u(t_0) = u_0$. Para resolverlo, consideramos primero la ecuación diferencial homogénea asociada $u' - au = 0$, cuya solución se obtiene mediante la integración directa, resultando en $u_h(t) = \lambda e^{at}$, donde $\lambda$ es una constante real. Posteriormente, buscamos una solución particular $u_p(t)$ para la ecuación completa. Dado que los coeficientes son constantes, proponemos una solución de equilibrio de la forma $u_p(t) = k$. Al sustituir en la ecuación original, obtenemos $0 = ak + b$, lo que implica que la solución particular es $u_p = -b/a$. 
+    \textbf{Coeficientes constantes.} Sea el problema de valor inicial definido por la ecuación diferencial lineal de primer orden $u' = au + b$, con $a, b \in \mathbb{R}$, $a \neq 0$ y la condición inicial $u(t_0) = u_0$. 
+    
+    Consideramos primero la ecuación diferencial homogénea asociada $u' - au = 0$, cuya solución se obtiene mediante integración directa, resultando en $u_h(t) = \lambda e^{at}$. Posteriormente, buscamos una solución particular $u_p(t)$ para la ecuación completa. Dado que los coeficientes son constantes, proponemos una solución de equilibrio de la forma $u_p(t) = k$. Al sustituir en la ecuación original, obtenemos $0 = ak + b$, lo que implica que la solución particular es $u_p = -b/a$. 
 
-    La solución general de la ecuación diferencial se construye como la suma de la solución homogénea y la solución particular, resultando en la expresión $u(t) = \lambda e^{at} - \frac{b}{a}$. Para determinar el valor de la constante $\lambda$ que satisface la condición inicial específica $u(t_0) = u_0$, evaluamos la función en $t = t_0$:
+    La solución general se construye como la suma de la homogénea y la particular: $u(t) = \lambda e^{at} - \frac{b}{a}$. Para determinar el valor de la constante $\lambda$, evaluamos en $t = t_0$:
     \[
-    u_0 = \lambda e^{at_0} - \frac{b}{a}
+        u_0 = \lambda e^{at_0} - \frac{b}{a} \implies \lambda = e^{-at_0} \left( u_0 + \frac{b}{a} \right).
     \]
-    Al despejar el término que contiene la constante, obtenemos $\lambda e^{at_0} = u_0 + \frac{b}{a}$, y multiplicando ambos miembros por $e^{-at_0}$ hallamos que $\lambda = e^{-at_0} \left( u_0 + \frac{b}{a} \right)$. Finalmente, sustituimos este valor de $\lambda$ en la solución general:
-    \[
-    u(t) = e^{-at_0} \left( u_0 + \frac{b}{a} \right) e^{at} - \frac{b}{a}
-    \]
-    Aplicando las propiedades de los exponentes para combinar los términos con base $e$, llegamos a la expresión final del problema de valor inicial:
+    Sustituyendo $\lambda$ y aplicando las propiedades de los exponentes, hallamos la expresión final:
     \[
         \boxed{u(t) = e^{a(t - t_0)} \left( u_0 + \frac{b}{a} \right) - \frac{b}{a}}
     \]
 }
 
 \ejemplo{
-
-Consideremos la ecuación diferencial lineal de primer orden:
-\[
-    u'(t) = au(t) + e^{wt}, \quad w \in \mathbb{K}, \quad a \neq w
-\]
-La ecuación homogénea asociada es $h' = ah$, cuya solución es conocida:
-\[
-    h(t) = e^{at}, \quad \forall t \in \mathbb{R}
-\]
-Buscamos la solución general de la forma $u(t) = \lambda e^{at} + p(t)$, donde $p(t)$ es una solución particular. Proponemos una solución con la misma estructura que el término forzante:
-\begin{align*}
-    p(t) &= m e^{wt} \\
-    \implies p'(t) &= w m e^{wt}
-\end{align*}
-Sustituyendo en la ecuación diferencial original $u' = au + e^{wt}$:
-\begin{align*}
-    w m e^{wt} &= a (m e^{wt}) + e^{wt} \\
-    m e^{wt} (w - a) &= e^{wt} \\
-    m (w - a) &= 1 \quad \implies \quad m = \frac{1}{w - a}
-\end{align*}
-Por tanto, la solución particular es $p(t) = \frac{e^{wt}}{w - a}$, y la solución general resulta:
-\[
-    u(t) = \lambda e^{at} + \frac{e^{wt}}{w - a}, \quad \lambda \in \mathbb{K}
-\]
-Para determinar la constante $\lambda$, imponemos la condición inicial $u(t_0) = u_0$:
-\begin{align*}
-    u_0 &= \lambda e^{at_0} + \frac{e^{wt_0}}{w - a} \\
-    \lambda e^{at_0} &= u_0 - \frac{e^{wt_0}}{w - a} \\
-    \lambda &= e^{-at_0} \left( u_0 - \frac{e^{wt_0}}{w - a} \right)
-\end{align*}
-Sustituyendo $\lambda$ en la solución general y agrupando términos:
-\[
-    \boxed{u(t) = e^{a(t - t_0)} \left( u_0 - \frac{e^{wt_0}}{w - a} \right) + \frac{e^{wt}}{w - a}}
-\]
+    \textbf{Forzamiento exponencial (sin resonancia).} Consideremos la ecuación:
+    \[
+        u'(t) = au(t) + e^{wt}, \quad w \in \mathbb{K}, \quad a \neq w.
+    \]
+    La solución de la ecuación homogénea asociada $h' = ah$ es $h(t) = e^{at}$. Buscamos ahora una solución particular $p(t)$ que comparta la estructura del término forzante, proponiendo $p(t) = m e^{wt}$.
+    
+    Derivando obtenemos $p'(t) = w m e^{wt}$. Al sustituir en la ecuación diferencial original $u' = au + e^{wt}$:
+    \begin{align*}
+        w m e^{wt} &= a (m e^{wt}) + e^{wt} \\
+        m e^{wt} (w - a) &= e^{wt}.
+    \end{align*}
+    Como $a \neq w$, podemos dividir por $(w - a)e^{wt}$, obteniendo $m = \frac{1}{w - a}$. La solución general resulta:
+    \[
+        u(t) = \lambda e^{at} + \frac{e^{wt}}{w - a}, \quad \lambda \in \mathbb{K}.
+    \]
+    Imponiendo la condición inicial $u(t_0) = u_0$ y despejando $\lambda$, llegamos a la solución del problema de Cauchy:
+    \[
+        \boxed{u(t) = e^{a(t - t_0)} \left( u_0 - \frac{e^{wt_0}}{w - a} \right) + \frac{e^{wt}}{w - a}}
+    \]
 }
 
 \ejemplo{
-
-Consideremos ahora el caso donde el exponente del forzamiento coincide con el autovalor del sistema:
-\[
-    u'(t) = au(t) + e^{at}, \quad a \in \mathbb{K}
-\]
-La solución de la homogénea es $h(t) = e^{at}$. Dado que el término forzante $e^{at}$ es solución de la homogénea, proponemos el método de variación de la constante haciendo el cambio $u(t) = e^{at} v(t)$. Derivamos esta expresión:
-\[
-    u'(t) = a e^{at} v(t) + e^{at} v'(t)
-\]
-Igualamos esta derivada a la ecuación original $au(t) + e^{at}$:
-\begin{align*}
-    \underbrace{a e^{at} v(t) + e^{at} v'(t)}_{u'(t)} &= \underbrace{a e^{at} v(t)}_{au(t)} + e^{at} \\
-    e^{at} v'(t) &= e^{at} \\
-    v'(t) &= 1
-\end{align*}
-Integrando directamente obtenemos $v(t) = t + \lambda$, con $\lambda \in \mathbb{K}$. Recuperamos la variable original $u(t)$:
-\[
-    u(t) = e^{at} (t + \lambda) = \underbrace{\lambda e^{at}}_{\in \Sigma_0} + \underbrace{t e^{at}}_{\in \Sigma_B}
-\]
-Observamos que $p(t) = t e^{at}$ es la solución particular que surge de la resonancia. Finalmente, imponemos la condición inicial $u(t_0) = u_0$:
-\begin{align*}
-    u_0 &= \lambda e^{at_0} + t_0 e^{at_0} \\
-    \lambda e^{at_0} &= u_0 - t_0 e^{at_0} \\
-    \lambda &= e^{-at_0} (u_0 - t_0 e^{at_0})
-\end{align*}
-Sustituyendo $\lambda$ en la expresión general, obtenemos la solución única del problema de valor inicial:
-\[
-    \boxed{u(t) = e^{a(t - t_0)} (u_0 - t_0 e^{at_0}) + t e^{at}}
-\]
+    \textbf{Fenómeno de resonancia.} Analicemos el caso crítico donde el exponente del forzamiento coincide exactamente con el autovalor del sistema:
+    \[
+        u'(t) = au(t) + e^{at}, \quad a \in \mathbb{K}.
+    \]
+    La solución homogénea sigue siendo $h(t) = e^{at}$. Dado que el término forzante $e^{at}$ ya es solución de la homogénea, proponer una solución del tipo $m e^{at}$ fracasará. Empleamos el método de variación de la constante mediante el cambio $u(t) = e^{at} v(t)$. Derivando esta expresión:
+    \[
+        u'(t) = a e^{at} v(t) + e^{at} v'(t).
+    \]
+    Igualamos esta derivada a la ecuación original $au(t) + e^{at}$:
+    \begin{align*}
+        a e^{at} v(t) + e^{at} v'(t) &= a e^{at} v(t) + e^{at} \\
+        e^{at} v'(t) &= e^{at} \implies v'(t) = 1.
+    \end{align*}
+    Integrando directamente obtenemos $v(t) = t + \lambda$. Recuperamos la variable original $u(t)$:
+    \[
+        u(t) = e^{at} (t + \lambda) = \underbrace{\lambda e^{at}}_{\in \Sigma_0} + \underbrace{t e^{at}}_{\in \Sigma_B}.
+    \]
+    Aparece un factor secular $t$ multiplicando a la exponencial; $p(t) = t e^{at}$ es la solución particular característica de la resonancia. Imponiendo la condición inicial $u(t_0) = u_0$, la solución única resulta ser:
+    \[
+        \boxed{u(t) = e^{a(t - t_0)} (u_0 - t_0 e^{at_0}) + t e^{at}}
+    \]
 }
 
+\subsection{Existencia y unicidad en sistemas vectoriales: El Teorema Fundamental}
 
-\begin{teorema} [Teorema Fundamental]
-    Sean $\alpha < \beta$ reales, y $a_{ij},b_j \in C([\alpha, \beta], \mathbb{K})$, para $i,j = 1, \ldots, n$. Sean $A(t) = (a_{ij}(t))_{i,j=1}^{n}$ y $B(t) = (b_j(t))_{j=1}^{n}$. Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada $u_0 \in \mathbb{K}^n$, el problema de valores iniciales de Cauchy:
+Habiendo comprendido exhaustivamente el caso escalar, abordaremos ahora el problema matricial en su dimensión general $n$. Para ello, enunciaremos el Teorema Fundamental de Existencia y Unicidad de sistemas lineales. Demostrar este resultado de manera rigurosa requerirá replantear el problema diferencial como un problema integral, lo que nos abrirá la puerta al uso de potentes herramientas del Análisis Funcional.
+
+\begin{teorema}[Teorema Fundamental]
+    Sean $\alpha < \beta$ números reales, y supongamos que las funciones $a_{ij}, b_j \in C([\alpha, \beta], \mathbb{K})$ para todo $i,j = 1, \ldots, n$. Definimos la matriz $A(t) = (a_{ij}(t))_{i,j=1}^{n}$ y el vector $B(t) = (b_j(t))_{j=1}^{n}$. 
+    
+    Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada vector inicial $u_0 \in \mathbb{K}^n$, el problema de valores iniciales de Cauchy:
     \[
         P : \begin{cases}
-            u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\
+            u'(t) = A(t) u(t) + B(t), \quad t \in [\alpha, \beta] \\
             u(t_0) = u_0
         \end{cases}
     \]
-    tiene una única solución $u(t,t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
+    tiene una \textbf{única solución} vectorial clásica $u(\cdot; t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.
 \end{teorema}
 
-\begin{proof}
-    Supongamos que $u(t)$ resuelve el problema $P$
-    \[
-        u'(s) = A(s) u(s) + B(s), \quad s \in [\alpha, \beta]
-    \]
-    Integrando entre $t_0$ y $t$, coordenada a coordenada, obtenemos:
-    \[
-        \int_{t_0}^{t} u'(s) ds = \int_{t_0}^{t} A(s) u(s) ds + \int_{t_0}^{t} B(s) ds
-    \]
-    \[
-        u(t) - u(t_0) = \int_{t_0}^{t} A(s) u(s) ds + \int_{t_0}^{t} B(s) ds
-    \]
-    \[
-        u(t) = u_0 + \int_{t_0}^{t} (A(s) u(s) + B(s)) ds
-    \]
-\end{proof}
+Para demostrar este teorema fundamental, daremos un paso clave: transformaremos la ecuación diferencial en una ecuación integral de Volterra equivalente.
 
-\begin{lema}
-    Supongamos que $u \in C([\alpha, \beta], \mathbb{K}^n)$. Entonces las siguientes afirmaciones son equivalentes:
+\begin{lema}[Equivalencia integral]
+    Supongamos que $u \in C([\alpha, \beta], \mathbb{K}^n)$. Entonces, las dos afirmaciones siguientes son lógicamente equivalentes:
     \begin{enumerate}
-        \item $u \in C^1([\alpha, \beta], \mathbb{K}^n)$ resuelve $P$ en $[\alpha, \beta]$.
-        \item $u(t) = u_0 + \int_{t_0}^{t} (A(s) u(s) + B(s)) ds$, para todo $t \in [\alpha, \beta]$.
+        \item $u \in C^1([\alpha, \beta], \mathbb{K}^n)$ y es solución del problema de Cauchy $P$ en el intervalo $[\alpha, \beta]$.
+        \item $u(t)$ satisface la ecuación integral $u(t) = u_0 + \int_{t_0}^{t} (A(s) u(s) + B(s)) ds$ para todo $t \in [\alpha, \beta]$.
     \end{enumerate}
 \end{lema}
 
 \begin{proof}
-    \leavevmode
-    \begin{enumerate}
-        \item[$(1) \implies (2)$] Ya se ha demostrado en el teorema anterior.
-        \item[$(2) \implies (1)$] 
-        
-        Comenzamos analizando el caso real. Por el Teorema Fundamental del Cálculo, si consideramos una función continua $a : [\alpha, \beta] \to \mathbb{R}$, podemos definir la función acumulada $\varphi(t)$ como:
-        \[
-            \varphi (t) = \int_{t_0}^{t} a(s) \, ds.
-        \]
-        Nuestro objetivo es demostrar que $\varphi \in C^1([\alpha, \beta], \mathbb{R})$ y que su derivada es precisamente $a(t)$. Para ello, aplicamos la definición de derivada mediante el límite del cociente incremental:
-        \[
-            \varphi'(t) = \lim_{h \to 0} \frac{\varphi(t+h) - \varphi(t)}{h} = \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) \, ds.
-        \]
-        Dado que $a$ es continua, en el intervalo cerrado $[t, t+h]$ (asumiendo $h>0$) la función alcanza un mínimo y un máximo absoluto. Esto nos permite establecer la siguiente acotación para la integral:
-        \[
-            h \min_{s \in [t, t+h]} a(s) \leq \int_{t}^{t+h} a(s) \, ds \leq h \max_{s \in [t, t+h]} a(s).
-        \]
-        Dividiendo toda la expresión por $h$ y tomando el límite cuando $h \to 0$, observamos que, por la continuidad de $a$, tanto el mínimo como el máximo tienden al valor de la función en el punto $t$:
-        \[
-            a(t) = \lim_{h \to 0} \min_{s \in [t, t+h]} a(s) \leq \lim_{h \to 0} \frac{1}{h} \int_{t}^{t+h} a(s) \, ds \leq \lim_{h \to 0} \max_{s \in [t, t+h]} a(s) = a(t).
-        \]
-        Por el teorema del sándwich, concluimos que el límite central existe y es igual a los extremos, lo que implica que:
-        \[
-            \varphi'(t) = a(t).
-        \]
-
-        Este resultado se extiende de manera natural al caso complejo. Si $a : [\alpha, \beta] \to \mathbb{C}$ es continua, se puede descomponer en sus partes real e imaginaria como $a = a_1 + i a_2$, donde $a_1, a_2 : [\alpha, \beta] \to \mathbb{R}$ son funciones continuas. Por la linealidad de la integral y la derivada, tenemos:
-        \[
-            \varphi(t) = \int_{t_0}^{t} a(s) \, ds = \int_{t_0}^{t} a_1(s) \, ds + i \int_{t_0}^{t} a_2(s) \, ds.
-        \]
-        Al derivar esta expresión y aplicar el resultado probado anteriormente para las funciones reales $a_1$ y $a_2$, obtenemos:
-        \[
-            \varphi'(t) = \frac{d}{dt} \left( \int_{t_0}^{t} a_1(s) \, ds \right) + i \frac{d}{dt} \left( \int_{t_0}^{t} a_2(s) \, ds \right) = a_1(t) + i a_2(t) = a(t).
-        \]
-
-        Finalmente, generalizamos este concepto para funciones con valores vectoriales $a : [\alpha, \beta] \to \mathbb{K}^n$ (donde $\mathbb{K}$ es $\mathbb{R}$ o $\mathbb{C}$). Definimos la función mediante sus componentes $a_j : [\alpha, \beta] \to \mathbb{K}$, las cuales son continuas para todo $j = 1, \ldots, n$:
-        \[
-            a(t) = \begin{pmatrix}
-            a_1(t) \\
-            \vdots \\
-            a_n(t)
-            \end{pmatrix}.
-        \]
-        La derivada de la integral vectorial se calcula derivando cada componente por separado. Aplicando el resultado previo a cada $a_j(t)$, llegamos a la conclusión final:
-        \[
-            \frac{d}{dt} \left( \int_{t_0}^{t} \begin{pmatrix}
-            a_1(s) \\
-            \vdots \\
-            a_n(s)
-            \end{pmatrix} \, ds \right) = \begin{pmatrix}
-            \frac{d}{dt} \int_{t_0}^{t} a_1(s) \, ds \\
-            \vdots \\
-            \frac{d}{dt} \int_{t_0}^{t} a_n(s) \, ds
-            \end{pmatrix} = \begin{pmatrix}
-            a_1(t) \\
-            \vdots \\
-            a_n(t)
-            \end{pmatrix} = a(t).
-        \]
-        Por el teorema fundamental del Cálculo Integral, la función
-        \[
-            t \mapsto \int_{t_0}^{t} (A(s) u(s) + B(s)) ds
-        \]
-        es diferenciable y si derivada vale 
-        \[
-            \frac{d}{dt} \left( \int_{t_0}^{t} (A(s) u(s) + B(s)) ds \right) = A(t) u(t) + B(t), \quad \forall t \in [\alpha, \beta].
-        \]
-        que es continua.
-        \[
-            t \mapsto \int_{t_0}^{t} (A(s) u(s) + B(s)) ds \in C^1([\alpha, \beta], \mathbb{K}^n) \implies u \in C^1([\alpha, \beta], \mathbb{K}^n)
-        \]
-        y además, $u'(t) = A(t) u(t) + B(t), \ \forall t \in [\alpha, \beta]$. Finalmente, 
-        \[
-            u(t_0) = u_0 + \int_{t_0}^{t_0} (A(s) u(s) + B(s)) ds = u_0.
-        \]
-        Luego $u$ resuelve el problema $P$. Definimos el operador:
-        \[
-            \begin{matrix}
-                \mathcal{K} : C([\alpha, \beta], \mathbb{K}^n) & \to & C([\alpha, \beta], \mathbb{K}^n) \\
-                h & \mapsto & \left( t \mapsto u_0 + \int_{t_0}^{t} (A(s) h(s) + B(s)) ds \right)
-            \end{matrix}
-        \]
-        \[
-            \iff u(t) = \mathcal{K}(u)(t), \quad \forall t \in [\alpha, \beta] \iff u(t) = \mathcal{K}(u)(t) \iff u \text{ es un punto fijo de } \mathcal{K}
-        \]
-        entonces $u$ es solución del problema $P$ si y sólo si es un punto fijo del operador $\mathcal{K}$.
-        Demostrar el teorema fundamental equivale a demostrar que $\mathcal{K}$ tiene un único punto fijo.
-    \end{enumerate}
-\end{proof}
-
-\begin{definición} [Espacio de Banach]
-    Un espacio vectorial normado $(E, \| \cdot \|)$ se dice que es un espacio de Banach si es completo respecto a la métrica inducida por la norma, es decir, si toda sucesión de Cauchy en $E$ converge a un elemento que también pertenece a $E$.    
-\end{definición}
-
-\begin{definición} [Operador contractivo]
-    Sea $(E, \| \cdot \|)$ un espacio normado. Un operador $\mathcal{T} : E \to E$ se dice que es contractivo si existe una constante $\theta \in [0,1)$ tal que:
-    \[
-        \| \mathcal{T}(u) - \mathcal{T}(v) \| \leq \theta \| u - v \|, \quad \forall u,v \in E
-    \]
-    o, de forma equivalente, si
-    \[
-        d(\mathcal{T}(u), \mathcal{T}(v)) \leq \theta d(u,v) < d(u,v), \quad \forall u,v \in E, u \neq v
-    \]
-\end{definición}
-
-\begin{teorema} [Teorema de la aplicación contractiva]
-    Sean $E$ un espacio de Banach (espacio vectorial normado completo) y $\mathcal{T} : E \to E$ un operador contractivo. Entonces, $\mathcal{T}$ tiene un único punto fijo en $E$.
-\end{teorema}
-
-Tomamos una norma $\lVert \cdot \rVert$ en $\mathbb{K}^n$ y consideramos la función:
-\[
-    t \mapsto \lVert u(t) \rVert, \quad \forall t \in [\alpha, \beta]
-\]
-entonces la función anterior es continua si $u \in C([\alpha, \beta], \mathbb{K}^n)$, por ser la composición de funciones continuas. Las funciones continuas en un intervalo cerrado y acotado (compacto) alcanzan sus valores máximo y mínimo, luego podemos definir la norma del máximo:
-\[
-    \| u \|_{\infty} := \max_{t \in [\alpha, \beta]} \| u(t) \|, \quad \forall u \in C([\alpha, \beta], \mathbb{K}^n)
-\]
-Veaos que efectivamente $\| \cdot \|_{\infty}$ es una norma en el espacio vectorial $C([\alpha, \beta], \mathbb{K}^n)$.
-\begin{enumerate}
-    \item $\| u \|_{\infty} \geq 0$ y $\| u \|_{\infty} = 0 \iff u = 0$ para todo $u \in C([\alpha, \beta], \mathbb{K}^n)$.
-    \item $\| \lambda u \|_{\infty} = |\lambda| \| u \|_{\infty}$, para todo $\lambda \in \mathbb{K}$ y todo $u \in C([\alpha, \beta], \mathbb{K}^n)$.
-    \item $\| u + v \|_{\infty} \leq \| u \|_{\infty} + \| v \|_{\infty}$, para todo $u,v \in C([\alpha, \beta], \mathbb{K}^n)$.
-    \begin{proof}
-        Sea $t \in [\alpha, \beta]$, entonces:
-        \[
-            \| u(t) + v(t) \| \leq \| u(t) \| + \| v(t) \| \leq \| u \|_{\infty} + \| v \|_{\infty}
-        \]
-        Por tanto, tomando el máximo sobre $t \in [\alpha, \beta]$:
-        \[
-            \| u + v \|_{\infty} = \max_{t \in [\alpha, \beta]} \| u(t) + v(t) \| \leq \| u \|_{\infty} + \| v \|_{\infty}
-        \]
-    \end{proof}
-\end{enumerate}
-
-\begin{teorema}
-    El espacio normado $E \equiv C([\alpha, \beta], \mathbb{K}^n)$ con la norma del máximo $\| \cdot \|_{\infty}$ es un espacio de Banach.
-\end{teorema}
-
-\begin{proof}
-    Para demostrar que $E$ es un espacio de Banach, debemos probar que es completo; es decir, que toda sucesión de Cauchy en $E$ converge a un elemento que también pertenece a $E$.
-
-    Sea $\{ u_k \}_{k \in \mathbb{N}}$ una sucesión de Cauchy en $E$. Por definición, para todo $\varepsilon > 0$, existe un entero $k_0 \in \mathbb{N}$ tal que para cualesquiera $k, m \geq k_0$:
-    \[
-        \| u_k - u_m \|_{\infty} < \varepsilon.
-    \]
-    Recordando la definición de la norma del supremo, esto implica que para todo $t \in [\alpha, \beta]$:
-    \[
-        \| u_k(t) - u_m(t) \|_{\mathbb{K}^n} \leq \sup_{x \in [\alpha, \beta]} \| u_k(x) - u_m(x) \|_{\mathbb{K}^n} = \| u_k - u_m \|_{\infty} < \varepsilon.
-    \]
-    Esto nos indica que, para cada $t \in [\alpha, \beta]$ fijo, la sucesión de vectores $\{ u_k(t) \}_{k \in \mathbb{N}}$ es una sucesión de Cauchy en $\mathbb{K}^n$. Dado que $\mathbb{K}^n$ (con $\mathbb{K} = \mathbb{R}$ o $\mathbb{C}$) es un espacio completo (es un espacio de Banach con la norma euclídea usual), la sucesión converge. Definimos la función límite puntual $u(t)$ como:
-    \[
-        u(t) := \lim_{k \to \infty} u_k(t), \quad \forall t \in [\alpha, \beta].
-    \]
-    Ahora debemos probar dos cosas:
-    \begin{enumerate}
-        \item La convergencia es uniforme (lo que implica convergencia en la norma $\| \cdot \|_\infty$).
-        \item La función límite $u$ es continua (es decir, $u \in E$).
-    \end{enumerate}
-
-    Veamos cada punto por separado:
-
-    \begin{enumerate}
-        \item \textbf{Convergencia Uniforme:}\\
-        Retomamos la desigualdad de Cauchy: $\| u_k(t) - u_m(t) \| < \varepsilon$ para $k, m \geq k_0$. Si fijamos $k \geq k_0$ y $t$, y hacemos tender $m \to \infty$, obtenemos por la continuidad de la norma:
-        \[
-            \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall t \in [\alpha, \beta].
-        \]
-        Como esto es válido para todo $t$, tomando el supremo obtenemos:
-        \[
-            \| u_k - u \|_{\infty} = \sup_{t \in [\alpha, \beta]} \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall k \geq k_0.
-        \]
-        Esto demuestra que $u_k \to u$ uniformemente.
-        \item \textbf{Continuidad de $u$ (Pertenencia a $E$):}\\
-        Queremos ver que $u$ es continua en cualquier $t \in [\alpha, \beta]$. Sea $\varepsilon > 0$. Por la convergencia uniforme probada arriba, existe un $k_0$ tal que $\| u_{k_0}(x) - u(x) \| < \varepsilon/3$ para todo $x$.
-        
-        Además, como $u_{k_0} \in E$, $u_{k_0}$ es continua (de hecho, uniformemente continua al estar en un compacto). Por tanto, existe un $\delta > 0$ tal que si $s \in [\alpha, \beta]$ cumple $|t - s| < \delta$, entonces:
-        \[
-            \| u_{k_0}(t) - u_{k_0}(s) \| < \frac{\varepsilon}{3}.
-        \]
-        Aplicando la desigualdad triangular con $u_{k_0}$ como intermediario:
-        \[
-        \begin{aligned}
-            \| u(t) - u(s) \| &\leq \| u(t) - u_{k_0}(t) \| + \| u_{k_0}(t) - u_{k_0}(s) \| + \| u_{k_0}(s) - u(s) \| \\
-            &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
-        \end{aligned}
-        \]
-        Esto prueba que $u$ es uniformemente continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.        
-    \end{enumerate}
-
-    Concluímos que toda sucesión de Cauchy en $E$ converge a un elemento de $E$, por lo tanto, $E$ es un espacio de Banach.
-
-\end{proof}
-
-
-\textbf{Normas equivalentes a la norma del máximo}\\
-
-\begin{definición} [Normas equivalentes]
-    Dos normas $\| \cdot \|_1$ y $\| \cdot \|_2$ en un espacio vectorial $E$ se dicen que son equivalentes si existen constantes positivas $c, C > 0$ tales que:
-    \[
-        c \| u \|_1 \leq \| u \|_2 \leq C \| u \|_1, \quad \forall u \in E.
-    \]    
-\end{definición}
-
-Veamos a continuación un ejemplo de norma equivalente a la norma del máximo en el espacio de funciones continuas.
-
-\begin{definición} [Norma de Bielecki]
-    Sea el espacio $C([\alpha, \beta], \mathbb{K}^n)$. Dados un parámetro $\eta > 0$ y un punto fijo $t_0 \in [\alpha, \beta]$, definimos la \textbf{norma de Bielecki}, denotada por $\| \cdot \|_{\eta}$, como:
-    \[
-        \| u \|_{\eta} := \max_{t \in [\alpha, \beta]} e^{-\eta |t-t_0|} \| u(t) \|.
-    \]
-\end{definición}
-
-A continuación, demostramos que esta norma es equivalente a la norma del máximo usual, $\| u \|_{\infty} = \max_{t \in [\alpha, \beta]} \|u(t)\|$.
-
-Debemos probar que existen constantes $c, C > 0$ tales que $c \| u \|_{\eta} \leq \| u \|_{\infty} \leq C \| u \|_{\eta}$.
-
-\begin{itemize}
-    \item \textbf{Primera desigualdad ($\| u \|_{\eta} \leq \| u \|_{\infty}$):} \\
-    Observamos que para todo $t \in [\alpha, \beta]$, el exponente es no positivo ($-\eta |t-t_0| \leq 0$), lo que implica que $e^{-\eta |t-t_0|} \leq 1$. Por lo tanto, para cualquier $t$:
-    \[
-        e^{-\eta | t - t_0 |} \| u(t) \| \leq 1 \cdot \| u(t) \| \leq \| u \|_{\infty}.
-    \]
-    Al tomar el máximo sobre $t \in [\alpha, \beta]$ en el lado izquierdo, obtenemos directamente:
-    \[
-        \| u \|_{\eta} \leq \| u \|_{\infty}.
-    \]
-    \item \textbf{Segunda desigualdad ($\| u \|_{\infty} \leq C \| u \|_{\eta}$):} \\
-    Buscamos acotar la norma del máximo por la norma de Bielecki. Para cualquier $t \in [\alpha, \beta]$, multiplicamos y dividimos por el factor exponencial:
+    \textbf{Implicación $(1) \implies (2)$:} \\
+    Supongamos que $u(t)$ resuelve el problema $P$. Entonces, satisface la identidad $u'(s) = A(s) u(s) + B(s)$ para todo $s \in [\alpha, \beta]$. Integrando ambos miembros entre $t_0$ y $t$, componente a componente, y aplicando el Teorema Fundamental del Cálculo en el lado izquierdo:
     \begin{align*}
-        \| u(t) \| &= e^{\eta | t - t_0 |} \cdot \left( e^{-\eta | t - t_0 |} \| u(t) \| \right) \\
-                &\leq e^{\eta | t - t_0 |} \cdot \| u \|_{\eta}.
+        \int_{t_0}^{t} u'(s) ds &= \int_{t_0}^{t} (A(s) u(s) + B(s)) ds \\
+        u(t) - u(t_0) &= \int_{t_0}^{t} (A(s) u(s) + B(s)) ds.
     \end{align*}
-    Sabemos que la distancia máxima entre dos puntos en el intervalo es $\beta - \alpha$, por lo que $|t - t_0| \leq \beta - \alpha$. Usando la monotonía de la exponencial:
-    \[
-        \| u(t) \| \leq e^{\eta (\beta - \alpha)} \| u \|_{\eta}.
-    \]
-    Dado que esta desigualdad es válida para todo $t \in [\alpha, \beta]$, tomamos el máximo en el lado izquierdo:
-    \[
-        \| u \|_{\infty} \leq e^{\eta (\beta - \alpha)} \| u \|_{\eta}.
-    \]
-    Definiendo la constante $C = e^{\eta (\beta - \alpha)}$, concluimos que $\| u \|_{\infty} \leq C \| u \|_{\eta}$.
-\end{itemize}
+    Dado que $u(t_0) = u_0$, se deduce inmediatamente $(2)$.
 
-Por tanto, ambas normas son equivalentes.
-
-
-\begin{teorema} [Teorema de punto fijo de Banach - Aplicación contractiva]
-    Sea $(E, \| \cdot \|)$ un espacio de Banach y sea $\mathcal{K} : E \to E$ un operador contractivo. Entonces, $\mathcal{K}$ tiene un único punto fijo $u^{*} \in E$. Además, la sucesión de iteradas $\{ u_k \}_{k \in \mathbb{N}}$ definida por:
+    \textbf{Implicación $(2) \implies (1)$:} \\
+    Partimos de la hipótesis de que $u$ es una función continua que satisface la ecuación integral. Por el Teorema Fundamental del Cálculo Integral, sabemos que si el integrando es una función continua, la función acumulada es derivable con continuidad (clase $C^1$).
+    
+    Dado que $A(s)$, $B(s)$ y $u(s)$ son funciones continuas, su combinación lineal $A(s) u(s) + B(s)$ también es continua vectorial. Definimos la función integral $\varphi(t) = \int_{t_0}^{t} (A(s) u(s) + B(s)) ds$. Al derivar esta expresión respecto a $t$, componente a componente, obtenemos el integrando evaluado en $t$:
     \[
-        u_{n} = \mathcal{K}(u_{n-1}) = \mathcal{K}^{n}(u_0), \quad n \geq 1, \quad u_0 \in E \text{ arbitrario}
+        \frac{d}{dt} \left( \int_{t_0}^{t} (A(s) u(s) + B(s)) ds \right) = A(t) u(t) + B(t).
     \]
-    converge al punto fijo $u^{*}$.  
+    Esto implica que $u(t) = u_0 + \varphi(t)$ es diferenciable, con $u \in C^1([\alpha, \beta], \mathbb{K}^n)$, y su derivada verifica precisamente $u'(t) = A(t) u(t) + B(t)$. Finalmente, evaluando la integral en el límite trivial $t = t_0$:
+    \[
+        u(t_0) = u_0 + \int_{t_0}^{t_0} (A(s) u(s) + B(s)) ds = u_0 + 0 = u_0.
+    \]
+    Por ende, $u$ resuelve el problema $P$.
+\end{proof}
+
+Este lema nos permite definir un operador integral, el cual llamaremos $\mathcal{K}$, sobre el espacio de funciones continuas:
+\begin{align*}
+    \mathcal{K} : C([\alpha, \beta], \mathbb{K}^n) &\to C([\alpha, \beta], \mathbb{K}^n) \\
+    h &\mapsto \mathcal{K}(h)(t) := u_0 + \int_{t_0}^{t} (A(s) h(s) + B(s)) ds.
+\end{align*}
+Con esta notación, la ecuación integral se reescribe como $u(t) = \mathcal{K}(u)(t)$. En otras palabras, \textbf{$u$ es solución del problema $P$ si y sólo si $u$ es un punto fijo del operador $\mathcal{K}$}. Demostrar el Teorema Fundamental se reduce, por tanto, a demostrar que el operador $\mathcal{K}$ posee un único punto fijo.
+
+\subsection{Herramientas de Análisis Funcional}
+
+Para garantizar la existencia y unicidad de dicho punto fijo, requeriremos el marco teórico de los espacios métricos completos. 
+
+\begin{definición}[Espacio de Banach]
+    Un espacio vectorial normado $(E, \| \cdot \|)$ se denomina \textbf{espacio de Banach} si es completo respecto a la métrica inducida por su norma. Es decir, si toda sucesión de Cauchy en $E$ converge a un elemento límite que también pertenece a $E$.
+\end{definición}
+
+\begin{definición}[Operador contractivo]
+    Sea $(E, \| \cdot \|)$ un espacio normado. Un operador $\mathcal{T} : E \to E$ se dice que es \textbf{contractivo} (o una \textit{contracción}) si existe una constante de Lipschitz $\theta \in [0,1)$ tal que:
+    \[
+        \| \mathcal{T}(u) - \mathcal{T}(v) \| \leq \theta \| u - v \|, \quad \forall u,v \in E.
+    \]
+\end{definición}
+
+\begin{teorema}[Teorema del punto fijo de Banach]
+    Sean $E$ un espacio de Banach y $\mathcal{T} : E \to E$ un operador contractivo. Entonces, el operador $\mathcal{T}$ posee un \textbf{único} punto fijo en $E$ (existe un único $u^* \in E$ tal que $\mathcal{T}(u^*) = u^*$).
 \end{teorema}
 
 \begin{proof}
@@ -710,527 +449,497 @@ Por tanto, ambas normas son equivalentes.
     \end{itemize}
 \end{proof}
 
+Para aplicar este poderoso teorema a nuestro operador integral $\mathcal{K}$, primero debemos asegurar que nuestro entorno de trabajo, el espacio de funciones continuas vectoriales $C([\alpha, \beta], \mathbb{K}^n)$, constituye un espacio de Banach.
 
-\begin{definición} [Norma de un operador lineal]
-    Dado un operador lineal $A : \mathbb{K}^n \to \mathbb{K}^n$, definimos su norma como:
+\begin{proposición}[Norma del máximo]
+    Dada una norma vectorial estándar $\| \cdot \|$ en $\mathbb{K}^n$, definimos la \textbf{norma del máximo} (o norma del supremo) sobre el espacio funcional $E \equiv C([\alpha, \beta], \mathbb{K}^n)$ como:
     \[
-        \| A \| := \max_{\| u \| = 1} \| A u \|
+        \| u \|_{\infty} := \max_{t \in [\alpha, \beta]} \| u(t) \|, \quad \forall u \in E.
     \]
-    que es una norma en el espacio vectorial de operadores lineales $\mathcal{L}(\mathbb{K}^n, \mathbb{K}^n)$.
+    Esta aplicación define efectivamente una norma, cumpliendo las propiedades de no negatividad, homogeneidad absoluta y desigualdad triangular.
+\end{proposición}
+
+\begin{proof}
+    Omitimos las dos primeras propiedades por ser triviales, y verificamos la desigualdad triangular. Sean $u,v \in E$. Para cualquier $t \in [\alpha, \beta]$ fijo, utilizando la desigualdad triangular de la norma en $\mathbb{K}^n$, tenemos:
+    \[
+        \| u(t) + v(t) \| \leq \| u(t) \| + \| v(t) \| \leq \max_{s \in [\alpha, \beta]} \| u(s) \| + \max_{s \in [\alpha, \beta]} \| v(s) \| = \| u \|_{\infty} + \| v \|_{\infty}.
+    \]
+    Dado que esta cota superior es válida para todo $t$ en el intervalo, al tomar el máximo sobre todo $t \in [\alpha, \beta]$ en el lado izquierdo, concluimos que:
+    \[
+        \| u + v \|_{\infty} \leq \| u \|_{\infty} + \| v \|_{\infty}.
+    \]
+\end{proof}
+
+\begin{teorema}
+    El espacio normado $(E, \| \cdot \|_{\infty})$, donde $E \equiv C([\alpha, \beta], \mathbb{K}^n)$, es un espacio de Banach.
+\end{teorema}
+
+\begin{proof}
+    Para demostrar que $E$ es un espacio de Banach, debemos probar que es completo; es decir, que toda sucesión de Cauchy en $E$ converge a un elemento que también pertenece a $E$.
+
+    Sea $\{ u_k \}_{k \in \mathbb{N}}$ una sucesión de Cauchy en $E$. Por definición, para todo $\varepsilon > 0$, existe un entero $k_0 \in \mathbb{N}$ tal que para cualesquiera $k, m \geq k_0$:
+    \[
+        \| u_k - u_m \|_{\infty} < \varepsilon.
+    \]
+    Recordando la definición de la norma del supremo, esto implica que para todo $t \in [\alpha, \beta]$:
+    \[
+        \| u_k(t) - u_m(t) \|_{\mathbb{K}^n} \leq \sup_{x \in [\alpha, \beta]} \| u_k(x) - u_m(x) \|_{\mathbb{K}^n} = \| u_k - u_m \|_{\infty} < \varepsilon.
+    \]
+    Esto nos indica que, para cada $t \in [\alpha, \beta]$ fijo, la sucesión de vectores $\{ u_k(t) \}_{k \in \mathbb{N}}$ es una sucesión de Cauchy en $\mathbb{K}^n$. Dado que $\mathbb{K}^n$ (con $\mathbb{K} = \mathbb{R}$ o $\mathbb{C}$) es un espacio completo (es un espacio de Banach con la norma euclídea usual), la sucesión converge. Definimos la función límite puntual $u(t)$ como:
+    \[
+        u(t) := \lim_{k \to \infty} u_k(t), \quad \forall t \in [\alpha, \beta].
+    \]
+    Ahora debemos probar dos cosas:
+    \begin{enumerate}
+        \item La convergencia es uniforme (lo que implica convergencia en la norma $\| \cdot \|_\infty$).
+        \item La función límite $u$ es continua (es decir, $u \in E$).
+    \end{enumerate}
+
+    Veamos cada punto por separado:
+
+    \begin{enumerate}
+        \item \textbf{Convergencia Uniforme:}\\
+        Retomamos la desigualdad de Cauchy: $\| u_k(t) - u_m(t) \| < \varepsilon$ para $k, m \geq k_0$. Si fijamos $k \geq k_0$ y $t$, y hacemos tender $m \to \infty$, obtenemos por la continuidad de la norma:
+        \[
+            \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall t \in [\alpha, \beta].
+        \]
+        Como esto es válido para todo $t$, tomando el supremo obtenemos:
+        \[
+            \| u_k - u \|_{\infty} = \sup_{t \in [\alpha, \beta]} \| u_k(t) - u(t) \| \leq \varepsilon, \quad \forall k \geq k_0.
+        \]
+        Esto demuestra que $u_k \to u$ uniformemente.
+        \item \textbf{Continuidad de $u$ (Pertenencia a $E$):}\\
+        Queremos ver que $u$ es continua en cualquier $t \in [\alpha, \beta]$. Sea $\varepsilon > 0$. Por la convergencia uniforme probada arriba, existe un $k_0$ tal que $\| u_{k_0}(x) - u(x) \| < \varepsilon/3$ para todo $x$.
+        
+        Además, como $u_{k_0} \in E$, $u_{k_0}$ es continua (de hecho, uniformemente continua al estar en un compacto). Por tanto, existe un $\delta > 0$ tal que si $s \in [\alpha, \beta]$ cumple $|t - s| < \delta$, entonces:
+        \[
+            \| u_{k_0}(t) - u_{k_0}(s) \| < \frac{\varepsilon}{3}.
+        \]
+        Aplicando la desigualdad triangular con $u_{k_0}$ como intermediario:
+        \[
+        \begin{aligned}
+            \| u(t) - u(s) \| &\leq \| u(t) - u_{k_0}(t) \| + \| u_{k_0}(t) - u_{k_0}(s) \| + \| u_{k_0}(s) - u(s) \| \\
+            &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
+        \end{aligned}
+        \]
+        Esto prueba que $u$ es uniformemente continua en $[\alpha, \beta]$, es decir, $u \in C([\alpha, \beta], \mathbb{K}^n)$.        
+    \end{enumerate}
+
+    Concluímos que toda sucesión de Cauchy en $E$ converge a un elemento de $E$, por lo tanto, $E$ es un espacio de Banach.
+
+\end{proof}
+
+\subsection{Normas equivalentes y la Norma de Bielecki}
+
+Para aplicar el Teorema del Punto Fijo, necesitamos demostrar que nuestro operador integral es contractivo. Si utilizáramos la norma del máximo usual, la constante de Lipschitz dependería de la longitud del intervalo $\beta - \alpha$, lo que nos obligaría a trabajar solo con intervalos pequeños (resultados locales). Para obtener un resultado de existencia global en todo $[\alpha, \beta]$, introducimos una norma alternativa adaptada a nuestro problema.
+
+\begin{definición}[Normas equivalentes]
+    Dos normas $\| \cdot \|_1$ y $\| \cdot \|_2$ definidas sobre un mismo espacio vectorial $E$ se dicen \textbf{equivalentes} si existen constantes positivas $c, C > 0$ tales que para todo vector $u \in E$ se verifica:
+    \[
+        c \| u \|_1 \leq \| u \|_2 \leq C \| u \|_1.
+    \]
+    En un espacio de Banach, dos normas equivalentes inducen la misma topología, es decir, comparten las mismas sucesiones convergentes y de Cauchy.
 \end{definición}
 
-Si tomamos $x \neq 0$, $x \in \mathbb{K}^n$, $u = \frac{x}{\| x \|}$, entonces $\| u \| = 1$ y por definición de la norma del operador:
-\[
-    \| A u \| \leq \| A \| = \max_{\| v \| = 1} \| A v \| \implies \| A \frac{x}{\| x \|} \| \leq \| A \| \implies \| A x \| \leq \| A \| \| x \| \quad \forall x \in \mathbb{K}^n 
-\]
-Ahora tomando dos operadores $A, B \in \mathcal{L}(\mathbb{K}^n)$, tenemos que:
-\[
-    \| A B x \| \leq \| A \| \| B x \| \leq \| A \| \| B \| \| x \|, \quad \forall x \in \mathbb{K}^n
-\]
-En particular, si $\| x \| = 1$, entonces:
-\[
-    \| A B x \| \leq \| A \| \| B \|, \quad \forall x \in \mathbb{K}^n, \| x \| = 1 \implies \| A B \| \leq \| A \| \| B \|
-\]
-En general, para $n \in \mathbb{N}$, se tiene por lo anterior que:
-\[
-    \| A^n \| \leq \| A \|^n
-\]
-
-\textbf{Desigualdad integral de Minkowski}\\
-
-Sea $t,t_0 \in [\alpha, \beta]$ y $v : [\alpha, \beta] \to \mathbb{K}^n$ una función continua. Entonces:
-\[
-    \int_{t_0}^{t} v(s) ds = \begin{pmatrix}
-        \int_{t_0}^{t} v_1(s) ds \\
-        \vdots \\
-        \int_{t_0}^{t} v_n(s) ds
-    \end{pmatrix}
-\]
-
-\begin{lema} [Desigualdad integral de Minkowski]
-    Sea $v : [\alpha, \beta] \to \mathbb{K}^n$ una función continua. Entonces, para todo $t, t_0 \in [\alpha, \beta]$ se cumple la siguiente desigualdad:
+\begin{definición}[Norma de Bielecki]
+    Sea el espacio de funciones continuas $E \equiv C([\alpha, \beta], \mathbb{K}^n)$. Dados un parámetro $\eta > 0$ y un punto fijo $t_0 \in [\alpha, \beta]$ (típicamente el instante inicial), definimos la \textbf{norma de Bielecki}, denotada por $\| \cdot \|_{\eta}$, como:
     \[
-        \left\| \int_{t_0}^{t} v(s) ds \right\|_1 \leq \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds
+        \| u \|_{\eta} := \max_{t \in [\alpha, \beta]} e^{-\eta |t-t_0|} \| u(t) \|, \quad \forall u \in E.
+    \]
+\end{definición}
+
+\begin{lema}
+    La norma de Bielecki $\| \cdot \|_{\eta}$ es equivalente a la norma del máximo $\| \cdot \|_{\infty}$ en el espacio $C([\alpha, \beta], \mathbb{K}^n)$.
+\end{lema}
+
+\begin{proof}
+    Debemos hallar constantes $c, C > 0$ tales que $c \| u \|_{\eta} \leq \| u \|_{\infty} \leq C \| u \|_{\eta}$.
+
+    \begin{itemize}
+        \item \textbf{Primera desigualdad ($\| u \|_{\eta} \leq \| u \|_{\infty}$):} \\
+        Observamos que para todo $t \in [\alpha, \beta]$, el exponente es no positivo ($-\eta |t-t_0| \leq 0$), lo que implica que $e^{-\eta |t-t_0|} \leq 1$. Multiplicando por la norma vectorial obtenemos:
+        \[
+            e^{-\eta | t - t_0 |} \| u(t) \| \leq 1 \cdot \| u(t) \| \leq \| u \|_{\infty}.
+        \]
+        Tomando el máximo sobre todo $t \in [\alpha, \beta]$ en el lado izquierdo, deducimos que $\| u \|_{\eta} \leq \| u \|_{\infty}$ (aquí $c=1$).
+        \item \textbf{Segunda desigualdad ($\| u \|_{\infty} \leq C \| u \|_{\eta}$):} \\
+        Para cualquier $t \in [\alpha, \beta]$, multiplicamos y dividimos por el factor exponencial introduciendo convenientemente el valor absoluto:
+        \[
+            \| u(t) \| = e^{\eta | t - t_0 |} \cdot \left( e^{-\eta | t - t_0 |} \| u(t) \| \right) \leq e^{\eta | t - t_0 |} \cdot \| u \|_{\eta}.
+        \]
+        Sabemos que la distancia máxima posible entre dos puntos en el intervalo es $\beta - \alpha$, por lo que $|t - t_0| \leq \beta - \alpha$. Usando la estricta monotonía de la función exponencial creciente:
+        \[
+            \| u(t) \| \leq e^{\eta (\beta - \alpha)} \| u \|_{\eta}.
+        \]
+        Dado que esta cota superior es válida para todo $t \in [\alpha, \beta]$ y no depende de $t$, tomamos el máximo en el lado izquierdo para concluir:
+        \[
+            \| u \|_{\infty} \leq e^{\eta (\beta - \alpha)} \| u \|_{\eta}.
+        \]
+        Definiendo la constante $C = e^{\eta (\beta - \alpha)} > 0$, la equivalencia queda demostrada. 
+    \end{itemize} 
+\end{proof}
+
+\subsection{Herramientas algebraicas y analíticas auxiliares}
+
+Antes de abordar la demostración principal, introducimos dos propiedades fundamentales que nos permitirán acotar términos dentro de las integrales: la norma de un operador lineal matricial y la desigualdad de Minkowski para integrales.
+
+\begin{definición}[Norma de un operador lineal matricial]
+    Dada una matriz $A \in \mathcal{M}_n(\mathbb{K})$ (vista como un operador lineal $A : \mathbb{K}^n \to \mathbb{K}^n$), definimos su \textbf{norma inducida} como:
+    \[
+        \| A \| := \max_{\| u \| = 1} \| A u \|.
+    \]
+\end{definición}
+
+De esta definición se desprenden propiedades de acotación inmediatas. Si tomamos un vector $x \neq 0$ en $\mathbb{K}^n$ y definimos el vector unitario $u = \frac{x}{\| x \|}$, entonces $\| u \| = 1$. Por definición de la norma del operador:
+\[
+    \left\| A \left( \frac{x}{\| x \|} \right) \right\| \leq \| A \| \implies \| A x \| \leq \| A \| \| x \|, \quad \forall x \in \mathbb{K}^n.
+\]
+Esta propiedad submultiplicativa se extiende a la composición de operadores (producto de matrices). Si $A, B \in \mathcal{M}_n(\mathbb{K})$:
+\[
+    \| A B x \| \leq \| A \| \| B x \| \leq \| A \| \| B \| \| x \|.
+\]
+Tomando el máximo sobre $\|x\|=1$, obtenemos $\| A B \| \leq \| A \| \| B \|$. En particular, para las potencias de una matriz, se cumple $\| A^k \| \leq \| A \|^k$ para todo $k \in \mathbb{N}$.
+
+\begin{lema}[Desigualdad integral de Minkowski vectorial]
+    Sea $v : [\alpha, \beta] \to \mathbb{K}^n$ una función vectorial continua. Entonces, para todo par de puntos $t, t_0 \in [\alpha, \beta]$, se cumple que la norma de la integral es menor o igual que la integral de la norma:
+    \[
+        \left\| \int_{t_0}^{t} v(s) ds \right\|_1 \leq \left| \int_{t_0}^{t} \| v(s) \|_1 ds \right| = \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds.
     \]
 \end{lema}
 
 \begin{proof}
-    \[
-        \| \int_{t_0}^{t} v(s) ds \|_1 = \left\| \int_{\min(t_0,t)}^{\max(t_0,t)} v(s) ds \right\|_1 = \sum_{j=1}^{n} \left| \int_{\min(t_0,t)}^{\max(t_0,t)} v_j(s) ds \right| \leq \sum_{j=1}^{n} \int_{\min(t_0,t)}^{\max(t_0,t)} |v_j(s)| ds 
-    \]
-    \[
-        = \int_{\min(t_0,t)}^{\max(t_0,t)} \sum_{j=1}^{n} |v_j(s)| ds = \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds
-    \]
+    Utilizando la norma de la suma (norma 1) en $\mathbb{K}^n$, desarrollamos:
+    \begin{align*}
+        \left\| \int_{t_0}^{t} v(s) ds \right\|_1 &= \left\| \int_{\min(t_0,t)}^{\max(t_0,t)} v(s) ds \right\|_1 = \sum_{j=1}^{n} \left| \int_{\min(t_0,t)}^{\max(t_0,t)} v_j(s) ds \right| \\
+        &\leq \sum_{j=1}^{n} \int_{\min(t_0,t)}^{\max(t_0,t)} |v_j(s)| ds = \int_{\min(t_0,t)}^{\max(t_0,t)} \left( \sum_{j=1}^{n} |v_j(s)| \right) ds \\
+        &= \int_{\min(t_0,t)}^{\max(t_0,t)} \| v(s) \|_1 ds.
+    \end{align*}
 \end{proof}
 
-\begin{teorema} [Teorema Fundamental]
-    Sean $\alpha < \beta$ reales, y $a_{ij},b_j \in C([\alpha, \beta], \mathbb{K})$, para $i,j = 1, \ldots, n$. Sean $A(t) = (a_{ij}(t))_{i,j=1}^{n}$ y $B(t) = (b_j(t))_{j=1}^{n}$. Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada $u_0 \in \mathbb{K}^n$, el problema de valores iniciales de Cauchy:
-    \[
-        P : \begin{cases}
-            u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\
-            u(t_0) = u_0
-        \end{cases}
-    \]
-    tiene una única solución $u(t;t_0,u_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n)$.    
-\end{teorema}
+\subsection{Demostración del Teorema Fundamental y las iteradas de Picard}
 
-\begin{proof}    
-    El objetivo es demostrar que el operador integral asociado $K: C([\alpha, \beta], \mathbb{K}^n) \to C([\alpha, \beta], \mathbb{K}^n)$, definido por:
+Con la norma de Bielecki y las herramientas auxiliares a nuestra disposición, estamos en condiciones de probar rigurosamente el Teorema Fundamental de Existencia y Unicidad de sistemas lineales planteado en la sección anterior.
+
+\begin{proof}[Demostración del Teorema Fundamental]
+    Recordemos que nuestro objetivo es demostrar que el operador integral $\mathcal{K}: C([\alpha, \beta], \mathbb{K}^n) \to C([\alpha, \beta], \mathbb{K}^n)$, definido por:
     \[
-    K u(t) = u_0 + \int_{t_0}^t (A(s)u(s) + B(s)) \, ds, \quad t \in [\alpha, \beta]
+        \mathcal{K}(u)(t) = u_0 + \int_{t_0}^t (A(s)u(s) + B(s)) \, ds, \quad t \in [\alpha, \beta]
     \]
-    posee un único punto fijo $u(t; t_0, u_0)$. Para ello, aplicaremos el \textbf{Teorema del Punto Fijo de Banach}.
+    posee un único punto fijo $u(\cdot; t_0, u_0)$. Para ello, demostraremos que $\mathcal{K}$ es contractivo respecto a la norma de Bielecki $\| \cdot \|_\eta$ para un $\eta$ suficientemente grande.
     
-    Consideramos el espacio de funciones continuas equipado con la \textbf{norma de Bielecki}, definida como:
+    Partimos de la definición de la distancia entre las imágenes de dos funciones arbitrarias $u, v \in E$ bajo el operador $\mathcal{K}$:
     \[
-    \|u\|_\eta = \max_{t \in [\alpha, \beta]} \left\{ e^{-\eta |t - t_0|} \|u(t)\| \right\}
+        \|\mathcal{K}(u) - \mathcal{K}(v)\|_\eta = \max_{t \in [\alpha, \beta]} \left\{ e^{-\eta |t - t_0|} \|\mathcal{K}(u)(t) - \mathcal{K}(v)(t)\| \right\}.
     \]
-    Ya hemos visto que esta norma es equivalente a la norma del supremo habitual $\|u\|_\infty = \max_{t \in [\alpha, \beta]} \|u(t)\|$. Nuestro propósito es encontrar un valor $\eta > 0$ tal que $K$ sea una aplicación contractiva respecto a $\|\cdot\|_\eta$, es decir, que verifique:
-    \[
-    \|Ku - Kv\|_\eta \le \theta \|u - v\|_\eta \quad \text{con } \theta \in [0, 1)
-    \]
-    
-    Partimos de la definición de la norma de Bielecki para la diferencia entre las imágenes de dos funciones $u$ y $v$:
-    \[
-    \|Ku - Kv\|_\eta = \max_{t \in [\alpha, \beta]} \left\{ e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\| \right\}
-    \]
-    Fijamos un punto $t \in [\alpha, \beta]$ y analizamos el término $e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\|$:
+    Fijamos un punto $t \in [\alpha, \beta]$ y analizamos la diferencia evaluada en $t$. Notemos que el vector constante $u_0$ y el término forzante $B(s)$ se cancelan al restar:
     \begin{align*}
-    e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\| &= e^{-\eta |t - t_0|} \left\| \left( u_0 + \int_{t_0}^t (A(s)u(s) + B(s)) ds \right) \right. \\
-    &\quad \left. - \left( u_0 + \int_{t_0}^t (A(s)v(s) + B(s)) ds \right) \right\| \\
-    &= e^{-\eta |t - t_0|} \left\| \int_{t_0}^t A(s)(u(s) - v(s)) ds \right\| \\
-    &\le e^{-\eta |t - t_0|} \left| \int_{t_0}^t \|A(s)\| \cdot \|u(s) - v(s)\| ds \right|
+        e^{-\eta |t - t_0|} \|\mathcal{K}(u)(t) - \mathcal{K}(v)(t)\| &= e^{-\eta |t - t_0|} \left\| \int_{t_0}^t A(s) (u(s) - v(s)) ds \right\| \\
+        &\le e^{-\eta |t - t_0|} \left| \int_{t_0}^t \|A(s)\| \cdot \|u(s) - v(s)\| ds \right|.
     \end{align*}
     
-    Como la matriz $A(s)$ es continua en el intervalo compacto $[\alpha, \beta]$, su norma está acotada por una constante $L$:
+    Como la matriz $A(s)$ es continua en el intervalo compacto $[\alpha, \beta]$, su norma operatoria está acotada superiormente por una constante $L > 0$ (es decir, $\|A(s)\| \le L$ para todo $s$). Sustituyendo esta cota:
     \[
-    \|A(s)\| \le C \|A(s)\|_1 = C \sum_{i,j=1}^n |a_{ij}(s)| \le C \sum_{i,j=1}^n \|a_{ij}\|_\infty = L
-    \]
-    Sustituyendo esta cota en la desigualdad anterior, obtenemos:
-    \[
-    e^{-\eta |t - t_0|} \|Ku(t) - Kv(t)\| \le L \cdot e^{-\eta |t - t_0|} \left| \int_{t_0}^t \|u(s) - v(s)\| ds \right|
+        e^{-\eta |t - t_0|} \|\mathcal{K}(u)(t) - \mathcal{K}(v)(t)\| \le L \cdot e^{-\eta |t - t_0|} \left| \int_{t_0}^t \|u(s) - v(s)\| ds \right|.
     \]
     
-    Para relacionar la integral con la norma $\|\cdot\|_\eta$, introducimos el factor exponencial dentro de la integral:
+    Para relacionar el integrando con la norma de Bielecki $\|u - v\|_\eta$, multiplicamos y dividimos por el factor exponencial $e^{\eta |s - t_0|}$ dentro de la integral:
     \begin{align*}
-    L \cdot e^{-\eta |t - t_0|} \left| \int_{t_0}^t \frac{\|u(s) - v(s)\|}{e^{\eta |s - t_0|}} e^{\eta |s - t_0|} ds \right| &\le L \cdot e^{-\eta |t - t_0|} \int_{\min(t_0, t)}^{\max(t_0, t)} \|u - v\|_\eta \cdot e^{\eta |s - t_0|} ds \\
-    &= L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \left[ \frac{e^{\eta |s - t_0|}}{\eta} \right]_{\min(t_0, t)}^{\max(t_0, t)} \\
-    &= L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \left( \frac{e^{\eta |t - t_0|} - 1}{\eta} \right) \\
-    &= \frac{L}{\eta} \|u - v\|_\eta (1 - e^{-\eta |t - t_0|}) \le \frac{L}{\eta} \|u - v\|_\eta
+        \le L \cdot e^{-\eta |t - t_0|} \left| \int_{t_0}^t \left( e^{-\eta |s - t_0|} \|u(s) - v(s)\| \right) e^{\eta |s - t_0|} ds \right|.
+    \end{align*}
+    El término entre paréntesis es, por definición, menor o igual que $\|u - v\|_\eta$, el cual es una constante y puede salir de la integral:
+    \begin{align*}
+        &\le L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \int_{\min(t_0, t)}^{\max(t_0, t)} e^{\eta |s - t_0|} ds \\
+        &= L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \left[ \frac{e^{\eta |s - t_0|}}{\eta} \right]_{\min(t_0, t)}^{\max(t_0, t)} \\
+        &= L \|u - v\|_\eta \cdot e^{-\eta |t - t_0|} \left( \frac{e^{\eta |t - t_0|} - 1}{\eta} \right) \\
+        &= \frac{L}{\eta} \|u - v\|_\eta \left( 1 - e^{-\eta |t - t_0|} \right) \le \frac{L}{\eta} \|u - v\|_\eta.
     \end{align*}
     
-    Dado que la desigualdad anterior es válida para todo $t \in [\alpha, \beta]$, se concluye que:
+    Dado que esta desigualdad es rigurosamente válida para todo $t \in [\alpha, \beta]$, concluimos al tomar el máximo que:
     \[
-    \|Ku - Kv\|_\eta \le \frac{L}{\eta} \|u - v\|_\eta
+        \|\mathcal{K}(u) - \mathcal{K}(v)\|_\eta \le \frac{L}{\eta} \|u - v\|_\eta.
     \]
-    Si elegimos un valor de $\eta$ tal que $\eta > L$, entonces la constante de Lipschitz $\theta = \frac{L}{\eta}$ pertenece al intervalo $[0, 1)$. Esto convierte a $K$ en una aplicación contractiva sobre el espacio de Banach $(C([\alpha, \beta], \mathbb{K}^n), \|\cdot\|_\eta)$. 
+    Elegimos ahora un valor de $\eta$ estrictamente mayor que $L$ ($\eta > L$). Bajo esta elección, la constante $\theta = \frac{L}{\eta}$ satisface $0 \leq \theta < 1$, lo que convierte a $\mathcal{K}$ en un operador contractivo sobre el espacio de Banach $(C([\alpha, \beta], \mathbb{K}^n), \|\cdot\|_\eta)$. 
     
-    En virtud del \textbf{Teorema de Banach de la aplicación contractiva}, el operador $K$ posee un único punto fijo $u(t; t_0, u_0)$, que representa la única solución al problema de valor inicial planteado.
+    En virtud del Teorema del Punto Fijo de Banach, el operador $\mathcal{K}$ posee un único punto fijo $u(t; t_0, u_0)$, concluyendo la demostración de existencia y unicidad global.
 \end{proof}
 
-    Sea el sistema homogéneo asociado:
+\begin{observación}[Iteradas de Picard-Lindelöf]
+    El Teorema del Punto Fijo no solo asegura la existencia teórica de la solución, sino que ofrece un método constructivo. Si tomamos una función inicial continua arbitraria $h_0 \in C([\alpha, \beta], \mathbb{K}^n)$, la sucesión definida por recurrencia:
     \[
-        P_h : \begin{cases}
-            h' = A(t) h, \quad t \in [\alpha, \beta] \\
-            h(t_0) = h_0
-        \end{cases}
-        \longrightarrow h(t;t_0,h_0) \in C^{1}([\alpha, \beta], \mathbb{K}^n) \, t \in [\alpha, \beta]
+        h_n(t) = \mathcal{K}(h_{n-1})(t) = u_0 + \int_{t_0}^{t} \left[ A(s) h_{n-1}(s) + B(s) \right] ds, \quad n \ge 1
     \]
-    Veamos como si tomamos una funcion arbitraria $h_0 \in C([\alpha, \beta], \mathbb{K}^n)$, podemos construir una solución del problema $P$ a partir de iterar el operador integral:
-    \[
-        h_n = \mathcal{K} h_{n-1} = \mathcal{K}^2 h_{n-2} = \ldots = \mathcal{K}^n h_0
-        \longrightarrow_{n \to \infty} u( \cdot ; t_0, u_0) \in C([\alpha, \beta], \mathbb{K}^n)
-    \]
-    Notese que estas iteradas se conocen como \textbf{iteradas de Picard-Lindelöf}.
-    Podemos tomar ahora el siguiente problema:
-    \[
-        \begin{cases}
-            u' = u \\
-            u(0) = 1
-        \end{cases}
-    \]
-    De lo que se deduce que $u(t) = 1 + \int_{0}^{t} u(s) ds$, y en general, $\mathcal{K}h(t) = 1 + \int_{0}^{t} h(s) ds$. Si tomamos $h_0(t) = 1$, entonces podemos empezar a iterar:
-    \[
-        h_1(t) = \mathcal{K} h_0(t) = 1 + \int_{0}^{t} 1 ds = 1 + t
-    \]
-    \[
-        h_2(t) = \mathcal{K} h_1(t) = 1 + \int_{0}^{t} (1 + s) ds = 1 + t + \frac{t^2}{2}
-    \]
-    Podemos ahora intuir que el resultado de iterar $n$ veces es la suma de los primeros $n$ términos del desarrollo en serie de Taylor de la función exponencial (algo que ya sabiamos que era la solución del problema), por lo que podemos probarlo por inducción. Sea el caso base $n=0$, tomemos como hipótesis de inducción que:
-    \[
-        h_n(t) = \sum_{k=0}^{n} \frac{t^k}{k!}
-    \]
-    Entonces:
-    \[
-        h_{n+1}(t) = 
-        \mathcal{K} h_n(t) =
-        1 + \int_{0}^{t} \sum_{k=0}^{n} \frac{s^k}{k!} ds = 
-        1 + \sum_{k=0}^{n} \frac{1}{k!} \int_{0}^{t} s^k ds =
-        1 + \sum_{k=0}^{n} \frac{t^{k+1}}{(k+1)!} =
-        \sum_{k=0}^{n+1} \frac{t^k}{k!}
-    \]
-    Así tenemos probado que $\forall n \in \mathbb{N}: h_n(t) = \sum_{k=0}^{n} \frac{t^k}{k!}$, es decir, $h_n(t)$ coincide con el polinomio de Taylor de grado $n$ de la función exponencial en el punto $0$. Por tanto, tomando el límite cuando $n \to \infty$, obtenemos:
-    \[
-        \lim_{n \to \infty} h_n(t) = 
-        \lim_{n \to \infty} \sum_{k=0}^{n} \frac{t^k}{k!} =
-        e^{t} 
-        \quad \text{uniformemente en } [-c,c], \forall c > 0
-    \]
-    Ahora podemos definir la siguiente iteración:
-    \[
-        h_n(t) =
-        \mathcal{K} h_{n-1}(t) =
-        u_0 + \int_{t_0}^{t} \left[ A(s) h_{n-1}(s) + B(s) \right] ds
-        \longrightarrow_{n \to \infty} 
-        u(t; t_0, u_0) \in C([\alpha, \beta], \mathbb{K}^n)
-        \quad \forall t \in [\alpha, \beta], \forall h_0 \in C([\alpha, \beta], \mathbb{K}^n)
-    \]
+    converge uniformemente a la solución exacta $u(\cdot; t_0, u_0)$. Estas funciones se conocen como \textbf{iteradas de Picard-Lindelöf}.
+    
+    Para visualizar este proceso, consideremos el problema escalar elemental $u' = u$ con $u(0) = 1$. El operador asociado es $\mathcal{K}(h)(t) = 1 + \int_{0}^{t} h(s) ds$. Si partimos de la aproximación inicial constante $h_0(t) = 1$, las primeras iteradas resultan:
+    \begin{align*}
+        h_1(t) &= \mathcal{K}(h_0)(t) = 1 + \int_{0}^{t} 1 ds = 1 + t \\
+        h_2(t) &= \mathcal{K}(h_1)(t) = 1 + \int_{0}^{t} (1 + s) ds = 1 + t + \frac{t^2}{2}
+    \end{align*}
+    Por inducción trivial, observamos que $h_n(t) = \sum_{k=0}^{n} \frac{t^k}{k!}$, que reconocemos como el polinomio de Taylor de grado $n$ de la función exponencial. Tomando el límite, $\lim_{n \to \infty} h_n(t) = e^t$, que es exactamente la solución analítica del problema.
+\end{observación}
 
-Sea el sistema de ecuaciones diferenciales lineales homogéneo:
-\[
-    \begin{cases}
-        u' = A(t) u, \quad t \in [\alpha, \beta] \\
-        u(t_0) = u_0
-    \end{cases}
-\]
-Entonces, podemos definir los conjuntos de soluciones del sistema homogenio y del sistema no homogéneo como:
-\[
-    \Sigma_0 = \{ h \in C^{1}([\alpha, \beta], \mathbb{K}^n) : h' = Ah \text{ en } [\alpha, \beta] \}
-\]
-\[
-    \Sigma_B = \{ u \in C^{1}([\alpha, \beta], \mathbb{K}^n) : u' = Au + B \text{ en } [\alpha, \beta] \}
-\]
-Entonces, se cumple que:
-\[
-    \dim(\Sigma_B) = \dim(\Sigma_0) = n
-\]
-Todo esto lo vamos a poder ver en el siguiente teorema:
+\subsection{Estructura de la solución y la Matriz Fundamental}
 
-\begin{teorema}
-    Bajo las condiciones del Teorema Fundamental, el operador solucion:
-    \[
-        \begin{array}{rccl}
-            S_0 : & \mathbb{K}^n & \to & \Sigma_0 \\
-            & x & \mapsto & h(\cdot; t_0, x)
-        \end{array}
-    \]
-    Es un isomorfismo entre espacios vectoriales, y por tanto el operador solución del sistema no homogéneo:
-    \[
-        \begin{array}{rccl}
-            S_B : & \mathbb{K}^n & \to & \Sigma_B \\
-            & x & \mapsto & u(\cdot; t_0, x)
-        \end{array}
-    \]
-    Es un isomorfismo afín, y en particular se cumple la proposición anterior, es decir:
-    \[
-        \dim(\Sigma_B) = \dim(\Sigma_0) = n
-    \]
+Habiendo garantizado la existencia y unicidad para cualquier valor inicial en $\mathbb{K}^n$, volvemos a la estructura geométrica de los conjuntos de soluciones $\Sigma_0$ y $\Sigma_B$, definidos al comienzo del capítulo. Al igual que en el caso escalar unidimensional, el operador que asigna a cada condición inicial su correspondiente trayectoria solución define un isomorfismo clave.
+
+\begin{teorema}[Isomorfismo vectorial en dimensión $n$]
+    Bajo las condiciones del Teorema Fundamental, el operador solución del sistema homogéneo evaluado desde el instante $t_0$,
+    \begin{align*}
+        S_0 : \mathbb{K}^n &\to \Sigma_0 \\
+        x &\mapsto h(\cdot; t_0, x)
+    \end{align*}
+    es un isomorfismo de espacios vectoriales. Como consecuencia directa, $\dim(\Sigma_0) = \dim(\mathbb{K}^n) = n$.
+    
+    Análogamente, el operador solución del sistema inhomogéneo,
+    \begin{align*}
+        S_B : \mathbb{K}^n &\to \Sigma_B \\
+        x &\mapsto u(\cdot; t_0, x)
+    \end{align*}
+    es un isomorfismo afín, cumpliéndose que $\dim(\Sigma_B) = n$.
 \end{teorema}
 
 \begin{proof}
-    Veamos que $S_0$ es lineal:
-    Sean $x,y \in \mathbb{K}^n$ y $\lambda, \mu \in \mathbb{K}$. Entonces queremos ver que:
-    \[
-        S_0(\lambda x + \mu y) = \lambda S_0(x) + \mu S_0(y)
-    \]
-    Lo que equivale a ver que:
-    \[
-        h(t; t_0, \lambda x + \mu y) \in \Sigma_0 \iff
-        \lambda h(t; t_0, x) + \mu h(t; t_0, y) \in \Sigma_0
-    \]
-    Y esto es cierto, ya que ambas funciones son soluciones del sistema homogéneo con la misma condición inicial.\\
-    Veamos ahora la inyectividad de $S_0$:\\
-    Supongamos que $S_0(x) = 0$ para algun $x \in \mathbb{K}^n$. Entonces:
-    \[
-        h(\cdot; t_0, x) = 0 \iff
-        h(t; t_0, x) = 0 \forall t \in [\alpha, \beta] \implies
-        h(t_0; t_0, x) = 0 \implies
-        x = 0
-    \]
-    Veamos ahora la sobreyectividad de $S_0$:\\
-    Sea $h \in \Sigma_0$ arbitrario. Entonces, como $h$ es solución del sistema homogéneo, podemos construir otra solución $h(\cdot; t_0, h(t_0)) = S_0(h(t_0)) \in \Sigma_0$. Por tanto como ambas funciones coinciden en el punto $t_0$ y son soluciones del mismo sistema, se cumple que:
-    \[
-        h = h(\cdot; t_0, h(t_0)) = S_0(h(t_0)) \in \Sigma_0 \implies
-        \square{h = S_0(h(t_0))}
-    \]
-    Por tanto, $S_0$ es sobreyectiva, y por tanto es un isomorfismo entre espacios vectoriales.\\
-    Veamos ahora que $S_B$ es un isomorfismo afín, para ello podemos ver que:
-    \[
-        S_B(x) = u(\cdot; t_0, x) = \underbrace{h(\cdot; t_0, x)}_{\text{vector}} + \underbrace{u(\cdot; t_0, 0)}_{\text{punto}} \in \Sigma_B
-    \]
-    Ya que $x = x + 0$, y las dos soluciones coinciden en el punto $t_0$, y por tanto ambas soluciones coinciden en todo el intervalo $[\alpha, \beta]$.\\
-    Por tanto, $S_B$ es un isomorfismo afín entre $\mathbb{K}^n$ y $\Sigma_B$, definido por:
-    \[
-        S_B(x) = S_0(x) + u(\cdot; t_0, 0)
-    \]
-    Ahora sabemos que al ser isomorfismos deben transformar bases en bases, por lo que:
-    \[
-    \mathbb{K}^n =
-    L \left[ e_1, e_2, \ldots, e_n \right]
-    \implies
-    \{ S_0(e_1), S_0(e_2), \ldots, S_0(e_n) \}
-    \text{ es una base de } \Sigma_0
-    \]
-    Equivalentemente:
-    \[
-    \{ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \}
-    \text{ es una base de } \Sigma_0
-    \]
-    Y por tanto:
-    \[
-        \Sigma_0 = L \left[ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \right]
-    \]
-    Equivalentemente tambien se puede decir que $\{ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \}$ es un sistema fundamental de soluciones (base) del sistema homogéneo.
-    Construyendo así la matriz fundamental de soluciones:
-    \[
-        \Phi(t) =
-        \begin{pmatrix}
-            h(t; t_0, e_1) & h(t; t_0, e_2) & \ldots & h(t; t_0, e_n)
-        \end{pmatrix}
-    \]
+    Para demostrar que $S_0$ es un isomorfismo lineal, debemos verificar que es lineal, inyectivo y sobreyectivo.
+    \begin{itemize}
+        \item \textbf{Linealidad de $S_0$:} Sean $x,y \in \mathbb{K}^n$ y $\lambda, \mu \in \mathbb{K}$. Evaluamos la combinación lineal $w(t) = \lambda h(t; t_0, x) + \mu h(t; t_0, y)$. Dado que $\Sigma_0$ es un subespacio vectorial, $w \in \Sigma_0$. Evaluando en la condición inicial:
+        \[
+            w(t_0) = \lambda h(t_0; t_0, x) + \mu h(t_0; t_0, y) = \lambda x + \mu y.
+        \]
+        Por el teorema de unicidad, la única solución que en $t_0$ vale $\lambda x + \mu y$ es precisamente $h(\cdot; t_0, \lambda x + \mu y)$. Por lo tanto, $S_0(\lambda x + \mu y) = \lambda S_0(x) + \mu S_0(y)$.
+        \item \textbf{Inyectividad de $S_0$:} Supongamos que $S_0(x) = \mathbf{0}$ (la función idénticamente nula en todo $t$). Evaluando en $t = t_0$, obtenemos $h(t_0; t_0, x) = 0$, lo que implica $x = 0$. Su núcleo es trivial.
+        \item \textbf{Sobreyectividad de $S_0$:} Sea $h \in \Sigma_0$ una solución homogénea arbitraria. Si tomamos el vector $x = h(t_0) \in \mathbb{K}^n$, la función $S_0(x)$ es la única solución que toma el valor $x$ en $t_0$. Como $h$ también es solución y toma ese mismo valor, ambas deben coincidir en todo el intervalo $[\alpha, \beta]$. Luego $h = S_0(x)$.
+    
+        Al ser un isomorfismo lineal, preserva la dimensión, por lo que $\dim(\Sigma_0) = n$. Para el sistema inhomogéneo, notamos que cualquier solución $u \in \Sigma_B$ se puede escribir unívocamente como:
+        \[
+            S_B(x) = u(\cdot; t_0, x) = \underbrace{h(\cdot; t_0, x)}_{\in \Sigma_0} + \underbrace{u(\cdot; t_0, 0)}_{\in \Sigma_B} = S_0(x) + u(\cdot; t_0, 0).
+        \]
+        Esto define una traslación del isomorfismo $S_0$ por el "punto" $u(\cdot; t_0, 0)$, probando que $S_B$ es un isomorfismo afín.
+    \end{itemize}    
 \end{proof}
 
-\textbf{Notación:} Denotamos por $\mathcal{M}_n(\mathbb{K})$ al espacio vectorial de matrices cuadradas de orden $n$ con entradas en $\mathbb{K}$.
+\textbf{Notación:} Denotamos por $\mathcal{M}_n(\mathbb{K})$ al espacio vectorial de las matrices cuadradas de orden $n$ con entradas en un cuerpo $\mathbb{K}$ (típicamente $\mathbb{R}$ o $\mathbb{C}$). Consideraremos el intervalo $I = [\alpha, \beta] \subset \mathbb{R}$.
 
-\begin{definición} [Matriz de soluciones]
-    Diremos que una matriz $\Phi(t) \in \mathcal{M}_n(C^1([\alpha, \beta], \mathbb{K}))$ es una \textbf{matriz de soluciones} del sistema homogéneo $u' = A(t) u$ en $[\alpha, \beta]$ si cada columna de $\Phi(t)$ es una solución del sistema homogéneo.
+El estudio de los sistemas de ecuaciones diferenciales lineales se simplifica notablemente cuando adoptamos una perspectiva matricial. En lugar de estudiar soluciones vectoriales aisladas, resulta natural agrupar varias de estas soluciones en una única estructura que nos permita manipularlas de forma simultánea.
+
+\begin{definición}[Matriz de soluciones]
+    Diremos que una matriz $\Phi(t) \in \mathcal{M}_n(C^1([\alpha, \beta], \mathbb{K}))$ es una \textbf{matriz de soluciones} del sistema lineal homogéneo $u' = A(t) u$ en $[\alpha, \beta]$ si cada una de sus columnas es una solución de dicho sistema.
 \end{definición}
 
-Si $\Phi(t) = (h_1(t), h_2(t), \ldots, h_n(t))$ es una matriz de soluciones, entonces tenemos:
-
+De forma equivalente, si expresamos la matriz por columnas como $\Phi(t) = (h_1(t), h_2(t), \ldots, h_n(t))$, el hecho de que sea una matriz de soluciones implica que, al derivar componente a componente, obtenemos:
 \[
-    \Phi'(t) = (h_1'(t), h_2'(t), \ldots, h_n'(t)) = (A(t) h_1(t), A(t) h_2(t), \ldots, A(t) h_n(t)) = A(t) \Phi(t), \quad t \in [\alpha, \beta]
+    \Phi'(t) = (h_1'(t), h_2'(t), \ldots, h_n'(t)) = (A(t) h_1(t), A(t) h_2(t), \ldots, A(t) h_n(t)) = A(t) \Phi(t)
+\]
+Por lo tanto, $\Phi(t)$ es una matriz de soluciones del sistema $u' = A(t) u$ en $[\alpha, \beta]$ si y solo si satisface la ecuación diferencial matricial global:
+\[
+    \Phi'(t) = A(t) \Phi(t), \quad \forall t \in [\alpha, \beta]
 \]
 
-Es equivalente decir que $\Phi(t)$ es una matriz de soluciones del sistema homogéneo $u' = A(t) u$ en $[\alpha, \beta]$ y decir que $\Phi(t)$ satisface la ecuación matricial:
-\[
-    \Phi'(t) = A(t) \Phi(t), \quad t \in [\alpha, \beta]
-\]
+Tener una matriz de soluciones es útil, pero para capturar toda la dinámica del sistema homogéneo, necesitamos que las columnas de esta matriz contengan toda la información posible; es decir, que generen el espacio de soluciones $\Sigma_0$.
 
-\begin{definición} [Matriz fundamental de soluciones]
-    Diremos que una matriz de soluciones $\Phi(t)$ del sistema homogéneo $u' = A(t) u$ en $[\alpha, \beta]$ es una \textbf{matriz fundamental de soluciones} si sus columnas forman una base del espacio vectorial de soluciones $\Sigma_0$ (si son un sistema fundamental de soluciones).
+\begin{definición}[Matriz fundamental de soluciones]
+    Diremos que una matriz de soluciones $\Phi(t)$ del sistema homogéneo $u' = A(t) u$ en $[\alpha, \beta]$ es una \textbf{matriz fundamental de soluciones} (M.F.S.) si sus columnas forman un sistema fundamental de soluciones; es decir, si constituyen una base del espacio vectorial de soluciones $\Sigma_0$.
 \end{definición}
 
-Veremos más adelante en el curso que 
+La existencia de estas matrices fundamentales está garantizada por la propia estructura del conjunto de soluciones y su relación con las condiciones iniciales.
+
+\begin{observación}[Construcción del Sistema Fundamental]
+    Un hecho trascendental del álgebra lineal es que todo isomorfismo mapea bases en bases. Si tomamos la base canónica $\mathcal{B} = \{e_1, e_2, \ldots, e_n\}$ de $\mathbb{K}^n$, sus imágenes bajo el operador solución formarán una base de $\Sigma_0$:
+    \[
+        \mathcal{B}_{\Sigma_0} = \big\{ S_0(e_1), S_0(e_2), \ldots, S_0(e_n) \big\} = \big\{ h(\cdot; t_0, e_1), h(\cdot; t_0, e_2), \ldots, h(\cdot; t_0, e_n) \big\}.
+    \]
+    A este conjunto de $n$ soluciones linealmente independientes se le denomina \textbf{sistema fundamental de soluciones}. 
+\end{observación}
+
+Para manipular este sistema algebraicamente, es sumamente conveniente agrupar estas soluciones vectoriales en las columnas de una única matriz. Esto da origen al concepto más importante en el estudio de sistemas lineales, particularizando la matriz fundamental a un instante inicial $t_0$.
+
+\begin{definición}[Matriz fundamental principal]
+    Definimos la \textbf{matriz fundamental principal} evaluada en $t_0$, y la denotaremos frecuentemente como $\Phi(t)$, como la matriz fundamental de dimensiones $n \times n$ cuyas columnas son las soluciones del sistema fundamental generado por la base canónica:
+    \[
+        \Phi(t) = \begin{pmatrix}
+            h(t; t_0, e_1) & h(t; t_0, e_2) & \ldots & h(t; t_0, e_n)
+        \end{pmatrix}.
+    \]
+    Por construcción, esta matriz satisface la ecuación matricial $\Phi'(t) = A(t)\Phi(t)$ para todo $t \in [\alpha, \beta]$, y cumple la condición inicial fundamental $\Phi(t_0) = I_n$, donde $I_n$ es la matriz identidad de orden $n$. Nótese que, dada \textit{cualquier} otra M.F.S. genérica $\Psi(t)$, siempre podemos construir la matriz fundamental principal mediante la transformación $\Phi(t) = \Psi(t) \Psi(t_0)^{-1}$.
+\end{definición}
+
+\textit{Nota:} Un ejemplo paradigmático de matriz fundamental principal aparece cuando el sistema tiene coeficientes constantes. Veremos más adelante en el curso que la exponencial matricial, definida como
 \[
     e^{At} = \sum_{k=0}^{\infty} \frac{(A t)^k}{k!}
 \]
-es una matriz fundamental de soluciones del sistema homogéneo $u' = A u$, donde $A \in \mathcal{M}_n(\mathbb{K})$ es una matriz constante.
+es la matriz fundamental principal en $t_0=0$ del sistema homogéneo $u' = A u$, donde $A \in \mathcal{M}_n(\mathbb{K})$ es constante, ya que $(e^{A \cdot 0} = I_n)$.
 
-\begin{teorema}
+Para una matriz de soluciones cualquiera, es vital disponer de un criterio operativo que nos permita decidir si es fundamental o no sin tener que comprobar directamente la independencia lineal de sus columnas como funciones. El siguiente teorema nos da una caracterización algebraica y puntual basada en el determinante.
+
+\begin{teorema}[Caracterización de la matriz fundamental]
     Sea $\Phi(t) = (h_1(t), h_2(t), \ldots, h_n(t))$ una matriz de soluciones del sistema homogéneo $h' = A(t) h$ en $[\alpha, \beta]$. Entonces, las siguientes afirmaciones son equivalentes:
     \begin{itemize}
-        \item[(1)] $\Phi(t)$ es una matriz fundamental de soluciones del sistema homogéneo $h' = A(t) h$ en $[\alpha, \beta]$.
-        \item[(2)] $det(\Phi(t)) \neq 0$ para todo $t \in [\alpha, \beta]$.
-        \item[(3)] $det(\Phi(t_0)) \neq 0$ para algún $t_0 \in [\alpha, \beta]$.
+        \item[(1)] $\Phi(t)$ es una matriz fundamental de soluciones en $[\alpha, \beta]$.
+        \item[(2)] $\det(\Phi(t)) \neq 0$ para todo $t \in [\alpha, \beta]$.
+        \item[(3)] $\det(\Phi(t_0)) \neq 0$ para algún $t_0 \in [\alpha, \beta]$.
     \end{itemize}
 \end{teorema}
 
 \begin{proof}
-    \leavevmode
-    \begin{itemize}
-        \item [$(1) \implies (2)$] Si $\Phi(t)$ es una matriz fundamental de soluciones, entonces sus columnas $h_1(t), h_2(t), \ldots, h_n(t)$ forman una base de $\Sigma_0$. En particular, son linealmente independientes en el espacio de funciones.
-        
-        Supongamos, por reducción al absurdo, que existe $t_0 \in [\alpha, \beta]$ tal que $det(\Phi(t_0)) = 0$. Entonces, los vectores columna evaluados en ese punto, $\{ h_1(t_0), h_2(t_0), \ldots, h_n(t_0) \}$, son linealmente dependientes en $\mathbb{K}^n$. Es decir, existe $(\lambda_1, \lambda_2, \ldots, \lambda_n) \in \mathbb{K}^n \setminus \{0\}$ tal que:
-        \[
-            \lambda_1 h_1(t_0) + \lambda_2 h_2(t_0) + \ldots + \lambda_n h_n(t_0) = 0
-        \]
-        Definimos la función:
-        \[
-            h(t) := \lambda_1 h_1(t) + \lambda_2 h_2(t) + \ldots + \lambda_n h_n(t)
-        \]
-        Entonces, $h(t) \in \Sigma_0$ por ser combinación lineal de soluciones. Además, satisface la condición inicial $h(t_0) = 0$. Por el Teorema de Existencia y Unicidad, la única solución que se anula en $t_0$ es la trivial, es decir, $h(t) \equiv 0$ para todo $t \in [\alpha, \beta]$.
-        
-        Esto implica que $\lambda_1 h_1(t) + \ldots + \lambda_n h_n(t) = 0$ para todo $t$, con coeficientes no todos nulos. Esto contradice la independencia lineal de las columnas de $\Phi(t)$. Por tanto, $det(\Phi(t)) \neq 0$ para todo $t \in [\alpha, \beta]$.
+    Demostraremos las implicaciones cíclicas $(1) \implies (2) \implies (3) \implies (1)$.
+    
+    \textbf{$(1) \implies (2)$:} Supongamos que $\Phi(t)$ es una matriz fundamental. Sus columnas $h_1(t), \ldots, h_n(t)$ forman una base de $\Sigma_0$ y, por tanto, son linealmente independientes en el espacio de funciones. Razonaremos por reducción al absurdo: supongamos que existe un instante $t_0 \in [\alpha, \beta]$ tal que $\det(\Phi(t_0)) = 0$. Entonces, los vectores evaluados en ese punto concreto, $\{ h_1(t_0), \ldots, h_n(t_0) \}$, son linealmente dependientes en $\mathbb{K}^n$. Existe, pues, un vector de escalares $(\lambda_1, \ldots, \lambda_n) \in \mathbb{K}^n \setminus \{0\}$ tal que:
+    \[
+        \lambda_1 h_1(t_0) + \lambda_2 h_2(t_0) + \ldots + \lambda_n h_n(t_0) = 0
+    \]
+    Definamos la función $h(t) := \sum_{i=1}^n \lambda_i h_i(t)$. Al ser una combinación lineal de soluciones, $h(t) \in \Sigma_0$. Además, cumple la condición inicial $h(t_0) = 0$. Por el Teorema de Existencia y Unicidad, la única solución al problema de valor inicial con dato inicial nulo es la solución trivial, por lo que $h(t) \equiv 0$ para todo $t \in [\alpha, \beta]$. Esto implica que $\sum_{i=1}^n \lambda_i h_i(t) = 0$ idénticamente en todo el intervalo, con coeficientes no todos nulos, lo cual contradice la independencia lineal funcional de las columnas de $\Phi(t)$. Por ende, el determinante no puede anularse en ningún punto.
 
-        \item [$(2) \implies (3)$] Es inmediato. Si $det(\Phi(t)) \neq 0$ para todo $t \in [\alpha, \beta]$, basta elegir cualquier $t_0 \in [\alpha, \beta]$ y la condición se cumple.
+    \textbf{$(2) \implies (3)$:} Es una deducción lógica inmediata. Si el determinante es no nulo en todo el intervalo, en particular lo es para un $t_0 \in [\alpha, \beta]$ cualquiera que fijemos.
 
-        \item [$(3) \implies (1)$] Supongamos que existe $t_0 \in [\alpha, \beta]$ tal que $det(\Phi(t_0)) \neq 0$. Queremos demostrar que $\Phi(t)$ es una matriz fundamental, lo cual equivale a demostrar que sus columnas $\{h_1(t), \ldots, h_n(t)\}$ son linealmente independientes en $\Sigma_0$ (dado que $\dim(\Sigma_0)=n$, basta con probar independencia).
-        
-        Planteamos una combinación lineal nula de las soluciones en el intervalo $[\alpha, \beta]$:
-        \[
-            \lambda_1 h_1(t) + \lambda_2 h_2(t) + \ldots + \lambda_n h_n(t) = 0, \quad \forall t \in [\alpha, \beta]
-        \]
-        En particular, esta igualdad debe cumplirse en $t = t_0$:
-        \[
-            \lambda_1 h_1(t_0) + \lambda_2 h_2(t_0) + \ldots + \lambda_n h_n(t_0) = 0
-        \]
-        Podemos ver esto como un sistema lineal homogéneo en $\mathbb{K}^n$ con incógnitas $\lambda_i$, cuya matriz de coeficientes es $\Phi(t_0)$. Como por hipótesis $det(\Phi(t_0)) \neq 0$, la matriz $\Phi(t_0)$ es invertible, lo que implica que la única solución del sistema algebraico es la trivial:
-        \[
-            \lambda_1 = \lambda_2 = \ldots = \lambda_n = 0
-        \]
-        Al ser los escalares necesariamente cero, concluimos que las funciones $h_1(t), \ldots, h_n(t)$ son linealmente independientes en $[\alpha, \beta]$. Por lo tanto, forman una base de $\Sigma_0$ y $\Phi(t)$ es una matriz fundamental.
-    \end{itemize}
+    \textbf{$(3) \implies (1)$:} Supongamos que existe $t_0 \in [\alpha, \beta]$ tal que $\det(\Phi(t_0)) \neq 0$. Para demostrar que $\Phi(t)$ es una matriz fundamental, basta con probar que sus columnas son linealmente independientes en $\Sigma_0$ (dado que sabemos de antemano que la dimensión del espacio de soluciones $\Sigma_0$ es exactamente $n$). Planteamos una combinación lineal nula en todo el intervalo:
+    \[
+        \lambda_1 h_1(t) + \lambda_2 h_2(t) + \ldots + \lambda_n h_n(t) = 0, \quad \forall t \in [\alpha, \beta]
+    \]
+    Evaluando en particular en $t = t_0$, obtenemos un sistema lineal homogéneo algebraico cuya matriz de coeficientes es exactamente $\Phi(t_0)$:
+    \[
+        \Phi(t_0) \begin{pmatrix} \lambda_1 \\ \vdots \\ \lambda_n \end{pmatrix} = \begin{pmatrix} 0 \\ \vdots \\ 0 \end{pmatrix}
+    \]
+    Como por hipótesis $\det(\Phi(t_0)) \neq 0$, la matriz es invertible y la única solución de este sistema algebraico es la trivial: $\lambda_1 = \ldots = \lambda_n = 0$. Concluimos que las soluciones son linealmente independientes en todo el intervalo y, por tanto, $\Phi(t)$ forma una base de $\Sigma_0$.
 \end{proof}
 
+La demostración anterior evidencia un comportamiento de tipo "todo o nada": el determinante de una matriz de soluciones nunca se anula o es idénticamente nulo. Podemos ser mucho más precisos y describir exactamente cómo evoluciona este determinante en el tiempo mediante una ecuación diferencial escalar.
 
-\begin{proposición} [Fórmula de Jacobi-Liouville]
-    Sea $\Phi(t)$ una matriz de soluciones del sistema homogéneo $h' = A(t) h$ en $[\alpha, \beta]$. Entonces, se cumple que:
+\begin{proposición}[Fórmula de Jacobi-Liouville]
+    Sea $\Phi(t)$ una matriz de soluciones del sistema homogéneo $h' = A(t) h$ en $[\alpha, \beta]$. Entonces, la evolución temporal de su determinante viene dada explícitamente por:
     \[
-        det(\Phi(t)) = det(\Phi(t_0)) \cdot e^{\int_{t_0}^{t} tr(A(s)) ds}, \quad t, t_0 \in [\alpha, \beta]
+        \det(\Phi(t)) = \det(\Phi(t_0)) \cdot \exp\left(\int_{t_0}^{t} \operatorname{tr}(A(s)) ds\right), \quad \forall t, t_0 \in [\alpha, \beta]
     \]    
 \end{proposición}
 
 \begin{proof}
-Sea $\Phi(t) = (h_1(t) \dots h_n(t)) = \begin{pmatrix} h_{11}(t) & \dots & h_{1n}(t) \\ \vdots & \ddots & \vdots \\ h_{n1}(t) & \dots & h_{nn}(t) \end{pmatrix}$.
-Definimos $\varphi(t) = \det \Phi(t)$. Buscamos calcular $\varphi'(t)$.
-Dado que $h_{ij} \in C^1$, entonces $\varphi \in C^1([\alpha, \beta], \mathbb{K})$;
+    Sea $\Phi(t) = \begin{pmatrix} h_{11}(t) & \dots & h_{1n}(t) \\ \vdots & \ddots & \vdots \\ h_{n1}(t) & \dots & h_{nn}(t) \end{pmatrix}$. Definimos la función escalar $\varphi(t) = \det(\Phi(t))$. Como las funciones de las entradas $h_{ij}$ son de clase $C^1$, $\varphi$ también es derivable. 
 
-\textbf{Caso $n=2$:}
-\[
-\begin{vmatrix} h_{11}(t) & h_{12}(t) \\ h_{21}(t) & h_{22}(t) \end{vmatrix}' = (h_{11}(t)h_{22}(t) - h_{21}(t)h_{12}(t))' 
-\]
-\[
-= h_{11}'h_{22} + h_{11}h_{22}' - h_{21}'h_{12} - h_{21}h_{12}' 
-\]
-Agrupando nuevamente en determinantes:
-\[
-= \begin{vmatrix} h_{11}'(t) & h_{12}'(t) \\ h_{21}(t) & h_{22}(t) \end{vmatrix} + \begin{vmatrix} h_{11}(t) & h_{12}(t) \\ h_{21}'(t) & h_{22}'(t) \end{vmatrix} 
-\]
-
-\textbf{Ejercicio (Generalización por inducción):}
-La derivada del determinante es la suma de determinantes donde se deriva una fila cada vez:
-\[
-\varphi'(t) = \sum_{i=1}^{N} \begin{vmatrix} h_{11}(t) & \dots & h_{1N}(t) \\ \vdots & & \vdots \\ h_{i1}'(t) & \dots & h_{iN}'(t) \\ \vdots & & \vdots \\ h_{N1}(t) & \dots & h_{NN}(t) \end{vmatrix} 
-\]
-
-\textbf{Derivación de la fórmula de Jacobi-Liouville}
-
-Como $\Phi'(t) = A(t)\Phi(t)$, cada elemento de la matriz derivada se expresa como:
-\[
-h_{ij}'(t) = \sum_{k=1}^N a_{ik}(t) h_{kj}(t), \quad i,j \in \{1, \dots, N\} 
-\]
-
-Sustituyendo el desarrollo de la fila $i$-ésima en el sumatorio de la derivada del determinante:
-\[
-\begin{vmatrix} 
-h_{11}(t) & \dots & h_{1N}(t) \\ 
-\vdots & \ddots & \vdots \\ 
-\sum_{k=1}^N a_{ik}h_{k1} & \dots & \sum_{k=1}^N a_{ik}h_{kN} \\ 
-\vdots & \ddots & \vdots \\ 
-h_{N1}(t) & \dots & h_{NN}(t) 
-\end{vmatrix} = \sum_{k=1}^N a_{ik} \begin{vmatrix} 
-h_{11}(t) & \dots & h_{1N}(t) \\ 
-\vdots & \ddots & \vdots \\ 
-h_{k1}(t) & \dots & h_{kN}(t) \\ 
-\vdots & \ddots & \vdots \\ 
-h_{N1}(t) & \dots & h_{NN}(t) 
-\end{vmatrix} 
-\]
-
-\begin{itemize}
-    \item Si $k \neq i$, el determinante es nulo por tener filas repetidas (la fila $i$ es igual a la fila $k$).
-    \item Solamente queda el término donde $k = i$.
-\end{itemize}
-
-Por tanto, para cada fila $i$ se obtiene el término $a_{ii}(t) \det \Phi(t)$. Sumando sobre todas las filas $i=1, \dots, N$:
-\[
-\varphi'(t) = \left( \sum_{i=1}^N a_{ii}(t) \right) \varphi(t) = \text{tr } A(t) \cdot \varphi(t)
-\]
-
-Esto resulta en la ecuación diferencial escalar para el determinante:
-\[
-\frac{\varphi'(t)}{\varphi(t)} = \text{tr } A(t) 
-\]
-
-Resolviendo por integración en el intervalo $[t_0, t]$:
-\[
-\det \Phi(t) = e^{\int_{t_0}^t \text{tr } A(s) ds} \det \Phi(t_0) 
-\]
+    Por las propiedades algebraicas de la derivada de un determinante, $\varphi'(t)$ se expresa como la suma de $n$ determinantes, donde en el $i$-ésimo sumando se ha derivado únicamente la $i$-ésima fila dejando las demás intactas:
+    \[
+        \varphi'(t) = \sum_{i=1}^{n} \begin{vmatrix} h_{11}(t) & \dots & h_{1n}(t) \\ \vdots & & \vdots \\ h_{i1}'(t) & \dots & h_{in}'(t) \\ \vdots & & \vdots \\ h_{n1}(t) & \dots & h_{nn}(t) \end{vmatrix} 
+    \]
+    Por otro lado, puesto que $\Phi$ es matriz de soluciones, $\Phi'(t) = A(t)\Phi(t)$. Esto significa que la derivada de cada elemento $h_{ij}(t)$ es la combinación lineal $h_{ij}'(t) = \sum_{k=1}^n a_{ik}(t) h_{kj}(t)$. Sustituyendo esta expresión en la $i$-ésima fila del sumatorio y utilizando la linealidad del determinante respecto a sus filas, desglosamos cada término en:
+    \[
+        \begin{vmatrix} 
+            h_{11}(t) & \dots & h_{1n}(t) \\ 
+            \vdots & & \vdots \\ 
+            \sum_{k=1}^n a_{ik}(t)h_{k1}(t) & \dots & \sum_{k=1}^n a_{ik}(t)h_{kn}(t) \\ 
+            \vdots & & \vdots \\ 
+            h_{n1}(t) & \dots & h_{nn}(t) 
+        \end{vmatrix} = \sum_{k=1}^n a_{ik}(t) \begin{vmatrix} 
+            h_{11}(t) & \dots & h_{1n}(t) \\ 
+            \vdots & & \vdots \\ 
+            h_{k1}(t) & \dots & h_{kn}(t) \\ 
+            \vdots & & \vdots \\ 
+            h_{n1}(t) & \dots & h_{nn}(t) 
+        \end{vmatrix} 
+    \]
+    Observemos detenidamente este último determinante: si $k \neq i$, la matriz evaluada tiene dos filas idénticas (la fila $i$ es exactamente igual a la fila $k$), por lo que su determinante es rigurosamente nulo. El único término que sobrevive en este sumatorio interior es aquel donde $k = i$. En ese caso, la matriz resultante es exactamente $\Phi(t)$, por lo que su determinante vuelve a ser $\varphi(t)$.
+    
+    Por lo tanto, la contribución neta de la $i$-ésima fila a $\varphi'(t)$ es simplemente el término diagonal $a_{ii}(t)\varphi(t)$. Sumando sobre todas las filas $i=1, \dots, n$, concluimos:
+    \[
+        \varphi'(t) = \left( \sum_{i=1}^n a_{ii}(t) \right) \varphi(t) = \operatorname{tr}(A(t)) \cdot \varphi(t)
+    \]
+    Hemos obtenido una ecuación diferencial ordinaria, lineal, escalar y separable para el determinante: $\frac{\varphi'(t)}{\varphi(t)} = \operatorname{tr}(A(t))$. Resolviendo mediante integración directa en el intervalo $[t_0, t]$, llegamos a la fórmula final:
+    \[
+        \det(\Phi(t)) = \det(\Phi(t_0)) \exp\left(\int_{t_0}^t \operatorname{tr}(A(s)) ds\right)
+    \]
 \end{proof}
 
-\begin{proposición}
-\textbf{Propiedad 1:}Sea $\Phi(t)$ una M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$. Sea $C \in \mathcal{M}_N(\mathbb{K})$ una matriz constante tal que $\det C \neq 0$. Entonces, la matriz definida como $\Psi(t) = \Phi(t) C$ también es una M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$.
+Conocido el comportamiento estructural de las matrices fundamentales, es natural preguntarse si existe una única matriz fundamental para un sistema o cómo se relacionan entre sí. La respuesta radica en el grupo lineal general: todas las matrices fundamentales están relacionadas mediante transformaciones invertibles constantes.
+
+\begin{proposición}[Propiedades algebraicas de las M.F.S.]
+    \vspace{-2em}
+    \begin{enumerate}
+        \item Sea $\Phi(t)$ una M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$ y sea $C \in \mathcal{M}_n(\mathbb{K})$ una matriz constante invertible ($\det C \neq 0$). Entonces, la matriz obtenida mediante el producto $\Psi(t) = \Phi(t) C$ también es una M.F.S. del mismo sistema.
+        \item A la inversa, si $\Phi(t)$ y $\Psi(t)$ son dos M.F.S. arbitrarias del mismo sistema, entonces existe siempre una matriz constante invertible $C \in \mathcal{M}_n(\mathbb{K})$ tal que $\Psi(t) = \Phi(t)C$ para todo $t \in [\alpha, \beta]$.
+    \end{enumerate}
 \end{proposición}
 
 \begin{proof}
-Calculamos la derivada de $\Psi(t)$:
-\[ \Psi'(t) = (\Phi(t)C)' = \Phi'(t)C \text{} \] 
-Como $\Phi(t)$ es solución, $\Phi'(t) = A(t)\Phi(t)$. Sustituyendo:
-\[ \Psi'(t) = (A(t)\Phi(t))C = A(t)(\Phi(t)C) = A(t)\Psi(t), \quad \forall t \in [\alpha, \beta] \text{} \] 
-Además, para comprobar que es fundamental, calculamos su determinante:
-\[ \det \Psi(t) = \det(\Phi(t) \cdot C) = \det \Phi(t) \cdot \det C \text{} \] 
-Como $\det \Phi(t) \neq 0$ (por ser M.F.S.) y $\det C \neq 0$, entonces $\det \Psi(t) \neq 0$, por lo que $\Psi(t)$ es M.F.S..
+    \leavevmode
+    \begin{itemize}
+        \item \textbf{Demostración de 1:} Empezamos verificando que $\Psi(t)$ es solución. Calculamos su derivada respecto a $t$:
+        \[ 
+            \Psi'(t) = (\Phi(t)C)' = \Phi'(t)C = (A(t)\Phi(t))C = A(t)(\Phi(t)C) = A(t)\Psi(t)
+        \] 
+        Para confirmar que es además una matriz fundamental, evaluamos su determinante usando la multiplicatividad del mismo:
+        \[ 
+            \det(\Psi(t)) = \det(\Phi(t) \cdot C) = \det(\Phi(t)) \cdot \det(C) 
+        \] 
+        Como $\Phi(t)$ es fundamental ($\det(\Phi(t)) \neq 0$) y $C$ fue elegida de manera que fuera invertible ($\det(C) \neq 0$), el producto de ambos determinantes es estrictamente no nulo. Por el Teorema de Caracterización, $\Psi(t)$ es, en efecto, una M.F.S.
+        \item \textbf{Demostración de 2:} Supongamos dadas $\Phi(t) = (\varphi_1(t), \dots, \varphi_n(t))$ y $\Psi(t) = (\psi_1(t), \dots, \psi_n(t))$. Puesto que $\Phi(t)$ es M.F.S., sabemos que sus columnas forman una base completa del espacio de soluciones $\Sigma_0$. Dado que cada columna $\psi_j(t)$ de la matriz $\Psi$ es por definición una solución, ésta pertenece a $\Sigma_0$ y puede expresarse de manera única como combinación lineal de la base anterior:
+        \[ 
+            \psi_j(t) = \sum_{i=1}^n c_{ij} \varphi_i(t), \quad \forall j \in \{1, \dots, n\} 
+        \]
+        En lenguaje matricial, estas $n$ ecuaciones se agrupan en una única expresión $\Psi(t) = \Phi(t) C$, donde $C = (c_{ij})$ es una matriz constante que alberga los coeficientes de las combinaciones lineales. Por último, tomando determinantes a ambos lados, $\det(\Psi(t)) = \det(\Phi(t))\det(C)$. Como $\Phi$ y $\Psi$ son ambas fundamentales, sus respectivos determinantes son no nulos en todo el intervalo, lo que fuerza analíticamente a que $\det(C) \neq 0$. Por consiguiente, $C$ es invertible.
+    \end{itemize}
 \end{proof}
 
-\begin{proposición}
-\textbf{Propiedad 2:}Si $\Phi(t)$ y $\Psi(t)$ son dos M.F.S. de $h' = A(t)h$ en $[\alpha, \beta]$, entonces existe una matriz constante invertible $C \in \mathcal{M}_N(\mathbb{K})$ tal que $\Psi(t) = \Phi(t)C$ para todo $t \in [\alpha, \beta]$.
-\end{proposición}
+\vspace{0.5cm}
+
+Toda la teoría desarrollada hasta este punto concierne al sistema homogéneo. Sin embargo, en las aplicaciones físicas o de ingeniería, el objetivo último suele ser resolver el sistema completo que incluye un término independiente que representa un forzamiento externo. La matriz fundamental principal nos proporciona la herramienta exacta y rigurosa para integrar estas ecuaciones.
+
+\begin{teorema}[Método de Variación de Constantes / Parámetros]
+    Consideremos el sistema lineal no homogéneo (o completo):
+    \[
+        \begin{cases}
+            u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\  
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Sea $\Phi(t)$ la \textbf{matriz fundamental principal} en $t_0$ del sistema homogéneo asociado (es decir, aquella que satisface $\Phi'(t) = A(t)\Phi(t)$ y $\Phi(t_0) = I_n$). Entonces, la única solución al problema de valor inicial viene dada globalmente por la fórmula:
+    \[
+        u(t) = \Phi(t) u_0 + \Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds, \quad \forall t \in [\alpha, \beta]
+    \]
+\end{teorema}
 
 \begin{proof}
-Sean $\Phi(t) = (\varphi_1(t) \dots \varphi_n(t))$ y $\Psi(t) = (\psi_1(t) \dots \psi_n(t))$. 
-Como $\Phi(t)$ es M.F.S., sus columnas forman una base de $\Sigma_0$. Puesto que cada columna $\psi_j(t)$ de $\Psi(t)$ pertenece a $\Sigma_0$, se puede escribir como combinación lineal de las columnas de $\Phi(t)$:
-\[ \psi_j(t) = \sum_{i=1}^n c_{ij} \varphi_i(t), \quad j = 1, \dots, n \text{} \]
-En forma matricial, esto se traduce en:
-\[ (\psi_1 \dots \psi_n) = (\varphi_1 \dots \varphi_n) \begin{pmatrix} c_{11} & \dots & c_{1n} \\ \vdots & \ddots & \vdots \\ c_{n1} & \dots & c_{nn} \end{pmatrix} \implies \Psi = \Phi \cdot C \text{} \]
-Donde $C = (c_{ij})$. Como $\det \Psi(t) = \det \Phi(t) \det C$ y ambos determinantes de las matrices fundamentales son no nulos, se deduce que $\det C \neq 0$, por lo que $C$ es invertible.
+    A partir del estudio del sistema homogéneo, sabemos que su solución general es de la forma $u_H(t) = \Phi(t)C$, con $C$ un vector constante en $\mathbb{K}^n$. La idea matriz del método de variación de parámetros consiste en buscar una solución para el sistema completo "relajando" la constancia de $C$, sustituyéndolo por una función vectorial incógnita $v(t)$. Así, proponemos formalmente:
+    \[
+        u(t) = \Phi(t) v(t)
+    \]
+    Para obligar a que esta propuesta sea solución, derivamos la expresión respecto a $t$ aplicando la regla del producto matricial-vectorial:
+    \[
+        u'(t) = \Phi'(t) v(t) + \Phi(t) v'(t)
+    \]
+    La ecuación diferencial impone que $u'(t) = A(t)u(t) + B(t)$. Sustituyendo nuestra $u(t)$ y su derivada $u'(t)$ en esta condición, construimos la siguiente identidad:
+    \[
+        \Phi'(t) v(t) + \Phi(t) v'(t) = A(t) [\Phi(t) v(t)] + B(t)
+    \]
+    Aprovechamos ahora el hecho de que $\Phi(t)$ es matriz de soluciones homogénea, de modo que $\Phi'(t) = A(t)\Phi(t)$. Si insertamos este hecho en el primer sumando de la izquierda, observamos una cancelación crucial con el primer término de la derecha:
+    \[
+        A(t)\Phi(t)v(t) + \Phi(t) v'(t) = A(t) \Phi(t) v(t) + B(t) 
+        \implies \Phi(t) v'(t) = B(t)
+    \]
+    Dado que $\Phi(t)$ es fundamental, su determinante nunca es nulo y la matriz es siempre invertible. Podemos despejar explícitamente el vector derivada $v'(t)$:
+    \[
+        v'(t) = \Phi(t)^{-1} B(t)
+    \]
+    Para recuperar $v(t)$, basta con aplicar el Teorema Fundamental del Cálculo e integrar en el intervalo $[t_0, t]$:
+    \[
+        \int_{t_0}^{t} v'(s) ds = \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \implies v(t) - v(t_0) = \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds 
+    \]
+    Nos falta determinar el valor de la "constante de integración" $v(t_0)$. Para ello, imponemos la condición inicial $u(t_0) = u_0$ sobre nuestra propuesta $u(t) = \Phi(t)v(t)$, y recordamos la propiedad clave de la matriz fundamental principal ($\Phi(t_0) = I_n$):
+    \[
+        u(t_0) = \Phi(t_0) v(t_0) \implies u_0 = I_n v(t_0) \implies v(t_0) = u_0
+    \]
+    Inyectando este valor en la ecuación integral, obtenemos la forma final del vector de parámetros $v(t)$:
+    \[
+        v(t) = u_0 + \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds
+    \]
+    Finalmente, multiplicamos a la izquierda por $\Phi(t)$ para reconstruir la solución buscada $u(t)$:
+    \[
+        u(t) = \Phi(t) \left( u_0 + \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \right) = \Phi(t) u_0 + \Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds
+    \]
+    Esta fórmula es sumamente profunda desde el punto de vista geométrico. Nos revela que las soluciones del sistema completo forman una variedad afín que hereda la dimensión del espacio de fases, y separa de forma aditiva la evolución natural de la condición inicial (término homogéneo transitorio) de la respuesta impuesta por el medio exterior (término forzado particular):
+    \[
+        u(t) = \underbrace{u(t; t_0, u_0)_{Homogenea}}_{\Phi(t) u_0} + \underbrace{u(t; t_0, 0)_{Forzada}}_{\Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds}
+    \]
 \end{proof}
 
-Tomando un base $\mathcal{B} = \{e_1, \ldots, e_n\}$ en $\mathbb{K}^n$, entonces si consideramos los sistemas de valores iniciales:
-\[
-    P_i : \begin{cases}
-        h' = A(t) h, \quad t \in [\alpha, \beta] \\
-        h(t_0) = e_i
-    \end{cases}
-    \longrightarrow h(t; t_0, e_i) \in C^{1}([\alpha, \beta], \mathbb{K}^n), \quad i = 1, 2, \ldots, n
-\]
-Entonces, la matriz fundamental de soluciones asociada a esta base es:
-\[
-    \Phi(t) =
-    \begin{pmatrix}
-        h(t; t_0, e_1) & h(t; t_0, e_2) & \ldots & h(t; t_0, e_n)
-    \end{pmatrix}
-\]
-Además, esta matriz en particular cumple que $\Phi(t_0) = I_n$. Si $\Psi(t)$ es otra matriz fundamental de soluciones, entonces $\Phi(t) = \Psi(t) \Psi(t_0)^{-1}$ es también una matriz fundamental de soluciones. 
-\[
-    \Phi(t_0) = \Psi(t_0) \Psi(t_0)^{-1} = I_n
-\]
-Dado el sistema
-\[
-    \begin{cases}
-        u' = A(t) u + B(t), \quad t \in [\alpha, \beta] \\	
-        u(t_0) = u_0
-    \end{cases}
-\]
-\[
-    u(t) = \Phi(t) C \qquad u'(t) = \Phi'(t) C = A(t) \Phi(t) C = A(t) u(t)
-\] 
-\[
-    u(t) = \Phi(t) v(t)
-\]
-\[
-    \Phi'(t) v(t) + \Phi(t) v'(t) = A(t) \Phi(t) v(t) + B(t)
-\]
-\[
-    u_0 = u(t_0) = \Phi(t_0) v(t_0) = v(t_0) \implies v(t_0) = u_0
-\]
-\[
-    A(t) \Phi(t) v(t) + \Phi(t) v'(t) = A(t) \Phi(t) v(t) + B(t) 
-\]
-\[
-    \Phi(t) v'(t) = B(t) \implies v'(t) = \Phi(t)^{-1} B(t), \quad t \in [\alpha, \beta]
-\]
-\[
-    \int_{t_0}^{t} v'(s) ds = \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \implies
-    v(t) - v(t_0) = \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds 
-\]
-\[
-    v(t) = u_0 + \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \implies u(t) = \Phi(t) \left(u_0 + \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds \right), \quad t \in [\alpha, \beta]
-\]
-\[
-    u(t) = \Phi(t) u_0 + \Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
-\]
-\[
-    h' = A(t) h \quad e^{\int_{t_0}^{t} A(s) ds} = h(t; t_0, I_n) \quad \Phi(t) = h(t) e^{-\int_{t_0}^{t} A(s) ds}
-\]
-\[
-    \Phi(t)u_0 = (h_1(t), h_2(t), \ldots, h_n(t)) u_0 = u_0^1 h_1(t) + u_0^2 h_2(t) + \ldots + u_0^n h_n(t) = h(t; t_0, u_0)
-\]
-\[
-    u(t) = \underbrace{\Phi(t) u_0}_{h(t; t_0, u_0)} + \underbrace{\Phi(t) \int_{t_0}^{t} \Phi(s)^{-1} B(s) ds}_{u(t; t_0, 0)} = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
-\]
-Estas son las ecuaciones paramétricas de la variedad afín n-dimensional $\Sigma_B$.
-Cuando la matriz es constante:
-\[
-    u(t,t_0,u_0) = e^{A(t-t_0)} u_0 + \int_{t_0}^{t} e^{A(t-s)} B(s) ds, \quad t \in [\alpha, \beta]
-\]
+\begin{observación} [Caso de coeficientes constantes]
+    Como caso particular de inmensa utilidad aplicada, si la matriz del sistema no depende del tiempo, es decir $A(t) = A \in \mathcal{M}_n(\mathbb{K})$, ya sabemos que la matriz fundamental principal toma la forma de una exponencial matricial: $\Phi(t) = e^{A(t-t_0)}$. Sabiendo que la inversa de la exponencial satisface $(e^{A(s-t_0)})^{-1} = e^{-A(s-t_0)}$, la fórmula de variación de parámetros se reduce a una convolución generalizada conocida habitualmente como la fórmula de Duhamel:
+    \[
+        u(t) = e^{A(t-t_0)} u_0 + \int_{t_0}^{t} e^{A(t-s)} B(s) ds, \quad t \in [\alpha, \beta]
+    \]    
+\end{observación}
