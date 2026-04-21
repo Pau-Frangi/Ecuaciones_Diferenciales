@@ -1,0 +1,211 @@
+\section{Integración elemental de ecuaciones no lineales}
+
+\subsection{Introducción y pérdida de linealidad}
+
+Hasta este punto, nuestro estudio se ha centrado exclusivamente en el ámbito de las ecuaciones y sistemas diferenciales lineales. La estructura lineal nos dotó de propiedades algebraicas muy buenas, siendo entre las más  destacadas el \textit{Principio de Superposición}, el cual nos permitía construir soluciones generales a partir de combinaciones lineales de un conjunto fundamental de soluciones particulares. 
+
+Sin embargo, cuando abandonamos el régimen lineal, esta cómoda estructura algebraica colapsa. Para ilustrar este fenómeno, consideremos la siguiente y ecuación diferencial ordinaria no lineal de primer orden:
+\[
+    u' = u^2
+\]
+Esta ecuación no es lineal y, en consecuencia, no cumple el principio de superposición. Podemos demostrarlo rápidamente por reducción al absurdo. Si una función $u(t)$ fuera solución de esta ecuación ($u' = u^2$), y asumiéramos que el principio de superposición sigue vigente, cualquier múltiplo escalar $\lambda u(t)$ también debería ser solución. Sustituyendo en la ecuación diferencial tendríamos:
+\[
+    (\lambda u)' = (\lambda u)^2 \implies \lambda u' = \lambda^2 u^2
+\]
+Como sabemos que $u' = u^2$, podemos sustituirlo en el lado izquierdo:
+\[
+    \lambda (u^2) = \lambda^2 u^2 \implies (\lambda - \lambda^2)u^2 = 0
+\]
+Para que esta igualdad se cumpla para cualquier solución no trivial ($u \neq 0$), forzosamente tendríamos que $\lambda = \lambda^2$, lo cual solo es cierto si $\lambda = 0$ o $\lambda = 1$. Es decir, el espacio de soluciones ya no es cerrado bajo el producto por escalares. 
+
+De forma análoga, la suma de soluciones falla. Si tomamos dos soluciones $u_1, u_2$ y evaluamos si su suma $u_1 + u_2$ es solución:
+\[
+    (u_1 + u_2)' = (u_1 + u_2)^2 \implies u_1' + u_2' = u_1^2 + 2u_1u_2 + u_2^2
+\]
+Dado que $u_1' = u_1^2$ y $u_2' = u_2^2$, al sustituir y cancelar términos homólogos en ambos lados de la igualdad llegamos a la restrictiva condición:
+\[
+    u_1^2 + u_2^2 = u_1^2 + 2u_1u_2 + u_2^2 \implies 2u_1 u_2 = 0 \implies u_1 = 0 \text{ o } u_2 = 0
+\]
+Lo cual no es cierto en general, confirmando la destrucción de la estructura de espacio vectorial.
+
+Ante la imposibilidad de encontrar una teoría global unificada para el problema general $u' = f(t,u)$, la estrategia clásica consiste en identificar familias específicas de ecuaciones no lineales que, mediante transformaciones algebraicas ingeniosas (difeomorfismos), puedan reducirse a ecuaciones lineales conocidas. Uno de los casos más célebres y útiles en la física y la biología es la \textit{ecuación de Bernoulli}.
+
+\subsection{Ecuación de Bernoulli}
+
+Llamaremos \textbf{ecuación de Bernoulli} a toda ecuación diferencial ordinaria de primer orden que pueda escribirse bajo la forma:
+\[
+    u' = a(t)u + b(t)u^p, \quad p \in \mathbb{R}
+\]
+donde $a, b : [\alpha, \beta] \to \mathbb{R}$ son funciones continuas en el intervalo de estudio. 
+
+Analicemos primero los casos triviales según el exponente $p$:
+\begin{itemize}
+    \item Si $p = 0$, la ecuación se reduce a $u' = a(t)u + b(t)$, que es una ecuación diferencial \textbf{lineal inhomogénea} ordinaria.
+    \item Si $p = 1$, la ecuación se reduce a $u' = a(t)u + b(t)u = (a(t) + b(t))u$, que es una ecuación diferencial \textbf{lineal homogénea}.
+\end{itemize}
+
+Por lo tanto, el caso de genuino interés matemático es cuando $p \in \mathbb{R} \setminus \{0,1\}$, que conforma el régimen estrictamente no lineal. 
+
+La estrategia de resolución para la ecuación de Bernoulli consiste en buscar un cambio de variable de la forma $u = v^\alpha$ que consiga linealizar la ecuación. Nos preguntamos entonces: ¿para qué valor exacto del exponente $\alpha$ la nueva función $v(t)$ satisfará una ecuación lineal? 
+
+Comenzamos calculando la derivada de nuestro cambio propuesto usando la regla de la cadena:
+\[
+    u(t) = v(t)^\alpha \implies u'(t) = \alpha v(t)^{\alpha - 1} v'(t)
+\]
+Sustituimos $u$ y $u'$ en la ecuación de Bernoulli original:
+\[
+    \alpha v^{\alpha - 1} v' = a(t) v^\alpha + b(t) v^{\alpha p} 
+\]
+Para simplificar esta expresión y aislar la derivada $v'$, dividimos toda la ecuación por el factor $v^{\alpha - 1}$ (asumiendo soluciones no nulas $v \neq 0$):
+\[
+    \alpha v' = a(t) \frac{v^\alpha}{v^{\alpha - 1}} + b(t) \frac{v^{\alpha p}}{v^{\alpha - 1}} 
+\]
+Aplicando las propiedades básicas de los exponentes, las potencias de $v$ se simplifican a:
+\[
+    \alpha v' = a(t) v + b(t) v^{\alpha p - (\alpha - 1)} \implies \alpha v' = a(t) v + b(t) v^{\alpha(p-1)+1}
+\]
+Para que esta nueva ecuación diferencial en la variable $v$ sea estrictamente lineal, necesitamos eliminar cualquier dependencia no lineal de $v$. Esto se logra si y solo si forzamos a que el exponente del último término sea cero (pues $v^0 = 1$). Imponemos entonces la condición de linealidad:
+\[
+    \alpha(p-1) + 1 = 0 \implies \alpha(p-1) = -1 \implies \alpha = \frac{1}{1-p}
+\]
+Hemos deducido de manera rigurosa que el cambio de variable óptimo es $u = v^{\frac{1}{1-p}}$. Al emplear este valor específico de $\alpha$, la ecuación se transfigura en:
+\[
+    \frac{1}{1-p} v' = a(t) v + b(t) v^{0} \implies \frac{1}{1-p} v' = a(t) v + b(t)
+\]
+Multiplicando por la constante $(1-p)$, obtenemos finalmente una ecuación diferencial lineal de primer orden estándar para la variable $v$:
+\[
+    v' = (1-p) a(t) v + (1-p) b(t)
+\]
+De este modo, hemos construido un puente analítico: resolvemos esta ecuación lineal mediante el uso del factor integrante visto en capítulos anteriores, obtenemos la función $v(t)$, y finalmente recuperamos nuestra familia uniparamétrica de soluciones para la ecuación no lineal original deshaciendo el cambio mediante $u(t) = v(t)^{\frac{1}{1-p}}$.
+
+\vspace{0.5cm}
+
+\ejemplo{
+    \textbf{Dinámica de poblaciones: El modelo logístico de Verhulst} \\
+    Consideremos la célebre ecuación de dinámica poblacional formulada por Pierre François Verhulst en 1838 para corregir el crecimiento exponencial ilimitado de Malthus:
+    \[
+        u' = \lambda u - a u^2   
+    \]
+    donde $u(t)$ representa el número de individuos de una especie en el instante $t$, $\lambda > 0$ es la tasa intrínseca de natalidad (crecimiento) y $a > 0$ es el coeficiente de competición intraespecífica (que modela la limitación de recursos). Notemos que esta ecuación tiene la estructura exacta de una ecuación de Bernoulli con $p = 2$.
+    
+    Cuando nos enfrentamos a una ecuación diferencial no lineal autónoma (es decir, donde $t$ no aparece explícitamente), el primer paso fundamental es el \textbf{análisis de equilibrios}. Buscamos las soluciones constantes $u(t) \equiv C$, también llamadas puntos singulares, donde la población no cambia ($u' = 0$):
+    \[
+        \lambda u - a u^2 = 0 \implies u(\lambda - a u) = 0 \implies u = 0 \quad \text{o} \quad u = \frac{\lambda}{a}
+    \]
+    Físicamente, $u=0$ es la extinción total, y $u=\lambda/a$ es la capacidad de carga del ecosistema. 
+    
+    Nos proponemos resolver el problema de valor inicial completo para cualquier población de partida estricta y positivamente poblada:
+    \[
+        \begin{cases}
+            u' = \lambda u - a u^2 \\
+            u(0) = u_0 > 0
+        \end{cases}
+    \]
+    Aplicaremos la técnica de Bernoulli. Como $p = 2$, el exponente del cambio es $\alpha = \frac{1}{1-2} = -1$. Empleamos, por tanto, el cambio de variable inverso $u = v^{-1}$. 
+    
+    Derivando el cambio, tenemos $u' = -v^{-2} v'$. Sustituyendo ambas expresiones en la ecuación de Verhulst:
+    \[
+        -v^{-2} v' = \lambda (v^{-1}) - a (v^{-1})^2 \implies -v^{-2} v' = \lambda v^{-1} - a v^{-2}
+    \]
+    Para linealizarla, multiplicamos toda la igualdad por $-v^2$ (operación lícita ya que $u_0 > 0 \implies v_0 \neq \infty$ y buscamos soluciones no nulas):
+    \[
+        v' = -\lambda v + a
+    \]
+    Hemos llegado a una ecuación diferencial lineal de primer orden con coeficientes constantes. La solución de su parte homogénea ($v_h' = -\lambda v_h$) es $C e^{-\lambda t}$, y una solución particular trivial para el término constante es $v_p = a/\lambda$. Por superposición, la solución general para la variable transitoria $v$ es:
+    \[
+        v(t) = x e^{-\lambda t} + \frac{a}{\lambda}, \quad x \in \mathbb{R}
+    \]
+    Deshacemos el cambio de variable para recuperar la dinámica de la población $u(t) = 1/v(t)$:
+    \[
+        u(t) = \frac{1}{x e^{-\lambda t} + \frac{a}{\lambda}} 
+    \]
+    Imponemos ahora la condición inicial $u(0) = u_0$ para determinar la constante de integración $x$:
+    \[
+        u(0) = \frac{1}{x e^{0} + \frac{a}{\lambda}} = \frac{1}{x + \frac{a}{\lambda}} = u_0 \implies x + \frac{a}{\lambda} = \frac{1}{u_0} \implies x = \frac{1}{u_0} - \frac{a}{\lambda}
+    \]
+    Sustituyendo el valor analítico de $x$ en la familia de soluciones, cristalizamos la solución única del problema de valor inicial:
+    \[
+        u(t; u_0) = \frac{1}{\left( \frac{1}{u_0} - \frac{a}{\lambda} \right) e^{-\lambda t} + \frac{a}{\lambda}}
+    \]
+    Para facilitar el análisis cualitativo, multiplicamos numerador y denominador por $u_0 \lambda e^{\lambda t}$, obteniendo la clásica y elegante \textbf{curva logística}:
+    \[
+        u(t; u_0) = \frac{u_0 \lambda}{a u_0 + (\lambda - a u_0)e^{-\lambda t}}
+    \]
+
+    \textbf{Análisis Cualitativo del Comportamiento Asintótico:}
+    
+    Independientemente del valor inicial $u_0 > 0$, dado que $\lambda > 0$, el término $e^{-\lambda t} \to 0$ cuando $t \to +\infty$. Esto nos garantiza que el límite poblacional es siempre el equilibrio superior:
+    \[ \lim_{t \to +\infty} u(t; u_0) = \frac{u_0 \lambda}{a u_0 + 0} = \frac{\lambda}{a} \]
+    
+    Analicemos la concavidad y el crecimiento de la curva según la ubicación del estado inicial $u_0$:
+    \begin{itemize}
+        \item \textbf{Caso 1: Población inicial baja ($0 < u_0 < \frac{\lambda}{a}$)} \\
+        Como $u < \lambda/a$, la derivada es estrictamente positiva: $u'(t) = u(t)(\lambda - a u(t)) > 0$, lo que indica un \textbf{crecimiento poblacional monótono}. 
+        Para evaluar la curvatura, derivamos la ecuación diferencial respecto al tiempo usando la regla de la cadena:
+        \[
+            u'' = \frac{d}{dt}(\lambda u - a u^2) = \lambda u' - 2 a u u' = u' (\lambda - 2 a u)
+        \]
+        El signo de la segunda derivada depende del factor $(\lambda - 2au)$, que cambia de signo en la mitad de la capacidad de carga, $u = \frac{\lambda}{2a}$.
+        \[
+            \text{Geometría de la curva:} \begin{cases}
+                u'' > 0 & \text{si } u < \frac{\lambda}{2 a} \quad \text{(crecimiento acelerado, forma convexa)} \\
+                u'' = 0 & \text{si } u = \frac{\lambda}{2 a} \quad \text{(punto de inflexión de máximo crecimiento)} \\
+                u'' < 0 & \text{si } \frac{\lambda}{2 a} < u < \frac{\lambda}{a} \quad \text{(crecimiento desacelerado, forma cóncava)}
+            \end{cases}
+        \]
+        Esta transición de convexa a cóncava genera la característica forma en "S" (sigmoide) de la dinámica poblacional natural.
+
+        \item \textbf{Caso 2: Superpoblación inicial ($u_0 > \frac{\lambda}{a}$)} \\
+        Si la población inicial supera la capacidad de sustentación del medio, el factor $(\lambda - au)$ se vuelve negativo. Por tanto, $u'(t) = u(t)(\lambda - a u(t)) < 0$. La población \textbf{decrece estrictamente} hacia el equilibrio.
+        Respecto a la curvatura, dado que todo el recorrido se da en la región $u > \frac{\lambda}{a} > \frac{\lambda}{2a}$, tenemos que $u' < 0$ y $(\lambda - 2au) < 0$. El producto de ambos es positivo: $u'' = (-) \cdot (-) > 0$. Esto implica que la curva de decaimiento es \textbf{estrictamente convexa} a lo largo de todo el tiempo.
+        
+        \item \textbf{Caso 3: Equilibrio exacto ($u_0 = \frac{\lambda}{a}$)} \\
+        Si el estado inicial coincide con la capacidad de carga, sustituyendo en la fórmula exacta vemos que el término dependiente del tiempo desaparece: $u(t) \equiv \frac{\lambda}{a}$. La solución permanece constante para siempre.
+    \end{itemize}
+
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        \begin{axis}[
+            domain=0:5,
+            samples=100,
+            xmin=0, xmax=5,
+            ymin=0, ymax=1.8,
+            xlabel={Tiempo $t$},
+            ylabel={Población $u(t)$},
+            axis lines=middle,
+            grid=both,
+            grid style={dashed, gray!30},
+            xtick=\empty,
+            ytick={1, 0.5},
+            yticklabels={Capacidad de carga $K = \lambda/a$, Punto de inflexión $K/2$},
+            legend pos=south east,
+            legend style={font=\footnotesize},
+            title={\textbf{Curvas logísticas del Modelo de Verhulst}}
+        ]
+        
+        % Asíntota K (Capacidad de carga)
+        \addplot[dashed, thick, black] coordinates {(0,1) (5,1)};
+        
+        % Asíntota K/2 (Punto de inflexión)
+        \addplot[dotted, gray] coordinates {(0,0.5) (5,0.5)};
+
+        % Caso 1a: Empieza por debajo de K/2 (Curva Sigmoide)
+        % Normalizamos: K = 1, lambda = 2. formula: u(t) = K*u0 / (u0 + (K-u0)*exp(-lambda*t))
+        \addplot[thick, blue] { (1*0.1) / (0.1 + (1-0.1)*exp(-2*x)) };
+        \addlegendentry{Crecimiento (Caso 1)}
+
+        % Caso 1b: Empieza por encima de K/2 pero debajo de K (Solo cóncava)
+        \addplot[thick, cyan] { (1*0.6) / (0.6 + (1-0.6)*exp(-2*x)) };
+        
+        % Caso 3: Equilibrio exacto
+        \addplot[thick, green!60!black] {1};
+        \addlegendentry{Equilibrio Estacionario}
+        
+        % Caso 2: Superpoblación (Empieza por encima de K)
+        \addplot[thick, red] { (1*1.6) / (1.6 + (1-1.6)*exp(-2*x)) };
+        \addlegendentry{Decrecimiento (Caso 2)}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+}
