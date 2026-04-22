@@ -134,78 +134,243 @@ De este modo, hemos construido un puente analítico: resolvemos esta ecuación l
 
     \textbf{Análisis Cualitativo del Comportamiento Asintótico:}
     
-    Independientemente del valor inicial $u_0 > 0$, dado que $\lambda > 0$, el término $e^{-\lambda t} \to 0$ cuando $t \to +\infty$. Esto nos garantiza que el límite poblacional es siempre el equilibrio superior:
-    \[ \lim_{t \to +\infty} u(t; u_0) = \frac{u_0 \lambda}{a u_0 + 0} = \frac{\lambda}{a} \]
+    Independientemente del valor inicial $u_0 > 0$, dado que la tasa de crecimiento $\lambda > 0$, el término transitorio exponencial se desvanece con el tiempo: $e^{-\lambda t} \to 0$ cuando $t \to +\infty$. Esto nos garantiza analíticamente que el límite poblacional a largo plazo es siempre el equilibrio superior (la capacidad de carga):
+    \[ \lim_{t \to +\infty} u(t; u_0) = \frac{1}{0 + \frac{a}{\lambda}} = \frac{\lambda}{a} \]
     
-    Analicemos la concavidad y el crecimiento de la curva según la ubicación del estado inicial $u_0$:
+    Analicemos con rigor la concavidad y el crecimiento de la curva según la ubicación exacta del estado inicial $u_0$:
+    
     \begin{itemize}
         \item \textbf{Caso 1: Población inicial baja ($0 < u_0 < \frac{\lambda}{a}$)} \\
-        Como $u < \lambda/a$, la derivada es estrictamente positiva: $u'(t) = u(t)(\lambda - a u(t)) > 0$, lo que indica un \textbf{crecimiento poblacional monótono}. 
+        Bajo esta condición, el factor $(\lambda - au)$ es estrictamente positivo. Por tanto, la derivada primera es positiva: $u'(t) = u(t)(\lambda - a u(t)) > 0$, lo que nos indica un \textbf{crecimiento poblacional monótono}. 
         Para evaluar la curvatura, derivamos la ecuación diferencial respecto al tiempo usando la regla de la cadena:
         \[
             u'' = \frac{d}{dt}(\lambda u - a u^2) = \lambda u' - 2 a u u' = u' (\lambda - 2 a u)
         \]
-        El signo de la segunda derivada depende del factor $(\lambda - 2au)$, que cambia de signo en la mitad de la capacidad de carga, $u = \frac{\lambda}{2a}$.
+        Como $u' > 0$, el signo de la segunda derivada depende exclusivamente del factor $(\lambda - 2au)$, el cual cambia de signo exactamente en la mitad de la capacidad de carga, es decir, en $u = \frac{\lambda}{2a}$.
         \[
             \text{Geometría de la curva:} \begin{cases}
                 u'' > 0 & \text{si } u < \frac{\lambda}{2 a} \quad \text{(crecimiento acelerado, forma convexa)} \\
-                u'' = 0 & \text{si } u = \frac{\lambda}{2 a} \quad \text{(punto de inflexión de máximo crecimiento)} \\
+                u'' = 0 & \text{si } u = \frac{\lambda}{2 a} \quad \text{(punto de inflexión, máximo ritmo de crecimiento)} \\
                 u'' < 0 & \text{si } \frac{\lambda}{2 a} < u < \frac{\lambda}{a} \quad \text{(crecimiento desacelerado, forma cóncava)}
             \end{cases}
         \]
-        Esta transición de convexa a cóncava genera la característica forma en "S" (sigmoide) de la dinámica poblacional natural.
+        Esta suave transición de convexa a cóncava es la responsable de generar la característica forma en "S" (sigmoide) intrínseca a la dinámica poblacional natural.
 
         \item \textbf{Caso 2: Superpoblación inicial ($u_0 > \frac{\lambda}{a}$)} \\
-        Si la población inicial supera la capacidad de sustentación del medio, el factor $(\lambda - au)$ se vuelve negativo. Por tanto, $u'(t) = u(t)(\lambda - a u(t)) < 0$. La población \textbf{decrece estrictamente} hacia el equilibrio.
-        Respecto a la curvatura, dado que todo el recorrido se da en la región $u > \frac{\lambda}{a} > \frac{\lambda}{2a}$, tenemos que $u' < 0$ y $(\lambda - 2au) < 0$. El producto de ambos es positivo: $u'' = (-) \cdot (-) > 0$. Esto implica que la curva de decaimiento es \textbf{estrictamente convexa} a lo largo de todo el tiempo.
+        Si la población de partida supera la capacidad de sustentación del medio, el factor limitante se invierte: $(\lambda - au) < 0$. En consecuencia, $u'(t) = u(t)(\lambda - a u(t)) < 0$, lo que dictamina que la población \textbf{decrece estrictamente} hacia el equilibrio.
+        Respecto a la curvatura, todo el recorrido se da en la región superior $u > \frac{\lambda}{a} > \frac{\lambda}{2a}$, por lo que tenemos simultáneamente $u' < 0$ y $(\lambda - 2au) < 0$. El producto de dos cantidades negativas es positivo, luego $u'' > 0$. Esto implica que la curva de decaimiento es \textbf{estrictamente convexa} para todo $t > 0$.
         
         \item \textbf{Caso 3: Equilibrio exacto ($u_0 = \frac{\lambda}{a}$)} \\
-        Si el estado inicial coincide con la capacidad de carga, sustituyendo en la fórmula exacta vemos que el término dependiente del tiempo desaparece: $u(t) \equiv \frac{\lambda}{a}$. La solución permanece constante para siempre.
+        Si el estado inicial coincide con la capacidad de carga, el término $1/u_0 - a/\lambda$ se anula. Sustituyendo en la fórmula exacta, la dependencia temporal desaparece y obtenemos $u(t) \equiv \frac{\lambda}{a}$. La solución permanece constante y estacionaria para siempre.
+        
+        \item \textbf{Caso 4: Explosión asintótica en tiempo finito hacia el pasado ($T_{blow-up}$)} \\
+        Las ecuaciones no lineales presentan un fenómeno que jamás ocurre en las lineales: la solución puede dejar de existir en un tiempo finito. Analicemos el dominio de definición hacia el pasado para el Caso 2 ($u_0 > \lambda/a$). La solución dejará de existir si el denominador de nuestra fórmula se anula:
+        \[
+            \left(\frac{1}{u_0} - \frac{a}{\lambda}\right) e^{-\lambda t} + \frac{a}{\lambda} = 0 
+        \]
+        Pasando el término constante al lado derecho y reordenando los signos:
+        \[
+            e^{-\lambda t} \left(\frac{a}{\lambda} - \frac{1}{u_0}\right) = \frac{a}{\lambda} 
+        \]
+        Despejando la exponencial, obtenemos:
+        \[
+            e^{-\lambda t} = \frac{\frac{a}{\lambda}}{\frac{a}{\lambda} - \frac{1}{u_0}} = \frac{a}{a - \frac{\lambda}{u_0}}
+        \]
+        Dado que $u_0 > \lambda/a$, tenemos que $\lambda/u_0 < a$. Por tanto, el denominador $a - \lambda/u_0$ es estrictamente positivo y menor que $a$. Esto implica que el cociente es estrictamente mayor que 1:
+        \[
+            e^{-\lambda t} > 1 \implies -\lambda t > 0 \implies t < 0
+        \]
+        Despejando finalmente el tiempo, obtenemos el instante de explosión $T(u_0)$:
+        \[
+            T(u_0) = -\frac{1}{\lambda} \ln\left( \frac{a}{a - \frac{\lambda}{u_0}} \right) < 0
+        \]
+        Este es el \textbf{tiempo de explosión hacia atrás} de la solución. Significa que, matemáticamente, la solución $u(t)$ solo está definida en el intervalo $t \in (T(u_0), +\infty)$. Si retrocedemos en el tiempo, la población proviene de una asíntota vertical en $T(u_0)$. 
+        
+        Evaluemos los límites de este tiempo de explosión en función de la condición inicial:
+        \begin{itemize}
+            \item Si partimos de una población inmensa ($u_0 \to +\infty$), entonces $\lambda/u_0 \to 0$, por lo que $T \to -\frac{1}{\lambda}\ln(a/a) = 0$. La explosión ocurre inmediatamente antes del estado inicial.
+            \item Si partimos muy cerca del equilibrio por arriba ($u_0 \to (\frac{\lambda}{a})^+$), el denominador tiende a $0^+$, el argumento del logaritmo tiende a $+\infty$, y por tanto $T(u_0) \to -\infty$. La solución existe para todo el pasado.
+        \end{itemize}
     \end{itemize}
 
-    \begin{center}
-    \begin{tikzpicture}[scale=1.0]
+\begin{center}
+    \begin{tikzpicture}
         \begin{axis}[
-            domain=0:5,
-            samples=100,
-            xmin=0, xmax=5,
-            ymin=0, ymax=1.8,
+            width=10cm, height=7cm, % Proporciones ajustadas para dejar espacio a la leyenda
+            domain=-1:5,
+            samples=200,
+            xmin=-1, xmax=5.2,
+            ymin=0, ymax=2.5,
             xlabel={Tiempo $t$},
             ylabel={Población $u(t)$},
             axis lines=middle,
+            axis line style={->}, % Flechas en los ejes
             grid=both,
             grid style={dashed, gray!30},
-            xtick=\empty,
+            xtick={0, 1, 2, 3, 4, 5},
             ytick={1, 0.5},
-            yticklabels={Capacidad de carga $K = \lambda/a$, Punto de inflexión $K/2$},
-            legend pos=south east,
-            legend style={font=\footnotesize},
-            title={\textbf{Curvas logísticas del Modelo de Verhulst}}
+            yticklabels={Capacidad $K = \lambda/a$, Punto Inflexión $K/2$},
+            % ---- MEJORAS DE LA LEYENDA ----
+            legend pos=outer north east, % Saca la leyenda fuera del gráfico
+            legend cell align={left},    % Alinea el texto a la izquierda
+            legend style={
+                font=\footnotesize, 
+                draw=gray!50,            % Color del borde más suave
+                rounded corners=1pt      % Bordes ligeramente redondeados
+            },
+            title={\textbf{Curvas logísticas y Explosión en el Pasado}}
         ]
         
         % Asíntota K (Capacidad de carga)
-        \addplot[dashed, thick, black] coordinates {(0,1) (5,1)};
+        \addplot[dashed, thick, black] coordinates {(-1,1) (5.2,1)};
         
         % Asíntota K/2 (Punto de inflexión)
-        \addplot[dotted, gray] coordinates {(0,0.5) (5,0.5)};
+        \addplot[dotted, thick, gray] coordinates {(-1,0.5) (5.2,0.5)};
 
-        % Caso 1a: Empieza por debajo de K/2 (Curva Sigmoide)
-        % Normalizamos: K = 1, lambda = 2. formula: u(t) = K*u0 / (u0 + (K-u0)*exp(-lambda*t))
+        % Caso 1: Curva Sigmoide (Empieza muy baja)
         \addplot[thick, blue] { (1*0.1) / (0.1 + (1-0.1)*exp(-2*x)) };
         \addlegendentry{Crecimiento (Caso 1)}
-
-        % Caso 1b: Empieza por encima de K/2 pero debajo de K (Solo cóncava)
-        \addplot[thick, cyan] { (1*0.6) / (0.6 + (1-0.6)*exp(-2*x)) };
         
         % Caso 3: Equilibrio exacto
         \addplot[thick, green!60!black] {1};
         \addlegendentry{Equilibrio Estacionario}
         
-        % Caso 2: Superpoblación (Empieza por encima de K)
-        \addplot[thick, red] { (1*1.6) / (1.6 + (1-1.6)*exp(-2*x)) };
-        \addlegendentry{Decrecimiento (Caso 2)}
+        % Caso 2/4: Superpoblación con explosión hacia atrás
+        \addplot[thick, red, domain=-0.48:5.2, samples=150] { (1*1.6) / (1.6 + (1-1.6)*exp(-2*x)) };
+        \addlegendentry{Decrecimiento / Blow-up (Caso 2)}
         
+        % Línea asintótica vertical de explosión
+        \draw[dashed, red!50!white, thick] (axis cs:-0.49,0) -- (axis cs:-0.49,2.5);
+        \node[red, anchor=north west] at (axis cs:-0.49, 2.1) {$T(u_0)$};
+
         \end{axis}
     \end{tikzpicture}
     \end{center}
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=10cm, height=6cm,
+            domain=1.01:4,
+            samples=150,
+            xmin=0.8, xmax=4.2,
+            ymin=-2.5, ymax=0.5,
+            xlabel={Condición inicial $u_0$},
+            ylabel={Tiempo de explosión $T(u_0)$},
+            axis lines=middle,
+            axis line style={->},
+            grid=both,
+            grid style={dashed, gray!30},
+            xtick={1, 2, 3, 4},
+            xticklabels={$K = \lambda/a$, $2$, $3$, $4$},
+            ytick={0, -1, -2},
+            % ---- MEJORAS DE LA LEYENDA ----
+            legend pos=outer north east, 
+            legend cell align={left},
+            legend style={
+                font=\footnotesize, 
+                draw=gray!50, 
+                rounded corners=1pt
+            },
+            title={\textbf{Dependencia del tiempo de explosión $T(u_0)$}}
+        ]
+        
+        % Asíntota vertical en u0 = \lambda/a (K=1)
+        \draw[dashed, thick, black] (axis cs:1,-2.5) -- (axis cs:1,0.5);
+        
+        % Curva del tiempo de explosión T(u_0) = 0.5 * ln(1 - 1/u_0) para lambda=2, a=2
+        \addplot[thick, purple] { 0.5 * ln(1 - 1/x) };
+        \addlegendentry{$T(u_0)$}
+
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \textbf{Estudio Dinámico Cualitativo}
+    
+    Toda la información obtenida analíticamente se puede deducir de forma visual y elegante estudiando la ecuación como un sistema autónomo de la forma $u' = f(u)$. Definimos nuestro campo vectorial poblacional como:
+    \[
+        f(u) = \lambda u - a u^2 = u(\lambda - a u)
+    \]
+    Geométricamente, la gráfica de $f(u)$ frente a $u$ es una parábola cóncava hacia abajo. Encontraremos los puntos donde la velocidad de crecimiento es máxima calculando el punto crítico de $f(u)$:
+    \[
+        \frac{d}{du} f(u) = \lambda - 2 a u = 0 \implies u = \frac{\lambda}{2 a}
+    \]
+    Para confirmar que es un máximo, evaluamos la segunda derivada:
+    \[
+        \frac{d^2}{du^2} f(u) = -2 a < 0 \quad \text{(Es un máximo global de crecimiento)}
+    \]
+    
+    Los equilibrios del sistema (puntos singulares) corresponden a las raíces del campo vectorial, $f(u) = 0$, que nos devuelve las dos soluciones constantes que ya conocíamos: $u = 0$ y $u = \lambda/a$. 
+    
+    El signo de $f(u)$ en los intervalos delimitados por estas raíces nos dicta la dirección del flujo de la población en la \textit{línea de fases}:
+    \[
+        u' = f(u) \begin{cases}
+            > 0 & \text{si } 0 < u < \frac{\lambda}{a} \implies \text{Flujo hacia la derecha (población crece)} \\
+            = 0 & \text{si } u = 0 \text{ o } u = \frac{\lambda}{a} \implies \text{Puntos de equilibrio} \\
+            < 0 & \text{si } u > \frac{\lambda}{a} \implies \text{Flujo hacia la izquierda (población decrece)}
+        \end{cases}
+    \]
+    Evaluando la derivada $f'(u)$ en los equilibrios determinamos su estabilidad:
+    \begin{itemize}
+        \item $f'(0) = \lambda > 0$. Al ser positivo, las soluciones cercanas se alejan. Es un \textbf{equilibrio inestable} (repulsor).
+        \item $f'(\lambda/a) = \lambda - 2a(\lambda/a) = -\lambda < 0$. Al ser negativo, las soluciones cercanas son atraídas hacia él. Es un \textbf{equilibrio asintóticamente estable} (atractor global para cualquier $u_0 > 0$).
+    \end{itemize}
+
 }
+
+
+
+\subsection{Ecuación de Riccati}
+
+Para motivar la aparición de esta ecuación, consideremos nuevamente el problema diferencial no lineal general $u' = f(t,u)$. Si asumimos que la función $f$ es suficientemente regular respecto a la variable de estado $u$, podemos aproximar su comportamiento localmente utilizando su desarrollo en serie de Taylor en torno al estado nulo $u=0$:
+\[
+    u' = f(t,u) = f(t,0) + \frac{\partial f}{\partial u}(t,0) u + \frac{1}{2} \frac{\partial^2 f}{\partial u^2}(t,0) u^2 + \mathcal{O}(u^3)
+\]
+Si truncamos este desarrollo analítico reteniendo únicamente hasta el término cuadrático, estamos aproximando la dinámica general del sistema mediante una parábola en la variable $u$, cuyos coeficientes dependen exclusivamente del tiempo $t$. Esta aproximación cuadrática da lugar a una de las ecuaciones no lineales más conocidas de la física matemática.
+
+\begin{definición}[Ecuación de Riccati]
+    Llamamos \textbf{ecuación de Riccati} a toda ecuación diferencial ordinaria de primer orden y grado uno que pueda expresarse bajo la forma:
+    \[
+        u' = a(t) u^2 + b(t) u + c(t)
+    \]
+    donde $a, b, c : [\alpha, \beta] \to \mathbb{R}$ son funciones continuas en el intervalo de estudio, y $a(t) \not\equiv 0$.
+\end{definición}
+
+Analicemos rápidamente los casos límite de esta estructura:
+\begin{itemize}
+    \item Si $a(t) \equiv 0$, el término cuadrático desaparece y recuperamos una ecuación lineal estándar.
+    \item Si $c(t) \equiv 0$, la ecuación de Riccati carece de término independiente y se reduce exactamente a una \textbf{ecuación de Bernoulli} con exponente $p = 2$ ($u' = b(t)u + a(t)u^2$), la cual ya sabemos resolver analíticamente.
+\end{itemize}
+
+Sin embargo, si $c(t) \neq 0$, nos enfrentamos a un obstáculo severo: \textbf{no existe ningún método de integración elemental general} que nos permita resolver una ecuación de Riccati arbitraria partiendo desde cero. 
+
+La resolución analítica de esta ecuación está condicionada a un golpe de suerte o a una inspección heurística del problema: \textbf{debemos conocer de antemano una solución particular}. 
+
+Supongamos que, por inspección o por consideraciones físicas del modelo, conocemos una solución particular $u_p(t)$ que satisface la ecuación, es decir, $u_p' = a(t)u_p^2 + b(t)u_p + c(t)$. Demostraremos que el conocimiento de esta única trayectoria $u_p(t)$ es suficiente para \textit{generar} la familia completa de soluciones del sistema.
+
+Para ello, proponemos un cambio de variable traslacional, buscando la solución general $u(t)$ como una perturbación $v(t)$ alrededor de nuestra solución conocida:
+\[
+    u(t) = u_p(t) + v(t)
+\]
+Derivando esta expresión respecto al tiempo, obtenemos $u' = u_p' + v'$. Sustituyendo tanto $u$ como $u'$ en la ecuación de Riccati original:
+\[
+    u_p' + v' = a(t) \big( u_p + v \big)^2 + b(t) \big( u_p + v \big) + c(t)
+\]
+Desarrollando el binomio al cuadrado y aplicando la propiedad distributiva:
+\[
+    u_p' + v' = a(t) \big( u_p^2 + 2u_p v + v^2 \big) + b(t)u_p + b(t)v + c(t)
+\]
+A continuación, reordenamos algebraicamente el lado derecho de la ecuación, agrupando de manera estratégica aquellos términos que dependen exclusivamente de la solución particular $u_p$:
+\[
+    u_p' + v' = \underbrace{\Big[ a(t)u_p^2 + b(t)u_p + c(t) \Big]}_{\text{Ecuación para } u_p} + a(t)v^2 + \Big( 2a(t)u_p + b(t) \Big)v
+\]
+Por hipótesis, sabemos que $u_p(t)$ es solución de la ecuación diferencial. Por lo tanto, el término agrupado entre corchetes es exactamente igual a $u_p'$. Esto nos permite cancelar $u_p'$ en ambos miembros de la igualdad, purificando la ecuación:
+\[
+    v' = a(t)v^2 + \big( 2a(t)u_p(t) + b(t) \big)v
+\]
+Hemos logrado un resultado analítico extraordinario. El término constante $c(t)$ ha sido completamente eliminado. La nueva ecuación para la variable perturbación $v(t)$ tiene la forma:
+\[
+    v' = \tilde{b}(t)v + \tilde{a}(t)v^2, \quad \text{donde } \tilde{b}(t) = 2a(t)u_p(t) + b(t) \text{ y } \tilde{a}(t) = a(t)
+\]
+Esta última expresión es \textbf{una ecuación de Bernoulli con $p = 2$}. Por tanto, el problema insoluble se ha reducido a un problema conocido. Para hallar la solución general, bastará con aplicar el cambio de variable estándar de Bernoulli, $w = v^{1-2} = v^{-1}$, resolver la ecuación lineal resultante para $w(t)$, y finalmente deshacer la cadena de transformaciones mediante $u(t) = u_p(t) + \frac{1}{w(t)}$.
