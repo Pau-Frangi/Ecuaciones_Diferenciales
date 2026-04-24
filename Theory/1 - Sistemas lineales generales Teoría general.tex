@@ -598,7 +598,11 @@ Esta propiedad submultiplicativa se extiende a la composición de operadores (pr
 \[
     \| A B x \| \leq \| A \| \| B x \| \leq \| A \| \| B \| \| x \|.
 \]
-Tomando el máximo sobre $\|x\|=1$, obtenemos $\| A B \| \leq \| A \| \| B \|$. En particular, para las potencias de una matriz, se cumple $\| A^k \| \leq \| A \|^k$ para todo $k \in \mathbb{N}$.
+Tomando el máximo sobre $\|x\|=1$, obtenemos $\| A B \| \leq \| A \| \| B \|$. En efecto,
+\[
+    \| A B \| = \max_{\| x \| = 1} \| A B x \| \leq \max_{\| x \| = 1} \| A \| \| B \| \| x \| = \| A \| \| B \| \underbrace{\max_{\| x \| = 1} \| x \|}_{=1} = \| A \| \| B \|.
+\]
+En particular, para las potencias de una matriz, se cumple $\| A^k \| \leq \| A \|^k$ para todo $k \in \mathbb{N}$.
 
 \begin{lema}[Desigualdad integral de Minkowski vectorial]
     Sea $v : [\alpha, \beta] \to \mathbb{K}^n$ una función vectorial continua. Entonces, para todo par de puntos $t, t_0 \in [\alpha, \beta]$, se cumple que la norma de la integral es menor o igual que la integral de la norma:
