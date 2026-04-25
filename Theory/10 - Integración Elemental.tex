@@ -374,3 +374,138 @@ Hemos logrado un resultado analítico extraordinario. El término constante $c(t
     v' = \tilde{b}(t)v + \tilde{a}(t)v^2, \quad \text{donde } \tilde{b}(t) = 2a(t)u_p(t) + b(t) \text{ y } \tilde{a}(t) = a(t)
 \]
 Esta última expresión es \textbf{una ecuación de Bernoulli con $p = 2$}. Por tanto, el problema insoluble se ha reducido a un problema conocido. Para hallar la solución general, bastará con aplicar el cambio de variable estándar de Bernoulli, $w = v^{1-2} = v^{-1}$, resolver la ecuación lineal resultante para $w(t)$, y finalmente deshacer la cadena de transformaciones mediante $u(t) = u_p(t) + \frac{1}{w(t)}$.
+\vspace{0.5cm}
+
+\ejemplo{
+    \textbf{Ecuación de Riccati con coeficientes constantes} \\
+    Consideremos la ecuación $u' = au^2 + bu + c$ con $a, b, c \in \mathbb{R}$, $a \neq 0$.
+    
+    Sean $\lambda, \mu$ las raíces de la ecuación $au^2 + bu + c = 0$, dadas por $u = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$.
+    Supongamos que son raíces reales y distintas ($\lambda \neq \mu$). Entonces podemos factorizar:
+    \[
+        au^2 + bu + c = a(u - \lambda)(u - \mu) \implies u' = a(u - \lambda)(u - \mu)
+    \]
+    Proponemos el cambio de variable de Riccati $u(t) = p(t) + v(t) = \lambda + v(t)$, ya que está claro que $p(t) = \lambda$ es una solución particular.
+    Derivando y sustituyendo en la ecuación factorizada obtenemos:
+    \[
+        v'(t) = a(\lambda + v(t) - \lambda)(\lambda + v(t) - \mu) = a v(t) (v(t) + \lambda - \mu) = a(\lambda - \mu)v(t) + a v^2(t)
+    \]
+    Esto es exactamente una ecuación de Bernoulli con $\alpha = 2$. Aplicamos su cambio $w = v^{1-2} = v^{-1}$:
+    \[
+        -w^{-2} w' = a(\lambda - \mu)w^{-1} + a w^{-2} \implies -w' = a(\lambda - \mu)w + a \implies w' = a(\mu - \lambda)w - a
+    \]
+    Resolviendo esta ecuación lineal por separación, obtenemos la solución general para $w(t)$:
+    \[
+        w(t) = K e^{a(\mu - \lambda)t} + \frac{1}{\mu - \lambda}
+    \]
+    Deshaciendo los cambios de variable ($v = 1/w$ y finalmente $u = \lambda + v$), la familia de soluciones es:
+    \[
+        u(t) = \lambda + \frac{1}{K e^{a(\mu - \lambda)t} + \frac{1}{\mu - \lambda}}
+    \]
+}
+
+\subsection{Ecuaciones en variables separables}
+
+Son ecuaciones que se pueden escribir de la forma $u' = a(t)g(u)$.
+
+Ejemplos: 
+\begin{itemize}
+    \item La ecuación de Bernoulli $u' = a(t)u + b(t)u^p$ \textbf{no} es de variables separables en general. La de Riccati tampoco.
+    \item Las ecuaciones autónomas $u' = \lambda u - au^2$ o $u' = au^2 + bu + c$ sí lo son (basta tomar $a(t) = 1$ y $g(u)$ el polinomio correspondiente).
+\end{itemize}
+
+\textbf{Estudio de $u' = u^p$} con $p \neq 1$ (notemos que si $p=1$, tenemos $u' = u \implies u(t) = u_0 e^t$).
+
+Consideremos el problema de valor inicial:
+\[
+    \begin{cases}
+        u' = u^p \\
+        u(0) = u_0 > 0
+    \end{cases}
+\]
+Como partimos de $u(0) = u_0 > 0$, asumimos $u(t) > 0$. Separando variables:
+\[
+    u'(t) u^{-p}(t) = 1 \implies \left( \frac{u^{-p+1}(t)}{-p+1} \right)' = 1
+\]
+Integramos a ambos lados entre $0$ y $t$:
+\[
+    \int_0^t \left( \frac{u^{1-p}(s)}{1-p} \right)' ds = \int_0^t 1 \, ds
+\]
+Aplicando la regla de Barrow obtenemos:
+\[
+    \left[ \frac{u^{1-p}(s)}{1-p} \right]_0^t = t \implies \frac{u^{1-p}(t) - u_0^{1-p}}{1-p} = t
+\]
+Despejando $u(t)$:
+\[
+    u^{1-p}(t) = u_0^{1-p} + (1-p)t \implies u(t) = \left[ u_0^{1-p} + (1-p)t \right]^{\frac{1}{1-p}}
+\]
+Esta es la única solución.
+\begin{itemize}
+    \item \textbf{Caso 1: $p > 1$ (Explosión en tiempo finito)} \\
+    Si $p > 1$, entonces el factor $(1-p)$ es negativo. Como partimos de $u_0 > 0$ y $u' = u^p > 0$, la función es estrictamente creciente. Además, su segunda derivada $u'' = p u^{p-1} u' > 0$, lo que indica un crecimiento estrictamente convexo (acelerado).
+    
+    Dado que el exponente global de la solución $\frac{1}{1-p}$ es negativo, equivale a tener el corchete en un denominador. La solución dejará de existir (explotará a infinito) en el instante de tiempo en el que dicho corchete se anule:
+    $$ u_0^{1-p} + (1-p)t = 0 \implies t = \frac{-u_0^{1-p}}{1-p} = \frac{1}{(p-1)u_0^{p-1}} $$
+    Este valor temporal es estrictamente positivo. Por lo tanto, definimos el \textbf{tiempo de explosión} ($T_{max}$) como:
+    $$ T_{max}(u_0) = \frac{1}{p-1} \frac{1}{u_0^{p-1}} $$
+    En este caso, $\lim_{t \to T_{max}^-} u(t) = +\infty$. La solución no es global, solo está definida en el intervalo finito $[0, T_{max})$.
+    Además, observamos los límites:
+    \[
+        \lim_{u_0 \to 0} T_{max}(u_0) = +\infty, \quad \lim_{u_0 \to +\infty} T_{max}(u_0) = 0
+    \]
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xmin=-0.5, xmax=4,
+            ymin=0, ymax=5,
+            axis lines=middle,
+            xlabel={$t$},
+            ylabel={$u(t)$},
+            xtick={3},
+            xticklabels={$T_{max}(u_0)$},
+            ytick={1},
+            yticklabels={$u_0$},
+            every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+            every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+        ]
+        % Asíntota vertical
+        \draw[dashed, thick, red!70!black] (axis cs:3,0) -- (axis cs:3,5);
+        % Curva de explosión (Blow-up)
+        \addplot[thick, blue, domain=0:2.85, samples=100] {1/(1 - x/3)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \item \textbf{Caso 2: $0 < p < 1$ (Existencia global y pérdida de unicidad)} \\
+    Si $0 < p < 1$, entonces el factor $(1-p)$ es positivo. En este escenario, el término $(1-p)t$ suma positivamente a $u_0^{1-p}$. El corchete jamás se anula para $t \ge 0$, por lo que la solución no explota y está \textbf{definida globalmente} para todo $t \in [0, +\infty)$ y es monótona creciente.
+    
+    ¿Qué ocurre si tomamos el límite para una condición inicial nula, es decir, $u_0 \to 0$?
+    $$ \lim_{u_0 \to 0} u(t; u_0) = \Big[ (1-p)t \Big]^{\frac{1}{1-p}} =: \varphi(t) $$
+    Es inmediato comprobar que esta función $\varphi(t)$ resuelve la ecuación $u' = u^p$ con $\varphi(0) = 0$. 
+    Sin embargo, la solución trivial $u \equiv 0$ también resuelve el mismo problema $u' = u^p$ con $u(0) = 0$. 
+    Por lo tanto, \textbf{ya no hay unicidad}, y tenemos por lo menos 2 soluciones válidas.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xmin=-0.5, xmax=4,
+            ymin=-0.5, ymax=4,
+            axis lines=middle,
+            xlabel={$t$},
+            ylabel={$u(t)$},
+            xtick=\empty,
+            ytick=\empty,
+            every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+            every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+        ]
+        % Solución nula
+        \addplot[thick, red!80!black, domain=0:4] {0} node[pos=0.8, below] {$u \equiv 0$};
+        % Solución phi(t)
+        \addplot[thick, blue, domain=0:2, samples=100] {x^1.5} node[pos=0.8, left] {$\varphi(t)$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\end{itemize}
