@@ -374,14 +374,145 @@ Hemos logrado un resultado analítico extraordinario. El término constante $c(t
     v' = \tilde{b}(t)v + \tilde{a}(t)v^2, \quad \text{donde } \tilde{b}(t) = 2a(t)u_p(t) + b(t) \text{ y } \tilde{a}(t) = a(t)
 \]
 Esta última expresión es \textbf{una ecuación de Bernoulli con $p = 2$}. Por tanto, el problema insoluble se ha reducido a un problema conocido. Para hallar la solución general, bastará con aplicar el cambio de variable estándar de Bernoulli, $w = v^{1-2} = v^{-1}$, resolver la ecuación lineal resultante para $w(t)$, y finalmente deshacer la cadena de transformaciones mediante $u(t) = u_p(t) + \frac{1}{w(t)}$.
-\subsection{Ecuaciones de variables separables y patologías no lineales}
-
-Habiendo explorado métodos de linealización como Bernoulli o Riccati, abordamos ahora otra clase fundamental de ecuaciones de primer orden: las \textbf{ecuaciones de variables separables}. Estas ecuaciones tienen la forma general $u' = a(t)g(u)$. 
-
-Antes de establecer el teorema riguroso que garantiza la existencia y unicidad de sus soluciones, resulta sumamente instructivo analizar un par de casos patológicos puramente no lineales. Estos ejemplos nos revelarán que, a diferencia de los sistemas lineales, las ecuaciones no lineales pueden violar la unicidad de solución o dejar de existir en un tiempo finito.
+\vspace{0.5cm}
 
 \ejemplo{
-    \textbf{Pérdida de unicidad (Caso $0 < p < 1$)}\\
+    \textbf{Ecuación de Riccati con coeficientes constantes} \\
+    Consideremos la ecuación $u' = au^2 + bu + c$ con $a, b, c \in \mathbb{R}$, $a \neq 0$.
+    
+    Sean $\lambda, \mu$ las raíces de la ecuación $au^2 + bu + c = 0$, dadas por $u = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$.
+    Supongamos que son raíces reales y distintas ($\lambda \neq \mu$). Entonces podemos factorizar:
+    \[
+        au^2 + bu + c = a(u - \lambda)(u - \mu) \implies u' = a(u - \lambda)(u - \mu)
+    \]
+    Proponemos el cambio de variable de Riccati $u(t) = p(t) + v(t) = \lambda + v(t)$, ya que está claro que $p(t) = \lambda$ es una solución particular.
+    Derivando y sustituyendo en la ecuación factorizada obtenemos:
+    \[
+        v'(t) = a(\lambda + v(t) - \lambda)(\lambda + v(t) - \mu) = a v(t) (v(t) + \lambda - \mu) = a(\lambda - \mu)v(t) + a v^2(t)
+    \]
+    Esto es exactamente una ecuación de Bernoulli con $\alpha = 2$. Aplicamos su cambio $w = v^{1-2} = v^{-1}$:
+    \[
+        -w^{-2} w' = a(\lambda - \mu)w^{-1} + a w^{-2} \implies -w' = a(\lambda - \mu)w + a \implies w' = a(\mu - \lambda)w - a
+    \]
+    Resolviendo esta ecuación lineal por separación, obtenemos la solución general para $w(t)$:
+    \[
+        w(t) = K e^{a(\mu - \lambda)t} + \frac{1}{\mu - \lambda}
+    \]
+    Deshaciendo los cambios de variable ($v = 1/w$ y finalmente $u = \lambda + v$), la familia de soluciones es:
+    \[
+        u(t) = \lambda + \frac{1}{K e^{a(\mu - \lambda)t} + \frac{1}{\mu - \lambda}}
+    \]
+}
+
+\subsection{Ecuaciones en variables separables}
+
+Son ecuaciones que se pueden escribir de la forma $u' = a(t)g(u)$.
+
+Ejemplos: 
+\begin{itemize}
+    \item La ecuación de Bernoulli $u' = a(t)u + b(t)u^p$ \textbf{no} es de variables separables en general. La de Riccati tampoco.
+    \item Las ecuaciones autónomas $u' = \lambda u - au^2$ o $u' = au^2 + bu + c$ sí lo son (basta tomar $a(t) = 1$ y $g(u)$ el polinomio correspondiente).
+\end{itemize}
+
+\textbf{Estudio de $u' = u^p$} con $p \neq 1$ (notemos que si $p=1$, tenemos $u' = u \implies u(t) = u_0 e^t$).
+
+Consideremos el problema de valor inicial:
+\[
+    \begin{cases}
+        u' = u^p \\
+        u(0) = u_0 > 0
+    \end{cases}
+\]
+Como partimos de $u(0) = u_0 > 0$, asumimos $u(t) > 0$. Separando variables:
+\[
+    u'(t) u^{-p}(t) = 1 \implies \left( \frac{u^{-p+1}(t)}{-p+1} \right)' = 1
+\]
+Integramos a ambos lados entre $0$ y $t$:
+\[
+    \int_0^t \left( \frac{u^{1-p}(s)}{1-p} \right)' ds = \int_0^t 1 \, ds
+\]
+Aplicando la regla de Barrow obtenemos:
+\[
+    \left[ \frac{u^{1-p}(s)}{1-p} \right]_0^t = t \implies \frac{u^{1-p}(t) - u_0^{1-p}}{1-p} = t
+\]
+Despejando $u(t)$:
+\[
+    u^{1-p}(t) = u_0^{1-p} + (1-p)t \implies u(t) = \left[ u_0^{1-p} + (1-p)t \right]^{\frac{1}{1-p}}
+\]
+Esta es la única solución.
+\begin{itemize}
+    \item \textbf{Caso 1: $p > 1$ (Explosión en tiempo finito)} \\
+    Si $p > 1$, entonces el factor $(1-p)$ es negativo. Como partimos de $u_0 > 0$ y $u' = u^p > 0$, la función es estrictamente creciente. Además, su segunda derivada $u'' = p u^{p-1} u' > 0$, lo que indica un crecimiento estrictamente convexo (acelerado).
+    
+    Dado que el exponente global de la solución $\frac{1}{1-p}$ es negativo, equivale a tener el corchete en un denominador. La solución dejará de existir (explotará a infinito) en el instante de tiempo en el que dicho corchete se anule:
+    $$ u_0^{1-p} + (1-p)t = 0 \implies t = \frac{-u_0^{1-p}}{1-p} = \frac{1}{(p-1)u_0^{p-1}} $$
+    Este valor temporal es estrictamente positivo. Por lo tanto, definimos el \textbf{tiempo de explosión} ($T_{max}$) como:
+    $$ T_{max}(u_0) = \frac{1}{p-1} \frac{1}{u_0^{p-1}} $$
+    En este caso, $\lim_{t \to T_{max}^-} u(t) = +\infty$. La solución no es global, solo está definida en el intervalo finito $[0, T_{max})$.
+    Además, observamos los límites:
+    \[
+        \lim_{u_0 \to 0} T_{max}(u_0) = +\infty, \quad \lim_{u_0 \to +\infty} T_{max}(u_0) = 0
+    \]
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xmin=-0.5, xmax=4,
+            ymin=0, ymax=5,
+            axis lines=middle,
+            xlabel={$t$},
+            ylabel={$u(t)$},
+            xtick={3},
+            xticklabels={$T_{max}(u_0)$},
+            ytick={1},
+            yticklabels={$u_0$},
+            every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+            every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+        ]
+        % Asíntota vertical
+        \draw[dashed, thick, red!70!black] (axis cs:3,0) -- (axis cs:3,5);
+        % Curva de explosión (Blow-up)
+        \addplot[thick, blue, domain=0:2.85, samples=100] {1/(1 - x/3)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \item \textbf{Caso 2: $0 < p < 1$ (Existencia global y pérdida de unicidad)} \\
+    Si $0 < p < 1$, entonces el factor $(1-p)$ es positivo. En este escenario, el término $(1-p)t$ suma positivamente a $u_0^{1-p}$. El corchete jamás se anula para $t \ge 0$, por lo que la solución no explota y está \textbf{definida globalmente} para todo $t \in [0, +\infty)$ y es monótona creciente.
+    
+    ¿Qué ocurre si tomamos el límite para una condición inicial nula, es decir, $u_0 \to 0$?
+    $$ \lim_{u_0 \to 0} u(t; u_0) = \Big[ (1-p)t \Big]^{\frac{1}{1-p}} =: \varphi(t) $$
+    Es inmediato comprobar que esta función $\varphi(t)$ resuelve la ecuación $u' = u^p$ con $\varphi(0) = 0$. 
+    Sin embargo, la solución trivial $u \equiv 0$ también resuelve el mismo problema $u' = u^p$ con $u(0) = 0$. 
+    Por lo tanto, \textbf{ya no hay unicidad}, y tenemos por lo menos 2 soluciones válidas.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xmin=-0.5, xmax=4,
+            ymin=-0.5, ymax=4,
+            axis lines=middle,
+            xlabel={$t$},
+            ylabel={$u(t)$},
+            xtick=\empty,
+            ytick=\empty,
+            every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+            every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+        ]
+        % Solución nula
+        \addplot[thick, red!80!black, domain=0:4] {0} node[pos=0.8, below] {$u \equiv 0$};
+        % Solución phi(t)
+        \addplot[thick, blue, domain=0:2, samples=100] {x^1.5} node[pos=0.8, left] {$\varphi(t)$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\end{itemize}
+
+
+\ejemplo{
+    \textbf{Patología 1: Pérdida de unicidad (Caso $0 < p < 1$)}\\
     Consideremos el siguiente problema de valor inicial:
     \[
         \begin{cases}
@@ -409,7 +540,7 @@ Antes de establecer el teorema riguroso que garantiza la existencia y unicidad d
     \]
     Dado que $1-p > 0$, esta función crece indefinidamente: $\lim_{t \to +\infty} u(t) = +\infty$.
     
-    Veamos qué ocurre si partimos del reposo, $u_0 = 0$. El problema de Cauchy:
+    El fenómeno patológico ocurre si evaluamos el caso particular donde partimos del reposo, $u_0 = 0$. El problema de Cauchy:
     \[
         \begin{cases}
             \varphi' = \varphi^p \\
@@ -431,7 +562,7 @@ Antes de establecer el teorema riguroso que garantiza la existencia y unicidad d
 }
 
 \ejemplo{
-    \textbf{Explosión en tiempo finito / Blow-up (Caso $p > 1$)}\\
+    \textbf{Patología 2: Explosión en tiempo finito / Blow-up (Caso $p > 1$)}\\
     Estudiemos ahora qué ocurre cuando la no linealidad es muy fuerte ($p > 1$), añadiendo además un decaimiento exponencial en el tiempo. Sea el problema:
     \[
         \begin{cases}
@@ -477,7 +608,7 @@ Antes de establecer el teorema riguroso que garantiza la existencia y unicidad d
         \]
         Notemos que si nos acercamos peligrosamente al umbral por la izquierda ($u_0 \uparrow u_0^*$), la base tiende a $0$ y el límite asintótico diverge: $\lim_{u_0 \uparrow u_0^*} \omega(u_0) = +\infty$.
 
-        \item \textbf{Régimen de explosión o Blow-up ($u_0 > u_0^*$):} Si superamos el umbral crítico, existirá un instante $T$ en el que el denominador de nuestra solución se anulará:
+        \item \textbf{Régimen de explosión o Blow-up ($u_0 > u_0^*$):} Si superamos el umbral crítico, existirá irremediablemente un instante $T$ en el que el denominador de nuestra solución se anulará:
         \[
             u_0^{1-p} + (1-p)(1 - e^{-T}) = 0
         \]
@@ -505,7 +636,7 @@ Antes de establecer el teorema riguroso que garantiza la existencia y unicidad d
 
 \subsection{Teoría fundamental de las variables separables}
 
-Comprendidos los casos particulares que pueden surgir si la función no es suficientemente regular, podemos formalizar el teorema central que garantiza la resolución analítica y segura de estas ecuaciones.
+Comprendidas las patologías que pueden surgir si la función no es suficientemente regular, podemos formalizar el teorema central que garantiza la resolución analítica y segura de estas ecuaciones.
 
 \begin{teorema} [Teorema Fundamental de existencia y unicidad para ecuaciones de variables separables]
     Sean $t_0, u_0 \in \mathbb{R}$. Consideremos dos funciones continuas en entornos de las condiciones iniciales: una función temporal $a : [t_0 - \nu, t_0 + \nu] \to \mathbb{R}$ (con $\nu > 0$) y una función espacial $g : [u_0 - R, u_0 + R] \to \mathbb{R}$ (con $R > 0$). 
@@ -520,10 +651,14 @@ Comprendidos los casos particulares que pueden surgir si la función no es sufic
     tiene una \textbf{única solución local}. Es decir, existe un radio $\varepsilon > 0$ tal que existe una única función $u \in C^1((t_0 - \varepsilon, t_0 + \varepsilon), \mathbb{R})$ que resuelve el P.V.I. para todo $t \in (t_0 - \varepsilon, t_0 + \varepsilon)$.
 \end{teorema}
 
+\begin{observación}
+    Es absolutamente crucial la hipótesis $g(u_0) \neq 0$. Si por el contrario $g(u_0) = 0$, la función constante $u(t) \equiv u_0$ es trivialmente una solución de equilibrio. Sin embargo, no podemos garantizar que sea la única. El clásico contraejemplo es $u' = \sqrt{|u|}$ con $u(0) = 0$ (donde $a(t)=1$, $g(u) = \sqrt{|u|}$ y $g(0)=0$), el cual, como vimos en la Patología 1, posee infinitas soluciones bifurcadas.
+\end{observación}
+
 \begin{proof}
     Como suponemos $g(u_0) \neq 0$, por continuidad de $g$ e imponiendo continuidad en nuestra solución incógnita $u(t)$, sabemos que para $t \sim t_0$ se cumple que $u(t) \sim u(t_0) = u_0$. En consecuencia, $g(u(t))$ mantendrá su signo y no se anulará en un entorno local: $g(u(t)) \sim g(u_0) \neq 0$. 
     
-    Esto nos permite dividir la ecuación original $u'(t) = a(t) g(u(t))$ por $g(u(t))$:
+    Esto nos otorga legitimidad algebraica para dividir la ecuación original $u'(t) = a(t) g(u(t))$ por $g(u(t))$:
     \[
         \frac{u'(t)}{g(u(t))} = a(t)
     \]
@@ -548,20 +683,17 @@ Comprendidos los casos particulares que pueden surgir si la función no es sufic
     Como la derivada parcial respecto a la variable incógnita no se anula, el \textbf{Teorema de la Función Implícita} nos garantiza concluyentemente la existencia de un $\varepsilon > 0$ y de una única función explícita $u : [t_0 - \varepsilon, t_0 + \varepsilon] \to \mathbb{R}$ de clase $C^1$, tal que $u(t_0) = u_0$ y $H(u(t), t) = 0$ para todo $t$ en el entorno. Por ende, $u(t)$ es la única solución local del problema diferencial original.
 \end{proof}
 
-\begin{observación}
-    Es absolutamente crucial la hipótesis $g(u_0) \neq 0$. Si por el contrario $g(u_0) = 0$, la función constante $u(t) \equiv u_0$ es trivialmente una solución de equilibrio. Sin embargo, no podemos garantizar que sea la única. El clásico contraejemplo es $u' = \sqrt{|u|}$ con $u(0) = 0$ (donde $a(t)=1$, $g(u) = \sqrt{|u|}$ y $g(0)=0$), el cual, como vimos en un ejemplo, posee infinitas soluciones bifurcadas.
-\end{observación}
-
 \ejemplo{
-    Aplicaremos la técnica recién demostrada para resolver el siguiente problema de variables separables:
+    Aplicaremos la técnica recién demostrada para resolver el siguiente y vistoso problema de variables separables:
     \[
         \begin{cases}
             u' = \sqrt{u (\pi - u)} \\
             u(0) = u_0 \in (0, \pi)
         \end{cases}   
     \]
+    *(Nota: Modelos similares surgen en dinámica de poblaciones restringidas, variaciones como $u' = t \sqrt{u (\pi - u)}$ o formas genéricas $u' = \sqrt{(u - \omega_1)(\omega_2 - u)}$ se resuelven mediante el mismo armazón analítico).*
 
-    Identificamos la función no lineal $g(u) = \sqrt{u(\pi - u)}$. Esta función es continua en el dominio cerrado $[0, \pi]$. Sin embargo, observemos que sus derivadas divergen en las fronteras: $g'(0) = +\infty$ y $g'(\pi) = -\infty$, lo que advierte de una pérdida de regularidad extrema si el sistema tocara esos bordes. 
+    Vamos a nuestro problema original. Identificamos la función no lineal $g(u) = \sqrt{u(\pi - u)}$. Esta función es continua en el dominio cerrado $[0, \pi]$. Sin embargo, observemos que sus derivadas divergen en las fronteras: $g'(0) = +\infty$ y $g'(\pi) = -\infty$, lo que advierte de una pérdida de regularidad extrema si el sistema tocara esos bordes. 
     
     Afortunadamente, partimos de un estado inicial interior $u_0 \in (0, \pi)$, lo que garantiza que $g(u_0) \neq 0$. Por el Teorema Fundamental recién demostrado, sabemos con total certeza que \textbf{tiene una única solución local}.
     
@@ -600,7 +732,7 @@ Comprendidos los casos particulares que pueden surgir si la función no es sufic
     \[
         \frac{u(t) - \frac{\pi}{2}}{\frac{\pi}{2}} = \sin\left( t + \arcsin \left( \frac{u_0 - \frac{\pi}{2}}{\frac{\pi}{2}} \right) \right)
     \]
-    Despejando finalmente la incógnita temporal $u(t)$, obtenemos la solución explícita de nuestro problema de variables separables:
+    Despejando finalmente la incógnita temporal $u(t)$, coronamos el análisis con la preciosa solución explícita oscilatoria:
     \[
         \boxed{u(t) = \frac{\pi}{2} \sin\left( t + \arcsin \left( \frac{2u_0 - \pi}{\pi} \right) \right) + \frac{\pi}{2}}
     \]
