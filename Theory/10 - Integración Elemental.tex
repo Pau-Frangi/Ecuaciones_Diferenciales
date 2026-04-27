@@ -374,3 +374,234 @@ Hemos logrado un resultado analítico extraordinario. El término constante $c(t
     v' = \tilde{b}(t)v + \tilde{a}(t)v^2, \quad \text{donde } \tilde{b}(t) = 2a(t)u_p(t) + b(t) \text{ y } \tilde{a}(t) = a(t)
 \]
 Esta última expresión es \textbf{una ecuación de Bernoulli con $p = 2$}. Por tanto, el problema insoluble se ha reducido a un problema conocido. Para hallar la solución general, bastará con aplicar el cambio de variable estándar de Bernoulli, $w = v^{1-2} = v^{-1}$, resolver la ecuación lineal resultante para $w(t)$, y finalmente deshacer la cadena de transformaciones mediante $u(t) = u_p(t) + \frac{1}{w(t)}$.
+\subsection{Ecuaciones de variables separables y patologías no lineales}
+
+Habiendo explorado métodos de linealización como Bernoulli o Riccati, abordamos ahora otra clase fundamental de ecuaciones de primer orden: las \textbf{ecuaciones de variables separables}. Estas ecuaciones tienen la forma general $u' = a(t)g(u)$. 
+
+Antes de establecer el teorema riguroso que garantiza la existencia y unicidad de sus soluciones, resulta sumamente instructivo analizar un par de casos patológicos puramente no lineales. Estos ejemplos nos revelarán que, a diferencia de los sistemas lineales, las ecuaciones no lineales pueden violar la unicidad de solución o dejar de existir en un tiempo finito.
+
+\ejemplo{
+    \textbf{Pérdida de unicidad (Caso $0 < p < 1$)}\\
+    Consideremos el siguiente problema de valor inicial:
+    \[
+        \begin{cases}
+            u' = u^p, \quad 0 < p < 1 \\
+            u(0) = u_0 > 0
+        \end{cases}
+    \]
+    Notemos que si $p = 1/2$, obtenemos la ecuación $u' = \sqrt{u}$. La función $g(u) = \sqrt{u}$ es continua en todo su dominio, pero su derivada diverge en el origen, por lo que no es localmente Lipschitz (no es diferenciable en $u=0$).
+    
+    Para resolverla analíticamente, separamos las variables e integramos a ambos lados respecto al tiempo:
+    \[
+        u'(t) u^{-p}(t) = 1 \implies \frac{d}{dt} \left( \frac{u^{1-p}(t)}{1-p} \right) = 1 
+    \]
+    Integrando directamente, obtenemos:
+    \[
+        \frac{u^{1-p}(t)}{1-p} = t + C 
+    \]
+    Imponiendo la condición inicial $u(0) = u_0$, deducimos el valor de la constante de integración:
+    \[
+        \frac{u_0^{1-p}}{1-p} = 0 + C \implies C = \frac{u_0^{1-p}}{1-p} 
+    \]
+    Sustituyendo $C$ en la expresión y multiplicando todo por $(1-p)$:
+    \[
+        u^{1-p}(t) = (1-p)t + u_0^{1-p} \implies u(t) = \left( (1-p)t + u_0^{1-p} \right)^{\frac{1}{1-p}}
+    \]
+    Dado que $1-p > 0$, esta función crece indefinidamente: $\lim_{t \to +\infty} u(t) = +\infty$.
+    
+    Veamos qué ocurre si partimos del reposo, $u_0 = 0$. El problema de Cauchy:
+    \[
+        \begin{cases}
+            \varphi' = \varphi^p \\
+            \varphi(0) = 0
+        \end{cases} 
+    \]
+    posee, a simple vista, la solución trivial estacionaria $\varphi(t) \equiv 0$. Sin embargo, la fórmula que acabamos de deducir nos proporciona otra solución válida válida para $t \geq 0$:
+    \[
+        \varphi(t) = \big( (1-p)t \big)^{\frac{1}{1-p}}
+    \]
+    Ambas funciones satisfacen la ecuación y la condición inicial. De hecho, podemos empalmar estas soluciones para crear una \textbf{familia uniparamétrica infinita de soluciones} parametrizada por un tiempo de despegue $\tau \geq 0$:
+    \[
+        \varphi_\tau (t) := \begin{cases}
+            0 & \text{si } 0 \leq t < \tau \\
+            \big( (1-p)(t-\tau) \big)^{\frac{1}{1-p}} & \text{si } t \geq \tau
+        \end{cases}
+    \]
+    Concluimos que en los sistemas no lineales, la simple continuidad de $f(t,u)$ no es suficiente para garantizar la unicidad de la solución.
+}
+
+\ejemplo{
+    \textbf{Explosión en tiempo finito / Blow-up (Caso $p > 1$)}\\
+    Estudiemos ahora qué ocurre cuando la no linealidad es muy fuerte ($p > 1$), añadiendo además un decaimiento exponencial en el tiempo. Sea el problema:
+    \[
+        \begin{cases}
+            u' = e^{-t} u^p, \quad p > 1 \\
+            u(0) = u_0 > 0
+        \end{cases}
+    \]
+    Esta ecuación es separable con $a(t) = e^{-t}$ y $g(u) = u^p$. Para instantes iniciales $t$ próximos a $0$, la solución $u(t) \sim u_0 > 0$, manteniéndose positiva. Separando variables:
+    \[
+        u^{-p}(t) u'(t) = e^{-t} \implies \frac{d}{dt} \left( \frac{u^{1-p}(t)}{1-p} \right) = e^{-t}
+    \]
+    Integrando:
+    \[
+        \frac{u^{1-p}(t)}{1-p} = -e^{-t} + C 
+    \]
+    Imponiendo la condición inicial $u(0) = u_0$:
+    \[
+        \frac{u_0^{1-p}}{1-p} = -1 + C \implies C = \frac{u_0^{1-p}}{1-p} + 1
+    \]
+    Sustituimos $C$ y multiplicamos toda la ecuación por el factor $(1-p)$. Es crucial notar aquí que, como $p > 1$, el término $(1-p)$ es una cantidad \textbf{estrictamente negativa}.
+    \begin{align*}
+        u^{1-p}(t) &= (1-p)(-e^{-t} + 1) + u_0^{1-p} \\
+        \frac{1}{u^{p-1}(t)} &= u_0^{1-p} + (1-p)(1 - e^{-t})
+    \end{align*}
+    Elevando todo a la potencia inversa, obtenemos la solución explícita:
+    \[
+        u(t;0,u_0) = \Big( u_0^{1-p} + (1-p)(1 - e^{-t}) \Big)^{\frac{1}{1-p}} = \frac{1}{\Big( u_0^{1-p} + (1-p)(1 - e^{-t}) \Big)^{\frac{1}{p-1}}}
+    \]
+    Veamos cómo se comporta esta solución a medida que avanza el tiempo. La base del exponente en el denominador es $f(t) = u_0^{1-p} + (1-p)(1 - e^{-t})$. Cuando $t \to +\infty$, el término exponencial desaparece, por lo que:
+    \[
+        f(t) \xrightarrow{t \to +\infty} u_0^{1-p} + (1-p)
+    \]
+    Para que la solución exista globalmente para todo tiempo $t \in [0, +\infty)$, necesitamos garantizar que el denominador no se anule ni se vuelva negativo, lo que equivale a exigir que el límite asintótico sea estrictamente positivo:
+    \[
+        u_0^{1-p} + (1-p) > 0 \implies u_0^{1-p} > p-1 \implies u_0 < \left(\frac{1}{p-1}\right)^{\frac{1}{p-1}} \equiv u_0^*
+    \]
+    Se abren entonces dos regímenes dinámicos totalmente distintos dependiendo de la magnitud de nuestra condición inicial $u_0$:
+    
+    \begin{itemize}
+        \item \textbf{Régimen de existencia global ($u_0 < u_0^*$):} Si partimos de una población inferior al umbral crítico $u_0^*$, el denominador se mantiene siempre positivo. La solución está definida para todo tiempo $t \geq 0$ y su límite a largo plazo es una constante finita que depende del estado inicial:
+        \[
+            \lim_{t \to +\infty} u(t;0,u_0) = \omega(u_0) = \Big( u_0^{1-p} + (1-p) \Big)^{\frac{1}{1-p}}
+        \]
+        Notemos que si nos acercamos peligrosamente al umbral por la izquierda ($u_0 \uparrow u_0^*$), la base tiende a $0$ y el límite asintótico diverge: $\lim_{u_0 \uparrow u_0^*} \omega(u_0) = +\infty$.
+
+        \item \textbf{Régimen de explosión o Blow-up ($u_0 > u_0^*$):} Si superamos el umbral crítico, existirá un instante $T$ en el que el denominador de nuestra solución se anulará:
+        \[
+            u_0^{1-p} + (1-p)(1 - e^{-T}) = 0
+        \]
+        Cuando el tiempo se acerca a este instante ($t \uparrow T$), la función diverge a infinito:
+        \[
+            \lim_{t \uparrow T} u(t;0,u_0) = +\infty
+        \]
+        Este fenómeno se denomina \textbf{explosión en tiempo finito}. Despejando $T$, hallamos el tiempo exacto de vida de la solución:
+        \[
+            T(u_0) = -\ln\left( 1 + \frac{u_0^{1-p}}{1-p} \right) > 0
+        \]
+    \end{itemize}
+}
+
+\begin{observación}[Condición general de explosión]
+    Consideremos la ecuación general $u' = a(t) u^p$ con $p > 1$ y $u_0 > 0$. Asumiendo $a: [0, +\infty) \to [0, +\infty)$ continua, la aparición del blow-up está gobernada por la integral impropia del factor temporal:
+    \[
+        \int_0^{+\infty} a(s) ds = I
+    \]
+    \begin{itemize}
+        \item Si la integral es convergente ($I < +\infty$), como ocurrió en el ejemplo previo con $a(t) = e^{-t}$, el sistema tiene capacidad de "frenar" la explosión si la condición inicial es suficientemente pequeña.
+        \item Si la integral es divergente ($I = +\infty$), como ocurre si $a(t) = 1$ o $a(t) = t$, la ecuación forzará invariablemente a la solución a explotar en tiempo finito, sin importar cuán pequeño sea el valor inicial $u_0 > 0$.
+    \end{itemize}
+\end{observación}
+
+\subsection{Teoría fundamental de las variables separables}
+
+Comprendidos los casos particulares que pueden surgir si la función no es suficientemente regular, podemos formalizar el teorema central que garantiza la resolución analítica y segura de estas ecuaciones.
+
+\begin{teorema} [Teorema Fundamental de existencia y unicidad para ecuaciones de variables separables]
+    Sean $t_0, u_0 \in \mathbb{R}$. Consideremos dos funciones continuas en entornos de las condiciones iniciales: una función temporal $a : [t_0 - \nu, t_0 + \nu] \to \mathbb{R}$ (con $\nu > 0$) y una función espacial $g : [u_0 - R, u_0 + R] \to \mathbb{R}$ (con $R > 0$). 
+    
+    Si imponemos la condición de regularidad estricta $g(u_0) \neq 0$, entonces el Problema de Valor Inicial:
+    \[
+        P = \begin{cases}
+            u' = a(t) g(u) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una \textbf{única solución local}. Es decir, existe un radio $\varepsilon > 0$ tal que existe una única función $u \in C^1((t_0 - \varepsilon, t_0 + \varepsilon), \mathbb{R})$ que resuelve el P.V.I. para todo $t \in (t_0 - \varepsilon, t_0 + \varepsilon)$.
+\end{teorema}
+
+\begin{proof}
+    Como suponemos $g(u_0) \neq 0$, por continuidad de $g$ e imponiendo continuidad en nuestra solución incógnita $u(t)$, sabemos que para $t \sim t_0$ se cumple que $u(t) \sim u(t_0) = u_0$. En consecuencia, $g(u(t))$ mantendrá su signo y no se anulará en un entorno local: $g(u(t)) \sim g(u_0) \neq 0$. 
+    
+    Esto nos permite dividir la ecuación original $u'(t) = a(t) g(u(t))$ por $g(u(t))$:
+    \[
+        \frac{u'(t)}{g(u(t))} = a(t)
+    \]
+    Aplicando la regla de la cadena y el Teorema Fundamental del Cálculo, podemos identificar el lado izquierdo como la derivada temporal de una integral acumulada. Integrando ambos miembros desde el instante $t_0$ hasta $t$:
+    \[
+        \frac{d}{dt} \left( \int_{u_0}^{u(t)} \frac{1}{g(s)} ds \right) = a(t)  \iff \int_{u_0}^{u(t)} \frac{1}{g(s)} ds = \int_{t_0}^t a(s) ds
+    \]
+    Por tanto, $u(t)$ es solución del problema diferencial $P$ si y solo si es solución de la ecuación integral implícita anterior. Para demostrar que esta ecuación define una única función local $u(t)$, definimos la función bivariada:
+    \[
+        H(u,t) \equiv \int_{u_0}^{u} \frac{1}{g(s)} ds - \int_{t_0}^t a(s) ds, \quad \text{definida para } u \sim u_0, \ t \sim t_0
+    \]
+    La ecuación integral equivale a hallar las curvas de nivel $H(u,t) = 0$. Evaluamos la regularidad de $H$. Derivando respecto a sus dos variables mediante el Teorema Fundamental del Cálculo:
+    \[
+        \frac{\partial H}{\partial u} (u,t) = \frac{1}{g(u)} \quad \text{(es continua)} \qquad \frac{\partial H}{\partial t} (u,t) = -a(t) \quad \text{(es continua)}
+    \]
+    Luego $H$ es una función de clase $C^1$ en un entorno de $(u_0, t_0)$. Además, evaluando en el punto inicial comprobamos que la ecuación se satisface: $H(u_0, t_0) = 0 - 0 = 0$. 
+    
+    Por último, verificamos la condición transversal del Teorema de la Función Implícita:
+    \[
+        \frac{\partial H}{\partial u} (u_0, t_0) = \frac{1}{g(u_0)} \neq 0
+    \]
+    Como la derivada parcial respecto a la variable incógnita no se anula, el \textbf{Teorema de la Función Implícita} nos garantiza concluyentemente la existencia de un $\varepsilon > 0$ y de una única función explícita $u : [t_0 - \varepsilon, t_0 + \varepsilon] \to \mathbb{R}$ de clase $C^1$, tal que $u(t_0) = u_0$ y $H(u(t), t) = 0$ para todo $t$ en el entorno. Por ende, $u(t)$ es la única solución local del problema diferencial original.
+\end{proof}
+
+\begin{observación}
+    Es absolutamente crucial la hipótesis $g(u_0) \neq 0$. Si por el contrario $g(u_0) = 0$, la función constante $u(t) \equiv u_0$ es trivialmente una solución de equilibrio. Sin embargo, no podemos garantizar que sea la única. El clásico contraejemplo es $u' = \sqrt{|u|}$ con $u(0) = 0$ (donde $a(t)=1$, $g(u) = \sqrt{|u|}$ y $g(0)=0$), el cual, como vimos en un ejemplo, posee infinitas soluciones bifurcadas.
+\end{observación}
+
+\ejemplo{
+    Aplicaremos la técnica recién demostrada para resolver el siguiente problema de variables separables:
+    \[
+        \begin{cases}
+            u' = \sqrt{u (\pi - u)} \\
+            u(0) = u_0 \in (0, \pi)
+        \end{cases}   
+    \]
+
+    Identificamos la función no lineal $g(u) = \sqrt{u(\pi - u)}$. Esta función es continua en el dominio cerrado $[0, \pi]$. Sin embargo, observemos que sus derivadas divergen en las fronteras: $g'(0) = +\infty$ y $g'(\pi) = -\infty$, lo que advierte de una pérdida de regularidad extrema si el sistema tocara esos bordes. 
+    
+    Afortunadamente, partimos de un estado inicial interior $u_0 \in (0, \pi)$, lo que garantiza que $g(u_0) \neq 0$. Por el Teorema Fundamental recién demostrado, sabemos con total certeza que \textbf{tiene una única solución local}.
+    
+    Para $t \sim 0$, $u(t) \sim u_0$, la función se mantiene lejos de las fronteras problemáticas y podemos separar variables dividiendo la ecuación:
+    \[  
+        \frac{u'(t)}{\sqrt{u(t)(\pi - u(t))}} = 1 \implies \frac{d}{dt} \left( \int_{u_0}^{u(t)} \frac{1}{\sqrt{s(\pi - s)}} ds \right) = 1
+    \]
+    Integrando a ambos lados respecto al tiempo, obtenemos la forma implícita:
+    \[
+        \int_{u_0}^{u(t)} \frac{1}{\sqrt{s(\pi - s)}} ds = t
+    \]
+    Para resolver la integral irracional del lado izquierdo, recurrimos al clásico método de completar cuadrados en el radicando:
+    \begin{align*}
+        s(\pi - s) &= \pi s - s^2 \\
+        &= - \left( s^2 - 2 \left(\frac{\pi}{2}\right) s \right) \\
+        &= - \left( s^2 - 2 \left(\frac{\pi}{2}\right) s + \left(\frac{\pi}{2}\right)^2 - \left(\frac{\pi}{2}\right)^2 \right) \\
+        &= \left(\frac{\pi}{2} \right)^2 - \left(s - \frac{\pi}{2} \right)^2 
+    \end{align*}
+    Para facilitar la integración, factorizamos la constante $(\pi/2)^2$ del bloque:
+    \[
+        s(\pi - s) = \left(\frac{\pi}{2} \right)^2 \left[ 1 - \left(\frac{s - \frac{\pi}{2}}{\frac{\pi}{2}} \right)^2 \right] 
+    \]
+    Sustituyendo esto dentro de la raíz en nuestra integral, el cuadrado del exterior sale de la raíz como $\pi/2$:
+    \[
+        \int_{u_0}^{u(t)} \frac{1}{\frac{\pi}{2} \sqrt{1 - \left(\frac{s - \frac{\pi}{2}}{\frac{\pi}{2}} \right)^2}} ds = t
+    \]
+    Realizamos el sutil cambio de variable trigonométrico interno $w = \frac{s - \pi/2}{\pi/2}$, donde reconocemos inmediatamente que $dw = \frac{ds}{\pi/2}$. La integral se reduce, por arte de magia algebraica, a la derivada canónica del arcoseno:
+    \[
+        \int_{w(u_0)}^{w(u(t))} \frac{1}{\sqrt{1 - w^2}} dw = t \implies \Big[ \arcsin(w) \Big]_{w(u_0)}^{w(u(t))} = t
+    \]
+    Evaluando en los límites, la relación implícita se concreta en:
+    \[
+        \arcsin \left( \frac{u(t) - \frac{\pi}{2}}{\frac{\pi}{2}} \right) - \arcsin \left( \frac{u_0 - \frac{\pi}{2}}{\frac{\pi}{2}} \right) = t
+    \]
+    Para hallar la solución explícita, aislamos el término de $u(t)$, pasando la constante inicial sumando al tiempo, y aplicamos la función seno a ambos miembros de la ecuación:
+    \[
+        \frac{u(t) - \frac{\pi}{2}}{\frac{\pi}{2}} = \sin\left( t + \arcsin \left( \frac{u_0 - \frac{\pi}{2}}{\frac{\pi}{2}} \right) \right)
+    \]
+    Despejando finalmente la incógnita temporal $u(t)$, obtenemos la solución explícita de nuestro problema de variables separables:
+    \[
+        \boxed{u(t) = \frac{\pi}{2} \sin\left( t + \arcsin \left( \frac{2u_0 - \pi}{\pi} \right) \right) + \frac{\pi}{2}}
+    \]
+}
