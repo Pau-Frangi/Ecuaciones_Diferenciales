@@ -509,3 +509,368 @@ Esta es la única solución.
     \end{tikzpicture}
     \end{center}
 \end{itemize}
+
+
+\ejemplo{
+    \textbf{Patología 1: Pérdida de unicidad (Caso $0 < p < 1$)}\\
+    Consideremos el siguiente problema de valor inicial:
+    \[
+        \begin{cases}
+            u' = u^p, \quad 0 < p < 1 \\
+            u(0) = u_0 > 0
+        \end{cases}
+    \]
+    Notemos que si $p = 1/2$, obtenemos la ecuación $u' = \sqrt{u}$. La función $g(u) = \sqrt{u}$ es continua en todo su dominio, pero su derivada diverge en el origen, por lo que no es localmente Lipschitz (no es diferenciable en $u=0$).
+    
+    Para resolverla analíticamente, separamos las variables e integramos a ambos lados respecto al tiempo:
+    \[
+        u'(t) u^{-p}(t) = 1 \implies \frac{d}{dt} \left( \frac{u^{1-p}(t)}{1-p} \right) = 1 
+    \]
+    Integrando directamente, obtenemos:
+    \[
+        \frac{u^{1-p}(t)}{1-p} = t + C 
+    \]
+    Imponiendo la condición inicial $u(0) = u_0$, deducimos el valor de la constante de integración:
+    \[
+        \frac{u_0^{1-p}}{1-p} = 0 + C \implies C = \frac{u_0^{1-p}}{1-p} 
+    \]
+    Sustituyendo $C$ en la expresión y multiplicando todo por $(1-p)$:
+    \[
+        u^{1-p}(t) = (1-p)t + u_0^{1-p} \implies u(t) = \left( (1-p)t + u_0^{1-p} \right)^{\frac{1}{1-p}}
+    \]
+    Dado que $1-p > 0$, esta función crece indefinidamente: $\lim_{t \to +\infty} u(t) = +\infty$.
+    
+    El fenómeno patológico ocurre si evaluamos el caso particular donde partimos del reposo, $u_0 = 0$. El problema de Cauchy:
+    \[
+        \begin{cases}
+            \varphi' = \varphi^p \\
+            \varphi(0) = 0
+        \end{cases} 
+    \]
+    posee, a simple vista, la solución trivial estacionaria $\varphi(t) \equiv 0$. Sin embargo, la fórmula que acabamos de deducir nos proporciona otra solución válida válida para $t \geq 0$:
+    \[
+        \varphi(t) = \big( (1-p)t \big)^{\frac{1}{1-p}}
+    \]
+    Ambas funciones satisfacen la ecuación y la condición inicial. De hecho, podemos empalmar estas soluciones para crear una \textbf{familia uniparamétrica infinita de soluciones} parametrizada por un tiempo de despegue $\tau \geq 0$:
+    \[
+        \varphi_\tau (t) := \begin{cases}
+            0 & \text{si } 0 \leq t < \tau \\
+            \big( (1-p)(t-\tau) \big)^{\frac{1}{1-p}} & \text{si } t \geq \tau
+        \end{cases}
+    \]
+    Concluimos que en los sistemas no lineales, la simple continuidad de $f(t,u)$ no es suficiente para garantizar la unicidad de la solución.
+}
+
+\ejemplo{
+    \textbf{Patología 2: Explosión en tiempo finito / Blow-up (Caso $p > 1$)}\\
+    Estudiemos ahora qué ocurre cuando la no linealidad es muy fuerte ($p > 1$), añadiendo además un decaimiento exponencial en el tiempo. Sea el problema:
+    \[
+        \begin{cases}
+            u' = e^{-t} u^p, \quad p > 1 \\
+            u(0) = u_0 > 0
+        \end{cases}
+    \]
+    Esta ecuación es separable con $a(t) = e^{-t}$ y $g(u) = u^p$. Para instantes iniciales $t$ próximos a $0$, la solución $u(t) \sim u_0 > 0$, manteniéndose positiva. Separando variables:
+    \[
+        u^{-p}(t) u'(t) = e^{-t} \implies \frac{d}{dt} \left( \frac{u^{1-p}(t)}{1-p} \right) = e^{-t}
+    \]
+    Integrando:
+    \[
+        \frac{u^{1-p}(t)}{1-p} = -e^{-t} + C 
+    \]
+    Imponiendo la condición inicial $u(0) = u_0$:
+    \[
+        \frac{u_0^{1-p}}{1-p} = -1 + C \implies C = \frac{u_0^{1-p}}{1-p} + 1
+    \]
+    Sustituimos $C$ y multiplicamos toda la ecuación por el factor $(1-p)$. Es crucial notar aquí que, como $p > 1$, el término $(1-p)$ es una cantidad \textbf{estrictamente negativa}.
+    \begin{align*}
+        u^{1-p}(t) &= (1-p)(-e^{-t} + 1) + u_0^{1-p} \\
+        \frac{1}{u^{p-1}(t)} &= u_0^{1-p} + (1-p)(1 - e^{-t})
+    \end{align*}
+    Elevando todo a la potencia inversa, obtenemos la solución explícita:
+    \[
+        u(t;0,u_0) = \Big( u_0^{1-p} + (1-p)(1 - e^{-t}) \Big)^{\frac{1}{1-p}} = \frac{1}{\Big( u_0^{1-p} + (1-p)(1 - e^{-t}) \Big)^{\frac{1}{p-1}}}
+    \]
+    Veamos cómo se comporta esta solución a medida que avanza el tiempo. La base del exponente en el denominador es $f(t) = u_0^{1-p} + (1-p)(1 - e^{-t})$. Cuando $t \to +\infty$, el término exponencial desaparece, por lo que:
+    \[
+        f(t) \xrightarrow{t \to +\infty} u_0^{1-p} + (1-p)
+    \]
+    Para que la solución exista globalmente para todo tiempo $t \in [0, +\infty)$, necesitamos garantizar que el denominador no se anule ni se vuelva negativo, lo que equivale a exigir que el límite asintótico sea estrictamente positivo:
+    \[
+        u_0^{1-p} + (1-p) > 0 \implies u_0^{1-p} > p-1 \implies u_0 < \left(\frac{1}{p-1}\right)^{\frac{1}{p-1}} \equiv u_0^*
+    \]
+    Se abren entonces dos regímenes dinámicos totalmente distintos dependiendo de la magnitud de nuestra condición inicial $u_0$:
+    
+    \begin{itemize}
+        \item \textbf{Régimen de existencia global ($u_0 < u_0^*$):} Si partimos de una población inferior al umbral crítico $u_0^*$, el denominador se mantiene siempre positivo. La solución está definida para todo tiempo $t \geq 0$ y su límite a largo plazo es una constante finita que depende del estado inicial:
+        \[
+            \lim_{t \to +\infty} u(t;0,u_0) = \omega(u_0) = \Big( u_0^{1-p} + (1-p) \Big)^{\frac{1}{1-p}}
+        \]
+        Notemos que si nos acercamos peligrosamente al umbral por la izquierda ($u_0 \uparrow u_0^*$), la base tiende a $0$ y el límite asintótico diverge: $\lim_{u_0 \uparrow u_0^*} \omega(u_0) = +\infty$.
+
+        \item \textbf{Régimen de explosión o Blow-up ($u_0 > u_0^*$):} Si superamos el umbral crítico, existirá irremediablemente un instante $T$ en el que el denominador de nuestra solución se anulará:
+        \[
+            u_0^{1-p} + (1-p)(1 - e^{-T}) = 0
+        \]
+        Cuando el tiempo se acerca a este instante ($t \uparrow T$), la función diverge a infinito:
+        \[
+            \lim_{t \uparrow T} u(t;0,u_0) = +\infty
+        \]
+        Este fenómeno se denomina \textbf{explosión en tiempo finito}. Despejando $T$, hallamos el tiempo exacto de vida de la solución:
+        \[
+            T(u_0) = -\ln\left( 1 + \frac{u_0^{1-p}}{1-p} \right) > 0
+        \]
+    \end{itemize}
+}
+
+\begin{observación}[Condición general de explosión]
+    Consideremos la ecuación general $u' = a(t) u^p$ con $p > 1$ y $u_0 > 0$. Asumiendo $a: [0, +\infty) \to [0, +\infty)$ continua, la aparición del blow-up está gobernada por la integral impropia del factor temporal:
+    \[
+        \int_0^{+\infty} a(s) ds = I
+    \]
+    \begin{itemize}
+        \item Si la integral es convergente ($I < +\infty$), como ocurrió en el ejemplo previo con $a(t) = e^{-t}$, el sistema tiene capacidad de "frenar" la explosión si la condición inicial es suficientemente pequeña.
+        \item Si la integral es divergente ($I = +\infty$), como ocurre si $a(t) = 1$ o $a(t) = t$, la ecuación forzará invariablemente a la solución a explotar en tiempo finito, sin importar cuán pequeño sea el valor inicial $u_0 > 0$.
+    \end{itemize}
+\end{observación}
+
+\subsection{Teoría fundamental de las variables separables}
+
+Comprendidas las patologías que pueden surgir si la función no es suficientemente regular, podemos formalizar el teorema central que garantiza la resolución analítica y segura de estas ecuaciones.
+
+\begin{teorema} [Teorema Fundamental de existencia y unicidad para ecuaciones de variables separables]
+    Sean $t_0, u_0 \in \mathbb{R}$. Consideremos dos funciones continuas en entornos de las condiciones iniciales: una función temporal $a : [t_0 - \nu, t_0 + \nu] \to \mathbb{R}$ (con $\nu > 0$) y una función espacial $g : [u_0 - R, u_0 + R] \to \mathbb{R}$ (con $R > 0$). 
+    
+    Si imponemos la condición de regularidad estricta $g(u_0) \neq 0$, entonces el Problema de Valor Inicial:
+    \[
+        P = \begin{cases}
+            u' = a(t) g(u) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una \textbf{única solución local}. Es decir, existe un radio $\varepsilon > 0$ tal que existe una única función $u \in C^1((t_0 - \varepsilon, t_0 + \varepsilon), \mathbb{R})$ que resuelve el P.V.I. para todo $t \in (t_0 - \varepsilon, t_0 + \varepsilon)$.
+\end{teorema}
+
+\begin{observación}
+    Es absolutamente crucial la hipótesis $g(u_0) \neq 0$. Si por el contrario $g(u_0) = 0$, la función constante $u(t) \equiv u_0$ es trivialmente una solución de equilibrio. Sin embargo, no podemos garantizar que sea la única. El clásico contraejemplo es $u' = \sqrt{|u|}$ con $u(0) = 0$ (donde $a(t)=1$, $g(u) = \sqrt{|u|}$ y $g(0)=0$), el cual, como vimos en la Patología 1, posee infinitas soluciones bifurcadas.
+\end{observación}
+
+\begin{proof}
+    Como suponemos $g(u_0) \neq 0$, por continuidad de $g$ e imponiendo continuidad en nuestra solución incógnita $u(t)$, sabemos que para $t \sim t_0$ se cumple que $u(t) \sim u(t_0) = u_0$. En consecuencia, $g(u(t))$ mantendrá su signo y no se anulará en un entorno local: $g(u(t)) \sim g(u_0) \neq 0$. 
+    
+    Esto nos otorga legitimidad algebraica para dividir la ecuación original $u'(t) = a(t) g(u(t))$ por $g(u(t))$:
+    \[
+        \frac{u'(t)}{g(u(t))} = a(t)
+    \]
+    Aplicando la regla de la cadena y el Teorema Fundamental del Cálculo, podemos identificar el lado izquierdo como la derivada temporal de una integral acumulada. Integrando ambos miembros desde el instante $t_0$ hasta $t$:
+    \[
+        \frac{d}{dt} \left( \int_{u_0}^{u(t)} \frac{1}{g(s)} ds \right) = a(t)  \iff \int_{u_0}^{u(t)} \frac{1}{g(s)} ds = \int_{t_0}^t a(s) ds
+    \]
+    Por tanto, $u(t)$ es solución del problema diferencial $P$ si y solo si es solución de la ecuación integral implícita anterior. Para demostrar que esta ecuación define una única función local $u(t)$, definimos la función bivariada:
+    \[
+        H(u,t) \equiv \int_{u_0}^{u} \frac{1}{g(s)} ds - \int_{t_0}^t a(s) ds, \quad \text{definida para } u \sim u_0, \ t \sim t_0
+    \]
+    La ecuación integral equivale a hallar las curvas de nivel $H(u,t) = 0$. Evaluamos la regularidad de $H$. Derivando respecto a sus dos variables mediante el Teorema Fundamental del Cálculo:
+    \[
+        \frac{\partial H}{\partial u} (u,t) = \frac{1}{g(u)} \quad \text{(es continua)} \qquad \frac{\partial H}{\partial t} (u,t) = -a(t) \quad \text{(es continua)}
+    \]
+    Luego $H$ es una función de clase $C^1$ en un entorno de $(u_0, t_0)$. Además, evaluando en el punto inicial comprobamos que la ecuación se satisface: $H(u_0, t_0) = 0 - 0 = 0$. 
+    
+    Por último, verificamos la condición transversal del Teorema de la Función Implícita:
+    \[
+        \frac{\partial H}{\partial u} (u_0, t_0) = \frac{1}{g(u_0)} \neq 0
+    \]
+    Como la derivada parcial respecto a la variable incógnita no se anula, el \textbf{Teorema de la Función Implícita} nos garantiza concluyentemente la existencia de un $\varepsilon > 0$ y de una única función explícita $u : [t_0 - \varepsilon, t_0 + \varepsilon] \to \mathbb{R}$ de clase $C^1$, tal que $u(t_0) = u_0$ y $H(u(t), t) = 0$ para todo $t$ en el entorno. Por ende, $u(t)$ es la única solución local del problema diferencial original.
+\end{proof}
+
+\ejemplo{
+    Aplicaremos la técnica recién demostrada para resolver el siguiente y vistoso problema de variables separables:
+    \[
+        \begin{cases}
+            u' = \sqrt{u (\pi - u)} \\
+            u(0) = u_0 \in (0, \pi)
+        \end{cases}   
+    \]
+    *(Nota: Modelos similares surgen en dinámica de poblaciones restringidas, variaciones como $u' = t \sqrt{u (\pi - u)}$ o formas genéricas $u' = \sqrt{(u - \omega_1)(\omega_2 - u)}$ se resuelven mediante el mismo armazón analítico).*
+
+    Vamos a nuestro problema original. Identificamos la función no lineal $g(u) = \sqrt{u(\pi - u)}$. Esta función es continua en el dominio cerrado $[0, \pi]$. Sin embargo, observemos que sus derivadas divergen en las fronteras: $g'(0) = +\infty$ y $g'(\pi) = -\infty$, lo que advierte de una pérdida de regularidad extrema si el sistema tocara esos bordes. 
+    
+    Afortunadamente, partimos de un estado inicial interior $u_0 \in (0, \pi)$, lo que garantiza que $g(u_0) \neq 0$. Por el Teorema Fundamental recién demostrado, sabemos con total certeza que \textbf{tiene una única solución local}.
+    
+    Para $t \sim 0$, $u(t) \sim u_0$, la función se mantiene lejos de las fronteras problemáticas y podemos separar variables dividiendo la ecuación:
+    \[  
+        \frac{u'(t)}{\sqrt{u(t)(\pi - u(t))}} = 1 \implies \frac{d}{dt} \left( \int_{u_0}^{u(t)} \frac{1}{\sqrt{s(\pi - s)}} ds \right) = 1
+    \]
+    Integrando a ambos lados respecto al tiempo, obtenemos la forma implícita:
+    \[
+        \int_{u_0}^{u(t)} \frac{1}{\sqrt{s(\pi - s)}} ds = t
+    \]
+    Para resolver la integral irracional del lado izquierdo, recurrimos al clásico método de completar cuadrados en el radicando:
+    \begin{align*}
+        s(\pi - s) &= \pi s - s^2 \\
+        &= - \left( s^2 - 2 \left(\frac{\pi}{2}\right) s \right) \\
+        &= - \left( s^2 - 2 \left(\frac{\pi}{2}\right) s + \left(\frac{\pi}{2}\right)^2 - \left(\frac{\pi}{2}\right)^2 \right) \\
+        &= \left(\frac{\pi}{2} \right)^2 - \left(s - \frac{\pi}{2} \right)^2 
+    \end{align*}
+    Para facilitar la integración, factorizamos la constante $(\pi/2)^2$ del bloque:
+    \[
+        s(\pi - s) = \left(\frac{\pi}{2} \right)^2 \left[ 1 - \left(\frac{s - \frac{\pi}{2}}{\frac{\pi}{2}} \right)^2 \right] 
+    \]
+    Sustituyendo esto dentro de la raíz en nuestra integral, el cuadrado del exterior sale de la raíz como $\pi/2$:
+    \[
+        \int_{u_0}^{u(t)} \frac{1}{\frac{\pi}{2} \sqrt{1 - \left(\frac{s - \frac{\pi}{2}}{\frac{\pi}{2}} \right)^2}} ds = t
+    \]
+    Realizamos el sutil cambio de variable trigonométrico interno $w = \frac{s - \pi/2}{\pi/2}$, donde reconocemos inmediatamente que $dw = \frac{ds}{\pi/2}$. La integral se reduce, por arte de magia algebraica, a la derivada canónica del arcoseno:
+    \[
+        \int_{w(u_0)}^{w(u(t))} \frac{1}{\sqrt{1 - w^2}} dw = t \implies \Big[ \arcsin(w) \Big]_{w(u_0)}^{w(u(t))} = t
+    \]
+    Evaluando en los límites, la relación implícita se concreta en:
+    \[
+        \arcsin \left( \frac{u(t) - \frac{\pi}{2}}{\frac{\pi}{2}} \right) - \arcsin \left( \frac{u_0 - \frac{\pi}{2}}{\frac{\pi}{2}} \right) = t
+    \]
+    Para hallar la solución explícita, aislamos el término de $u(t)$, pasando la constante inicial sumando al tiempo, y aplicamos la función seno a ambos miembros de la ecuación:
+    \[
+        \frac{u(t) - \frac{\pi}{2}}{\frac{\pi}{2}} = \sin\left( t + \arcsin \left( \frac{u_0 - \frac{\pi}{2}}{\frac{\pi}{2}} \right) \right)
+    \]
+    Despejando finalmente la incógnita temporal $u(t)$, coronamos el análisis con la preciosa solución explícita oscilatoria:
+    \[
+        \boxed{u(t) = \frac{\pi}{2} \sin\left( t + \arcsin \left( \frac{2u_0 - \pi}{\pi} \right) \right) + \frac{\pi}{2}}
+    \]
+}
+
+\subsection{Ecuaciones diferenciales exactas}
+
+Hasta ahora hemos estudiado ecuaciones que pueden resolverse separando sus variables o mediante transformaciones algebraicas. Introducimos a continuación una nueva perspectiva, tratando la ecuación diferencial desde el punto de vista del cálculo multivariable.
+
+Consideremos un dominio abierto $\Omega \subset \mathbb{R}^2$ y dos funciones $P, Q : \Omega \to \mathbb{R}$ de clase $C^1(\Omega)$. Podemos expresar una ecuación diferencial de primer orden en su forma simétrica:
+\begin{equation} \label{eq:exacta_general}
+    P(t,u) + Q(t,u) u' = 0 \quad \iff \quad P(t,u) \, dt + Q(t,u) \, du = 0
+\end{equation}
+
+Esta formulación nos invita a pensar en el lado izquierdo de la ecuación como la derivada total de una función de dos variables.
+
+\begin{definición}[Ecuación diferencial exacta]
+    Se dice que la ecuación diferencial \eqref{eq:exacta_general} es una \textbf{ecuación diferencial exacta} en el dominio $\Omega$ si existe una función escalar $V : \Omega \to \mathbb{R}$, denominada \textit{función potencial}, de clase $C^2(\Omega)$, cuyo gradiente coincida con el campo vectorial formado por los coeficientes de la ecuación. Es decir, si verifica:
+    \[
+        \nabla V(t,u) = (P(t,u), Q(t,u)) \iff
+        \begin{cases}
+            \frac{\partial V}{\partial t} (t,u) = P(t,u) \\
+            \frac{\partial V}{\partial u} (t,u) = Q(t,u)
+        \end{cases}
+    \] 
+\end{definición}
+
+La existencia de esta función potencial $V(t,u)$ transforma radicalmente el problema. Si suponemos que $u(t)$ es una solución de la ecuación diferencial, al aplicar la regla de la cadena multivariable para derivar la composición $V(t, u(t))$ respecto al tiempo $t$, obtenemos:
+\[
+    \frac{d}{dt} V(t, u(t)) = \frac{\partial V}{\partial t}(t,u(t)) + \frac{\partial V}{\partial u}(t,u(t)) u'(t)
+\]
+Como $V$ es el potencial de la ecuación, sustituyendo las derivadas parciales por $P$ y $Q$:
+\[
+    \frac{d}{dt} V(t, u(t)) = P(t,u(t)) + Q(t,u(t)) u'(t)
+\]
+Pero por hipótesis, $u(t)$ es solución de la ecuación diferencial $P + Qu' = 0$. Por lo tanto:
+\[
+    \frac{d}{dt} V(t, u(t)) = 0 \implies V(t, u(t)) = C \quad \text{(constante)}
+\]
+Acabamos de demostrar que **las trayectorias solución de una ecuación exacta coinciden con las curvas de nivel de su función potencial $V(t,u)$**. Conocer el potencial $V(t,u)$ equivale a haber integrado la ecuación diferencial, pues la solución queda definida de forma implícita.
+
+\ejemplo{
+    Consideremos la siguiente ecuación diferencial no lineal:
+    \[
+        u' = - \frac{u \cos(t) + 2te^u}{2+\sin(t) + t^2 e^u}
+    \]
+    Para analizar si es exacta, la reescribimos en la forma estándar $P(t,u) + Q(t,u)u' = 0$:
+    \[
+        \underbrace{(u \cos(t) + 2te^u)}_{P(t,u)} + \underbrace{(2+\sin(t) + t^2 e^u)}_{Q(t,u)} u' = 0
+    \]
+    Buscamos una función $V(t,u)$ tal que se cumpla el sistema de derivadas parciales:
+    \[
+        \begin{cases}
+            \frac{\partial V}{\partial t} = u \cos(t) + 2te^u \\
+            \frac{\partial V}{\partial u} = 2+\sin(t) + t^2 e^u
+        \end{cases}
+    \]
+    Integramos la primera ecuación respecto a $t$ (manteniendo $u$ como si fuera una constante):
+    \[
+        V(t,u) = \int (u \cos(t) + 2te^u) \, dt = u \sin(t) + t^2 e^u + \varphi(u)
+    \]
+    donde $\varphi(u)$ actúa como constante de integración respecto a $t$. Para determinar $\varphi(u)$, derivamos esta expresión de $V$ respecto a $u$ e igualamos con $Q(t,u)$:
+    \[
+        \frac{\partial V}{\partial u} = \sin(t) + t^2 e^u + \varphi'(u) = 2 + \sin(t) + t^2 e^u
+    \]
+    Cancelando los términos comunes a ambos lados, obtenemos una sencilla ecuación diferencial para $\varphi$:
+    \[
+        \varphi'(u) = 2 \implies \varphi(u) = 2u + C
+    \]
+    Podemos tomar $C=0$ sin pérdida de generalidad para el potencial. Sustituyendo $\varphi(u)$, hallamos la función potencial completa:
+    \[
+        V(t,u) = u \sin(t) + t^2 e^u + 2u
+    \]
+    Por tanto, la ecuación propuesta es exacta y su familia de soluciones viene dada implícitamente por las curvas de nivel:
+    \[
+        u \sin(t) + t^2 e^u + 2u = K, \quad K \in \mathbb{R}
+    \]
+}
+
+\subsection{Existencia y unicidad local vía Función Implícita}
+
+El método anterior nos proporciona soluciones en forma implícita $V(t,u) = C$. Sin embargo, para que sea rigurosamente un Problema de Valor Inicial, debemos garantizar que esta curva de nivel define localmente a $u$ como una verdadera función del tiempo, $u = u(t)$. 
+
+\begin{teorema} [Existencia y unicidad para ecuaciones exactas]
+    Supongamos que $P + Q u' = 0$ es una ecuación diferencial exacta en un dominio abierto $\Omega \subset \mathbb{R}^2$ con función potencial $V \in C^2(\Omega)$. 
+    
+    Entonces, para cada condición inicial $(t_0, u_0) \in \Omega$ tal que $Q(t_0, u_0) \neq 0$, el problema de valor inicial de Cauchy:
+    \[
+        (P) : \begin{cases}
+            P(t,u) + Q(t,u) u' = 0 \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una \textbf{única solución local} $u(t)$ de clase $C^1$.
+\end{teorema}
+
+\begin{proof}
+    Por definición de ecuación diferencial exacta, sabemos que cualquier solución $u(t)$ que pase por el punto $(t_0, u_0)$ debe conservar constante el valor del potencial a lo largo de su trayectoria. Es decir, debe satisfacer la ecuación implícita $V(t, u(t)) = V(t_0, u_0)$ para todo $t$ en un entorno de $t_0$. 
+    
+    Para analizar de manera rigurosa la solubilidad de esta ecuación implícita, definimos la función escalar auxiliar:
+    \[
+        H(t,u) := V(t,u) - V(t_0, u_0), \quad \text{para } (t,u) \in \Omega
+    \]
+    Dado que el potencial $V \in C^2(\Omega)$, la función $H$ hereda esta regularidad y también es de clase $C^2(\Omega)$. Comprobemos si $H(t,u)$ satisface las hipótesis necesarias para despejar localmente nuestra variable dependiente $u$:
+    \begin{enumerate}
+        \item Evaluando la función en el punto inicial, se anula por propia construcción:
+        \[
+            H(t_0, u_0) = V(t_0, u_0) - V(t_0, u_0) = 0
+        \]
+        \item La derivada parcial de $H$ respecto a la variable dependiente $u$, evaluada en el punto inicial, es:
+        \[
+            \frac{\partial H}{\partial u} (t_0, u_0) = \frac{\partial V}{\partial u} (t_0, u_0) = Q(t_0, u_0)
+        \]
+        Por hipótesis expresa del teorema, hemos exigido que $Q(t_0, u_0) \neq 0$.
+    \end{enumerate}
+    
+    Cumplidas estas dos condiciones fundamentales, estamos habilitados para aplicar con pleno rigor el \textbf{Teorema de la Función Implícita} sobre la curva de nivel $H(t,u)=0$ en un entorno del punto $(t_0, u_0)$. 
+    
+    Este teorema de análisis multivariable nos garantiza la existencia de un radio $\varepsilon > 0$ y de una única función explícita $u : (t_0 - \varepsilon, t_0 + \varepsilon) \to \mathbb{R}$ de clase $C^1$, tal que:
+    \begin{itemize}
+        \item Satisface la condición inicial requerida: $u(t_0) = u_0$.
+        \item Mantiene la relación de nivel en todo el entorno: $H(t, u(t)) = 0$, lo que implica directamente que $V(t, u(t)) = V(t_0, u_0)$ para todo $t \in (t_0 - \varepsilon, t_0 + \varepsilon)$.
+    \end{itemize}
+
+    Para dar por concluida la demostración, solo resta comprobar que esta función $u(t)$, cuya existencia y unicidad nos garantiza el teorema, satisface efectivamente la ecuación diferencial original. 
+    
+    Partimos de la identidad constante garantizada en el entorno local:
+    \[
+        V(t, u(t)) = V(t_0, u_0) \quad \forall t \in (t_0 - \varepsilon, t_0 + \varepsilon)
+    \]
+    Derivamos ambos miembros de esta ecuación respecto a la variable independiente $t$. Aplicando la regla de la cadena para funciones de varias variables en el lado izquierdo, y sabiendo que la derivada de una constante es cero en el derecho, obtenemos:
+    \[
+        \frac{d}{dt} \Big[ V(t, u(t)) \Big] = 0 \implies \frac{\partial V}{\partial t} (t,u(t)) + \frac{\partial V}{\partial u} (t,u(t)) u'(t) = 0
+    \]
+    Finalmente, apelando a la definición de la función potencial $V$, sabemos que sus derivadas parciales coinciden exactamente con los coeficientes de nuestra ecuación: $\frac{\partial V}{\partial t} = P(t,u)$ y $\frac{\partial V}{\partial u} = Q(t,u)$. Sustituyendo esto en la expresión anterior, llegamos a:
+    \[
+        P(t, u(t)) + Q(t, u(t)) u'(t) = 0, \quad \forall t \in (t_0 - \varepsilon, t_0 + \varepsilon).
+    \]
+    De esta forma, queda demostrado sin lugar a dudas que $u(t)$ es la única solución local de clase $C^1$ del problema de valor inicial planteado.
+\end{proof}
+
