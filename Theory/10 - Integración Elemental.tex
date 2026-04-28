@@ -874,3 +874,93 @@ El método anterior nos proporciona soluciones en forma implícita $V(t,u) = C$.
     De esta forma, queda demostrado sin lugar a dudas que $u(t)$ es la única solución local de clase $C^1$ del problema de valor inicial planteado.
 \end{proof}
 
+\begin{observación}[Interpretación geométrica de la condición $Q \neq 0$]
+    La condición $Q(t_0, u_0) \neq 0$ impuesta en el teorema no es un mero capricho analítico, sino que tiene un profundo significado geométrico y dinámico. 
+    
+    Si intentáramos aproximar la solución localmente mediante su recta tangente (usando el desarrollo de Taylor de primer orden), tendríamos que $u'(t_0)$ debe existir. De la propia ecuación diferencial se deduce que:
+    \[
+        u'(t_0) = -\frac{P(t_0, u_0)}{Q(t_0, u_0)}
+    \]
+    Si $Q(t_0, u_0)$ se anulara, la pendiente de la curva solución tendería a infinito (tangente vertical). En ese instante, la curva dejaría de poder expresarse como una función explícita $u = u(t)$, perdiéndose la unicidad funcional local. Exigir que $Q \neq 0$ nos asegura que la curva de nivel $V(t,u) = C$ no sea vertical en el punto de arranque y pueda, por tanto, "despejarse" sin ambigüedades.
+\end{observación}
+
+\subsection{Criterio analítico de exactitud: Teorema de Poincaré}
+
+En la sección anterior hemos constatado el inmenso poder de identificar una ecuación diferencial como exacta, pues nos permite obtener sus soluciones implícitas de forma inmediata mediante las curvas de nivel de su potencial $V(t,u)$. Surge entonces una pregunta fundamental en la práctica: dada una ecuación genérica $P(t,u) + Q(t,u)u' = 0$, ¿existe algún criterio algebraico directo y evaluable sobre los coeficientes $P$ y $Q$ que nos garantice, a priori, la existencia de dicho potencial?
+
+La respuesta nos la proporciona el cálculo diferencial multivariable. Si suponemos que la ecuación es exacta en un dominio $\Omega$, sabemos que existe una función $V \in C^2(\Omega)$ tal que $\frac{\partial V}{\partial t} = P$ y $\frac{\partial V}{\partial u} = Q$. 
+
+Por el Teorema de Schwarz (simetría de las segundas derivadas cruzadas para funciones de clase $C^2$), sabemos que:
+\[
+    \frac{\partial^2 V}{\partial u \partial t}(t,u) = \frac{\partial^2 V}{\partial t \partial u}(t,u)
+\]
+Sustituyendo el gradiente de $V$ en esta identidad, obtenemos una \textbf{condición necesaria} para la exactitud de la ecuación diferencial:
+\[
+    \frac{\partial P}{\partial u}(t,u) = \frac{\partial Q}{\partial t}(t,u), \quad \forall (t,u) \in \Omega.
+\]
+
+Resulta que, bajo ciertas hipótesis topológicas sobre la forma del dominio de trabajo $\Omega$, esta condición necesaria se convierte también en una condición \textbf{suficiente}.
+
+\begin{teorema}[Condición necesaria y suficiente de exactitud]
+    Sean $\Omega \subset \mathbb{R}^2$ un dominio abierto y \textbf{convexo}, y dos funciones $P, Q \in C^1(\Omega)$. Entonces, la ecuación diferencial
+    \[
+        P(t,u) + Q(t,u)u' = 0
+    \]
+    es una \textbf{ecuación diferencial exacta} en el dominio $\Omega$ si y solo si cumple la condición de compatibilidad en las derivadas cruzadas:
+    \[
+        \frac{\partial P}{\partial u}(t,u) = \frac{\partial Q}{\partial t}(t,u), \quad \forall (t,u) \in \Omega.
+    \]
+\end{teorema}
+
+\begin{proof}
+    La necesidad de la condición ya ha sido probada mediante el Teorema de Schwarz. Demostraremos ahora la suficiencia construyendo de forma explícita la función potencial $V(t,u)$.
+    
+    Supongamos que el dominio $\Omega$ es convexo y que se cumple la identidad $\frac{\partial P}{\partial u} = \frac{\partial Q}{\partial t}$. Fijamos un punto base arbitrario $(t_0, u_0) \in \Omega$. Para cualquier otro punto $(t,u) \in \Omega$, dado que el conjunto es convexo, el segmento de recta que une a ambos puntos está completamente contenido dentro de $\Omega$.
+    
+    Podemos parametrizar este segmento rectilíneo $\gamma: [0,1] \to \Omega$ como:
+    \[
+        \gamma(s) = \big( t_0 + s(t-t_0), u_0 + s(u-u_0) \big), \quad s \in [0,1]
+    \]
+    El vector tangente a la curva en cada punto es constante: $\gamma'(s) = (t-t_0, u-u_0)$. 
+    Definimos nuestra función potencial candidata $V(t,u)$ mediante la integral de línea del campo vectorial $(P,Q)$ a lo largo de este segmento:
+    \[
+        V(t,u) = \int_0^1 \big\langle \big(P(\gamma(s)), Q(\gamma(s))\big), \gamma'(s) \big\rangle ds = \int_0^1 \Big[ P(\gamma(s))(t-t_0) + Q(\gamma(s))(u-u_0) \Big] ds
+    \]
+    Para demostrar que $V$ es el potencial buscado, debemos probar que su derivada parcial respecto a $t$ es $P$, y respecto a $u$ es $Q$. Derivamos bajo el signo integral respecto a la variable temporal $t$ aplicando la regla de la cadena multivariable:
+    \[
+        \frac{\partial V}{\partial t}(t,u) = \int_0^1 \left[ P(\gamma(s)) + (t-t_0) \left( s \frac{\partial P}{\partial t}(\gamma(s)) \right) + (u-u_0) \left( s \frac{\partial Q}{\partial t}(\gamma(s)) \right) \right] ds
+    \]
+    Es en este paso crucial donde invocamos nuestra hipótesis de suficiencia $\frac{\partial Q}{\partial t} = \frac{\partial P}{\partial u}$. Sustituyendo esto en el último término del integrando, obtenemos:
+    \[
+        \frac{\partial V}{\partial t}(t,u) = \int_0^1 \left[ P(\gamma(s)) + s(t-t_0) \frac{\partial P}{\partial t}(\gamma(s)) + s(u-u_0) \frac{\partial P}{\partial u}(\gamma(s)) \right] ds
+    \]
+    Inspeccionando cuidadosamente el integrando, reconocemos que es el desarrollo exacto de la derivada total respecto al parámetro $s$ de la función producto $s P(\gamma(s))$. En efecto:
+    \[
+        \frac{d}{ds} \Big[ s P(\gamma(s)) \Big] = P(\gamma(s)) + s \left[ \frac{\partial P}{\partial t} \frac{dt}{ds} + \frac{\partial P}{\partial u} \frac{du}{ds} \right] = P(\gamma(s)) + s \left[ \frac{\partial P}{\partial t} (t-t_0) + \frac{\partial P}{\partial u} (u-u_0) \right]
+    \]
+    Sustituyendo esto en nuestra integral, el cálculo se simplifica a la aplicación directa de la Regla de Barrow (Teorema Fundamental del Cálculo):
+    \[
+        \frac{\partial V}{\partial t}(t,u) = \int_0^1 \frac{d}{ds} \Big[ s P(\gamma(s)) \Big] ds = \Big[ s P(\gamma(s)) \Big]_{s=0}^{s=1} = 1 \cdot P(\gamma(1)) - 0 \cdot P(\gamma(0)) = P(t,u)
+    \]
+    Un desarrollo completamente análogo y simétrico, derivando $V$ respecto a $u$ y utilizando la misma hipótesis, nos lleva a concluir que $\frac{\partial V}{\partial u}(t,u) = Q(t,u)$. Queda así demostrada, de manera constructiva la existencia del potencial y, por tanto, la exactitud de la ecuación.
+\end{proof}
+
+\ejemplo{
+    \textbf{Identificación de una ecuación no exacta} \\
+    Consideremos el siguiente problema diferencial:
+    \[
+        u' = -\frac{u^2 + tu}{t^2}
+    \]
+    Para evaluar si podemos resolverla mediante potenciales, la reordenamos multiplicando en cruz para llevarla a su forma diferencial canónica:
+    \[
+        (u^2 + tu) + t^2 u' = 0
+    \]
+    Identificamos de inmediato los coeficientes $P(t,u) = u^2 + tu$ y $Q(t,u) = t^2$. Para aplicar el Teorema de Poincaré, procedemos a calcular sus derivadas cruzadas:
+    \begin{align*}
+        \frac{\partial P}{\partial u} &= \frac{\partial}{\partial u} (u^2 + tu) = 2u + t \\
+        \frac{\partial Q}{\partial t} &= \frac{\partial}{\partial t} (t^2) = 2t
+    \end{align*}
+    Como es evidente, $\frac{\partial P}{\partial u} \neq \frac{\partial Q}{\partial t}$ en casi todo el dominio $\mathbb{R}^2$ (las derivadas solo coinciden en la recta $u = t/2$). El teorema nos garantiza, por tanto, que es material y topológicamente \textbf{imposible} construir una función potencial global $V(t,u)$ que satisfaga la ecuación. 
+    
+    En consecuencia, declaramos que \textbf{no es una ecuación diferencial exacta} en su forma actual, y nos veríamos obligados a recurrir a técnicas alternativas (como la búsqueda de un "factor integrante" adecuado que la fuerce a ser exacta, o tratarla como una ecuación de tipo homogéneo debido al grado de sus variables) para lograr resolverla.
+}
