@@ -662,8 +662,6 @@ INPUT .\Theory\1 - Sistemas lineales generales Teoría general.tex
 INPUT .\Theory\1 - Sistemas lineales generales Teoría general.tex
 INPUT Theory\1 - Sistemas lineales generales Teoría general.tex
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbxti10.tfm
-INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti8.tfm
-INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti7.tfm
 INPUT .\Theory\2 - Ecuaciones de orden n.tex
 INPUT .\Theory\2 - Ecuaciones de orden n.tex
 INPUT Theory\2 - Ecuaciones de orden n.tex
@@ -706,6 +704,9 @@ INPUT .\Theory\9 - Sistemas con matrices no diagonalizables y exponencial de mat
 INPUT .\Theory\9 - Sistemas con matrices no diagonalizables y exponencial de matrices.tex
 INPUT Theory\9 - Sistemas con matrices no diagonalizables y exponencial de matrices.tex
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcbx1095.tfm
+INPUT .\Theory\10 - Integración Elemental.tex
+INPUT .\Theory\10 - Integración Elemental.tex
+INPUT Theory\10 - Integración Elemental.tex
 INPUT .\Exercises\Hojas.tex
 INPUT .\Exercises\Hojas.tex
 INPUT Exercises\Hojas.tex
@@ -724,6 +725,8 @@ INPUT Appendix\Criterios de convergencia de series.tex
 INPUT .\Appendix\Identidades trigonometricas.tex
 INPUT .\Appendix\Identidades trigonometricas.tex
 INPUT Appendix\Identidades trigonometricas.tex
+INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti8.tfm
+INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti7.tfm
 INPUT .\Appendix\Agradecimientos.tex
 INPUT .\Appendix\Agradecimientos.tex
 INPUT Appendix\Agradecimientos.tex
@@ -771,6 +774,8 @@ INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi6.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi8.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi8.pfb
+INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi9.pfb
+INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi9.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
@@ -795,8 +800,6 @@ INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti12.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb
-INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msam10.pfb
-INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msam10.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
 INPUT C:\Users\diego\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm7.pfb
