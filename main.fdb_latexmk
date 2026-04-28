@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1777367695.45274 "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" "main.pdf" "main" 1777367710.23285 0
+["pdflatex"] 1777367732.3548 "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" "main.pdf" "main" 1777367747.48486 0
   "Appendix/Agradecimientos.tex" 1770045791 628 99fc62e09a551f1ea508feb8630e6ea1 ""
   "Appendix/Appendix.tex" 1773045687 180 2541486e775b01cf504fcdb93c79c18b ""
   "Appendix/Criterios de convergencia de series.tex" 1770045791 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -391,7 +391,7 @@
   "Preamble/Introduction.tex" 1770045791 3294 3b1de0cc1eb984b69c4cc4cecd7737af ""
   "Preamble/Preamble.tex" 1776069115 16243 6d9df69b67a10981af6b3676aedd1ec7 ""
   "Theory/1 - Sistemas lineales generales Teoría general.tex" 1777105954 68756 1921488b5ed6d5161819130807b251be ""
-  "Theory/10 - Integración Elemental.tex" 1777210848 32032 812a35f5a61e1178bfbcdfece8a2703a ""
+  "Theory/10 - Integración Elemental.tex" 1777367716 55850 5ea3f2ccc883fc14f76bcaea2af73389 ""
   "Theory/2 - Ecuaciones de orden n.tex" 1776670773 32345 67e51d0cb8c1abe16632c5a805811f36 ""
   "Theory/3 - Variación de Parámetros en el Sistema de Primer Orden Asociado.tex" 1775168264 3346 a1470af047084019921bde082cbb1549 ""
   "Theory/4 - Reducción del Orden de la Ecuación Diferencial.tex" 1775168264 6025 64b2812fb1ba2c9dfd827cfeae651de8 ""
@@ -403,10 +403,10 @@
   "Theory/Theory.tex" 1777367676 871 1fa564d7dc30bd63837d7d6a7741acd0 ""
   "c:/Users/diego/OneDrive/Documentos/UCM/Ecuaciones_Diferenciales/main.tex" 1777210866 4434 daa4753c912f3dbb7d01f75aa6b46e8f ""
   "images/logo.png" 1770045791 444144 2cb7926de033eda7c58a3b31d8e065e6 ""
-  "main.aux" 1777367709 45475 33784b08722c74cf6ccb09655250f125 "pdflatex"
-  "main.out" 1777367709 17233 7779e51e78340acba8e9255d21f6cd96 "pdflatex"
+  "main.aux" 1777367746 47634 cfb4ba30ca44c7ed0b8c7a28fc961641 "pdflatex"
+  "main.out" 1777367746 18099 c5f7383377cac43594962818c96f4dea "pdflatex"
   "main.tex" 1777210866 4434 daa4753c912f3dbb7d01f75aa6b46e8f ""
-  "main.toc" 1777367709 7519 fb21e95dbc40c609f780ef2673f06207 "pdflatex"
+  "main.toc" 1777367746 7857 0c742e713b03b41e8f23a725c9d1306d "pdflatex"
   (generated)
   "main.aux"
   "main.log"
