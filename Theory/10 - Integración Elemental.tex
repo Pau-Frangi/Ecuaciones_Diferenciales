@@ -737,3 +737,140 @@ Comprendidas las patologías que pueden surgir si la función no es suficienteme
         \boxed{u(t) = \frac{\pi}{2} \sin\left( t + \arcsin \left( \frac{2u_0 - \pi}{\pi} \right) \right) + \frac{\pi}{2}}
     \]
 }
+
+\subsection{Ecuaciones diferenciales exactas}
+
+Hasta ahora hemos estudiado ecuaciones que pueden resolverse separando sus variables o mediante transformaciones algebraicas. Introducimos a continuación una nueva perspectiva, tratando la ecuación diferencial desde el punto de vista del cálculo multivariable.
+
+Consideremos un dominio abierto $\Omega \subset \mathbb{R}^2$ y dos funciones $P, Q : \Omega \to \mathbb{R}$ de clase $C^1(\Omega)$. Podemos expresar una ecuación diferencial de primer orden en su forma simétrica:
+\begin{equation} \label{eq:exacta_general}
+    P(t,u) + Q(t,u) u' = 0 \quad \iff \quad P(t,u) \, dt + Q(t,u) \, du = 0
+\end{equation}
+
+Esta formulación nos invita a pensar en el lado izquierdo de la ecuación como la derivada total de una función de dos variables.
+
+\begin{definición}[Ecuación diferencial exacta]
+    Se dice que la ecuación diferencial \eqref{eq:exacta_general} es una \textbf{ecuación diferencial exacta} en el dominio $\Omega$ si existe una función escalar $V : \Omega \to \mathbb{R}$, denominada \textit{función potencial}, de clase $C^2(\Omega)$, cuyo gradiente coincida con el campo vectorial formado por los coeficientes de la ecuación. Es decir, si verifica:
+    \[
+        \nabla V(t,u) = (P(t,u), Q(t,u)) \iff
+        \begin{cases}
+            \frac{\partial V}{\partial t} (t,u) = P(t,u) \\
+            \frac{\partial V}{\partial u} (t,u) = Q(t,u)
+        \end{cases}
+    \] 
+\end{definición}
+
+La existencia de esta función potencial $V(t,u)$ transforma radicalmente el problema. Si suponemos que $u(t)$ es una solución de la ecuación diferencial, al aplicar la regla de la cadena multivariable para derivar la composición $V(t, u(t))$ respecto al tiempo $t$, obtenemos:
+\[
+    \frac{d}{dt} V(t, u(t)) = \frac{\partial V}{\partial t}(t,u(t)) + \frac{\partial V}{\partial u}(t,u(t)) u'(t)
+\]
+Como $V$ es el potencial de la ecuación, sustituyendo las derivadas parciales por $P$ y $Q$:
+\[
+    \frac{d}{dt} V(t, u(t)) = P(t,u(t)) + Q(t,u(t)) u'(t)
+\]
+Pero por hipótesis, $u(t)$ es solución de la ecuación diferencial $P + Qu' = 0$. Por lo tanto:
+\[
+    \frac{d}{dt} V(t, u(t)) = 0 \implies V(t, u(t)) = C \quad \text{(constante)}
+\]
+Acabamos de demostrar que **las trayectorias solución de una ecuación exacta coinciden con las curvas de nivel de su función potencial $V(t,u)$**. Conocer el potencial $V(t,u)$ equivale a haber integrado la ecuación diferencial, pues la solución queda definida de forma implícita.
+
+\ejemplo{
+    Consideremos la siguiente ecuación diferencial no lineal:
+    \[
+        u' = - \frac{u \cos(t) + 2te^u}{2+\sin(t) + t^2 e^u}
+    \]
+    Para analizar si es exacta, la reescribimos en la forma estándar $P(t,u) + Q(t,u)u' = 0$:
+    \[
+        \underbrace{(u \cos(t) + 2te^u)}_{P(t,u)} + \underbrace{(2+\sin(t) + t^2 e^u)}_{Q(t,u)} u' = 0
+    \]
+    Buscamos una función $V(t,u)$ tal que se cumpla el sistema de derivadas parciales:
+    \[
+        \begin{cases}
+            \frac{\partial V}{\partial t} = u \cos(t) + 2te^u \\
+            \frac{\partial V}{\partial u} = 2+\sin(t) + t^2 e^u
+        \end{cases}
+    \]
+    Integramos la primera ecuación respecto a $t$ (manteniendo $u$ como si fuera una constante):
+    \[
+        V(t,u) = \int (u \cos(t) + 2te^u) \, dt = u \sin(t) + t^2 e^u + \varphi(u)
+    \]
+    donde $\varphi(u)$ actúa como constante de integración respecto a $t$. Para determinar $\varphi(u)$, derivamos esta expresión de $V$ respecto a $u$ e igualamos con $Q(t,u)$:
+    \[
+        \frac{\partial V}{\partial u} = \sin(t) + t^2 e^u + \varphi'(u) = 2 + \sin(t) + t^2 e^u
+    \]
+    Cancelando los términos comunes a ambos lados, obtenemos una sencilla ecuación diferencial para $\varphi$:
+    \[
+        \varphi'(u) = 2 \implies \varphi(u) = 2u + C
+    \]
+    Podemos tomar $C=0$ sin pérdida de generalidad para el potencial. Sustituyendo $\varphi(u)$, hallamos la función potencial completa:
+    \[
+        V(t,u) = u \sin(t) + t^2 e^u + 2u
+    \]
+    Por tanto, la ecuación propuesta es exacta y su familia de soluciones viene dada implícitamente por las curvas de nivel:
+    \[
+        u \sin(t) + t^2 e^u + 2u = K, \quad K \in \mathbb{R}
+    \]
+}
+
+\subsection{Existencia y unicidad local vía Función Implícita}
+
+El método anterior nos proporciona soluciones en forma implícita $V(t,u) = C$. Sin embargo, para que sea rigurosamente un Problema de Valor Inicial, debemos garantizar que esta curva de nivel define localmente a $u$ como una verdadera función del tiempo, $u = u(t)$. 
+
+\begin{teorema} [Existencia y unicidad para ecuaciones exactas]
+    Supongamos que $P + Q u' = 0$ es una ecuación diferencial exacta en un dominio abierto $\Omega \subset \mathbb{R}^2$ con función potencial $V \in C^2(\Omega)$. 
+    
+    Entonces, para cada condición inicial $(t_0, u_0) \in \Omega$ tal que $Q(t_0, u_0) \neq 0$, el problema de valor inicial de Cauchy:
+    \[
+        (P) : \begin{cases}
+            P(t,u) + Q(t,u) u' = 0 \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    tiene una \textbf{única solución local} $u(t)$ de clase $C^1$.
+\end{teorema}
+
+\begin{proof}
+    Por definición de ecuación diferencial exacta, sabemos que cualquier solución $u(t)$ que pase por el punto $(t_0, u_0)$ debe conservar constante el valor del potencial a lo largo de su trayectoria. Es decir, debe satisfacer la ecuación implícita $V(t, u(t)) = V(t_0, u_0)$ para todo $t$ en un entorno de $t_0$. 
+    
+    Para analizar de manera rigurosa la solubilidad de esta ecuación implícita, definimos la función escalar auxiliar:
+    \[
+        H(t,u) := V(t,u) - V(t_0, u_0), \quad \text{para } (t,u) \in \Omega
+    \]
+    Dado que el potencial $V \in C^2(\Omega)$, la función $H$ hereda esta regularidad y también es de clase $C^2(\Omega)$. Comprobemos si $H(t,u)$ satisface las hipótesis necesarias para despejar localmente nuestra variable dependiente $u$:
+    \begin{enumerate}
+        \item Evaluando la función en el punto inicial, se anula por propia construcción:
+        \[
+            H(t_0, u_0) = V(t_0, u_0) - V(t_0, u_0) = 0
+        \]
+        \item La derivada parcial de $H$ respecto a la variable dependiente $u$, evaluada en el punto inicial, es:
+        \[
+            \frac{\partial H}{\partial u} (t_0, u_0) = \frac{\partial V}{\partial u} (t_0, u_0) = Q(t_0, u_0)
+        \]
+        Por hipótesis expresa del teorema, hemos exigido que $Q(t_0, u_0) \neq 0$.
+    \end{enumerate}
+    
+    Cumplidas estas dos condiciones fundamentales, estamos habilitados para aplicar con pleno rigor el \textbf{Teorema de la Función Implícita} sobre la curva de nivel $H(t,u)=0$ en un entorno del punto $(t_0, u_0)$. 
+    
+    Este teorema de análisis multivariable nos garantiza la existencia de un radio $\varepsilon > 0$ y de una única función explícita $u : (t_0 - \varepsilon, t_0 + \varepsilon) \to \mathbb{R}$ de clase $C^1$, tal que:
+    \begin{itemize}
+        \item Satisface la condición inicial requerida: $u(t_0) = u_0$.
+        \item Mantiene la relación de nivel en todo el entorno: $H(t, u(t)) = 0$, lo que implica directamente que $V(t, u(t)) = V(t_0, u_0)$ para todo $t \in (t_0 - \varepsilon, t_0 + \varepsilon)$.
+    \end{itemize}
+
+    Para dar por concluida la demostración, solo resta comprobar que esta función $u(t)$, cuya existencia y unicidad nos garantiza el teorema, satisface efectivamente la ecuación diferencial original. 
+    
+    Partimos de la identidad constante garantizada en el entorno local:
+    \[
+        V(t, u(t)) = V(t_0, u_0) \quad \forall t \in (t_0 - \varepsilon, t_0 + \varepsilon)
+    \]
+    Derivamos ambos miembros de esta ecuación respecto a la variable independiente $t$. Aplicando la regla de la cadena para funciones de varias variables en el lado izquierdo, y sabiendo que la derivada de una constante es cero en el derecho, obtenemos:
+    \[
+        \frac{d}{dt} \Big[ V(t, u(t)) \Big] = 0 \implies \frac{\partial V}{\partial t} (t,u(t)) + \frac{\partial V}{\partial u} (t,u(t)) u'(t) = 0
+    \]
+    Finalmente, apelando a la definición de la función potencial $V$, sabemos que sus derivadas parciales coinciden exactamente con los coeficientes de nuestra ecuación: $\frac{\partial V}{\partial t} = P(t,u)$ y $\frac{\partial V}{\partial u} = Q(t,u)$. Sustituyendo esto en la expresión anterior, llegamos a:
+    \[
+        P(t, u(t)) + Q(t, u(t)) u'(t) = 0, \quad \forall t \in (t_0 - \varepsilon, t_0 + \varepsilon).
+    \]
+    De esta forma, queda demostrado sin lugar a dudas que $u(t)$ es la única solución local de clase $C^1$ del problema de valor inicial planteado.
+\end{proof}
+
