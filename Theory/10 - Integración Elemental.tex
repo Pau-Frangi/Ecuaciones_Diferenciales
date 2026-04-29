@@ -946,21 +946,295 @@ Resulta que, bajo ciertas hipótesis topológicas sobre la forma del dominio de 
 \end{proof}
 
 \ejemplo{
-    \textbf{Identificación de una ecuación no exacta} \\
-    Consideremos el siguiente problema diferencial:
+    \textbf{Identificación y resolución de una ecuación no exacta mediante Factor Integrante} \\
+    Consideremos el siguiente problema diferencial no lineal:
     \[
         u' = -\frac{u^2 + tu}{t^2}
     \]
-    Para evaluar si podemos resolverla mediante potenciales, la reordenamos multiplicando en cruz para llevarla a su forma diferencial canónica:
+    Para evaluar si podemos resolverla mediante la construcción de un potencial, la reordenamos multiplicando en cruz para llevarla a su forma simétrica canónica $P\, dt + Q\, du = 0$:
     \[
         (u^2 + tu) + t^2 u' = 0
     \]
-    Identificamos de inmediato los coeficientes $P(t,u) = u^2 + tu$ y $Q(t,u) = t^2$. Para aplicar el Teorema de Poincaré, procedemos a calcular sus derivadas cruzadas:
+    Identificamos de inmediato los coeficientes $P(t,u) = u^2 + tu$ y $Q(t,u) = t^2$. Para aplicar el Teorema de Poincaré (condición de exactitud), procedemos a calcular sus derivadas cruzadas:
     \begin{align*}
         \frac{\partial P}{\partial u} &= \frac{\partial}{\partial u} (u^2 + tu) = 2u + t \\
         \frac{\partial Q}{\partial t} &= \frac{\partial}{\partial t} (t^2) = 2t
     \end{align*}
-    Como es evidente, $\frac{\partial P}{\partial u} \neq \frac{\partial Q}{\partial t}$ en casi todo el dominio $\mathbb{R}^2$ (las derivadas solo coinciden en la recta $u = t/2$). El teorema nos garantiza, por tanto, que es material y topológicamente \textbf{imposible} construir una función potencial global $V(t,u)$ que satisfaga la ecuación. 
+    Como es evidente, $\frac{\partial P}{\partial u} \neq \frac{\partial Q}{\partial t}$ en casi todo el dominio (las derivadas solo coinciden sobre la recta $u = t/2$). El teorema nos garantiza, por tanto, que es \textbf{imposible} construir una función potencial global $V(t,u)$ que satisfaga la ecuación tal como está escrita. Declaramos que \textbf{no es una ecuación diferencial exacta} en su forma actual.
+
+    \textbf{Búsqueda del Factor Integrante:} \\
+    Aunque la ecuación no sea exacta, podemos intentar forzar su exactitud multiplicando toda la expresión por una función escalar no nula $\mu(t,u)$, denominada \textbf{factor integrante}. La nueva ecuación equivalente será:
+    \[
+        \mu(t,u)(u^2 + tu) + \mu(t,u)t^2 u' = 0
+    \]
+    Encontrar un factor integrante general es un problema tan difícil como resolver la propia ecuación original, pues requiere resolver una ecuación en derivadas parciales. Sin embargo, en muchas ecuaciones polinómicas, resulta útil proponer un factor heurístico (una \textit{ansatz}) de tipo monomio, de la forma:
+    \[ 
+        \mu(t,u) = t^a u^b 
+    \]
+    donde $a$ y $b$ son constantes reales a determinar. Sustituyendo esta propuesta en nuestra ecuación multiplicada, y distribuyendo los términos, obtenemos los nuevos coeficientes $\tilde{P}$ y $\tilde{Q}$:
+    \[
+        (t^a u^b)(u^2 + tu) + (t^a u^b)t^2 u' = 0
+    \]
+    \[
+        \underbrace{(t^a u^{b+2} + t^{a+1} u^{b+1})}_{\tilde{P}(t,u)} + \underbrace{(t^{a+2} u^b)}_{\tilde{Q}(t,u)} u' = 0    
+    \]
+    Para que esta nueva ecuación sea diferencial exacta, impongamos la condición del Teorema de Poincaré sobre los nuevos coeficientes $\tilde{P}$ y $\tilde{Q}$:
+    \[
+        \frac{\partial \tilde{P}}{\partial u} = \frac{\partial \tilde{Q}}{\partial t}
+    \]
+    Calculamos las derivadas parciales exigidas:
+    \begin{align*}
+        \frac{\partial \tilde{P}}{\partial u} &= \frac{\partial}{\partial u} \Big( t^a u^{b+2} + t^{a+1} u^{b+1} \Big) = (b+2) t^a u^{b+1} + (b+1) t^{a+1} u^b \\
+        \frac{\partial \tilde{Q}}{\partial t} &= \frac{\partial}{\partial t} \Big( t^{a+2} u^b \Big) = (a+2) t^{a+1} u^b
+    \end{align*}
+    Igualando ambas expresiones, obtenemos la condición algebraica:
+    \[
+        (b+2) t^a u^{b+1} + (b+1) t^{a+1} u^b = (a+2) t^{a+1} u^b
+    \]
+    Dado que esta igualdad polinómica debe cumplirse para todo par $(t,u)$ en el dominio, los coeficientes que acompañan a monomios idénticos deben ser iguales. Agrupamos y comparamos los términos:
+    \begin{itemize}
+        \item Término de grado $t^a u^{b+1}$: El coeficiente a la izquierda es $(b+2)$, y a la derecha no hay término semejante, por lo que su coeficiente es $0$.
+        \item Término de grado $t^{a+1} u^b$: El coeficiente a la izquierda es $(b+1)$, y a la derecha es $(a+2)$.
+    \end{itemize}
+    Esto nos conduce al siguiente sistema lineal de ecuaciones para los exponentes:
+    \[
+        \begin{cases}
+            b + 2 = 0 \\
+            b + 1 = a + 2
+        \end{cases}
+    \]
+    De la primera ecuación deducimos inmediatamente que $b = -2$. Sustituyendo este valor en la segunda ecuación obtenemos $-2 + 1 = a + 2 \implies -1 = a + 2 \implies a = -3$.
     
-    En consecuencia, declaramos que \textbf{no es una ecuación diferencial exacta} en su forma actual, y nos veríamos obligados a recurrir a técnicas alternativas (como la búsqueda de un "factor integrante" adecuado que la fuerce a ser exacta, o tratarla como una ecuación de tipo homogéneo debido al grado de sus variables) para lograr resolverla.
+    Por lo tanto, hemos hallado un factor integrante válido:
+    \[
+        \mu(t,u) = t^{-3} u^{-2} = \frac{1}{t^3 u^2}
+    \]
+    
+    \textbf{Resolución de la Ecuación Exacta:} \\
+    Multiplicando la ecuación original por este factor $\mu$, obtenemos finalmente una ecuación diferencial exacta:
+    \[
+        \left( \frac{u^2 + tu}{t^3 u^2} \right) + \left( \frac{t^2}{t^3 u^2} \right) u' = 0 \implies \underbrace{\left( \frac{1}{t^3} + \frac{1}{t^2 u} \right)}_{\tilde{P}} + \underbrace{\left( \frac{1}{t u^2} \right)}_{\tilde{Q}} u' = 0
+    \]
+    Procedemos a buscar la función potencial $V(t,u)$ que satisface el sistema de derivadas:
+    \[
+        \begin{cases}
+            \frac{\partial V}{\partial t} = \frac{1}{t^3} + \frac{1}{t^2 u} = t^{-3} + t^{-2} u^{-1} \\
+            \frac{\partial V}{\partial u} = \frac{1}{t u^2} = t^{-1} u^{-2}
+        \end{cases}
+    \]
+    Integramos la primera ecuación con respecto a $t$ (tratando a $u$ como constante):
+    \[
+        V(t,u) = \int \left( t^{-3} + t^{-2} u^{-1} \right) dt = -\frac{1}{2t^2} - \frac{1}{tu} + \varphi(u)
+    \]
+    Para hallar $\varphi(u)$, derivamos este potencial intermedio respecto a $u$ e igualamos a $\tilde{Q}$:
+    \[
+        \frac{\partial V}{\partial u} = \frac{\partial}{\partial u} \left( -\frac{1}{2t^2} - \frac{t^{-1} u^{-1}}{1} + \varphi(u) \right) = 0 - t^{-1}(-1)u^{-2} + \varphi'(u) = \frac{1}{tu^2} + \varphi'(u)
+    \]
+    Igualando a $\tilde{Q} = \frac{1}{tu^2}$, observamos que los términos mixtos se cancelan perfectamente (lo cual confirma que la ecuación es exacta):
+    \[
+        \frac{1}{tu^2} + \varphi'(u) = \frac{1}{tu^2} \implies \varphi'(u) = 0 \implies \varphi(u) = C
+    \]
+    Tomando $C=0$ para la función potencial representativa, obtenemos:
+    \[
+        V(t,u) = -\frac{1}{2t^2} - \frac{1}{tu}
+    \]
+    Dado que las soluciones de la ecuación diferencial se corresponden con las curvas de nivel del potencial ($V(t,u) = K$), la familia de soluciones implícitas de nuestro problema viene dada por:
+    \[
+        -\frac{1}{2t^2} - \frac{1}{tu} = K, \quad K \in \mathbb{R}
+    \]
+    Multiplicando por $-2t^2 u$ para adecentar la expresión, podemos incluso despejar la solución explícita $u(t)$ en función de la constante dependiente de las condiciones iniciales.
 }
+
+\subsection{El Factor Integrante y Ecuaciones Especiales}
+
+Como comprobamos en los ejemplos de la sección anterior, no todas las ecuaciones diferenciales en la forma $P(t,u) + Q(t,u) u' = 0$ son inicialmente exactas. Sin embargo, a menudo es posible transformarlas mediante un multiplicador adecuado.
+
+\begin{definición}[Factor Integrante]
+    Dada una ecuación diferencial de primer orden que no es exacta, un \textbf{factor integrante} es una función escalar $\mu(t,u)$ de clase $C^1$ y que no se anula en el dominio de interés ($\mu(t,u) \neq 0$), con la propiedad de que, al multiplicar toda la ecuación original por ella, el sistema resultante se convierte en una ecuación diferencial exacta. 
+    
+    Es decir, $\mu$ es un factor integrante si la nueva ecuación:
+    \[
+        \mu(t,u) P(t,u) + \mu(t,u) Q(t,u) u' = 0
+    \]
+    satisface el criterio analítico de exactitud (Teorema de Poincaré).
+\end{definición}
+
+Para encontrar este factor $\mu(t,u)$, aplicamos el criterio de las derivadas parciales cruzadas sobre los nuevos coeficientes $(\mu P)$ y $(\mu Q)$:
+\[
+    \frac{\partial (\mu P)}{\partial u} = \frac{\partial (\mu Q)}{\partial t}
+\]
+Desarrollando las derivadas mediante la regla del producto:
+\[
+    \frac{\partial \mu}{\partial u} P + \mu \frac{\partial P}{\partial u} = \frac{\partial \mu}{\partial t} Q + \mu \frac{\partial Q}{\partial t}
+\]
+Agrupando los términos que contienen derivadas de $\mu$ a un lado y los términos proporcionales a $\mu$ al otro, obtenemos la Ecuación en Derivadas Parciales (EDP) que define al factor integrante:
+\[
+    P \frac{\partial \mu}{\partial u} - Q \frac{\partial \mu}{\partial t} = \mu \left( \frac{\partial Q}{\partial t} - \frac{\partial P}{\partial u} \right)
+\]
+En general, resolver esta EDP es un problema analítico de una complejidad mucho mayor que la resolución de la EDO original de primer orden. No obstante, asumiendo ciertas simetrías (como en el ejemplo donde buscamos $\mu(t,u) = t^a u^b$, o cuando el factor solo depende de una variable, e.g., $\mu = \mu(t)$), el problema se reduce drásticamente.
+
+\subsection{Problemas de contorno y la Ecuación de Bessel}
+
+La necesidad de resolver ecuaciones diferenciales de orden superior o con coeficientes variables no solo surge de problemas mecánicos (como el oscilador armónico), sino de la resolución de ecuaciones en derivadas parciales clásicas en dominios con geometrías específicas. 
+
+Un ejemplo paradigmático es el problema de autovalores del operador Laplaciano con condiciones de Dirichlet nulas en la frontera de un disco circular $D_R$ de radio $R$:
+\[
+    \begin{cases}
+        - \Delta u = \lambda u & \text{en el interior } D_R \\
+        u = 0 & \text{en la frontera } \partial D_R
+    \end{cases}
+\]
+Al expresar el Laplaciano en coordenadas polares $(r, \theta)$ y aplicar el método de separación de variables $u(r,\theta) = R(r)\Theta(\theta)$, la ecuación radial ordinaria que emerge es conocida como la Ecuación de Bessel.
+
+\begin{definición}[Ecuación de Bessel]
+    Se define como \textbf{ecuación de Bessel de orden $m$} (donde $m \geq 0$ es un parámetro real o complejo) a la siguiente ecuación diferencial ordinaria lineal de segundo orden con coeficientes singulares:
+    \[
+        J''(z) + \frac{1}{z} J'(z) + \left( 1 - \frac{m^2}{z^2} \right) J(z) = 0
+    \]
+    cuyas soluciones regulares en el origen, denotadas clásicamente como $J_m(z)$, se denominan \textbf{Funciones de Bessel de primera especie de orden $m$}.
+\end{definición}
+
+Notemos que esta ecuación presenta una singularidad regular en el origen $z=0$, lo que impide aplicar los métodos estándar de coeficientes constantes. Para analizar la estructura de las soluciones de esta ecuación y comprender su comportamiento cerca de la singularidad, es una técnica habitual introducir cambios de variable dependiente que "absorban" parte del comportamiento singular.
+
+Consideremos el cambio de variable sugerido por la teoría de Frobenius para eliminar la divergencia del término $m^2/z^2$:
+\[
+    J(z) = z^m \psi(z)
+\]
+Para determinar la nueva ecuación diferencial que gobierna a la función auxiliar $\psi(z)$, calculamos las derivadas sucesivas de $J(z)$ aplicando reiteradamente la regla del producto:
+\begin{align*}
+    J'(z) &= m z^{m-1} \psi(z) + z^m \psi'(z) \\
+    J''(z) &= m(m-1) z^{m-2} \psi(z) + m z^{m-1} \psi'(z) + m z^{m-1} \psi'(z) + z^m \psi''(z) \\
+    &= m(m-1) z^{m-2} \psi(z) + 2m z^{m-1} \psi'(z) + z^m \psi''(z)
+\end{align*}
+
+A continuación, sustituimos $J(z)$, $J'(z)$ y $J''(z)$ en la ecuación original de Bessel:
+\[
+    \underbrace{\Big[ m(m-1) z^{m-2} \psi(z) + 2m z^{m-1} \psi'(z) + z^m \psi''(z) \Big]}_{J''(z)} + \frac{1}{z} \underbrace{\Big[ m z^{m-1} \psi(z) + z^m \psi'(z) \Big]}_{J'(z)} + \left( 1 - \frac{m^2}{z^2} \right) \underbrace{z^m \psi(z)}_{J(z)} = 0
+\]
+
+Procedemos a expandir y agrupar los términos algebraicamente. Distribuimos el factor $1/z$ en el segundo corchete y multiplicamos el último término:
+\[
+    m(m-1) z^{m-2} \psi(z) + 2m z^{m-1} \psi'(z) + z^m \psi''(z) + m z^{m-2} \psi(z) + z^{m-1} \psi'(z) + z^m \psi(z) - m^2 z^{m-2} \psi(z) = 0
+\]
+
+Agrupamos los coeficientes según el orden de las derivadas de $\psi(z)$:
+\begin{itemize}
+    \item \textbf{Términos con $\psi''(z)$:}
+    \[
+        z^m \psi''(z)
+    \]
+    \item \textbf{Términos con $\psi'(z)$:}
+    \[
+        2m z^{m-1} \psi'(z) + z^{m-1} \psi'(z) = (2m + 1) z^{m-1} \psi'(z)
+    \]
+    \item \textbf{Términos con $\psi(z)$:}
+    Agrupamos y factorizamos el término común $z^{m-2}$:
+    \[
+        \Big( m(m-1) + m - m^2 \Big) z^{m-2} \psi(z) + z^m \psi(z)
+    \]
+    Observemos detalladamente el coeficiente interno:
+    \[
+        m(m-1) + m - m^2 = m^2 - m + m - m^2 = 0
+    \]
+    ¡Una cancelación exacta! La dependencia singular de orden $z^{-2}$ ha sido completamente eliminada. El único término con $\psi(z)$ que sobrevive es $z^m \psi(z)$.
+\end{itemize}
+
+Reensamblando la ecuación transformada con las agrupaciones realizadas:
+\[
+    z^m \psi''(z) + (2m + 1) z^{m-1} \psi'(z) + z^m \psi(z) = 0
+\]
+
+Dado que buscamos la solución en dominios donde $z \neq 0$ (o para valores asintóticos), podemos dividir toda la ecuación por el factor común $z^{m-1}$:
+\[
+    z \psi''(z) + (2m + 1) \psi'(z) + z \psi(z) = 0
+\]
+
+Esta es la ecuación diferencial simplificada para $\psi(z)$. A diferencia de la Ecuación de Bessel original, esta nueva ecuación ha absorbido la singularidad polinómica $m^2/z^2$, ofreciendo una estructura mucho más dócil (particularmente útil cuando se buscan representaciones en serie de potencias alrededor del origen para definir las funciones $J_m(z)$).
+
+\subsection{Desarrollo en serie de potencias para la función de Bessel}
+
+Habiendo simplificado la ecuación original a la forma regular:
+\begin{equation} \label{eq:bessel_modificada}
+    z \psi''(z) + (2m + 1) \psi'(z) + z \psi(z) = 0
+\end{equation}
+procedemos a buscar una solución analítica en torno al origen mediante un desarrollo en serie de Taylor (o de potencias). Proponemos una solución de la forma:
+\[
+    \psi(z) = \sum_{k=0}^{\infty} c_k z^k
+\]
+donde los coeficientes $c_k$ son constantes a determinar. Derivando esta serie término a término obtenemos:
+\begin{align*}
+    \psi'(z) &= \sum_{k=1}^{\infty} k c_k z^{k-1} \\
+    \psi''(z) &= \sum_{k=2}^{\infty} k(k-1) c_k z^{k-2}
+\end{align*}
+
+Sustituimos estas expresiones en la ecuación diferencial \eqref{eq:bessel_modificada}:
+\[
+    z \sum_{k=2}^{\infty} k(k-1) c_k z^{k-2} + (2m + 1) \sum_{k=1}^{\infty} k c_k z^{k-1} + z \sum_{k=0}^{\infty} c_k z^k = 0
+\]
+Multiplicando la variable $z$ hacia el interior de los sumatorios correspondientes, los exponentes se modifican:
+\[
+    \sum_{k=2}^{\infty} k(k-1) c_k z^{k-1} + \sum_{k=1}^{\infty} (2m + 1) k c_k z^{k-1} + \sum_{k=0}^{\infty} c_k z^{k+1} = 0
+\]
+
+Para poder agrupar todos los términos bajo un mismo sumatorio, necesitamos homogenizar las potencias de $z$. Realizaremos cambios de índice para que todos los sumandos dependan de una potencia genérica $z^n$:
+\begin{itemize}
+    \item En el primer sumatorio, hacemos $n = k-1 \implies k = n+1$. El índice empieza en $n = 1$:
+    \[ \sum_{n=1}^{\infty} (n+1)n c_{n+1} z^n \]
+    \item En el segundo sumatorio, hacemos el mismo cambio $n = k-1 \implies k = n+1$. El índice empieza en $n = 0$:
+    \[ \sum_{n=0}^{\infty} (2m + 1)(n+1) c_{n+1} z^n \]
+    \item En el tercer sumatorio, hacemos $n = k+1 \implies k = n-1$. El índice empieza en $n = 1$:
+    \[ \sum_{n=1}^{\infty} c_{n-1} z^n \]
+\end{itemize}
+
+Sustituyendo estas series ajustadas en la ecuación, y extrayendo el término correspondiente a $n=0$ (que solo aparece en el segundo sumatorio) para unificar los índices de suma desde $n=1$, obtenemos:
+\[
+    (2m+1)(1) c_1 z^0 + \sum_{n=1}^{\infty} \Big[ (n+1)n c_{n+1} + (2m+1)(n+1) c_{n+1} + c_{n-1} \Big] z^n = 0
+\]
+
+Dado que esta igualdad polinómica debe cumplirse para todo $z$, los coeficientes de todas las potencias de $z$ deben ser idénticamente nulos. 
+
+Para el término independiente ($n=0$):
+\[
+    (2m+1)c_1 = 0
+\]
+Asumiendo que $m \geq 0$ (o al menos $2m+1 \neq 0$), esto implica obligatoriamente que **$c_1 = 0$**.
+
+Para los términos de grado $n \geq 1$, agrupamos el factor común $c_{n+1}$:
+\[
+    (n+1) \big( n + 2m + 1 \big) c_{n+1} + c_{n-1} = 0
+\]
+Despejando $c_{n+1}$, obtenemos la **relación de recurrencia** fundamental:
+\[
+    c_{n+1} = \frac{-1}{(n+1)(n + 2m + 1)} c_{n-1}, \quad \forall n \geq 1
+\]
+Haciendo un pequeño cambio de notación ($n+1 \to k$), la relación se escribe de forma más natural como:
+\[
+    c_k = \frac{-1}{k(k + 2m)} c_{k-2}, \quad \forall k \geq 2
+\]
+
+Esta fórmula de recurrencia salta de dos en dos. Dado que demostramos que $c_1 = 0$, todos los coeficientes impares se anularán en cascada: $c_1 = c_3 = c_5 = \dots = 0$. 
+Por tanto, la serie solo contendrá potencias pares. Definimos el índice par $k = 2j$:
+\[
+    c_{2j} = \frac{-1}{2j(2j + 2m)} c_{2j-2} = \frac{-1}{2^2 j (j + m)} c_{2j-2}
+\]
+Aplicando esta recurrencia de forma iterativa desde un coeficiente inicial $c_0$ arbitrario:
+\begin{align*}
+    c_2 &= \frac{-1}{2^2 \cdot 1 \cdot (m+1)} c_0 \\
+    c_4 &= \frac{-1}{2^2 \cdot 2 \cdot (m+2)} c_2 = \frac{(-1)^2}{2^4 \cdot (1\cdot 2) \cdot (m+1)(m+2)} c_0 \\
+    &\vdots \\
+    c_{2j} &= \frac{(-1)^j}{2^{2j} j! (m+1)(m+2)\dots(m+j)} c_0
+\end{align*}
+
+Para compactar esta expresión, hacemos uso de la Función Gamma de Euler $\Gamma(x)$, que generaliza el factorial cumpliendo $\Gamma(x+1) = x\Gamma(x)$. Por convención histórica, para estandarizar la solución, se elige la constante inicial $c_0$ como:
+\[
+    c_0 = \frac{1}{2^m \Gamma(m+1)}
+\]
+Sustituyendo este $c_0$ en la fórmula general de los coeficientes, el denominador absorbe el producto y se transforma limpiamente en:
+\[
+    c_{2j} = \frac{(-1)^j}{2^{2j+m} j! \Gamma(m+j+1)}
+\]
+
+Finalmente, reconstruimos la función $\psi(z) = \sum_{j=0}^{\infty} c_{2j} z^{2j}$ y deshacemos el cambio de variable original $J(z) = z^m \psi(z)$ multiplicando toda la serie por $z^m$. Llegamos así a la representación en serie de potencias de la \textbf{Función de Bessel de primera especie de orden $m$}:
+\[
+    J_m(z) = \sum_{j=0}^{\infty} \frac{(-1)^j}{j! \Gamma(m+j+1)} \left( \frac{z}{2} \right)^{2j+m}
+\]
