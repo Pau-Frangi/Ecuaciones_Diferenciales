@@ -538,8 +538,22 @@ Donde $I_2$ es la matriz identidad de tamaño $2 \times 2$.
         e^{hA} = \sum_{k=0}^\infty \frac{(hA)^k}{k!} = I + hA + \sum_{k=2}^\infty \frac{(hA)^k}{k!}
     \]
     \[
-        \| \frac{e^{hA} - I}{h} - A \| = \left\| h \sum_{k=2}^{\infty} h^{k-2} \frac{A^k}{k!} \right\| \le |h| \sum_{k=2}^{\infty} |h|^{k-2} \frac{\|A\|^k}{k!} = |h| \sum_{k=2} ^{\infty} \frac{\|A\|^k}{k!} = |h| (e^{\|A\|} - 1 - \|A\|)
+        \| \frac{e^{hA} - I}{h} - A \| = \left\| h \sum_{k=2}^{\infty} h^{k-2} \frac{A^k}{k!} \right\| \le |h| \sum_{k=2}^{\infty} |h|^{k-2} \frac{\|A\|^k}{k!}
     \]
+
+    Si $|h| \le 1$, entonces $|h|^{k-2} \le 1$ para todo $k \ge 2$, de modo que
+    \[
+        \| \frac{e^{hA} - I}{h} - A \| \le |h| \sum_{k=2}^{\infty} \frac{\|A\|^k}{k!} = |h| (e^{\|A\|} - 1 - \|A\|) \xrightarrow{h \to 0} 0.
+    \]
+    Por tanto,
+    \[
+        \lim_{h \to 0} \frac{e^{hA} - I}{h} = A,
+    \]
+    y así
+    \[
+        \varphi'(z) = e^{zA}A.
+    \]
+    Como $e^{zA}$ es serie de potencias en $A$, conmuta con $A$; por ello $e^{zA}A = Ae^{zA}$.
 
 \end{proof}
 
