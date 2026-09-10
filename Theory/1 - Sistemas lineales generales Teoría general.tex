@@ -104,40 +104,98 @@ Comprobar la condición de Lipschitz por definición puede ser complejo. El sigu
 \end{teorema}
 
 \begin{proof}
-    El hecho de que el dominio $\Omega$ sea \textbf{convexo} asegura que, para cualesquiera $u, v \in \Omega$, el segmento de recta que los une está completamente contenido dentro del dominio, permitiéndonos usar el Teorema del Valor Medio.
+    Recordemos que, al estar en un espacio de dimensión finita ($\mathbb{R}^n$), todas las normas son equivalentes. Esto nos permite elegir la norma que más nos convenga para las acotaciones, por ejemplo, la norma 1: $\|x\|_1 = \sum_{i=1}^n |x_i|$, y su norma matricial inducida.
+
+    El hecho de que el dominio $\Omega$ sea \textbf{convexo} asegura que, para cualesquiera $u, v \in \Omega$, el segmento de recta que los une está completamente contenido dentro del dominio, permitiéndonos integrar a lo largo de él.
     
     \begin{itemize}
-        \item \textbf{(2) $\Rightarrow$ (1):} Supongamos que todas las derivadas parciales están acotadas por $M$. Para cualesquiera $u, v \in \Omega$, analizamos cada componente escalar $F_i : \Omega \to \mathbb{R}$. 
-        Por el Teorema del Valor Medio para varias variables, existe un punto $\xi_i \in \Omega$ (en el segmento que une $u$ y $v$) tal que:
+        \item \textbf{(2) $\Rightarrow$ (1):} Supongamos que todas las derivadas parciales están acotadas por una constante $M > 0$. Dados $u, v \in \Omega$, definimos la curva auxiliar $\varphi : [0,1] \to \mathbb{R}^n$ como:
         \[
-            F_i(u) - F_i(v) = \nabla F_i(\xi_i) \cdot (u - v)
+            \varphi(t) = F(u + t(v - u))
         \]
-        Aplicando la desigualdad de Cauchy-Schwarz, y teniendo en cuenta que las $n$ derivadas parciales de $F_i$ están acotadas por $M$:
+        Como $\Omega$ es convexo, el segmento $u + t(v - u)$ está contenido en $\Omega$ para todo $t \in [0,1]$, luego $\varphi$ está bien definida. Observamos que $\varphi(0) = F(u)$ y $\varphi(1) = F(v)$. 
+        
+        Aplicando la regla de la cadena, la derivada de $\varphi$ es:
         \[
-            |F_i(u) - F_i(v)| \leq \|\nabla F_i(\xi_i)\| \|u - v\| \leq \left( \sqrt{\sum_{j=1}^n M^2} \right) \|u - v\| = \sqrt{n} M \|u - v\|
+            \varphi'(t) = DF(u + t(v - u)) \cdot (v - u)
         \]
-        Para acotar la función vectorial entera, calculamos su norma Euclídea:
+        donde $DF$ denota la matriz jacobiana de $F$. Usando el Teorema Fundamental del Cálculo y acotando con la norma 1:
         \[
-            \|F(u) - F(v)\| = \sqrt{\sum_{i=1}^n |F_i(u) - F_i(v)|^2} \leq \sqrt{\sum_{i=1}^n (\sqrt{n} M \|u - v\|)^2} = \sqrt{n^2 M^2 \|u - v\|^2} = n M \|u - v\|
+            \| F(v) - F(u) \|_1 = \| \varphi(1) - \varphi(0) \|_1 = \left\| \int_0^1 \varphi'(t) dt \right\|_1 \leq \int_0^1 \| \varphi'(t) \|_1 dt
         \]
-        Por lo tanto, $F$ es globalmente Lipschitziana con constante de Lipschitz $L = n M$.
+        Sustituyendo $\varphi'(t)$ y aplicando la propiedad de submultiplicatividad de la norma matricial ($\|A \cdot x\|_1 \leq \|A\|_1 \|x\|_1$):
+        \[
+            \| F(v) - F(u) \|_1 \leq \int_0^1 \| DF(u + t(v - u)) \|_1 \| v - u \|_1 dt = \| v - u \|_1 \int_0^1 \| DF(u + t(v - u)) \|_1 dt
+        \]
+        Como por hipótesis todas las derivadas parciales están acotadas por $M$, la norma 1 de la matriz jacobiana (que es el máximo de las sumas por columnas) está acotada por $n \cdot M$. Por lo tanto:
+        \[
+            \| F(v) - F(u) \|_1 \leq \| v - u \|_1 \int_0^1 (n M) dt = (n M) \| v - u \|_1
+        \]
+        Luego $F$ es globalmente Lipschitziana con constante $L = n M$ respecto a la norma 1 (y por equivalencia de normas, lo será para cualquier otra norma con una constante proporcional).
 
-        \item \textbf{(1) $\Rightarrow$ (2):} Supongamos que $F$ es globalmente Lipschitziana con constante $L$. Entonces, $\forall u, v \in \Omega$:
+        \item \textbf{(1) $\Rightarrow$ (2):} Supongamos que $F$ es globalmente Lipschitziana con constante $L$ para cierta norma $\|\cdot\|$. Entonces, $\forall u, v \in \Omega$:
         \[
             \|F(u) - F(v)\| \leq L \|u - v\|
         \]
-        Como la componente en valor absoluto de un vector nunca supera la norma del vector, para cada $i \in \{1,\dots,n\}$ se cumple que:
+        Fijamos $u \in \Omega$ y tomamos una dirección cualquiera $w \in \mathbb{R}^n$ con $\|w\| = 1$. Por la definición de derivada direccional:
         \[
-            |F_i(u) - F_i(v)| \leq L \|u - v\|
+            DF(u) \cdot w = \lim_{h \to 0} \frac{F(u + h w) - F(u)}{h}
         \]
-        Fijemos un punto $u \in \Omega$ y tomemos $v = u + h e_j$, donde $e_j$ es el vector de la base canónica correspondiente a la variable $j$-ésima, y $h \neq 0$ es suficientemente pequeño para que $v \in \Omega$. Notemos que $\|u - v\| = |h|$. Sustituyendo:
+        Acotando la norma de este límite usando la condición de Lipschitz:
         \[
-            |F_i(u + h e_j) - F_i(u)| \leq L |h| \implies \left| \frac{F_i(u + h e_j) - F_i(u)}{h} \right| \leq L
+            \| DF(u) \cdot w \| = \lim_{h \to 0} \frac{\|F(u + h w) - F(u)\|}{|h|} \leq \lim_{h \to 0} \frac{L \|h w\|}{|h|} = L \|w\| = L
         \]
-        Al ser $F$ de clase $C^1$, las derivadas parciales existen. Tomando el límite cuando $h \to 0$ obtenemos:
+        Esto significa que la norma de operador de la matriz jacobiana está acotada: $\|DF(u)\| = \max_{\|w\|=1} \|DF(u) \cdot w\| \leq L$. 
+        
+        Dado que todas las normas matriciales en dimensión finita son equivalentes, existe una constante $C > 0$ tal que la magnitud máxima de cualquier entrada de la matriz está acotada por $C$ veces la norma de operador. Es decir:
         \[
-            \left| \frac{\partial F_i}{\partial u_j}(u) \right| = \lim_{h \to 0} \left| \frac{F_i(u + h e_j) - F_i(u)}{h} \right| \leq L
+            \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq C \| DF(u) \| \leq C L, \quad \forall i,j \in \{1, \ldots, n\}
         \]
-        Esto prueba que todas las derivadas parciales están acotadas en $\Omega$ (y $M = L$ funciona como cota).
+        Por lo tanto, todas las derivadas parciales están uniformemente acotadas en $\Omega$.
     \end{itemize}
 \end{proof}
+
+\begin{corolario}
+    Sean $\Omega \subset \mathbb{R}^n$ un conjunto abierto y $F : \Omega \to \mathbb{R}^n$ una función de clase $C^1(\Omega, \mathbb{R}^n)$. Entonces $F$ es localmente Lipschitziana en $\Omega$. 
+    Además, es globalmente Lipschitziana en cualquier subconjunto abierto, convexo y acotado $D \subset \Omega$ tal que $\overline{D} \subset \Omega$.
+\end{corolario}
+
+\begin{proof}
+    Sea $D$ un subconjunto abierto, convexo y acotado tal que su clausura $\overline{D}$ está contenida en $\Omega$. Como $\overline{D}$ es cerrado y acotado en $\mathbb{R}^n$, por el Teorema de Heine-Borel es un conjunto \textbf{compacto}.
+    
+    Al ser $F \in C^1$, sus derivadas parciales $\frac{\partial F_i}{\partial u_j}$ son funciones continuas. Por el Teorema de Weierstrass, toda función continua en un conjunto compacto alcanza su máximo. Por lo tanto:
+    \[  
+        \max_{u \in \overline{D}} \left| \frac{\partial F_i}{\partial u_j}(u) \right| = M_{ij} < \infty, \quad \forall i,j \in \{1, \ldots, n\}
+    \]
+    Tomando $M = \max \{ M_{ij} \}$, tenemos que todas las derivadas parciales están uniformemente acotadas en $\overline{D}$ (y por ende en $D$). Al ser $D$ convexo, aplicamos el teorema anterior para concluir que $F$ es globalmente Lipschitziana en $D$. 
+    
+    Como todo punto $u_0 \in \Omega$ puede ser contenido en una bola suficientemente pequeña (que es convexa y precompacta en $\Omega$), deducimos que $F$ es localmente Lipschitziana en todo $\Omega$.
+\end{proof}
+
+\vspace{0.5cm}
+\noindent\textbf{Ejemplos prácticos:}
+\begin{enumerate}
+    \item \textbf{Función con derivada acotada:}
+    \[
+        F(u) = \sin(u), \quad F \in C^\infty(\mathbb{R}, \mathbb{R})
+    \]  
+    Calculamos su Jacobiano (derivada en 1D):
+    \[
+        DF(u) = \cos(u) \implies \left| \frac{dF}{du}(u) \right| = |\cos(u)| \leq 1, \quad \forall u \in \mathbb{R}
+    \]
+    Como la derivada está uniformemente acotada en todo $\mathbb{R}$, por el teorema deducimos que $F$ es globalmente Lipschitziana con $L = 1$.
+
+    \item \textbf{Aplicación del corolario (conjuntos compactos):}
+    \[
+        F(u) = u^2, \quad F \in C^\infty(\mathbb{R}, \mathbb{R})
+    \]  
+    Derivando obtenemos:
+    \[
+        DF(u) = 2u \implies \left| \frac{dF}{du}(u) \right| = |2u| \xrightarrow{u \to \infty} \infty
+    \]
+    Como la derivada no está acotada en $\mathbb{R}$, la función \textbf{no} es globalmente Lipschitziana. Sin embargo, para cualquier intervalo acotado $D = (a,b) \subset \mathbb{R}$, consideramos su clausura $\overline{D} = [a,b]$ (que es compacta). Aquí la derivada sí alcanza un máximo:
+    \[
+        \max_{u \in [a,b]} |2u| = 2 \max(|a|, |b|) < \infty
+    \]
+    Por el corolario, $F$ es globalmente Lipschitziana en cualquier intervalo acotado, y por consiguiente, localmente Lipschitziana en $\mathbb{R}$.
+\end{enumerate}
