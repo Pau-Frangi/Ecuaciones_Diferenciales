@@ -1,6 +1,6 @@
-﻿\section{Funciones Lipschitzianas}
+\section{Funciones Lipschitzianas}
 
-% --- INTRODUCCIÓN Y CONTEXTO ---
+\subsection{Introducción a las funciones Lipschitzianas}
 En la asignatura previa (EDOS) nos centramos en aprender a resolver ecuaciones diferenciales de forma explícita y estudiar sus propiedades básicas. Sin embargo, no todos los problemas tienen una solución analítica. En esta asignatura (EDIF), daremos un paso más allá para estudiar la existencia, unicidad y el comportamiento de las soluciones desde un punto de vista cualitativo.
 
 Para ello, el concepto de \textbf{función Lipschitziana} será nuestro pilar fundamental. Como veremos en la primera parte del curso (teoría de Cauchy-Lipschitz), pedirle a una función que sea continua no es suficiente para garantizar que un problema de valor inicial tenga \textbf{solución única}. Necesitaremos esta condición de Lipschitz. Además, diferenciar entre una función global y localmente Lipschitziana será clave para entender si una solución existirá para siempre o si, por el contrario, ``explotará'' en un tiempo finito, un fenómeno que estudiaremos al hablar de soluciones maximales.
@@ -172,6 +172,8 @@ Comprobar la condición de Lipschitz por definición puede ser complejo. El sigu
     Como todo punto $u_0 \in \Omega$ puede ser contenido en una bola suficientemente pequeña (que es convexa y precompacta en $\Omega$), deducimos que $F$ es localmente Lipschitziana en todo $\Omega$.
 \end{proof}
 
+Veamos algunos ejemplos prácticos de cómo aplicar el teorema y el corolario para determinar si una función es global o localmente Lipschitziana.
+
 \vspace{0.5cm}
 \noindent\textbf{Ejemplos prácticos:}
 \begin{enumerate}
@@ -198,4 +200,136 @@ Comprobar la condición de Lipschitz por definición puede ser complejo. El sigu
         \max_{u \in [a,b]} |2u| = 2 \max(|a|, |b|) < \infty
     \]
     Por el corolario, $F$ es globalmente Lipschitziana en cualquier intervalo acotado, y por consiguiente, localmente Lipschitziana en $\mathbb{R}$.
+
+    \item \textbf{Función con derivada no acotada en un conjunto abierto:}
+    \[
+        F(u) = u^q \quad \text{con } q \in (0,1), \quad F \in C^\infty((0,\infty), \mathbb{R})
+    \]
+    Derivando obtenemos:
+    \[
+        DF(u) = q u^{q-1} \implies \left| \frac{dF}{du}(u) \right| = q u^{q-1} \xrightarrow{u \to 0^+} \infty
+    \]
+    La derivada no está acotada en el conjunto abierto $(0,\infty)$, en particular no lo está en cualquier abierto de la forma $(0, \varepsilon)$. Por lo tanto, $F$ no es globalmente Lipschitziana en $(0, \varepsilon)$, aunque sí es localmente Lipschitziana en dicho intervalo, ya que cualquier abierto, conexo y acotado $D \subset (0, \varepsilon)$ con $\overline{D} \subset (0, \varepsilon)$ tendrá la derivada acotada, ya que $0 \notin \overline{D} \implies \min{\overline{D}} > 0$.
+    \item \textbf{Función vectorial con derivadas acotadas:}
+    Sea $A = (a_{ij})_{1 \leq i,j \leq N}$, definamos:
+    \[
+        F(u) = A \begin{pmatrix} \sin(u_1) \\ \vdots \\ \sin(u_N) \end{pmatrix}
+        =
+        \begin{pmatrix}
+            a_{11} \sin(u_1) + \ldots + a_{1N} \sin(u_N) \\
+            \vdots \\
+            a_{N1} \sin(u_1) + \ldots + a_{NN} \sin(u_N)
+        \end{pmatrix}
+    \]
+    Claramente $F \in C^\infty(\mathbb{R}^N, \mathbb{R}^N)$. Su Jacobiano es:
+    \[
+        DF(u) = A \cdot \operatorname{diag}(\cos(u_1), \ldots, \cos(u_N))
+    \]
+    Y sus derivadas parciales son:
+    \[
+        \frac{\partial F_i}{\partial u_j}(u) = a_{ij} \cos(u_j), \quad 1 \leq i,j \leq N
+    \]
+    Como $|\cos(u_j)| \leq 1$ para todo $u_j \in \mathbb{R}$, tenemos que podemos acotar todas las derivadas parciales por $M = \max_{i,j} |a_{ij}|$. Por el teorema, $F$ es globalmente Lipschitziana en $\mathbb{R}^N$:
+    \[
+        \forall i, j \in \{ 1, \ldots, N \}, \quad \sup_{u \in \mathbb{R}^N} \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq M
+    \]
+    Demostrando así que la función $F$ es globalmente Lipschitziana en $\Omega = \mathbb{R}^N$.
+    \item \textbf{Función vectorial con derivadas no acotadas:}
+    Sea $A = (a_{ij})_{1 \leq i,j \leq N}$, definamos:
+    \[
+        F(u) = A \begin{pmatrix} u_1^2 \\ \vdots \\ u_N^2 \end{pmatrix}
+        =
+        \begin{pmatrix}
+            a_{11} u_1^2 + \ldots + a_{1N} u_N^2 \\
+            \vdots \\
+            a_{N1} u_1^2 + \ldots + a_{NN} u_N^2
+        \end{pmatrix}
+    \]
+    Claramente $F \in C^\infty(\mathbb{R}^N, \mathbb{R}^N)$. Su Jacobiano es:
+    \[
+        DF(u) = A \cdot \operatorname{diag}(2 u_1, \ldots, 2 u_N)
+    \]
+    Y sus derivadas parciales son:
+    \[
+        \frac{\partial F_i}{\partial u_j}(u) = 2 a_{ij} u_j, \quad 1 \leq i,j \leq N
+    \]
+    Como $|2 a_{ij} u_j| \to \infty$ cuando $|u_j| \to \infty$, tenemos que no podemos acotar todas las derivadas parciales en $\mathbb{R}^N$. Por el teorema, $F$ no es globalmente Lipschitziana en $\mathbb{R}^N$. Sin embargo, para cualquier conjunto abierto, convexo y acotado $D \subset \mathbb{R}^N$, la función sí es globalmente Lipschitziana en $D$, ya que $\overline{D}$ es compacto y las derivadas parciales alcanzan un máximo finito en dicho conjunto.
 \end{enumerate}
+
+\subsection{Caso no autónomo}
+
+Sea $J \subset \mathbb{R}$ un intervalo arbitrario:
+\begin{tikzpicture}
+    % Recta (intervalo)
+    \draw[thick] (0,0) -- (5,0);
+    % Marca inicial alpha
+    \draw[thick] (1,-0.15) -- (1,0.15);
+    \node[below] at (1,-0.15) {$\alpha$};
+    % Marca final beta
+    \draw[thick] (4,-0.15) -- (4,0.15);
+    \node[below] at (4,-0.15) {$\beta$};
+    % Lista de intervalos a la derecha
+    \node[right, align=left] at (6,0) {%
+        $(\alpha, \beta)$, \; $[\alpha, \beta]$, \; $[\alpha, \beta)$, \; $(\alpha, \beta]$,\\[4pt]
+        $(-\infty, \beta)$, \; $(-\infty, \beta]$,\\[4pt]
+        $(\alpha, +\infty)$, \; $[\alpha, +\infty)$,\\[4pt]
+        $(-\infty, +\infty) = \mathbb{R}$%
+    };
+\end{tikzpicture}
+
+Sea ahora una función $f : J \times \mathbb{R}^n \to \mathbb{R}^n$ arbitraria, entonces, podemos definir la noción de Lipschitzianidad en este caso de forma análogo al anterior.
+
+\begin{definición}[Función Global y Localmente Lipschitziana en el caso no autónomo]
+    Sea $J \subset \mathbb{R}$ un intervalo arbitrario y sea $f : J \times \mathbb{R}^n \to \mathbb{R}^n$ una función arbitraria.
+    \begin{enumerate}
+        \item Diremos que $f$ es \textbf{globalmente Lipschitziana respecto de $u$}, uniformemente en $t \in J$, si existe una constante de Lipschitz $L > 0$ tal que:
+        \[
+            \| f(t, u) - f(t, v) \| \leq L \| u - v \|, \quad \forall t \in J, \; \forall u, v \in \mathbb{R}^n
+        \]
+        \item Diremos que $f$ es \textbf{localmente Lipschitziana respecto de $u$}, uniformemente en $t \in J$, si $\forall u_0 \in \mathbb{R}^n$ existe un radio $R > 0$ tal que:
+        \[
+            \| f(t, u) - f(t, v) \| \leq L \| u - v \|, \quad \forall t \in J, \; \forall u, v \in B_R(u_0) \subset \Omega
+        \]
+    \end{enumerate}
+\end{definición}
+
+\begin{teorema}[Criterio de Lipschitzianidad para funciones no autónomas]
+    Sean $J \subset \mathbb{R}$ un intervalo arbitrario, $\Omega \subset \mathbb{R}^n$ un conjunto abierto y \textbf{convexo}, y $f \in C (J \times \Omega, \mathbb{R}^n)$ que posee derivadas parciales $f_1, \ldots, f_n$ con:
+    \[
+        \frac{\partial f_i}{\partial u_j} \in C(J \times \Omega, \mathbb{R}), \quad 1 \leq i,j \leq n
+    \]
+    Entonces:
+    \[
+        f \text{ es globalmente Lipschitziana respecto a } u \in \Omega
+        \iff
+        M = \sup_{(t,u) \in J \times \Omega} \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| < +\infty, \quad 1 \leq i,j \leq n
+    \]
+\end{teorema}
+
+\begin{proof}
+    Veamos ambas implicaciones:
+    \begin{itemize}
+        \item[$\Leftarrow$] Supongamos que $M < +\infty$, definamos la curva auxiliar $\varphi : [0,1] \to \mathbb{R}^n$ como:
+        \[
+            \varphi(s) = f(t, su + (1-s)v), \quad s \in [0,1]
+        \]
+        Con $u, v \in \Omega$ y $t \in J$ fijos, entonces:
+        \[
+            \| f(t,u) - f(t,v) \| = 
+            \| \varphi(1) - \varphi(0) \| \underbrace{=}_{\text{Teorema del valor medio}} 
+            \| \int_0^1 \varphi'(s) ds \| \leq 
+        \]
+        \[
+            \leq \| \int_0^1 D_u f(t, su + (1-s)v) \cdot (u - v) ds \| \leq
+            \int_0^1 \| D_u f(t, su + (1-s)v) \cdot (u - v) \|_1 ds \leq
+        \]
+        \[
+            \leq \int_0^1 \| D_u f(t, su + (1-s)v) \|_{\mathcal{L}(\mathbb{R}^n)} ds \| u - v \|_1 \leq
+            c \int_0^1 \| D_u f(t, su + (1-s)v) \|_1 ds \| u - v \|_1 \leq
+        \]
+        \[
+            \leq c \int_0^1 \sum_{i,j=1}^n \left| \frac{\partial f_i}{\partial u_j}(t, su + (1-s)v) \right| ds \| u - v \|_1 \leq
+            c \underbrace{\sum_{i,j=1}^n M}_{L \text{, constante de Lipschitz}} \| u - v \|_1 = L \| u - v \|_1
+        \]
+    \end{itemize}
+\end{proof}
