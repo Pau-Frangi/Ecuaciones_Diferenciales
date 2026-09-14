@@ -405,5 +405,141 @@ Al igual que en el caso autónomo, verificar esta condición mediante la definic
             \frac{\partial f}{\partial u}(t,u) = a(t) p |u|^{p-1} \operatorname{sgn}(u)
         \]
         (Puesto que $p > 1$, la derivada en $u=0$ existe y es nula, por lo que la función derivada resulta continua en todo $\mathbb{R}$). Sin embargo, al fijar un instante $t$ donde $a(t) \neq 0$, el término $|u|^{p-1}$ diverge a $+\infty$ cuando $|u| \to \infty$. Esto implica que la derivada no está acotada globalmente en $\mathbb{R}$. Por consiguiente, $f$ no es globalmente Lipschitziana en el espacio completo. No obstante, por aplicación directa del corolario anterior, la función sí es localmente Lipschitziana respecto a $u$, uniformemente en $t \in [\alpha, \beta]$.
+        \item Sea la función matricial:
+        \[
+            f(t,u) = A(t) u + B(t), \quad
+            \begin{cases}
+                A(t) = (a_{ij}(t))_{1 \leq i,j \leq n} \\
+                B(t) = (b_i(t))_{1 \leq i \leq n} \\
+                a_{ij}, b_i \in C([\alpha, \beta], \mathbb{R})
+            \end{cases}
+        \]
+        Ahora nótese que podemos calcular cada $f_i$ como:
+        \[
+            f_i(t,u) = \sum_{k=1}^n a_{ik}(t) u_k + b_i(t), \quad 1 \leq i \leq n
+        \]
+        Y además $f \in C([\alpha, \beta] \times \mathbb{R}^n, \mathbb{R}^n)$ si fijamos $\Omega = \mathbb{R}^n$. Las derivadas parciales respecto a cada $u_j$ son, $\forall t \in [\alpha, \beta]$, $\forall i,j \in \{1, \ldots, n\}$:
+        \[
+            \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| = 
+            |a_{ij}(t)| \leq 
+            \max_{t \in [\alpha, \beta]} |a_{ij}(t)| = 
+            \| a_{ij} \|_\infty < +\infty
+        \]
+        Y por lo tanto, todas las derivadas parciales están uniformemente acotadas en $[\alpha, \beta] \times \mathbb{R}^n$. En consecuencia, la función $f$ es globalmente Lipschitziana respecto a $u \in \mathbb{R}^n$, uniformemente en $t \in [\alpha, \beta]$.
+        \item Sea la función matricial:
+        \[
+            f(t,u) = A(t) 
+            \begin{pmatrix}
+                \sin(u_1) \\
+                \vdots \\
+                \sin(u_n)
+            \end{pmatrix}
+            + B(t) 
+        \]
+        Donde $A(t)$ y $B(t)$ son continuas en $[\alpha, \beta]$. Cada $f_i$ se puede expresar como:
+        \[
+            f_i(t,u) = 
+            \sum_{k=1}^n a_{ik}(t) \sin(u_k) + b_i(t), \quad 1 \leq i \leq n
+        \]
+        Que son además continuas en $[\alpha, \beta] \times \mathbb{R}^n$. Las derivadas parciales respecto a cada $u_j$ son:
+        \[
+            \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| = 
+            |a_{ij}(t)| |\cos(u_j)| \leq 
+            |a_{ij}(t)| \leq 
+            \max_{t \in [\alpha, \beta]} |a_{ij}(t)| = 
+            \| a_{ij} \|_\infty < +\infty
+        \]
+        Por lo tanto, todas las derivadas parciales están uniformemente acotadas en $[\alpha, \beta] \times \mathbb{R}^n$, y la función $f$ es globalmente Lipschitziana respecto a $u \in \mathbb{R}^n$, uniformemente en $t \in [\alpha, \beta]$.\\
+        Si las matrices $A(t)$ y $B(t)$ son continuas en todo $\mathbb{R}$, la función $f$ localmente Lipschitziana respecto a $u$ en $\mathbb{R}^n$, uniformemente en $t \in \mathbb{R}$, ya que en cualquier intervalo compacto de tiempo $[\alpha, \beta]$ se cumple la condición de Lipschitzianidad global, pero puede que no se cumpla la acotación global en todo $\mathbb{R}$.
+        \item Sea la función:
+        \[
+            f(t,u) = A(t)
+            \begin{pmatrix}
+                |u_1|^{p_1} \\
+                \vdots \\
+                |u_n|^{p_n}
+            \end{pmatrix}
+            + B(t), \quad p_i > 1, \quad 1 \leq i \leq n
+        \]
+        Con además $A(t)$ y $B(t)$ continuas en $[\alpha, \beta]$. Cada $f_i$ se puede expresar como:
+        \[
+            f_i(t,u) = 
+            \sum_{k=1}^n a_{ik}(t) |u_k|^{p_k} + b_i(t) \in C([\alpha, \beta] \times \mathbb{R}^n, \mathbb{R})
+            , \quad 1 \leq i \leq n
+        \]
+        Que son además continuas en $[\alpha, \beta] \times \mathbb{R}^n$. Las derivadas parciales respecto a cada $u_j$ son:
+        \[
+            \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| = 
+            |a_{ij}(t)| p_j |u_j|^{p_j - 1}
+        \]
+        Debido al corolario, es trivial ver que esta función es localmente Lipschitziana respecto a $u$ en $\mathbb{R}^n$, uniformemente en $t \in [\alpha, \beta]$. Sin embargo, si $A(t) \neq 0$, entonces existen $i_0, j_0, t_0$ tales que $a_{i_0 j_0}(t_0) \neq 0$. En este caso, la derivada parcial $\frac{\partial f_{i_0}}{\partial u_{j_0}}(t_0,u)$ diverge a $+\infty$:
+        \[
+            \left| \frac{\partial f_{i_0}}{\partial u_{j_0}}(t_0,u) \right| = |a_{i_0 j_0}(t_0)| p_{j_0} |u_{j_0}|^{p_{j_0} - 1} \xrightarrow{|u_{j_0}| \to \infty}_{p_{j_0} - 1 > 0} +\infty
+        \]
+        Demostrando que la función no es globalmente Lipschitziana respecto a $u$ en $\mathbb{R}^n$, uniformemente en $t \in [\alpha, \beta]$, al tener una derivada parcial no acotada en el dominio completo.
     \end{enumerate}
 }
+
+\begin{teorema}[Fundamental global de Cauchy-Lipschitz]
+    Sean $N \geq 1$, $\alpha > \beta$, y $f \in C([\alpha, \beta] \times \mathbb{R}^N, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in [\alpha, \beta]$, es decir, $\exists L \geq 0$ tal que:
+    \[
+        \| f(t,u) - f(t,v) \| \leq L \| u - v \|, \quad
+        \begin{cases}
+            \forall t \in [\alpha, \beta] \\
+            \forall u, v \in \mathbb{R}^N
+        \end{cases}
+    \]
+    Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada $u_0 \in \mathbb{R}^N$, el problema de valor inicial (PVI):
+    \[
+        P =
+        \begin{cases}
+            u'(t) = f(t, u(t)), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0
+        \end{cases}
+        \underbrace{=}_{\text{equivalentes, notación}}
+        \begin{cases}
+            u' = f(t, u), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Tiene una única solución globalmente definida en todo el intervalo $[\alpha, \beta]$, denotada por:
+    \[
+        \boxed{u(t) = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
+        }
+    \]
+\end{teorema}
+
+\begin{proof}
+    Sea:
+    \[
+        u \in C^1([\alpha, \beta]; \mathbb{R}^N) \longrightarrow
+        \begin{cases}
+            u'(t) = f(t, u(t)), \quad t \in [\alpha, \beta] \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Por lo visto en anteriores asignaturas:
+    \[
+        u \text{ es solución}
+        \iff
+        u \in C([\alpha, \beta]; \mathbb{R}^N) : \quad
+        u(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds, \quad \forall t \in [\alpha, \beta]
+    \]
+    Ya que integrando $u'= f(t,u)$ desde $t_0$ hasta $t$ obtenemos:
+    \[
+        \int_{t_0}^t u' = \int_{t_0}^t f(s, u(s)) ds \implies
+        u(t) - u(t_0) = \int_{t_0}^t f(s, u(s)) ds \implies
+        u(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds
+    \]
+    Una vez recordado esto, definimos el operador integral:
+    \[
+        \begin{array}{lll}
+            K : C([\alpha, \beta]; \mathbb{R}^N) & \longrightarrow & C([\alpha, \beta]; \mathbb{R}^N) \\
+            u & \longmapsto & (Ku)(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds
+        \end{array}
+    \]
+    Siendo las soluciones del problema $P$ los puntos fijos de $K$. Como tenemos que $C([\alpha, \beta]; \mathbb{R}^N)$ es un espacio de Banach con la norma del supremo, que es equivalente a la norma de Bielecki:
+    \[
+        \| u \|_B = \max_{t \in [\alpha, \beta]} e^{-L|t - t_0|} \| u(t) \|
+    \]
+\end{proof}
