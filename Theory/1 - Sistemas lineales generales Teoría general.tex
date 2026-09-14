@@ -1,26 +1,25 @@
 \section{Funciones Lipschitzianas}
 
 \subsection{Introducción a las funciones Lipschitzianas}
-En la asignatura previa (EDOS) nos centramos en aprender a resolver ecuaciones diferenciales de forma explícita y estudiar sus propiedades básicas. Sin embargo, no todos los problemas tienen una solución analítica. En esta asignatura (EDIF), daremos un paso más allá para estudiar la existencia, unicidad y el comportamiento de las soluciones desde un punto de vista cualitativo.
+En el estudio introductorio de las ecuaciones diferenciales, el enfoque principal radica en la obtención de soluciones explícitas y el análisis de sus propiedades básicas. Sin embargo, dado que la mayoría de los problemas no admiten una solución analítica cerrada, resulta indispensable adoptar una perspectiva cualitativa para estudiar la existencia, unicidad y el comportamiento de las soluciones.
 
-Para ello, el concepto de \textbf{función Lipschitziana} será nuestro pilar fundamental. Como veremos en la primera parte del curso (teoría de Cauchy-Lipschitz), pedirle a una función que sea continua no es suficiente para garantizar que un problema de valor inicial tenga \textbf{solución única}. Necesitaremos esta condición de Lipschitz. Además, diferenciar entre una función global y localmente Lipschitziana será clave para entender si una solución existirá para siempre o si, por el contrario, ``explotará'' en un tiempo finito, un fenómeno que estudiaremos al hablar de soluciones maximales.
+En este contexto, el concepto de \textbf{función Lipschitziana} desempeña un papel central. Como se demostrará mediante el Teorema de Cauchy-Lipschitz, la mera continuidad de una función no es suficiente para garantizar la \textbf{unicidad de la solución} de un problema de valor inicial. La condición de Lipschitz proporciona la regularidad necesaria para asegurar dicha unicidad. Asimismo, la distinción entre funciones global y localmente Lipschitzianas es determinante para establecer si una solución está definida globalmente en el tiempo o si, por el contrario, deja de existir en un tiempo finito (fenómeno comúnmente denominado ``explosión'' o \textit{blow-up}), aspecto que se detallará al abordar el estudio de las soluciones maximales.
 
-% --- DEFINICIONES ---
 \begin{definición}[Función Globalmente Lipschitziana]
     Sea $\Omega \subset \mathbb{R}^n$ un conjunto abierto y sea $F : \Omega \to \mathbb{R}^n$ una función continua. Se dice que $F$ es \textbf{globalmente Lipschitziana en $\Omega$} si existe una constante $L > 0$ tal que
     \[
         \| F(u) - F(v) \| \leq L \| u - v \| \quad \forall u, v \in \Omega
     \]
-    La elección de la norma es indiferente, pues en un espacio de dimensión finita (como un espacio euclidiano) todas las normas son equivalentes. La constante $L$ se llama \textbf{constante de Lipschitz} de la función $F$.
+    En espacios de dimensión finita, como $\mathbb{R}^n$, la elección de la norma es irrelevante para la validez de esta propiedad, dado que todas las normas son equivalentes. La constante $L$ recibe el nombre de \textbf{constante de Lipschitz} de la función $F$.
 \end{definición}
 
-En la práctica, muchas funciones de interés no cumplen esta condición en todo el espacio (por ejemplo, los polinomios de grado mayor a 1 crecen demasiado rápido en el infinito). Sin embargo, sí tienen un buen comportamiento si nos restringimos a regiones acotadas.
+En la práctica, numerosas funciones de interés físico y matemático no satisfacen esta condición en todo el espacio (por ejemplo, los polinomios de grado estrictamente mayor que uno). No obstante, es frecuente que presenten un comportamiento lo suficientemente regular si se restringe su dominio a regiones acotadas.
 
 \begin{definición}[Función Localmente Lipschitziana]
-    Sea $\Omega \subset \mathbb{R}^n$ un conjunto abierto y sea $F : \Omega \to \mathbb{R}^n$ una función continua. Se dice que $F$ es \textbf{localmente Lipschitziana en $\Omega$} cuando $\forall u_0 \in \Omega$ existe un radio $R > 0$ tal que la bola $B(u_0, R) \subset \Omega$ y $F$ es globalmente Lipschitziana en dicha bola $B(u_0, R)$.    
+    Sea $\Omega \subset \mathbb{R}^n$ un conjunto abierto y sea $F : \Omega \to \mathbb{R}^n$ una función continua. Se dice que $F$ es \textbf{localmente Lipschitziana en $\Omega$} cuando para todo $u_0 \in \Omega$ existe un radio $R > 0$ tal que la bola abierta $B(u_0, R)$ está contenida en $\Omega$ y $F$ es globalmente Lipschitziana en dicha bola $B(u_0, R)$.  
 \end{definición}
 
-\textit{Nota:} Para definir la Lipschitzianidad global no es estrictamente necesario que el dominio sea abierto, bastaría un conjunto $S \subset \mathbb{R}^n$ cualquiera. Sin embargo, para la Lipschitzianidad local el carácter abierto de $\Omega$ sí es fundamental, ya que nos asegura poder construir bolas abiertas alrededor de cualquier punto que permanezcan completamente dentro del dominio.
+\textit{Nota:} Para definir la condición global de Lipschitz no se requiere estrictamente que el dominio sea un conjunto abierto; resulta aplicable a un subconjunto $S \subset \mathbb{R}^n$ arbitrario. Sin embargo, para la condición local, el carácter abierto de $\Omega$ es fundamental, ya que garantiza la existencia de entornos (bolas abiertas) alrededor de cualquier punto que permanezcan completamente contenidos en el dominio.
 
 \ejemplo{
     \begin{enumerate}
@@ -32,233 +31,228 @@ En la práctica, muchas funciones de interés no cumplen esta condición en todo
         \[
             |F(u) - F(v)| = |a u + b - (a v + b)| = |a| |u - v|
         \]
-        Luego $F$ es globalmente Lipschitziana con constante $L = |a|$.
+        Por consiguiente, $F$ es globalmente Lipschitziana con constante de Lipschitz $L = |a|$.
 
         \item \textbf{Sistemas lineales (Función afín vectorial):}
         \[
             F : \mathbb{R}^n \to \mathbb{R}^n, \quad F(u) = A u + b
         \]  
-        donde $A$ es una matriz $n \times n$ y $b \in \mathbb{R}^n$. Utilizando la definición de norma matricial inducida ($\| A \| = \sup_{x \neq 0} \frac{\| A x \|}{\| x \|}$, lo que implica $\|Ax\| \leq \|A\|\|x\|$):
+        donde $A$ es una matriz de dimensión $n \times n$ y $b \in \mathbb{R}^n$. Utilizando la definición de norma matricial inducida ($\| A \| = \sup_{x \neq 0} \frac{\| A x \|}{\| x \|}$, lo que implica $\|Ax\| \leq \|A\|\|x\|$):
         \[
             \| F(u) - F(v) \| = \| A u + b - (A v + b) \| = \| A (u - v) \| \leq \| A \| \| u - v \|
         \]
-        Por tanto, $F$ es globalmente Lipschitziana con $L = \| A \|$. Más adelante veremos que, al ser globalmente Lipschitziana, los sistemas lineales siempre tienen una única solución global (definida para todo tiempo).
+        Por tanto, $F$ es globalmente Lipschitziana con $L = \| A \|$. Como se estudiará posteriormente, esta propiedad garantiza que los sistemas lineales diferenciales posean siempre una única solución global (definida para todo $t \in \mathbb{R}$).
 
         \item \textbf{Función trigonométrica:}
         \[
             F : \mathbb{R} \to \mathbb{R}, \quad F(u) = \operatorname{sen}(u)
         \]
-        Por el Teorema del Valor Medio, existe $\xi$ entre $u$ y $v$ tal que:
+        Aplicando el Teorema del Valor Medio, existe un $\xi$ entre $u$ y $v$ tal que:
         \[
             |F(u) - F(v)| = |\operatorname{sen}(u) - \operatorname{sen}(v)| = |\cos(\xi)| |u - v| \leq 1 \cdot |u - v|
         \]
-        Luego $F$ es globalmente Lipschitziana con $L = 1$.
+        En consecuencia, $F$ es globalmente Lipschitziana con $L = 1$.
 
-        \item \textbf{Función de crecimiento rápido (Cuadrática):}
+        \item \textbf{Función de crecimiento superlineal (Cuadrática):}
         \[
             F : \mathbb{R} \to \mathbb{R}, \quad F(u) = u^2
         \]
-        Veamos que \textbf{no es globalmente Lipschitziana} en $\mathbb{R}$. Si lo fuera, existiría $L > 0$ tal que
+        Se demuestra fácilmente que esta función \textbf{no es globalmente Lipschitziana} en $\mathbb{R}$. Si lo fuera, existiría una constante $L > 0$ tal que:
         \[
-            |u^2 - v^2| = |u - v| |u + v| \leq L |u - v|, \quad \forall u, v \in \mathbb{R} \implies |u + v| \leq L
+            |u^2 - v^2| = |u - v| |u + v| \leq L |u - v|, \quad \forall u, v \in \mathbb{R} \implies |u + v| \leq L \quad (\text{para } u \neq v)
         \]
-        Lo cual es imposible para $u, v$ suficientemente grandes. Podemos tomar $u = 0$ y $v = L + 1$, entonces $|u + v| = L + 1 > L$, lo que es una contradicción. 
+        Esta acotación es imposible para valores arbitrariamente grandes de $u$ y $v$. Por ejemplo, tomando $u = L$ y $v = L + 1$, se obtiene $|u + v| = 2L + 1 > L$, llegando a una contradicción. 
         
-        Sin embargo, \textbf{sí es localmente Lipschitziana}. Fijado $u_0 \in \mathbb{R}$ y un radio $R > 0$, para todo $u, v \in B(u_0, R)$ tenemos que $|u - u_0| < R$ y $|v - u_0| < R$, por lo que:
+        Sin embargo, la función \textbf{sí es localmente Lipschitziana}. Fijado un punto $u_0 \in \mathbb{R}$ y un radio $R > 0$, para cualesquiera $u, v \in B(u_0, R)$ se cumple que $|u - u_0| < R$ y $|v - u_0| < R$. Por la desigualdad triangular, $|u| \leq |u - u_0| + |u_0| < R + |u_0|$. En consecuencia:
         \[
-            |F(u) - F(v)| = |u - v| |u + v| \leq |u - v| (|u - u_0| + |v - u_0| + 2|u_0|) \leq |u - v| (2R + 2|u_0|)
+            |F(u) - F(v)| = |u - v| |u + v| \leq |u - v| (|u| + |v|) \leq |u - v| (2R + 2|u_0|)
         \]
-        Luego es localmente Lipschitziana con $L = 2R + 2|u_0|$. Como veremos al estudiar las soluciones maximales, que una función sea solo localmente Lipschitziana permite que el sistema (como $u' = u^2$) pueda tener soluciones que exploten en tiempo finito.
+        Por lo tanto, es localmente Lipschitziana en $B(u_0, R)$ con constante $L = 2(R + |u_0|)$. Como se analizará en el estudio de soluciones maximales, el hecho de que una función sea únicamente localmente Lipschitziana permite que un sistema (como $u' = u^2$) admita soluciones que dejen de estar definidas en un tiempo finito.
 
         \item \textbf{Falta de Lipschitzianidad en el origen:}
         \[
             F : [0, \infty) \to \mathbb{R}, \quad F(u) = u^q \quad \text{con } q \in (0, 1)
         \]
-        Veamos que esta función no es Lipschitziana en ningún intervalo de la forma $[0, \varepsilon)$. 
-        Supongamos que sí lo es, entonces existe $L > 0$ tal que $|u^q - v^q| \leq L |u - v|$ para todo $u, v \in [0, \varepsilon)$. 
-        Aplicando el Teorema del Valor Medio con $u > v$, existe $\xi \in (v, u)$ tal que:
+        Se probará que esta función no es Lipschitziana en ningún intervalo de la forma $[0, \varepsilon)$. 
+        Supóngase por reducción al absurdo que sí lo es; entonces existiría $L > 0$ tal que $|u^q - v^q| \leq L |u - v|$ para todo $u, v \in [0, \varepsilon)$. 
+        Tomando $v = 0$ y $u > 0$, la desigualdad se reduce a:
         \[
-            |u^q - v^q| = q \xi^{q-1} (u - v) \leq L (u - v) \implies \frac{q}{\xi^{1-q}} \leq L
+            u^q \leq L u \implies u^{q-1} \leq L
         \]
-        Si tomamos el límite cuando $u, v \to 0$, entonces $\xi \to 0$. Como $1-q > 0$, el término de la izquierda tiende a $\infty$, lo cual contradice que esté acotado por $L$. 
+        Dado que $q \in (0, 1)$, el exponente $q - 1$ es estrictamente negativo. Al tomar el límite cuando $u \to 0^+$, el término $u^{q-1}$ tiende a $\infty$, lo cual contradice la existencia de una cota superior constante $L$. 
         
-        Este ejemplo es un clásico: la ecuación $u' = u^q$ con $u(0)=0$ no cumple la condición de Lipschitz en el origen. En la segunda parte del curso (teoría de Peano) veremos que, como $F$ sigue siendo continua, la solución \textit{existe}, pero perdemos la unicidad (tendremos infinitas soluciones).
-    \end{enumerate}    
+        Este ejemplo es fundamental en la teoría: la ecuación diferencial $u' = u^q$ con la condición inicial $u(0)=0$ no satisface la condición de Lipschitz en el origen (la pendiente de la función tiende a infinito). En la segunda parte del curso (teoría de Peano), se demostrará que, dado que $F$ es continua, el problema de valor inicial admite al menos una solución, pero se pierde la unicidad (existiendo, de hecho, infinitas soluciones).
+    \end{enumerate}  
 }
 
-
-
-% --- TEOREMA Y DEMOSTRACIÓN COMPLETADA ---
-\vspace{0.5cm}
-Comprobar la condición de Lipschitz por definición puede ser complejo. El siguiente teorema nos da un criterio muy útil basado en las derivadas, que nos permitirá ver de forma rápida que todo sistema $C^1$ es, al menos, localmente Lipschitziano.
+Verificar la condición de Lipschitz directamente a partir de su definición puede resultar laborioso en la práctica. El siguiente teorema proporciona un criterio analítico basado en el cálculo diferencial, el cual resulta de gran utilidad. En particular, este resultado nos permitirá deducir que toda función de clase $C^1$ satisface la condición de Lipschitz al menos a nivel local.
 
 \begin{teorema}
-    Sean $\Omega \subset \mathbb{R}^n$ un conjunto abierto y \textbf{convexo}, y $F : \Omega \to \mathbb{R}^n$ una función de clase $C^1(\Omega, \mathbb{R}^n)$ (es decir, si $F = (F_1, \ldots, F_n)$, todas las derivadas parciales $\frac{\partial F_i}{\partial u_j}$ existen y son continuas en $\Omega$). Entonces las siguientes condiciones son equivalentes:
+    Sean $\Omega \subset \mathbb{R}^n$ un conjunto abierto y \textbf{convexo}, y $F : \Omega \to \mathbb{R}^n$ una función de clase $C^1(\Omega, \mathbb{R}^n)$ (es decir, si $F = (F_1, \ldots, F_n)$, todas sus derivadas parciales $\frac{\partial F_i}{\partial u_j}$ existen y son continuas en $\Omega$). Entonces, las siguientes condiciones son equivalentes:
     \begin{enumerate}
         \item $F$ es globalmente Lipschitziana en $\Omega$.
-        \item Todas las derivadas parciales $\frac{\partial F_i}{\partial u_j}$ están uniformemente acotadas en $\Omega$. Es decir, existe una constante $M > 0$ tal que:
+        \item Todas las derivadas parciales $\frac{\partial F_i}{\partial u_j}$ están uniformemente acotadas en $\Omega$. Esto es, existe una constante $M > 0$ tal que:
         \[
-            \sup_{u \in \Omega} \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq M, \quad \forall i,j = 1, \ldots, n
+            \sup_{u \in \Omega} \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq M, \quad \forall i,j \in \{1, \ldots, n\}
         \]
     \end{enumerate}
 \end{teorema}
 
 \begin{proof}
-    Recordemos que, al estar en un espacio de dimensión finita ($\mathbb{R}^n$), todas las normas son equivalentes. Esto nos permite elegir la norma que más nos convenga para las acotaciones, por ejemplo, la norma 1: $\|x\|_1 = \sum_{i=1}^n |x_i|$, y su norma matricial inducida.
+    En un espacio de dimensión finita como $\mathbb{R}^n$, todas las normas son equivalentes. Esto permite desarrollar la demostración utilizando la norma que resulte más conveniente para las acotaciones algebraicas. En este caso, emplearemos la norma 1, definida como $\|x\|_1 = \sum_{i=1}^n |x_i|$, junto con su norma matricial subordinada.
 
-    El hecho de que el dominio $\Omega$ sea \textbf{convexo} asegura que, para cualesquiera $u, v \in \Omega$, el segmento de recta que los une está completamente contenido dentro del dominio, permitiéndonos integrar a lo largo de él.
+    Por hipótesis, el dominio $\Omega$ es convexo. Esto garantiza que el segmento de recta que une cualquier par de puntos $u, v \in \Omega$ está íntegramente contenido en el dominio, lo que justifica la parametrización e integración a lo largo de dicho segmento.
     
     \begin{itemize}
-        \item \textbf{(2) $\Rightarrow$ (1):} Supongamos que todas las derivadas parciales están acotadas por una constante $M > 0$. Dados $u, v \in \Omega$, definimos la curva auxiliar $\varphi : [0,1] \to \mathbb{R}^n$ como:
+        \item \textbf{(2) $\Rightarrow$ (1):} Supongamos que las derivadas parciales están acotadas superiormente por una constante $M > 0$. Dados $u, v \in \Omega$, definimos la curva auxiliar $\varphi : [0,1] \to \mathbb{R}^n$ mediante:
         \[
             \varphi(t) = F(u + t(v - u))
         \]
-        Como $\Omega$ es convexo, el segmento $u + t(v - u)$ está contenido en $\Omega$ para todo $t \in [0,1]$, luego $\varphi$ está bien definida. Observamos que $\varphi(0) = F(u)$ y $\varphi(1) = F(v)$. 
+        Por la convexidad de $\Omega$, el argumento $u + t(v - u)$ pertenece a $\Omega$ para todo $t \in [0,1]$, por lo que $\varphi$ está bien definida. Notemos además que $\varphi(0) = F(u)$ y $\varphi(1) = F(v)$. 
         
-        Aplicando la regla de la cadena, la derivada de $\varphi$ es:
+        Aplicando la regla de la cadena, la derivada de $\varphi$ respecto al parámetro $t$ es:
         \[
             \varphi'(t) = DF(u + t(v - u)) \cdot (v - u)
         \]
-        donde $DF$ denota la matriz jacobiana de $F$. Usando el Teorema Fundamental del Cálculo y acotando con la norma 1:
+        donde $DF$ denota la matriz jacobiana de $F$. Empleando el Teorema Fundamental del Cálculo y tomando la norma 1 a ambos lados de la igualdad:
         \[
             \| F(v) - F(u) \|_1 = \| \varphi(1) - \varphi(0) \|_1 = \left\| \int_0^1 \varphi'(t) dt \right\|_1 \leq \int_0^1 \| \varphi'(t) \|_1 dt
         \]
-        Sustituyendo $\varphi'(t)$ y aplicando la propiedad de submultiplicatividad de la norma matricial ($\|A \cdot x\|_1 \leq \|A\|_1 \|x\|_1$):
+        Sustituyendo $\varphi'(t)$ y aplicando la propiedad de submultiplicatividad de la norma matricial subordinada ($\|A \cdot x\|_1 \leq \|A\|_1 \|x\|_1$):
         \[
             \| F(v) - F(u) \|_1 \leq \int_0^1 \| DF(u + t(v - u)) \|_1 \| v - u \|_1 dt = \| v - u \|_1 \int_0^1 \| DF(u + t(v - u)) \|_1 dt
         \]
-        Como por hipótesis todas las derivadas parciales están acotadas por $M$, la norma 1 de la matriz jacobiana (que es el máximo de las sumas por columnas) está acotada por $n \cdot M$. Por lo tanto:
+        Por hipótesis, cada derivada parcial está acotada por $M$. En consecuencia, la norma 1 de la matriz jacobiana (calculada como el máximo de las sumas absolutas por columnas) está acotada por $n \cdot M$. Integrando esta constante obtenemos:
         \[
             \| F(v) - F(u) \|_1 \leq \| v - u \|_1 \int_0^1 (n M) dt = (n M) \| v - u \|_1
         \]
-        Luego $F$ es globalmente Lipschitziana con constante $L = n M$ respecto a la norma 1 (y por equivalencia de normas, lo será para cualquier otra norma con una constante proporcional).
+        Por lo tanto, $F$ es globalmente Lipschitziana con constante $L = n M$ respecto a la norma 1. Por la equivalencia topológica de las normas, esta propiedad se mantiene para cualquier otra norma en $\mathbb{R}^n$, ajustando la constante proporcionalmente.
 
-        \item \textbf{(1) $\Rightarrow$ (2):} Supongamos que $F$ es globalmente Lipschitziana con constante $L$ para cierta norma $\|\cdot\|$. Entonces, $\forall u, v \in \Omega$:
+        \item \textbf{(1) $\Rightarrow$ (2):} Supongamos ahora que $F$ es globalmente Lipschitziana con constante $L$ asociada a cierta norma $\|\cdot\|$. Es decir, para todo par $u, v \in \Omega$:
         \[
             \|F(u) - F(v)\| \leq L \|u - v\|
         \]
-        Fijamos $u \in \Omega$ y tomamos una dirección cualquiera $w \in \mathbb{R}^n$ con $\|w\| = 1$. Por la definición de derivada direccional:
+        Fijemos $u \in \Omega$ y consideremos una dirección arbitraria dada por un vector $w \in \mathbb{R}^n$ con $\|w\| = 1$. Evaluando la derivada direccional de $F$ en $u$ según la dirección $w$:
         \[
             DF(u) \cdot w = \lim_{h \to 0} \frac{F(u + h w) - F(u)}{h}
         \]
-        Acotando la norma de este límite usando la condición de Lipschitz:
+        Acotando la norma de este límite mediante la condición de Lipschitz:
         \[
             \| DF(u) \cdot w \| = \lim_{h \to 0} \frac{\|F(u + h w) - F(u)\|}{|h|} \leq \lim_{h \to 0} \frac{L \|h w\|}{|h|} = L \|w\| = L
         \]
-        Esto significa que la norma de operador de la matriz jacobiana está acotada: $\|DF(u)\| = \max_{\|w\|=1} \|DF(u) \cdot w\| \leq L$. 
-        
-        Dado que todas las normas matriciales en dimensión finita son equivalentes, existe una constante $C > 0$ tal que la magnitud máxima de cualquier entrada de la matriz está acotada por $C$ veces la norma de operador. Es decir:
+        El resultado anterior implica que la norma de operador de la matriz jacobiana está uniformemente acotada por $L$, ya que: 
+        \[
+            \|DF(u)\| = \max_{\|w\|=1} \|DF(u) \cdot w\| \leq L
+        \]
+        Finalmente, por la equivalencia de las normas matriciales en dimensión finita, existe una constante de proporcionalidad $C > 0$ que acota la magnitud máxima de cualquier entrada de la matriz en función de su norma de operador. En consecuencia:
         \[
             \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq C \| DF(u) \| \leq C L, \quad \forall i,j \in \{1, \ldots, n\}
         \]
-        Por lo tanto, todas las derivadas parciales están uniformemente acotadas en $\Omega$.
+        Queda así demostrado que todas las derivadas parciales se encuentran uniformemente acotadas en $\Omega$.
     \end{itemize}
 \end{proof}
 
 \begin{corolario}
-    Sean $\Omega \subset \mathbb{R}^n$ un conjunto abierto y $F : \Omega \to \mathbb{R}^n$ una función de clase $C^1(\Omega, \mathbb{R}^n)$. Entonces $F$ es localmente Lipschitziana en $\Omega$. 
-    Además, es globalmente Lipschitziana en cualquier subconjunto abierto, convexo y acotado $D \subset \Omega$ tal que $\overline{D} \subset \Omega$.
+    Sean $\Omega \subset \mathbb{R}^n$ un conjunto abierto y $F : \Omega \to \mathbb{R}^n$ una función de clase $C^1(\Omega, \mathbb{R}^n)$. Entonces, $F$ es localmente Lipschitziana en $\Omega$. 
+    Además, $F$ es globalmente Lipschitziana en cualquier subconjunto abierto, convexo y acotado $D \subset \Omega$ tal que $\overline{D} \subset \Omega$.
 \end{corolario}
 
 \begin{proof}
-    Sea $D$ un subconjunto abierto, convexo y acotado tal que su clausura $\overline{D}$ está contenida en $\Omega$. Como $\overline{D}$ es cerrado y acotado en $\mathbb{R}^n$, por el Teorema de Heine-Borel es un conjunto \textbf{compacto}.
+    Sea $D \subset \Omega$ un subconjunto abierto, convexo y acotado tal que su clausura $\overline{D}$ está contenida en $\Omega$. Al ser $\overline{D}$ un conjunto cerrado y acotado en $\mathbb{R}^n$, el teorema de Heine-Borel garantiza que es compacto.
     
-    Al ser $F \in C^1$, sus derivadas parciales $\frac{\partial F_i}{\partial u_j}$ son funciones continuas. Por el Teorema de Weierstrass, toda función continua en un conjunto compacto alcanza su máximo. Por lo tanto:
+    Dado que $F \in C^1(\Omega, \mathbb{R}^n)$, sus derivadas parciales $\frac{\partial F_i}{\partial u_j}$ son funciones continuas en $\Omega$. Por el teorema de Weierstrass, toda función continua definida sobre un conjunto compacto alcanza un valor máximo absoluto. Por consiguiente, existe una constante $M_{ij} < \infty$ tal que:
     \[  
-        \max_{u \in \overline{D}} \left| \frac{\partial F_i}{\partial u_j}(u) \right| = M_{ij} < \infty, \quad \forall i,j \in \{1, \ldots, n\}
+        \max_{u \in \overline{D}} \left| \frac{\partial F_i}{\partial u_j}(u) \right| = M_{ij}, \quad \forall i,j \in \{1, \ldots, n\}
     \]
-    Tomando $M = \max \{ M_{ij} \}$, tenemos que todas las derivadas parciales están uniformemente acotadas en $\overline{D}$ (y por ende en $D$). Al ser $D$ convexo, aplicamos el teorema anterior para concluir que $F$ es globalmente Lipschitziana en $D$. 
+    Definiendo $M = \max_{i,j} \{ M_{ij} \}$, se deduce que todas las derivadas parciales están uniformemente acotadas en $\overline{D}$, y por tanto en $D$. Puesto que $D$ es convexo, el teorema anterior permite concluir que $F$ es globalmente Lipschitziana en $D$. 
     
-    Como todo punto $u_0 \in \Omega$ puede ser contenido en una bola suficientemente pequeña (que es convexa y precompacta en $\Omega$), deducimos que $F$ es localmente Lipschitziana en todo $\Omega$.
+    Finalmente, como para todo punto $u_0 \in \Omega$ existe una bola abierta centrada en $u_0$ con radio suficientemente pequeño tal que su clausura está contenida en $\Omega$, $F$ resulta ser localmente Lipschitziana en todo el dominio $\Omega$.
 \end{proof}
 
-Veamos algunos ejemplos prácticos de cómo aplicar el teorema y el corolario para determinar si una función es global o localmente Lipschitziana.
+A continuación, se presentan diversos ejemplos prácticos que ilustran la aplicación de este teorema y su corolario para determinar el carácter global o local de la condición de Lipschitz.
 
-\vspace{0.5cm}
-\noindent\textbf{Ejemplos prácticos:}
-\begin{enumerate}
-    \item \textbf{Función con derivada acotada:}
-    \[
-        F(u) = \sin(u), \quad F \in C^\infty(\mathbb{R}, \mathbb{R})
-    \]  
-    Calculamos su Jacobiano (derivada en 1D):
-    \[
-        DF(u) = \cos(u) \implies \left| \frac{dF}{du}(u) \right| = |\cos(u)| \leq 1, \quad \forall u \in \mathbb{R}
-    \]
-    Como la derivada está uniformemente acotada en todo $\mathbb{R}$, por el teorema deducimos que $F$ es globalmente Lipschitziana con $L = 1$.
+\ejemplo{
+    \begin{enumerate}
+        \item \textbf{Función con derivada acotada:}
+        Sea $F(u) = \sin(u)$ con $F \in C^\infty(\mathbb{R}, \mathbb{R})$. Su matriz jacobiana se reduce a la derivada ordinaria:
+        \[
+            DF(u) = \cos(u) \implies \left| \frac{dF}{du}(u) \right| = |\cos(u)| \leq 1, \quad \forall u \in \mathbb{R}
+        \]
+        Puesto que la derivada está uniformemente acotada en todo $\mathbb{R}$, el teorema garantiza que $F$ es globalmente Lipschitziana con constante $L = 1$.
 
-    \item \textbf{Aplicación del corolario (conjuntos compactos):}
-    \[
-        F(u) = u^2, \quad F \in C^\infty(\mathbb{R}, \mathbb{R})
-    \]  
-    Derivando obtenemos:
-    \[
-        DF(u) = 2u \implies \left| \frac{dF}{du}(u) \right| = |2u| \xrightarrow{u \to \infty} \infty
-    \]
-    Como la derivada no está acotada en $\mathbb{R}$, la función \textbf{no} es globalmente Lipschitziana. Sin embargo, para cualquier intervalo acotado $D = (a,b) \subset \mathbb{R}$, consideramos su clausura $\overline{D} = [a,b]$ (que es compacta). Aquí la derivada sí alcanza un máximo:
-    \[
-        \max_{u \in [a,b]} |2u| = 2 \max(|a|, |b|) < \infty
-    \]
-    Por el corolario, $F$ es globalmente Lipschitziana en cualquier intervalo acotado, y por consiguiente, localmente Lipschitziana en $\mathbb{R}$.
+        \item \textbf{Aplicación del corolario en conjuntos compactos:}
+        Sea $F(u) = u^2$ con $F \in C^\infty(\mathbb{R}, \mathbb{R})$. Calculando su derivada:
+        \[
+            DF(u) = 2u \implies \left| \frac{dF}{du}(u) \right| = |2u| \xrightarrow{|u| \to \infty} \infty
+        \]
+        Dado que la derivada no está acotada en $\mathbb{R}$, la función no es globalmente Lipschitziana en todo el espacio. Sin embargo, si consideramos un intervalo acotado arbitrario $D = (a,b) \subset \mathbb{R}$, su clausura $\overline{D} = [a,b]$ es compacta. En dicho intervalo, la derivada alcanza un máximo:
+        \[
+            \max_{u \in [a,b]} |2u| = 2 \max(|a|, |b|) < \infty
+        \]
+        Por el corolario establecido, $F$ es globalmente Lipschitziana en $D$. Como esto es válido para cualquier intervalo acotado, la función es localmente Lipschitziana en $\mathbb{R}$.
 
-    \item \textbf{Función con derivada no acotada en un conjunto abierto:}
-    \[
-        F(u) = u^q \quad \text{con } q \in (0,1), \quad F \in C^\infty((0,\infty), \mathbb{R})
-    \]
-    Derivando obtenemos:
-    \[
-        DF(u) = q u^{q-1} \implies \left| \frac{dF}{du}(u) \right| = q u^{q-1} \xrightarrow{u \to 0^+} \infty
-    \]
-    La derivada no está acotada en el conjunto abierto $(0,\infty)$, en particular no lo está en cualquier abierto de la forma $(0, \varepsilon)$. Por lo tanto, $F$ no es globalmente Lipschitziana en $(0, \varepsilon)$, aunque sí es localmente Lipschitziana en dicho intervalo, ya que cualquier abierto, conexo y acotado $D \subset (0, \varepsilon)$ con $\overline{D} \subset (0, \varepsilon)$ tendrá la derivada acotada, ya que $0 \notin \overline{D} \implies \min{\overline{D}} > 0$.
-    \item \textbf{Función vectorial con derivadas acotadas:}
-    Sea $A = (a_{ij})_{1 \leq i,j \leq N}$, definamos:
-    \[
-        F(u) = A \begin{pmatrix} \sin(u_1) \\ \vdots \\ \sin(u_N) \end{pmatrix}
-        =
-        \begin{pmatrix}
-            a_{11} \sin(u_1) + \ldots + a_{1N} \sin(u_N) \\
-            \vdots \\
-            a_{N1} \sin(u_1) + \ldots + a_{NN} \sin(u_N)
-        \end{pmatrix}
-    \]
-    Claramente $F \in C^\infty(\mathbb{R}^N, \mathbb{R}^N)$. Su Jacobiano es:
-    \[
-        DF(u) = A \cdot \operatorname{diag}(\cos(u_1), \ldots, \cos(u_N))
-    \]
-    Y sus derivadas parciales son:
-    \[
-        \frac{\partial F_i}{\partial u_j}(u) = a_{ij} \cos(u_j), \quad 1 \leq i,j \leq N
-    \]
-    Como $|\cos(u_j)| \leq 1$ para todo $u_j \in \mathbb{R}$, tenemos que podemos acotar todas las derivadas parciales por $M = \max_{i,j} |a_{ij}|$. Por el teorema, $F$ es globalmente Lipschitziana en $\mathbb{R}^N$:
-    \[
-        \forall i, j \in \{ 1, \ldots, N \}, \quad \sup_{u \in \mathbb{R}^N} \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq M
-    \]
-    Demostrando así que la función $F$ es globalmente Lipschitziana en $\Omega = \mathbb{R}^N$.
-    \item \textbf{Función vectorial con derivadas no acotadas:}
-    Sea $A = (a_{ij})_{1 \leq i,j \leq N}$, definamos:
-    \[
-        F(u) = A \begin{pmatrix} u_1^2 \\ \vdots \\ u_N^2 \end{pmatrix}
-        =
-        \begin{pmatrix}
-            a_{11} u_1^2 + \ldots + a_{1N} u_N^2 \\
-            \vdots \\
-            a_{N1} u_1^2 + \ldots + a_{NN} u_N^2
-        \end{pmatrix}
-    \]
-    Claramente $F \in C^\infty(\mathbb{R}^N, \mathbb{R}^N)$. Su Jacobiano es:
-    \[
-        DF(u) = A \cdot \operatorname{diag}(2 u_1, \ldots, 2 u_N)
-    \]
-    Y sus derivadas parciales son:
-    \[
-        \frac{\partial F_i}{\partial u_j}(u) = 2 a_{ij} u_j, \quad 1 \leq i,j \leq N
-    \]
-    Como $|2 a_{ij} u_j| \to \infty$ cuando $|u_j| \to \infty$, tenemos que no podemos acotar todas las derivadas parciales en $\mathbb{R}^N$. Por el teorema, $F$ no es globalmente Lipschitziana en $\mathbb{R}^N$. Sin embargo, para cualquier conjunto abierto, convexo y acotado $D \subset \mathbb{R}^N$, la función sí es globalmente Lipschitziana en $D$, ya que $\overline{D}$ es compacto y las derivadas parciales alcanzan un máximo finito en dicho conjunto.
-\end{enumerate}
+        \item \textbf{Función con derivada no acotada en un conjunto abierto:}
+        Sea $F(u) = u^q$ con $q \in (0,1)$ y $F \in C^\infty((0,\infty), \mathbb{R})$. Su derivada es:
+        \[
+            DF(u) = q u^{q-1} \implies \left| \frac{dF}{du}(u) \right| = q u^{q-1} \xrightarrow{u \to 0^+} \infty
+        \]
+        La derivada no está acotada en el dominio $(0,\infty)$. En particular, tampoco lo está en ningún intervalo abierto de la forma $(0, \varepsilon)$ con $\varepsilon > 0$. En consecuencia, $F$ no es globalmente Lipschitziana en $(0, \varepsilon)$. 
+        No obstante, la función sigue siendo localmente Lipschitziana en $(0, \varepsilon)$. Esto se debe a que, para cualquier subconjunto abierto, convexo y acotado $D$ cuya clausura cumpla $\overline{D} \subset (0, \varepsilon)$, se tiene que $0 \notin \overline{D}$. Al ser $\overline{D}$ un conjunto cerrado, existe una distancia estrictamente positiva al origen, lo que garantiza que la derivada se mantenga acotada en todo $\overline{D}$.
+
+        \item \textbf{Función vectorial con derivadas acotadas:}
+        Sea $A = (a_{ij})_{1 \leq i,j \leq n}$ una matriz real. Definimos:
+        \[
+            F(u) = A \begin{pmatrix} \sin(u_1) \\ \vdots \\ \sin(u_n) \end{pmatrix}
+            =
+            \begin{pmatrix}
+                a_{11} \sin(u_1) + \ldots + a_{1n} \sin(u_n) \\
+                \vdots \\
+                a_{n1} \sin(u_1) + \ldots + a_{nn} \sin(u_n)
+            \end{pmatrix}
+        \]
+        La función verifica $F \in C^\infty(\mathbb{R}^n, \mathbb{R}^n)$. Su matriz jacobiana es:
+        \[
+            DF(u) = A \cdot \operatorname{diag}(\cos(u_1), \ldots, \cos(u_n))
+        \]
+        Las derivadas parciales toman la forma:
+        \[
+            \frac{\partial F_i}{\partial u_j}(u) = a_{ij} \cos(u_j), \quad 1 \leq i,j \leq n
+        \]
+        Dado que $|\cos(u_j)| \leq 1$ para todo $u_j \in \mathbb{R}$, es posible acotar todas las derivadas parciales por la constante $M = \max_{i,j} |a_{ij}|$. Por lo tanto:
+        \[
+            \sup_{u \in \mathbb{R}^n} \left| \frac{\partial F_i}{\partial u_j}(u) \right| \leq M, \quad \forall i, j \in \{ 1, \ldots, n \}
+        \]
+        En virtud del teorema, esto demuestra que $F$ es globalmente Lipschitziana en todo $\mathbb{R}^n$.
+
+        \item \textbf{Función vectorial con derivadas no acotadas:}
+        Sea nuevamente una matriz real $A = (a_{ij})_{1 \leq i,j \leq n}$ y consideremos:
+        \[
+            F(u) = A \begin{pmatrix} u_1^2 \\ \vdots \\ u_n^2 \end{pmatrix}
+            =
+            \begin{pmatrix}
+                a_{11} u_1^2 + \ldots + a_{1n} u_n^2 \\
+                \vdots \\
+                a_{n1} u_1^2 + \ldots + a_{nn} u_n^2
+            \end{pmatrix}
+        \]
+        Se tiene que $F \in C^\infty(\mathbb{R}^n, \mathbb{R}^n)$. La matriz jacobiana resulta:
+        \[
+            DF(u) = A \cdot \operatorname{diag}(2 u_1, \ldots, 2 u_n)
+        \]
+        Las derivadas parciales asociadas son:
+        \[
+            \frac{\partial F_i}{\partial u_j}(u) = 2 a_{ij} u_j, \quad 1 \leq i,j \leq n
+        \]
+        Si existe un coeficiente $a_{ij} \neq 0$, el término $|2 a_{ij} u_j|$ tiende a infinito cuando $|u_j| \to \infty$. Esto implica que las derivadas parciales no están acotadas en $\mathbb{R}^n$, de modo que $F$ no es globalmente Lipschitziana en el espacio completo. Sin embargo, aplicando el corolario, para cualquier conjunto abierto, convexo y acotado $D \subset \mathbb{R}^n$, la función sí será globalmente Lipschitziana en $D$, ya que su clausura $\overline{D}$ es compacta y las derivadas parciales alcanzarán un valor máximo finito en dicho conjunto.
+    \end{enumerate}    
+}
+
 
 \subsection{Caso no autónomo}
 
-Sea $J \subset \mathbb{R}$ un intervalo arbitrario:
+Hasta ahora hemos tratado funciones que dependen exclusivamente de la variable espacial (sistemas autónomos). A continuación, extendemos estos conceptos al caso no autónomo, donde la función vectorial depende también de una variable independiente $t \in J$, habitualmente interpretada como el tiempo. Sea $J \subset \mathbb{R}$ un intervalo arbitrario que representará dicho dominio temporal:
+
+\begin{center}
 \begin{tikzpicture}
     % Recta (intervalo)
     \draw[thick] (0,0) -- (5,0);
@@ -270,66 +264,146 @@ Sea $J \subset \mathbb{R}$ un intervalo arbitrario:
     \node[below] at (4,-0.15) {$\beta$};
     % Lista de intervalos a la derecha
     \node[right, align=left] at (6,0) {%
-        $(\alpha, \beta)$, \; $[\alpha, \beta]$, \; $[\alpha, \beta)$, \; $(\alpha, \beta]$,\\[4pt]
-        $(-\infty, \beta)$, \; $(-\infty, \beta]$,\\[4pt]
-        $(\alpha, +\infty)$, \; $[\alpha, +\infty)$,\\[4pt]
+        $(\alpha, \beta)$, \quad $[\alpha, \beta]$, \quad $[\alpha, \beta)$, \quad $(\alpha, \beta]$,\\[4pt]
+        $(-\infty, \beta)$, \quad $(-\infty, \beta]$,\\[4pt]
+        $(\alpha, +\infty)$, \quad $[\alpha, +\infty)$,\\[4pt]
         $(-\infty, +\infty) = \mathbb{R}$%
     };
 \end{tikzpicture}
+\end{center}
 
-Sea ahora una función $f : J \times \mathbb{R}^n \to \mathbb{R}^n$ arbitraria, entonces, podemos definir la noción de Lipschitzianidad en este caso de forma análogo al anterior.
+Dada una función $f : J \times \Omega \to \mathbb{R}^n$, las nociones de Lipschitzianidad global y local se generalizan exigiendo que la acotación de las variaciones espaciales se cumpla de manera uniforme respecto a la variable temporal $t$.
 
-\begin{definición}[Función Global y Localmente Lipschitziana en el caso no autónomo]
-    Sea $J \subset \mathbb{R}$ un intervalo arbitrario y sea $f : J \times \mathbb{R}^n \to \mathbb{R}^n$ una función arbitraria.
+\begin{definición}[Función global y localmente Lipschitziana en el caso no autónomo]
+    Sea $J \subset \mathbb{R}$ un intervalo arbitrario, $\Omega \subset \mathbb{R}^n$ un conjunto abierto, y sea $f : J \times \Omega \to \mathbb{R}^n$ una función dada.
     \begin{enumerate}
-        \item Diremos que $f$ es \textbf{globalmente Lipschitziana respecto de $u$}, uniformemente en $t \in J$, si existe una constante de Lipschitz $L > 0$ tal que:
+        \item Se dice que $f$ es \textbf{globalmente Lipschitziana respecto de $u$ en $\Omega$}, uniformemente en $t \in J$, si existe una constante de Lipschitz $L > 0$ tal que:
         \[
-            \| f(t, u) - f(t, v) \| \leq L \| u - v \|, \quad \forall t \in J, \; \forall u, v \in \mathbb{R}^n
+            \| f(t, u) - f(t, v) \| \leq L \| u - v \|, \quad \forall t \in J, \; \forall u, v \in \Omega
         \]
-        \item Diremos que $f$ es \textbf{localmente Lipschitziana respecto de $u$}, uniformemente en $t \in J$, si $\forall u_0 \in \mathbb{R}^n$ existe un radio $R > 0$ tal que:
+        \item Se dice que $f$ es \textbf{localmente Lipschitziana respecto de $u$ en $\Omega$}, uniformemente en $t \in J$, si para cada $u_0 \in \Omega$ existen un radio $R > 0$ y una constante $L > 0$ (que puede depender de $u_0$) tales que la bola $B_R(u_0) \subset \Omega$ y se cumple:
         \[
-            \| f(t, u) - f(t, v) \| \leq L \| u - v \|, \quad \forall t \in J, \; \forall u, v \in B_R(u_0) \subset \Omega
+            \| f(t, u) - f(t, v) \| \leq L \| u - v \|, \quad \forall t \in J, \; \forall u, v \in B_R(u_0)
         \]
     \end{enumerate}
 \end{definición}
 
+Al igual que en el caso autónomo, verificar esta condición mediante la definición directa puede ser tedioso. El siguiente teorema establece un criterio analítico equivalente basado en la acotación de las derivadas parciales respecto a las variables espaciales.
+
 \begin{teorema}[Criterio de Lipschitzianidad para funciones no autónomas]
-    Sean $J \subset \mathbb{R}$ un intervalo arbitrario, $\Omega \subset \mathbb{R}^n$ un conjunto abierto y \textbf{convexo}, y $f \in C (J \times \Omega, \mathbb{R}^n)$ que posee derivadas parciales $f_1, \ldots, f_n$ con:
+    Sean $J \subset \mathbb{R}$ un intervalo arbitrario, $\Omega \subset \mathbb{R}^n$ un conjunto abierto y \textbf{convexo}, y $f \in C (J \times \Omega, \mathbb{R}^n)$ una función que posee derivadas parciales $f_1, \ldots, f_n$ continuas. Es decir:
     \[
         \frac{\partial f_i}{\partial u_j} \in C(J \times \Omega, \mathbb{R}), \quad 1 \leq i,j \leq n
     \]
-    Entonces:
+    Entonces, la función $f$ es globalmente Lipschitziana respecto a $u \in \Omega$ uniformemente en $t \in J$ si y solo si sus derivadas parciales están acotadas en todo el dominio. Esto se expresa como:
     \[
-        f \text{ es globalmente Lipschitziana respecto a } u \in \Omega
+        f \text{ es globalmente Lipschitz. en } u 
         \iff
-        M = \sup_{(t,u) \in J \times \Omega} \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| < +\infty, \quad 1 \leq i,j \leq n
+        M = \sup_{(t,u) \in J \times \Omega} \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| < +\infty, \quad \forall i,j \in \{1, \ldots, n\}
     \]
 \end{teorema}
 
 \begin{proof}
-    Veamos ambas implicaciones:
+    Demostraremos ambas implicaciones:
     \begin{itemize}
-        \item[$\Leftarrow$] Supongamos que $M < +\infty$, definamos la curva auxiliar $\varphi : [0,1] \to \mathbb{R}^n$ como:
+        \item[$\Leftarrow$] Supongamos que las derivadas parciales están acotadas por una constante $M < +\infty$. Fijados un instante $t \in J$ y dos puntos $u, v \in \Omega$, definimos la curva auxiliar $\varphi : [0,1] \to \mathbb{R}^n$ como:
         \[
             \varphi(s) = f(t, su + (1-s)v), \quad s \in [0,1]
         \]
-        Con $u, v \in \Omega$ y $t \in J$ fijos, entonces:
+        Como $\Omega$ es un conjunto convexo, el segmento de recta que une $u$ y $v$ está contenido íntegramente en $\Omega$, garantizando que la función $\varphi$ esté bien definida para todo $s \in [0,1]$. Aplicando el Teorema Fundamental del Cálculo y la regla de la cadena, obtenemos:
         \[
-            \| f(t,u) - f(t,v) \| = 
-            \| \varphi(1) - \varphi(0) \| \underbrace{=}_{\text{Teorema del valor medio}} 
-            \| \int_0^1 \varphi'(s) ds \| \leq 
+            \| f(t,u) - f(t,v) \| = \| \varphi(1) - \varphi(0) \| = \left\| \int_0^1 \varphi'(s) ds \right\| \leq \int_0^1 \| \varphi'(s) \| ds
         \]
+        La derivada de la curva respecto al parámetro $s$ es $\varphi'(s) = D_u f(t, su + (1-s)v) \cdot (u - v)$, donde $D_u f$ representa la matriz jacobiana respecto a las variables espaciales $u$. Empleando la definición de la norma de operador matricial $\| \cdot \|_{\mathcal{L}(\mathbb{R}^n)}$:
         \[
-            \leq \| \int_0^1 D_u f(t, su + (1-s)v) \cdot (u - v) ds \| \leq
-            \int_0^1 \| D_u f(t, su + (1-s)v) \cdot (u - v) \|_1 ds \leq
+            \| \varphi'(s) \| = \| D_u f(t, su + (1-s)v) \cdot (u - v) \| \leq \| D_u f(t, su + (1-s)v) \|_{\mathcal{L}(\mathbb{R}^n)} \| u - v \|
         \]
+        En un espacio de dimensión finita todas las normas son equivalentes, por lo que existe una constante $c > 0$ tal que la norma de operador queda acotada por la suma de los valores absolutos de los elementos de la matriz. Dado que cada derivada parcial está acotada por $M$:
         \[
-            \leq \int_0^1 \| D_u f(t, su + (1-s)v) \|_{\mathcal{L}(\mathbb{R}^n)} ds \| u - v \|_1 \leq
-            c \int_0^1 \| D_u f(t, su + (1-s)v) \|_1 ds \| u - v \|_1 \leq
+            \| D_u f(t, \dots) \|_{\mathcal{L}(\mathbb{R}^n)} \leq c \sum_{i,j=1}^n \left| \frac{\partial f_i}{\partial u_j} \right| \leq c \sum_{i,j=1}^n M = c n^2 M = L
         \]
+        Sustituyendo esta constante $L$ en la integral obtenemos:
         \[
-            \leq c \int_0^1 \sum_{i,j=1}^n \left| \frac{\partial f_i}{\partial u_j}(t, su + (1-s)v) \right| ds \| u - v \|_1 \leq
-            c \underbrace{\sum_{i,j=1}^n M}_{L \text{, constante de Lipschitz}} \| u - v \|_1 = L \| u - v \|_1
+            \| f(t,u) - f(t,v) \| \leq \int_0^1 L \| u - v \| ds = L \| u - v \|
         \]
+        Esto prueba que $f$ es globalmente Lipschitziana respecto a $u$, uniformemente en $t \in J$.
+
+        \item[$\Rightarrow$] Supongamos ahora que existe una constante $L \geq 0$ tal que:
+        \[
+            \|f(t,u) - f(t,v)\| \leq L \|u - v\|, \quad \forall u, v \in \Omega, \quad \forall t \in J
+        \]
+        Fijados $t \in J$ y $u \in \Omega$, seleccionamos un vector dirección arbitrario $y \in \mathbb{R}^n$ con norma unidad ($\|y\|=1$). La derivada direccional de $f$, equivalente al producto de la matriz jacobiana por dicho vector, viene dada por:
+        \[
+            D_u f(t,u) y = \lim_{h \to 0} \frac{f(t, u+hy) - f(t,u)}{h}
+        \]
+        Utilizando la hipótesis de Lipschitzianidad, acotamos la norma del cociente incremental:
+        \[
+            \left\| \frac{f(t, u+hy) - f(t,u)}{h} \right\| = \frac{\|f(t, u+hy) - f(t,u)\|}{|h|} \leq \frac{L \|hy\|}{|h|} = \frac{L |h| \|y\|}{|h|} = L
+        \]
+        Tomando el límite cuando $h \to 0$, se deduce que $\|D_u f(t,u) y\| \leq L$ para todo vector unitario $y$. En consecuencia, la norma de operador de la matriz jacobiana satisface:
+        \[
+            \|D_u f(t,u)\|_{\mathcal{L}(\mathbb{R}^n)} = \max_{\|y\|=1} \|D_u f(t,u) y\| \leq L
+        \]
+        Por la equivalencia de normas, el valor absoluto de cada entrada de la matriz está acotado proporcionalmente por su norma de operador. Es decir, existe una constante $C > 0$ tal que:
+        \[
+            \left| \frac{\partial f_i}{\partial u_j} (t,u) \right| \leq C \|D_u f(t,u)\|_{\mathcal{L}(\mathbb{R}^n)} \leq C L
+        \]
+        Como esta cota superior es independiente tanto de $t$ como de $u$, concluimos que el supremo $M$ de las derivadas parciales en $J \times \Omega$ es finito.
     \end{itemize}
 \end{proof}
+
+\begin{corolario}
+    Sean $J = [\alpha, \beta]$ un intervalo cerrado y acotado ($\alpha < \beta$), $\Omega \subset \mathbb{R}^n$ un conjunto abierto, y $f \in C(J \times \Omega, \mathbb{R}^n)$ una función tal que todas sus derivadas parciales $\frac{\partial f_i}{\partial u_j}$ son continuas en $J \times \Omega$. Entonces, para cada conjunto abierto, convexo y acotado $D \subset \Omega$ cuya clausura cumpla $\overline{D} \subset \Omega$, la función $f(t,u)$ es globalmente Lipschitziana respecto a $u \in D$, uniformemente en $t \in J$. En particular, $f$ es localmente Lipschitziana respecto a $u$ en $\Omega$, uniformemente en $t \in J$. 
+\end{corolario}
+
+\begin{proof}
+    Sea $D \subset \Omega$ un subconjunto abierto, convexo y acotado con $\overline{D} \subset \Omega$. Por el teorema de Heine-Borel, al ser $\overline{D}$ un conjunto cerrado y acotado en $\mathbb{R}^n$, es compacto. Puesto que el intervalo $J$ también es compacto, el producto cartesiano $J \times \overline{D}$ resulta ser un conjunto compacto en $\mathbb{R} \times \mathbb{R}^n$.
+    
+    Como las derivadas parciales $\frac{\partial f_i}{\partial u_j}$ son funciones continuas en el conjunto compacto $J \times \overline{D}$, el teorema de Weierstrass garantiza que alcanzan valores extremos absolutos. En particular, están acotadas superiormente, por lo que existe una constante $M > 0$ tal que:
+    \[
+        \sup_{(t,u) \in J \times D} \left| \frac{\partial f_i}{\partial u_j}(t,u) \right| \leq M, \quad \forall i,j \in \{1, \ldots, n\}
+    \]
+    En virtud del teorema anterior, esta acotación uniforme de las derivadas implica que $f$ es globalmente Lipschitziana respecto a $u \in D$, uniformemente en $t \in J$. Dado que todo punto $u_0 \in \Omega$ admite un entorno que satisface las propiedades del conjunto $D$, se concluye que $f$ es localmente Lipschitziana en todo el dominio $\Omega$.
+\end{proof}
+
+\ejemplo{
+    \begin{enumerate}
+        \item Sea la función:
+        \[
+            f(t,u) = a(t) \sin(u), \quad u \in \mathbb{R}, \quad t \in [\alpha, \beta], \quad a \in C([\alpha, \beta], \mathbb{R})   
+        \]
+        Su derivada parcial respecto a $u$ es:
+        \[
+            \frac{\partial f}{\partial u}(t,u) = a(t) \cos(u)
+        \]
+        Esta derivada es continua. Acotando su valor absoluto para todo $(t,u) \in [\alpha, \beta] \times \mathbb{R}$:
+        \[
+            \left| \frac{\partial f}{\partial u} (t,u) \right| = |a(t)| |\cos(u)| \leq |a(t)| \leq \max_{t \in [\alpha, \beta]} |a(t)| = M < +\infty
+        \]
+        El máximo existe porque $a(t)$ es continua en el compacto $[\alpha, \beta]$. Al estar la derivada global y uniformemente acotada, la función $f$ es globalmente Lipschitziana respecto a $u \in \mathbb{R}$, uniformemente en $t \in [\alpha, \beta]$.
+
+        \item Sea la función con una singularidad temporal en el origen:
+        \[
+            f(t,u) = \frac{1}{t} \sin(u), \quad u \in \mathbb{R}, \quad t \in J = (0, \infty)
+        \]
+        La derivada parcial respecto a $u$ es:
+        \[
+            \frac{\partial f}{\partial u}(t,u) = \frac{1}{t} \cos(u)
+        \]
+        Calculando el supremo respecto a $u$ para un $t$ fijo:
+        \[
+            \sup_{u \in \mathbb{R}} \left| \frac{\partial f}{\partial u} (t,u) \right| = \frac{1}{t}
+        \]
+        Al tomar el límite cuando $t \to 0^+$, este supremo diverge a $+\infty$. Dado que la derivada parcial no está acotada uniformemente en el intervalo $J$, la función $f$ no es globalmente Lipschitziana respecto a $u$ uniformemente en $J$. 
+
+        \item Sea la función con crecimiento polinomial:
+        \[
+            f(t,u) = a(t) |u|^p, \quad u \in \mathbb{R}, \quad t \in [\alpha, \beta], \quad a \in C([\alpha, \beta], \mathbb{R})
+        \]
+        donde $p > 1$. Su derivada parcial respecto a $u$ para $u \neq 0$ es:
+        \[
+            \frac{\partial f}{\partial u}(t,u) = a(t) p |u|^{p-1} \operatorname{sgn}(u)
+        \]
+        (Puesto que $p > 1$, la derivada en $u=0$ existe y es nula, por lo que la función derivada resulta continua en todo $\mathbb{R}$). Sin embargo, al fijar un instante $t$ donde $a(t) \neq 0$, el término $|u|^{p-1}$ diverge a $+\infty$ cuando $|u| \to \infty$. Esto implica que la derivada no está acotada globalmente en $\mathbb{R}$. Por consiguiente, $f$ no es globalmente Lipschitziana en el espacio completo. No obstante, por aplicación directa del corolario anterior, la función sí es localmente Lipschitziana respecto a $u$, uniformemente en $t \in [\alpha, \beta]$.
+    \end{enumerate}
+}
