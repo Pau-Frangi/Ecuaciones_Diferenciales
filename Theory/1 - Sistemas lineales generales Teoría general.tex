@@ -479,67 +479,178 @@ Al igual que en el caso autónomo, verificar esta condición mediante la definic
         Demostrando que la función no es globalmente Lipschitziana respecto a $u$ en $\mathbb{R}^n$, uniformemente en $t \in [\alpha, \beta]$, al tener una derivada parcial no acotada en el dominio completo.
     \end{enumerate}
 }
-
-\begin{teorema}[Fundamental global de Cauchy-Lipschitz]
-    Sean $N \geq 1$, $\alpha > \beta$, y $f \in C([\alpha, \beta] \times \mathbb{R}^N, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in [\alpha, \beta]$, es decir, $\exists L \geq 0$ tal que:
+\begin{teorema}[Teorema fundamental global de Cauchy-Lipschitz]
+    Sean $N \geq 1$, $\alpha < \beta$, y $f \in C([\alpha, \beta] \times \mathbb{R}^N, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in [\alpha, \beta]$. Es decir, existe una constante $L \geq 0$ tal que:
     \[
-        \| f(t,u) - f(t,v) \| \leq L \| u - v \|, \quad
-        \begin{cases}
-            \forall t \in [\alpha, \beta] \\
-            \forall u, v \in \mathbb{R}^N
-        \end{cases}
+        \| f(t,u) - f(t,v) \| \leq L \| u - v \|, \quad \forall t \in [\alpha, \beta], \quad \forall u, v \in \mathbb{R}^N
     \]
     Entonces, para cada $t_0 \in [\alpha, \beta]$ y cada $u_0 \in \mathbb{R}^N$, el problema de valor inicial (PVI):
     \[
-        P =
+        (P) \quad
         \begin{cases}
             u'(t) = f(t, u(t)), \quad t \in [\alpha, \beta] \\
             u(t_0) = u_0
         \end{cases}
-        \underbrace{=}_{\text{equivalentes, notación}}
-        \begin{cases}
-            u' = f(t, u), \quad t \in [\alpha, \beta] \\
-            u(t_0) = u_0
-        \end{cases}
     \]
-    Tiene una única solución globalmente definida en todo el intervalo $[\alpha, \beta]$, denotada por:
+    el cual denotaremos habitualmente de forma abreviada como $u' = f(t,u)$ con $u(t_0) = u_0$, tiene una única solución globalmente definida en todo el intervalo $[\alpha, \beta]$, la cual se denota por:
     \[
-        \boxed{u(t) = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
-        }
+        u(t) = u(t; t_0, u_0), \quad t \in [\alpha, \beta]
     \]
 \end{teorema}
 
 \begin{proof}
-    Sea:
+    El problema de valor inicial $(P)$ consiste en encontrar una función $u \in C^1([\alpha, \beta]; \mathbb{R}^N)$ que satisfaga la ecuación diferencial y la condición inicial. 
+    
+    Como se ha visto en resultados previos de ecuaciones diferenciales, podemos integrar la ecuación $u'(s) = f(s, u(s))$ entre el instante inicial $t_0$ y un instante arbitrario $t$:
     \[
-        u \in C^1([\alpha, \beta]; \mathbb{R}^N) \longrightarrow
+        \int_{t_0}^t u'(s) ds = \int_{t_0}^t f(s, u(s)) ds \implies u(t) - u(t_0) = \int_{t_0}^t f(s, u(s)) ds
+    \]
+    Por lo tanto, una función $u$ es solución de $(P)$ si y solo si $u \in C([\alpha, \beta]; \mathbb{R}^N)$ satisface la ecuación integral de Volterra equivalente:
+    \[
+        u(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds, \quad \forall t \in [\alpha, \beta]
+    \]
+    A partir de esta formulación, definimos el operador integral de Picard $K : C([\alpha, \beta]; \mathbb{R}^N) \to C([\alpha, \beta]; \mathbb{R}^N)$ dado por:
+    \[
+        (Ku)(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds
+    \]
+    Las soluciones del problema $(P)$ se corresponden exactamente con los puntos fijos del operador $K$. Para demostrar que existe un único punto fijo, utilizaremos el Teorema del Punto Fijo de Banach. 
+    
+    El espacio vectorial $X = C([\alpha, \beta]; \mathbb{R}^N)$ equipado con la norma del supremo es un espacio de Banach. Para facilitar las estimaciones y garantizar que $K$ sea una contracción, introducimos una norma equivalente conocida como la norma de Bielecki. Tomando un parámetro $\gamma > L$, definimos:
+    \[
+        \| u \|_B = \max_{t \in [\alpha, \beta]} e^{-\gamma |t - t_0|} \| u(t) \|
+    \]
+    Al ser equivalente a la norma del supremo, el espacio $(X, \| \cdot \|_B)$ sigue siendo un espacio de Banach. Evaluemos la distancia entre las imágenes de dos funciones $u, v \in X$ bajo el operador $K$. Asumiendo $t \geq t_0$, tenemos:
+    \[
+        \| (Ku)(t) - (Kv)(t) \| = \left\| \int_{t_0}^t \left( f(s, u(s)) - f(s, v(s)) \right) ds \right\| \leq \int_{\min(t_0, t)}^{\max(t_0, t)} \| f(s, u(s)) - f(s, v(s)) \| ds
+    \]
+    Aplicando la condición de Lipschitz global:
+    \[
+        \| (Ku)(t) - (Kv)(t) \| \leq L \int_{\min(t_0, t)}^{\max(t_0, t)} \| u(s) - v(s) \| ds
+    \]
+    Multiplicamos y dividimos el integrando por el factor exponencial $e^{\gamma(s - t_0)}$ para hacer aparecer la estructura de la norma de Bielecki:
+    \[
+        \| (Ku)(t) - (Kv)(t) \| \leq L \int_{\min(t_0, t)}^{\max(t_0, t)} e^{\gamma(s - t_0)} \left( e^{-\gamma(s - t_0)} \| u(s) - v(s) \| \right) ds
+    \]
+    Acotando el término entre paréntesis por la norma $\| u - v \|_B$:
+    \[
+        \| (Ku)(t) - (Kv)(t) \| \leq L \| u - v \|_B \int_{\min(t_0, t)}^{\max(t_0, t)} e^{\gamma(s - t_0)} ds = L \| u - v \|_B \left[ \frac{e^{\gamma(s - t_0)}}{\gamma} \right]_{t_0}^t \leq \frac{L}{\gamma} e^{\gamma(t - t_0)} \| u - v \|_B
+    \]
+    Multiplicando ambos lados por $e^{-\gamma(t - t_0)}$ se obtiene:
+    \[
+        e^{-\gamma|t - t_0|} \| (Ku)(t) - (Kv)(t) \| \leq \frac{L}{\gamma} \| u - v \|_B
+    \]
+    Un razonamiento simétrico aplicando propiedades de la integral para el caso $t \leq t_0$ conduce a la misma cota. Tomando el máximo sobre todo $t \in [\alpha, \beta]$, concluimos que:
+    \[
+        \| Ku - Kv \|_B \leq \frac{L}{\gamma} \| u - v \|_B
+    \]
+    Como hemos elegido $\gamma > L$, se cumple que $\frac{L}{\gamma} < 1$. Por lo tanto, el operador $K$ es una contracción estricta en el espacio de Banach $(X, \| \cdot \|_B)$. 
+    
+    Por el Teorema del Punto Fijo de Banach, el operador $K$ posee un único punto fijo $u \in X$. Esta función es la única solución global del problema de valor inicial en el intervalo $[\alpha, \beta]$.
+\end{proof}
+
+\begin{corolario}
+    Como consecuencia directa de la aplicación del Teorema del Punto Fijo en la demostración anterior, para cada función continua $h_0 \in C([\alpha, \beta]; \mathbb{R}^N)$, la sucesión de funciones definida recursivamente mediante el operador integral:
+    \[
+        h_n(t) = K (h_{n-1})(t) = u_0 + \int_{t_0}^t f(s, h_{n-1}(s)) ds, \quad n \geq 1
+    \]
+    converge uniformemente en $[\alpha, \beta]$ hacia la única solución $u(t)$ del problema de valor inicial $(P)$.
+\end{corolario}
+
+A continuación, presentamos dos ejemplos de sistemas de ecuaciones diferenciales que satisfacen las hipótesis del teorema y, por consiguiente, poseen una única solución global.
+
+\ejemplo{
+    \begin{enumerate}
+        \item \textbf{Sistema lineal no autónomo:}
+        Consideramos el problema de valor inicial dado por:
+        \[
+            u'(t) = A(t) u(t) + B(t), \quad u(t_0) = u_0 \in \mathbb{R}^N, \quad t_0 \in [\alpha, \beta]
+        \]  
+        donde $A(t) = (a_{ij}(t))_{1 \leq i,j \leq N}$ y $B(t) = (b_i(t))_{1 \leq i \leq N}$, con coeficientes $a_{ij}, b_i \in C([\alpha, \beta], \mathbb{R})$. 
+        Dado que las funciones $a_{ij}(t)$ son continuas en un intervalo compacto, alcanzan un valor máximo y están acotadas. Esto garantiza que la función $f(t,u) = A(t)u + B(t)$ sea globalmente Lipschitziana respecto a $u$, uniformemente en $t \in [\alpha, \beta]$. Por tanto, el problema tiene una única solución global.
+
+        \item \textbf{Sistema no lineal con derivadas espaciales acotadas:}
+        Sea el sistema definido por sus componentes:
+        \[
+            u_i'(t) = \sum_{j=1}^N a_{ij}(t) \sin(u_j(t)) + b_i(t), \quad 1 \leq i \leq N
+        \]  
+        con datos iniciales $u(t_0) = u_0$ y coeficientes $a_{ij}, b_i \in C([\alpha, \beta], \mathbb{R})$. 
+        Las derivadas parciales de la función $f$ respecto a las variables espaciales $u_k$ son $a_{ik}(t) \cos(u_k)$. Como los coeficientes $a_{ik}(t)$ son continuos en el compacto $[\alpha, \beta]$ y el coseno está acotado por 1, todas las derivadas parciales están uniformemente acotadas. Aplicando el criterio de Lipschitzianidad visto anteriormente, $f$ es globalmente Lipschitziana respecto a $u$, asegurando la existencia de una única solución global en $[\alpha, \beta]$.
+    \end{enumerate}
+}
+
+\begin{corolario}
+    Sea $J \subset \mathbb{R}$ un intervalo abierto arbitrario, y $f \in C(J \times \mathbb{R}^N, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in J$. Entonces, para cada $t_0 \in J$ y cada $u_0 \in \mathbb{R}^N$, el problema de valor inicial:
+    \[
+        (P) \quad
         \begin{cases}
-            u'(t) = f(t, u(t)), \quad t \in [\alpha, \beta] \\
+            u'(t) = f(t, u(t)), \quad t \in J \\
             u(t_0) = u_0
         \end{cases}
     \]
-    Por lo visto en anteriores asignaturas:
+    tiene una única solución globalmente definida en todo el intervalo $J$, la cual se denota por:
     \[
-        u \text{ es solución}
-        \iff
-        u \in C([\alpha, \beta]; \mathbb{R}^N) : \quad
-        u(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds, \quad \forall t \in [\alpha, \beta]
+        u(t) = u(t; t_0, u_0), \quad t \in J
     \]
-    Ya que integrando $u'= f(t,u)$ desde $t_0$ hasta $t$ obtenemos:
+\end{corolario}
+
+\begin{proof}
+    Dado que $J$ es un intervalo abierto, existe una sucesión de intervalos cerrados y acotados $\{J_n\}_{n \geq 1}$ que forman una cadena creciente y cuya unión recubre todo $J$. Es decir:
     \[
-        \int_{t_0}^t u' = \int_{t_0}^t f(s, u(s)) ds \implies
-        u(t) - u(t_0) = \int_{t_0}^t f(s, u(s)) ds \implies
-        u(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds
+        J_1 \subset J_2 \subset \ldots \subset J_n \subset \ldots, \quad \bigcup_{n \geq 1} J_n = J
     \]
-    Una vez recordado esto, definimos el operador integral:
+    Por ejemplo, si $J = (\alpha, \beta)$, basta tomar $J_n = [\alpha + \frac{1}{n}, \beta - \frac{1}{n}]$ para valores de $n$ suficientemente grandes. Construcciones análogas aplican si $J = \mathbb{R}$ tomando $J_n = [-n, n]$, o en intervalos no acotados como $J = (\alpha, \infty)$ tomando $J_n = [\alpha + \frac{1}{n}, n]$.
+
+    Fijado el tiempo inicial $t_0 \in J$, existe un índice $n_0 \geq 1$ tal que $t_0 \in J_n$ para todo $n \geq n_0$. Consideremos la restricción del problema de valor inicial a un intervalo compacto genérico $J_n$ (con $n \geq n_0$):
     \[
-        \begin{array}{lll}
-            K : C([\alpha, \beta]; \mathbb{R}^N) & \longrightarrow & C([\alpha, \beta]; \mathbb{R}^N) \\
-            u & \longmapsto & (Ku)(t) = u_0 + \int_{t_0}^t f(s, u(s)) ds
-        \end{array}
+        \begin{cases}
+            u'(t) = f(t, u(t)), \quad t \in J_n \\
+            u(t_0) = u_0
+        \end{cases}
     \]
-    Siendo las soluciones del problema $P$ los puntos fijos de $K$. Como tenemos que $C([\alpha, \beta]; \mathbb{R}^N)$ es un espacio de Banach con la norma del supremo, que es equivalente a la norma de Bielecki:
+    Al cumplir $f$ la condición de Lipschitz uniformemente en todo $J$, también la cumple en $J_n$. Por el Teorema fundamental global de Cauchy-Lipschitz, para cada $n \geq n_0$ existe una única solución $u_n(t)$ definida en el intervalo $J_n$. 
+    
+    Si consideramos un índice $m > n$, la función $u_m(t)$ es la solución única en $J_m$. Su restricción al subintervalo $J_n$ sigue satisfaciendo la ecuación diferencial y el dato inicial, por lo que, debido a la unicidad en $J_n$, se concluye que $u_m(t) = u_n(t)$ para todo $t \in J_n$. Este hecho permite definir una función $u : J \to \mathbb{R}^N$ de manera consistente en todo el dominio $J$:
     \[
-        \| u \|_B = \max_{t \in [\alpha, \beta]} e^{-L|t - t_0|} \| u(t) \|
+        u(t) = u_n(t), \quad \text{donde } n \geq n_0 \text{ es cualquier índice tal que } t \in J_n
     \]
+    La función $u(t)$ está bien definida y es solución del problema $(P)$ en $J$. Para verificar su unicidad, supongamos que existe otra solución $v : J \to \mathbb{R}^N$. Si ambas difirieran en algún punto $t_1 \in J$, existiría un índice $k \geq n_0$ tal que $t_1 \in J_k$. Sin embargo, al restringir ambas funciones a $J_k$, tendríamos dos soluciones distintas para el mismo problema de valor inicial en un intervalo compacto, lo cual contradice el teorema fundamental. Por tanto, $u(t) = v(t)$ para todo $t \in J$.
 \end{proof}
+
+\textbf{Observación sobre el relajamiento de hipótesis.} Del proceso de construcción mediante compactos exhaustivos (sucesión $J_n$) empleado en la demostración anterior, se extrae un hecho de gran utilidad práctica. Como el Teorema fundamental global solo se aplica localmente sobre cada compacto $J_n$, no es necesario que la constante de Lipschitz de la función $f$ sea la misma en todo $J$. 
+
+Basta exigir que $f$ sea globalmente Lipschitziana respecto a $u$ en $\mathbb{R}^N$ \textit{uniformemente sobre cada subintervalo compacto} $[\alpha, \beta] \subset J$. Esta condición relajada es suficiente para asegurar la existencia y unicidad en cada $J_n$, permitiendo extender la solución a todo $J$ y ampliando la clase de problemas que admiten solución global.
+
+\ejemplo{
+    Consideremos el siguiente problema de valor inicial autónomo:
+    \[
+        \begin{cases}
+            u'(t) = u(t)^2 \\
+            u(0) = u_0 > 0
+        \end{cases}   
+    \]
+    La función $f(t,u) = u^2$ es localmente Lipschitziana respecto a $u$ en $\mathbb{R}$, uniformemente en $t \in \mathbb{R}$. Sin embargo, como se vio en ejemplos anteriores, su derivada parcial $\frac{\partial f}{\partial u} = 2u$ no está acotada en todo $\mathbb{R}$, por lo que la función no satisface la condición de Lipschitz global.
+
+    Para resolver la ecuación diferencial explícitamente, separamos las variables. Como $u_0 > 0$, la solución será no nula en un entorno de $t=0$, lo que nos permite dividir la ecuación por $u^2$:
+    \[
+        u^{-2} u' = 1 \implies -\frac{d}{dt} \left( u^{-1} \right) = 1
+    \]
+    Integrando con respecto a la variable temporal $t$, obtenemos:
+    \[
+        -\frac{1}{u(t)} = t - c \implies \frac{1}{u(t)} = -t + c
+    \]
+    Imponiendo la condición inicial $u(0) = u_0$, determinamos la constante de integración $c$:
+    \[
+        \frac{1}{u(0)} = c \implies c = \frac{1}{u_0}
+    \]
+    Sustituyendo el valor de la constante y operando para despejar $u(t)$:
+    \[
+        \frac{1}{u(t)} = -t + \frac{1}{u_0} = \frac{1 - t u_0}{u_0} \implies u(t) = \frac{u_0}{1 - t u_0}
+    \]
+    Analizando el dominio de esta solución, observamos que el denominador se anula en el instante $t = 1/u_0$. Dado que $u_0 > 0$, este valor corresponde a un tiempo futuro positivo. Por consiguiente, si consideramos el avance temporal desde $t=0$, la solución está definida únicamente en el intervalo $[0, 1/u_0)$. 
+    
+    Cuando el tiempo se aproxima al valor $1/u_0$, la solución diverge:
+    \[
+        \lim_{t \to (1/u_0)^-} u(t) = +\infty
+    \]
+    Este comportamiento se conoce como explosión en tiempo finito (\textit{blow-up}). El ejemplo ilustra que, cuando una función carece de la condición de Lipschitz global y solo posee Lipschitzianidad local, no se puede garantizar la existencia global de la solución en todo el intervalo temporal de definición, justificando así la necesidad de las hipótesis del teorema fundamental global.
+}
