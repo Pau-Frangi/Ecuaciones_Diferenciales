@@ -654,3 +654,86 @@ Basta exigir que $f$ sea globalmente Lipschitziana respecto a $u$ en $\mathbb{R}
     \]
     Este comportamiento se conoce como explosión en tiempo finito (\textit{blow-up}). El ejemplo ilustra que, cuando una función carece de la condición de Lipschitz global y solo posee Lipschitzianidad local, no se puede garantizar la existencia global de la solución en todo el intervalo temporal de definición, justificando así la necesidad de las hipótesis del teorema fundamental global.
 }
+
+
+\begin{teorema}[Teorema local de Cauchy-Lipschitz]
+    Sean $t_0 \in \mathbb{R}$, $T > 0$, y consideremos el intervalo temporal $J = [t_0, t_0 + T]$. Sea $\Omega \subset \mathbb{R}^N$ un conjunto abierto y $f \in C(J \times \Omega, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \Omega$, uniformemente en $t \in J$. Entonces, para cada $u_0 \in \Omega$, el problema de valor inicial:
+    \[
+        (P) \quad
+        \begin{cases}
+            u'(t) = f(t, u(t)), \quad t \in J \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    admite una única solución local. De manera más precisa:
+    \begin{enumerate}
+        \item Existe $\delta \in (0, T]$ tal que el problema $(P)$ tiene una única solución $u \in C^1([t_0, t_0 + \delta], \mathbb{R}^N)$.
+        \item Si consideramos una bola cerrada $\overline{B}_R(u_0) = \{u \in \mathbb{R}^N : \| u - u_0 \|_2 \leq R\} \subset \Omega$ tal que $f$ es globalmente Lipschitziana respecto a $u$ en dicha bola (uniformemente en $t \in J$), y definimos la cota del supremo:
+        \[
+            M = \| f \|_\infty = \max_{(t,u) \in J \times \overline{B}_R(u_0)} \| f(t,u) \|_2
+        \]
+        junto con el intervalo temporal de validez garantizada:
+        \[
+            \delta_0 = \min \left\{ T, \frac{R}{M} \right\}
+        \]
+        entonces el problema $(P)$ tiene una única solución $u \in C^1([t_0, t_0 + \delta_0], \mathbb{R}^N)$.
+    \end{enumerate}
+\end{teorema}
+
+\begin{proof}
+    Acometeremos la prueba estableciendo primero un problema modificado con existencia global, para luego demostrar que su solución coincide localmente con la del problema original $(P)$.
+    
+    Definimos una función auxiliar $F : J \times \mathbb{R}^N \to \mathbb{R}^N$ que extienda a $f$ fuera de la bola $\overline{B}_R(u_0)$ de forma constante a lo largo de las direcciones radiales:
+    \[
+        F(t,u) = \begin{cases}
+            f(t,u), & \text{si } \| u - u_0 \|_2 \leq R \\
+            f(t, \tilde{u}), & \text{si } \| u - u_0 \|_2 > R
+        \end{cases}
+    \]
+    donde $\tilde{u} = u_0 + R \frac{u - u_0}{\| u - u_0 \|_2}$ es la proyección radial del punto $u$ sobre la frontera de la bola (la esfera de radio $R$ centrada en $u_0$). Al ser $f$ continua y la proyección también continua, $F$ es una función continua en todo $J \times \mathbb{R}^N$. 
+    
+    Comprobemos que $F$ es globalmente Lipschitziana respecto a $u$ en todo $\mathbb{R}^N$, con la misma constante $L$ que $f$ posee en la bola cerrada. Se presentan tres casos para $u, v \in \mathbb{R}^N$:
+    \begin{enumerate}
+        \item Si $u, v \in \overline{B}_R (u_0)$, entonces $F$ coincide con $f$ y la desigualdad se verifica directamente:
+        \[
+            \| F(t,u) - F(t,v) \|_2 = \| f(t,u) - f(t,v) \|_2 \leq L \| u - v \|_2
+        \]
+        \item Si $\| u - u_0 \|_2 \leq R$ pero $\| v - u_0 \|_2 > R$, evaluamos $F$ usando la proyección $\tilde{v}$. Puesto que la proyección radial sobre un conjunto convexo es una contracción (es decir, $\| u - \tilde{v} \|_2 \leq \| u - v \|_2$), resulta:
+        \[
+            \| F(t,u) - F(t,v) \|_2 = \| f(t,u) - f(t, \tilde{v}) \|_2 \leq L \| u - \tilde{v} \|_2 \leq L \| u - v \|_2
+        \]
+        \item Si ambos puntos son exteriores a la bola ($\| u - u_0 \|_2 > R$ y $\| v - u_0 \|_2 > R$), evaluamos en las proyecciones $\tilde{u}$ y $\tilde{v}$. Por la misma propiedad de contracción de la proyección radial:
+        \[
+            \| F(t,u) - F(t,v) \|_2 = \| f(t, \tilde{u}) - f(t, \tilde{v}) \|_2 \leq L \| \tilde{u} - \tilde{v} \|_2 \leq L \| u - v \|_2
+        \]
+    \end{enumerate} 
+    
+    Queda probado que $F$ es globalmente Lipschitziana en todo $\mathbb{R}^N$, uniformemente en $J$. En virtud del Teorema fundamental global de Cauchy-Lipschitz, el problema de valor inicial modificado:
+    \[
+        (P') \quad \begin{cases}
+            U'(t) = F(t, U(t)), \quad t \in J \\
+            U(t_0) = u_0
+        \end{cases}
+    \]
+    posee una única solución global $U \in C^1(J, \mathbb{R}^N)$.
+    
+    A continuación, evaluaremos hasta qué instante temporal $t$ esta solución $U(t)$ permanece dentro de la bola $\overline{B}_R(u_0)$. Mientras $U(t) \in \overline{B}_R(u_0)$, la función $F$ coincide idénticamente con $f$, por lo que $U(t)$ será también solución del problema original $(P)$.
+    
+    Tomemos un $t > t_0$ asumiendo que la solución se mantiene en la bola en el intervalo $[t_0, t]$. Aplicando la ecuación integral equivalente al PVI y tomando normas:
+    \[
+        \| U(t) - u_0 \|_2 = \left\| \int_{t_0}^t F(s, U(s)) ds \right\|_2 \leq \int_{t_0}^t \| F(s, U(s)) \|_2 ds
+    \]
+    Como $U(s) \in \overline{B}_R(u_0)$ para $s \in [t_0, t]$, sabemos que $F(s, U(s)) = f(s, U(s))$. Además, la norma de $f$ en la bola está acotada superiormente por $M = \| f \|_\infty$. Sustituyendo esta cota:
+    \[
+        \| U(t) - u_0 \|_2 \leq \int_{t_0}^t M ds = M (t - t_0)
+    \]
+    Para garantizar que la solución no escape de la bola, debemos asegurar que la distancia al centro no supere $R$, lo que requiere $M (t - t_0) \leq R$. Despejando, la condición se cumple siempre que:
+    \[
+        t - t_0 \leq \frac{R}{M}
+    \]
+    Considerando que el dominio temporal está restringido a longitud $T$, el intervalo máximo asegurado para la permanencia en la bola viene dado por $\delta_0 = \min \left\{ T, \frac{R}{M} \right\}$.
+    
+    Por consiguiente, para todo $t \in [t_0, t_0 + \delta_0]$, se cumple $\| U(t) - u_0 \|_2 \leq R$. En todo este subintervalo, el sistema modificado $(P')$ coincide con el sistema original $(P)$, y la solución $U(t)$ resuelve $(P)$. 
+    
+    Para concluir la unicidad, sea $u(t)$ cualquier otra solución de $(P)$ definida en $[t_0, t_0 + \delta_0]$. Por continuidad, existe un intervalo maximal donde $u(t) \in \overline{B}_R(u_0)$. Mediante el mismo razonamiento integral previo, el tiempo requerido para que la solución abandone la bola es estrictamente mayor que $\delta_0$. Así, $u(t)$ nunca abandona la bola en $[t_0, t_0 + \delta_0]$. Como consecuencia, $u(t)$ también es solución de $(P')$ en ese intervalo. Dada la unicidad global de las soluciones de $(P')$, deducimos que $u(t) \equiv U(t)$ en $[t_0, t_0 + \delta_0]$.
+\end{proof}
