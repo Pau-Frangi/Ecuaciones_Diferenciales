@@ -1,4 +1,4 @@
-\section{Funciones Lipschitzianas}
+﻿\section{Funciones Lipschitzianas}
 
 \subsection{Introducción a las funciones Lipschitzianas}
 En el estudio introductorio de las ecuaciones diferenciales, el enfoque principal radica en la obtención de soluciones explícitas y el análisis de sus propiedades básicas. Sin embargo, dado que la mayoría de los problemas no admiten una solución analítica cerrada, resulta indispensable adoptar una perspectiva cualitativa para estudiar la existencia, unicidad y el comportamiento de las soluciones.
@@ -479,6 +479,9 @@ Al igual que en el caso autónomo, verificar esta condición mediante la definic
         Demostrando que la función no es globalmente Lipschitziana respecto a $u$ en $\mathbb{R}^n$, uniformemente en $t \in [\alpha, \beta]$, al tener una derivada parcial no acotada en el dominio completo.
     \end{enumerate}
 }
+
+\subsubsection{Teorema fundamental global de Cauchy-Lipschitz}
+
 \begin{teorema}[Teorema fundamental global de Cauchy-Lipschitz]
     Sean $N \geq 1$, $\alpha < \beta$, y $f \in C([\alpha, \beta] \times \mathbb{R}^N, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in [\alpha, \beta]$. Es decir, existe una constante $L \geq 0$ tal que:
     \[
@@ -655,6 +658,7 @@ Basta exigir que $f$ sea globalmente Lipschitziana respecto a $u$ en $\mathbb{R}
     Este comportamiento se conoce como explosión en tiempo finito (\textit{blow-up}). El ejemplo ilustra que, cuando una función carece de la condición de Lipschitz global y solo posee Lipschitzianidad local, no se puede garantizar la existencia global de la solución en todo el intervalo temporal de definición, justificando así la necesidad de las hipótesis del teorema fundamental global.
 }
 
+\subsubsection{ Teorema local de Cauchy-Lipschitz}
 
 \begin{teorema}[Teorema local de Cauchy-Lipschitz]
     Sean $t_0 \in \mathbb{R}$, $T > 0$, y consideremos el intervalo temporal $J = [t_0, t_0 + T]$. Sea $\Omega \subset \mathbb{R}^N$ un conjunto abierto y $f \in C(J \times \Omega, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \Omega$, uniformemente en $t \in J$. Entonces, para cada $u_0 \in \Omega$, el problema de valor inicial:
@@ -678,9 +682,54 @@ Basta exigir que $f$ sea globalmente Lipschitziana respecto a $u$ en $\mathbb{R}
         \]
         entonces el problema $(P)$ tiene una única solución $u \in C^1([t_0, t_0 + \delta_0], \mathbb{R}^N)$.
     \end{enumerate}
+    Además, podemos definir un problema alternativo:
+    \[
+        (P_F) \quad
+        \begin{cases}
+            u'(t) = F(t, u(t)), \quad t \in J \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Dónde:
+    \[
+        F(t,u) = \begin{cases}
+            f(t,u), & \text{si } u \in \overline{B}_R(u_0) \\
+            f(t, \tilde{u}), & \text{si } u \notin \overline{B}_R(u_0)
+        \end{cases}
+        \, \quad
+        \tilde{u} = u_0 + R \frac{u - u_0}{\| u - u_0 \|_2}
+    \]
+    % Dibujo con u_0, u y tilde u
+    \begin{center}
+        \begin{tikzpicture}
+            % Dibujamos la bola
+            \draw[thick, fill=blue!5] (0,0) circle (2cm);
+            
+            % Coordenadas
+            \coordinate (u0) at (0,0);
+            \coordinate (u) at (3.5, 1.5);
+            % Intersección exacta: (2*3.5/3.80788, 2*1.5/3.80788)
+            \coordinate (utilde) at (1.838, 0.788); 
+            
+            % Línea punteada desde el centro hasta u
+            \draw[dashed, thick] (u0) -- (u);
+            
+            % Puntos y etiquetas
+            \filldraw[black] (u0) circle (1.5pt) node[below left] {$u_0$};
+            \filldraw[black] (u) circle (1.5pt) node[above right] {$u$};
+            \filldraw[red] (utilde) circle (1.5pt) node[above left, text=black] {$\tilde{u}$};
+            
+            % Etiqueta de la bola
+            \node[blue!80!black] at (-1.2, 1.2) {$B_R(u_0)$};
+        \end{tikzpicture}
+    \end{center}
+    
 \end{teorema}
 
 \begin{proof}
+    La demostración se estructura en tres etapas lógicas: primero, modificaremos el problema para garantizar una solución global (Etapa 1); luego, demostraremos que cualquier solución local original no escapa de cierta bola, probando así la unicidad (Etapa 2); y finalmente, comprobaremos que la solución global construida se restringe válidamente a nuestro intervalo de interés sin salir de dicha bola, asegurando la existencia (Etapa 3).
+
+    \subsection*{Etapa 1}
     Acometeremos la prueba estableciendo primero un problema modificado con existencia global, para luego demostrar que su solución coincide localmente con la del problema original $(P)$.
     
     Definimos una función auxiliar $F : J \times \mathbb{R}^N \to \mathbb{R}^N$ que extienda a $f$ fuera de la bola $\overline{B}_R(u_0)$ de forma constante a lo largo de las direcciones radiales:
@@ -710,7 +759,7 @@ Basta exigir que $f$ sea globalmente Lipschitziana respecto a $u$ en $\mathbb{R}
     
     Queda probado que $F$ es globalmente Lipschitziana en todo $\mathbb{R}^N$, uniformemente en $J$. En virtud del Teorema fundamental global de Cauchy-Lipschitz, el problema de valor inicial modificado:
     \[
-        (P') \quad \begin{cases}
+        (P_F) \quad \begin{cases}
             U'(t) = F(t, U(t)), \quad t \in J \\
             U(t_0) = u_0
         \end{cases}
@@ -731,9 +780,123 @@ Basta exigir que $f$ sea globalmente Lipschitziana respecto a $u$ en $\mathbb{R}
     \[
         t - t_0 \leq \frac{R}{M}
     \]
-    Considerando que el dominio temporal está restringido a longitud $T$, el intervalo máximo asegurado para la permanencia en la bola viene dado por $\delta_0 = \min \left\{ T, \frac{R}{M} \right\}$.
+    Considerando que el dominio temporal está restringido a longitud $T$, el intervalo máximo asegurado para la permanencia en la bola viene dado por $\delta_0 = \min \left\{ T, \frac{R}{M} \right\}$, nótese que si $M=\| f \|_\infty = 0$, entonces tomaríamos $\delta_0 = T$ y la solución permanecería en la bola durante todo el intervalo.
     
-    Por consiguiente, para todo $t \in [t_0, t_0 + \delta_0]$, se cumple $\| U(t) - u_0 \|_2 \leq R$. En todo este subintervalo, el sistema modificado $(P')$ coincide con el sistema original $(P)$, y la solución $U(t)$ resuelve $(P)$. 
+    Por consiguiente, para todo $t \in [t_0, t_0 + \delta_0]$, se cumple $\| U(t) - u_0 \|_2 \leq R$. En todo este subintervalo, el sistema modificado $(P_F)$ coincide con el sistema original $(P)$, y la solución $U(t)$ resuelve $(P)$. 
     
-    Para concluir la unicidad, sea $u(t)$ cualquier otra solución de $(P)$ definida en $[t_0, t_0 + \delta_0]$. Por continuidad, existe un intervalo maximal donde $u(t) \in \overline{B}_R(u_0)$. Mediante el mismo razonamiento integral previo, el tiempo requerido para que la solución abandone la bola es estrictamente mayor que $\delta_0$. Así, $u(t)$ nunca abandona la bola en $[t_0, t_0 + \delta_0]$. Como consecuencia, $u(t)$ también es solución de $(P')$ en ese intervalo. Dada la unicidad global de las soluciones de $(P')$, deducimos que $u(t) \equiv U(t)$ en $[t_0, t_0 + \delta_0]$.
+    Para concluir la unicidad, sea $u(t)$ cualquier otra solución de $(P)$ definida en $[t_0, t_0 + \delta_0]$. Por continuidad, existe un intervalo maximal donde $u(t) \in \overline{B}_R(u_0)$. Mediante el mismo razonamiento integral previo, el tiempo requerido para que la solución abandone la bola es estrictamente mayor que $\delta_0$. Así, $u(t)$ nunca abandona la bola en $[t_0, t_0 + \delta_0]$. Como consecuencia, $u(t)$ también es solución de $(P_F)$ en ese intervalo. Dada la unicidad global de las soluciones de $(P_F)$, deducimos que $u(t) \equiv U(t)$ en $[t_0, t_0 + \delta_0]$.
+
+    \subsection*{Etapa 2}
+
+    Siempre que $u(t)$ sea una solución de $(P)$ en un intervalo $[t_0, t_0 + \delta]$ con $\delta \leq \delta_0$, se cumple que $u(t) \in \overline{B}_R(u_0)$, $\forall t \in [t_0, t_0 + \delta]$.\\
+
+    Por reducción al absurdo, supongamos que $\exists \widetilde{t} \in [t_0, t_0 + \delta]$ tal que $\| u(\widetilde{t}) - u_0 \|_2 > R$, pero esto implicaría:
+    \[
+        \exists t_1 \in [t_0, \widetilde{t}) \text{ tal que } 
+        \begin{cases}
+            \| u(t) - u_0 \|_2 < R \text{ si } t_0 \leq t < t_1 \\
+            \| u(t_1) - u_0 \|_2 = R
+        \end{cases}
+    \]
+
+    Por lo que podemos deducir que:
+    \[
+        R = \| u(t_1) - u_0 \|_1 =
+        \left\| \int_{t_0}^{t_1} u'(s) ds \right\|_1 =
+        \left\| \int_{t_0}^{t_1} f(s, u(s)) ds \right\|_1 \leq
+        \int_{t_0}^{t_1} \| f(s, u(s)) \|_1 ds \leq
+        \| f \|_\infty (t_1 - t_0) \implies
+    \]
+    \[
+        \implies
+        t_1 - t_0 \geq \frac{R}{\| f \|_\infty} \implies
+        t_1 \geq t_0 + \frac{R}{\| f \|_\infty} \geq t_0 + \delta_0 \equiv
+        \boxed{t_1 \geq t_0 + \delta_0 !!}
+    \]
+    Habiendo así reducido al absurdo, se concluye que $\| u(t) - u_0 \|_2 \leq R$ para todo $t \in [t_0, t_0 + \delta]$, y por lo tanto $u(t)$ es también solución de $(P_F)$ en ese intervalo. Por la unicidad de la solución de $(P_F)$, se deduce que $u(t) \equiv U(t)$ en $[t_0, t_0 + \delta]$.\\
+
+    Un dibujo que nos puede ayudar a entender esta demostración es el siguiente:
+    \begin{center}
+        \begin{tikzpicture}[scale=2.5]
+            % Rectas horizontal y vertical discontinuas
+            \draw[dashed, gray] (-1.3, 0) -- (1.3, 0);
+            \draw[dashed, gray] (0, -1.3) -- (0, 1.3);
+
+            % Bola bajo la norma 2 (círculo)
+            \draw[thick, blue] (0,0) circle (1);
+            \node[blue, above right] at (45:1) {$B_R^2(u_0)$};
+
+            % Bola bajo la norma 1 (rombo)
+            \draw[thick, red] (1,0) -- (0,1) -- (-1,0) -- (0,-1) -- cycle;
+            \node[red, below left] at (0.5, 0.5) {$B_R^1(u_0)$};
+
+            % Centro de la bola
+            \filldraw (0,0) circle (0.6pt) node[below right, black] {$u(\widetilde{t})$};
+        \end{tikzpicture}
+    \end{center}
+
+    \subsection*{Etapa 3}
+    En esta tercera etapa queremos ver la existencia de la solución, es decir, que $(P)$ tiene al menos una solución en el intervalo $[t_0, t_0 + \delta_0]$.\\
+
+    Sabemos que $u(t)$ es la solución de $(P_F)$ en el intervalo $[t_0, t_0 + \delta]$. Si $t_0 \leq t \leq t_0 + \delta_0$, entonces $u(t) \in B_R(u_0)$.\\
+
+    Ahora si tenemos un $\widetilde{t}$ tal que $\| u(\widetilde{t}) - u_0 \|_2 > R$, entonces:
+    \[
+        \exists t_1 \leq \widetilde{t} \text{ tal que } 
+        \| U(t_1) - u_0 \|_2 = R 
+    \]
+    Por lo que podemos deducir que:
+    \[
+        R = \| U(t_1) - u_0 \|_2 =
+        \left\| \int_{t_0}^{t_1} U'(s) ds \right\|_2 =
+        \left\| \int_{t_0}^{t_1} F(s, U(s)) ds \right\|_2 \leq
+        \int_{t_0}^{t_1} \| F(s, U(s)) \|_2 ds 
+    \]
+    Como para todo $s \in [t_0, t_1]$ se cumple que $\| U(s) - u_0 \|_2 \leq R$, sabemos por definición que $F(s, U(s)) = f(s, U(s))$. Además, en esa bola la norma 2 de $f$ está acotada por $M$. Por tanto:
+    \[
+        \int_{t_0}^{t_1} \| f(s, U(s)) \|_2 ds \leq
+        \int_{t_0}^{t_1} M ds = M (t_1 - t_0) \implies
+    \]
+    \[
+        \implies
+        t_1 - t_0 \geq \frac{R}{M} \implies
+        t_1 \geq t_0 + \frac{R}{M} \geq t_0 + \delta_0 \equiv
+        \boxed{t_1 \geq t_0 + \delta_0 !!}
+    \]
+    Lo cual es una flagrante contradicción, ya que habíamos supuesto que $\widetilde{t} \in [t_0, t_0 + \delta_0]$ (por lo que $\widetilde{t} \leq t_0 + \delta_0$) y que $t_1 \leq \widetilde{t}$. Concluimos así que $U(t)$ no escapa de la bola en $[t_0, t_0 + \delta_0]$ y, por tanto, es solución de $(P)$ garantizando la existencia.
+    
+
+\end{proof}
+
+Veamos ahora algunos ejemplos.
+
+\ejemplo{
+
+    Sea el siguiente PVI:
+    \[
+        P =
+        \begin{cases}
+            u'_i = \sum_{j=1}^N a_{ij}(t) |u_j|^{P_{ij}} + b_j(t), \quad 
+            i, j \in \{ 1, \ldots, N \} \, P_{ij} > 1 \, a_{ij}, b_j \in C([t_0, t_0 + T], \mathbb{R}) \\
+            u(t_0) = u_0 \in \mathbb{R}^N
+        \end{cases}
+    \]
+    Entonces buscamos $f:[t_0, t_0 + T] \times \underbrace{\mathbb{R}^N}_{\Omega} \to \mathbb{R}$ continua, cuyas derivadas parciales respecto a $u$ son:
+    \[
+        \frac{\partial f_i}{\partial u_j} = 
+        a_{ij}(t) \cdot \text{ signo de } (u_j) \cdot P_{ij} |u_j|^{\overbrace{P_{ij} - 1}^{>0}} \quad \forall i, j \in \{ 1, \ldots, N \}
+    \]
+    Que son continuas en $J \times \mathbb{R}^N$, por lo tanto $f(t,u)$ es localmente Lipschitziana respecto a $u$ en $\mathbb{R}^N$, uniformemente en $t \in J = [t_0, t_0 + T]$.\\
+
+    Por el teorema local de Cauchy-Lipschitz, tiene una única solución local $u(t)$ definida en un intervalo $[t_0, t_0 + \delta]$ con $\delta \leq T$.\\
+}
+
+\subsubsection{teorema de unicidad global}
+
+\begin{teorema}[Teorema de unicidad global]
+    Bajo las condiciones del teorema local de Cauchy-Lipschitz, la solución es única en cualquier intervalo de la forma $[t_0, t_0 + h]$ o $[t_0, t_0 + h)$ donde esté definida.    
+\end{teorema}
+
+\begin{proof}
+    $[t_0, t_0 + h]$ donde $(P)$ tiene al menos una solución, supongamos que hay dos soluciones $u_1(t)$ y $u_2(t)$ definidas en dicho intervalo, por lo que si son distintas $\exists \widetilde{t} \in [t_0, t_0 + h)$ tal que $u_1(\widetilde{t}) \neq u_2(\widetilde{t})$.\\
 \end{proof}
