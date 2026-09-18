@@ -894,9 +894,172 @@ Veamos ahora algunos ejemplos.
 \subsubsection{teorema de unicidad global}
 
 \begin{teorema}[Teorema de unicidad global]
-    Bajo las condiciones del teorema local de Cauchy-Lipschitz, la solución es única en cualquier intervalo de la forma $[t_0, t_0 + h]$ o $[t_0, t_0 + h)$ donde esté definida.    
+    Bajo las condiciones del teorema local de Cauchy-Lipschitz, es decir, sean $J=[t_0, t_0 + T]$, $\Omega \subset \mathbb{R}^N$ un conjunto abierto, $u_0 \in \Omega$, y $f \in C(J \times \Omega, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \Omega$, uniformemente en $t \in J$.\\ 
+    Entonces en cualquier intervalo de la forma $[t_0, t_0 + h]$, ó $[t_0, t_0 + h)$, donde $h \in (0, T]$, el problema de valor inicial $(P)$ tiene a lo sumo una solución.
+    \[
+        (P) =
+        \begin{cases}
+            u'(t) = f(t, u(t)), \quad t \in J \\
+            u(t_0) = u_0
+        \end{cases}
+    \]  
 \end{teorema}
 
 \begin{proof}
-    $[t_0, t_0 + h]$ donde $(P)$ tiene al menos una solución, supongamos que hay dos soluciones $u_1(t)$ y $u_2(t)$ definidas en dicho intervalo, por lo que si son distintas $\exists \widetilde{t} \in [t_0, t_0 + h)$ tal que $u_1(\widetilde{t}) \neq u_2(\widetilde{t})$.\\
+    Sea el intervalo $[t_0, t_0 + h]$ donde $(P)$ tiene al menos una solución, supongamos que hay dos soluciones $u_1(t)$ y $u_2(t)$ definidas en dicho intervalo, por lo que si son distintas $\exists \widetilde{t} \in [t_0, t_0 + h)$ tal que $u_1(\widetilde{t}) \neq u_2(\widetilde{t})$, reduzcamos al absurdo.\\
+
+    Ahora podemos aplicar el Teorema de Cauchy-Lipschitz local, ya que $f$ es localmente Lipschitziana respecto a $u$ en $\Omega$, uniformemente en $t \in J$. Por lo tanto, existe un $\delta > 0$ tal que el PVI tiene una única solución en el intervalo $[t_0, t_0 + \delta]$, con además $\delta < h$. Definamos el conjunto:
+    \[
+        D = \{ \delta > 0 : u_1(t) = u_2(t), \forall t \in [t_0, t_0 + \delta] \} \neq \emptyset
+    \]
+    El cual está acotado superiormente ya que $\delta < h$. Definamos ahora:
+    \[
+        \delta^* = \sup D \longrightarrow
+    \]
+    Y por tanto existe una sucesión $\{ \delta_n \}_{n \geq 1} \subset D$ creciente que converge a $\delta^*$:
+    \[
+        \delta_n \nearrow \delta^*
+    \]
+    Dónde además, al ser $\delta^*$ el supremo, se cumple que:
+    \[
+        u_1(t) = u_2(t), \forall t \in [t_0, t_0 + \delta_n], \forall n \geq 1
+        \implies
+        u_1(t_0 + \delta_n) = u_2(t_0 + \delta_n), \forall n \geq 1
+    \]
+    Ahora, aplicando la continuidad de $u_1$ y $u_2$:
+    \[
+        \begin{cases}
+            u_1 = u_2 \text{ en } \bigcup_{n \geq 1} [t_0, t_0 + \delta_n] = [t_0, t_0 + \delta^*) \\
+            t_0 + \delta_n \to t_0 + \delta^* \underbrace{\implies}_{\text{por continuidad}} u_1(t_0 + \delta^*) = u_2(t_0 + \delta^*)
+        \end{cases}
+        \implies
+    \]
+    \[
+        \implies
+        \boxed{u_1(t) = u_2(t), \forall t \in [t_0, t_0 + \delta^*]}
+    \]
+
+    Ahora definamos:
+    \[
+        t_0^* = t_0 + \delta^* \in [t_0, t_0 + h]
+    \]
+    Sabemos que $u_1(t_0^*) = u_2(t_0^*) \in \Omega$, y por tanto podemos definir el siguiente PVI:
+    \[
+        (P^*) =
+        \begin{cases}
+            u'(t) = f(t, u(t))
+            u(t_0^*) = u_1(t_0^*) = u_2(t_0^*) \in \Omega
+        \end{cases}
+    \]
+    Ahora aplicando de nuevo el Teorema de Cauchy-Lipschitz local con el mismo argumento, existe un $\delta > 0$ tal que $(P^*)$ tiene una única solución en el intervalo $[t_0^*, t_0^* + \delta]$, sin embargo, como $u_1$ y $u_2$ son soluciones de $(P^*)$ en dicho intervalo, se concluye que:
+    \[
+        \begin{cases}
+            u_1(t) = u_2(t), \forall t \in [t_0^*, t_0^* + \delta] \\
+            t_0^* + \delta = t_0 + \delta^* + \delta > t_0 + \delta^*
+        \end{cases}
+        \implies \delta^* \neq \sup D !!
+    \]
+    Lo cual es una contradicción, y por tanto $u_1(t) = u_2(t)$ para todo $t \in [t_0, t_0 + h]$.\\
+        
+\end{proof}
+
+\subsubsection{Existencia de la solución maximal}
+
+Antes de ver el teorema de existencia de la solución maximal, debemos definir qué es una \textbf{prolongación} ó \textbf{extensión} de una solución de un PVI, y además el espacio de soluciones $\Sigma$ de un PVI.
+
+\begin{definición}[Espacio de soluciones de un PVI]
+    Sea $J \in \{ [t_0, t_0 + T], [t_0, t_0 + T), [t_0, \infty) \}$, $\Omega \subset \mathbb{R}^N$ un conjunto abierto, $u_0 \in \Omega$, y $f \in C(J \times \Omega, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \Omega$, uniformemente en $t \in J$, en subintervalos compactos de $J$. Entonces, el problema de valor inicial:
+    \[
+        (P) =
+        \begin{cases}
+            u'(t) = f(t, u(t)), \quad t \in J \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Con su conjunto de soluciones $\Sigma$ definido como:
+    \[
+        \Sigma = \{
+            (I, u_I) : 
+            \begin{cases}
+                I = [t_0, t_0 + h], [t_0, t_0 + h) \subset J \\
+                u_I \in C^1(I, \mathbb{R}^N)
+            \end{cases}
+            \wedge u_I \text{ es solución de } (P) \text{ en } I
+        \}
+    \]
+\end{definición}
+
+\begin{definición}[Prolongación de una solución]
+    Sean $(I_1, u_{I_1}), (I_2, u_{I_2}) \in \Sigma$ dos soluciones del PVI $(P)$.\\
+
+    Diremos que $(I_2, u_{I_2})$ es una \textbf{prolongación} ó \textbf{extensión} de $(I_1, u_{I_1})$ si:
+    \[
+        I_1 \subset I_2 \quad \text{y} \quad u_{I_2}|_{I_1} = u_{I_1}
+    \]
+    Y se denotara como:
+    \[
+        (I_1, u_{I_1}) \leq (I_2, u_{I_2})
+    \]
+    Se dice además que esta prolongación es \textbf{estricta} si $I_1 \subsetneq I_2$.\\
+
+    Finalmente, cabe observar que debido al Teorema de unicidad global, solo con tener que $I_1 \subset I_2$ se deduce que $u_{I_2}|_{I_1} = u_{I_1}$, es decir, que $(I_1, u_{I_1}) \leq (I_2, u_{I_2})$.\\
+
+    Por todo esto además, la relación $\leq$ es un orden total en $\Sigma$, ya que:
+    \begin{enumerate}
+        \item Reflexiva:
+        \[
+            (I, u_I) \leq (I, u_I)
+        \]
+        Al ser $I \subset I$ y $u_I|_I = u_I$.
+        \item Antisimétrica:
+        \[
+            \begin{cases}
+                (I_1, u_{I_1}) \leq (I_2, u_{I_2}) \\
+                (I_2, u_{I_2}) \leq (I_1, u_{I_1})
+            \end{cases}
+            \implies
+            (I_1, u_{I_1}) = (I_2, u_{I_2})
+        \]
+        Ya que $I_1 \subset I_2$ y $I_2 \subset I_1$ implica $I_1 = I_2$, y por tanto $u_{I_1} = u_{I_2}$ aplicando las restricciones de cada función en el dominio contrario.
+        \item Transitiva:
+        \[
+            \begin{cases}
+                (I_1, u_{I_1}) \leq (I_2, u_{I_2}) \\
+                (I_2, u_{I_2}) \leq (I_3, u_{I_3})
+            \end{cases}
+            \implies
+            (I_1, u_{I_1}) \leq (I_3, u_{I_3})
+        \]
+        Ya que $I_1 \subset I_2$ y $I_2 \subset I_3$ implica $I_1 \subset I_3$, y por tanto $u_{I_3}|_{I_1} = u_{I_2}|_{I_1} = u_{I_1}$.
+    \end{enumerate}
+    Dejando así el conjunto de soluciones $\Sigma$ como un conjunto totalmente ordenado por la relación $\leq$.
+\end{definición}
+
+Una vez definidas estas nociones, podemos enunciar el teorema de existencia de la solución maximal.
+
+\begin{teorema}[Teorema de existencia de la solución maximal]
+    bajo las condiciones generales, es decir, sea $J \in \{ [t_0, t_0 + T], [t_0, t_0 + T), [t_0, \infty) \}$, $\Omega \subset \mathbb{R}^N$ un conjunto abierto, $u_0 \in \Omega$, y $f \in C(J \times \Omega, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \Omega$, uniformemente en $t \in J$, en subintervalos compactos de $J$. Entonces, el problema de valor inicial:
+    \[
+        (P) =
+        \begin{cases}
+            u'(t) = f(t, u(t)) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Con espacio de soluciones $\Sigma$ tiene una única solución maximal, es decir, no prolongable estrictamente a su derecha denotada por:
+    \[  
+        \boxed{(I^*, u^*) \in \Sigma}
+    \]
+\end{teorema}
+
+\begin{proof}
+    El intervalo maximal $I^*$ se propone como:
+    \[
+        I^* = \bigcup_{(I, u_I) \in \Sigma} I
+    \]
+    Y la función $u^*$ se define como:
+    \[
+        u^*(t) = u_I(t) \quad \text{para todo } t \in I
+    \]
+    donde $(I, u_I) \in \Sigma$ es cualquier solución que contenga a $t$, esta solución está bien definida ya que si $t \in I_1 \cap I_2$ para dos soluciones $(I_1, u_{I_1}), (I_2, u_{I_2}) \in \Sigma$, entonces por el Teorema de unicidad global se cumple que $u_{I_1}(t) = u_{I_2}(t)$, y por tanto $u^*(t)$ no depende de la elección de la solución que contenga a $t$.\\
 \end{proof}
