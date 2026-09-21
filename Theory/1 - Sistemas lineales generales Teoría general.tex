@@ -963,6 +963,9 @@ Veamos ahora algunos ejemplos.
         
 \end{proof}
 
+\subsection{Solución maximal de un PVI}
+En esta sección vamos a analizar la existencia de una solución maximal de un PVI, es decir, una solución que no pueda ser prolongada más allá de su intervalo de definición, y la unicidad de dicha solución maximal.\\
+
 \subsubsection{Existencia de la solución maximal}
 
 Antes de ver el teorema de existencia de la solución maximal, debemos definir qué es una \textbf{prolongación} ó \textbf{extensión} de una solución de un PVI, y además el espacio de soluciones $\Sigma$ de un PVI.
@@ -1063,3 +1066,231 @@ Una vez definidas estas nociones, podemos enunciar el teorema de existencia de l
     \]
     donde $(I, u_I) \in \Sigma$ es cualquier solución que contenga a $t$, esta solución está bien definida ya que si $t \in I_1 \cap I_2$ para dos soluciones $(I_1, u_{I_1}), (I_2, u_{I_2}) \in \Sigma$, entonces por el Teorema de unicidad global se cumple que $u_{I_1}(t) = u_{I_2}(t)$, y por tanto $u^*(t)$ no depende de la elección de la solución que contenga a $t$.\\
 \end{proof}
+
+Tras haber visto este resultado, sabemos que cualquier PVI:
+\[
+    (P) =
+    \begin{cases}
+        u'(t) = f(t, u(t)) \\
+        u(t_0) = u_0
+    \end{cases}
+\]
+
+Bajo las condiciones generales, tiene una única solución maximal $(I^*, u^*) \in \Sigma$, que no es prolongable estrictamente a su derecha.
+
+\subsubsection{Comportamiento de la solución maximal}
+
+\begin{teorema}[Primer teorema fundamental de la teoría de Cauchy-Lipschitz]
+    Sean $J = [t_0, t_0 + T]$, $f \in C(J \times \mathbb{R}^N, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in J$, $u_0 \in \mathbb{R}^N$, y sea $(I, u)$ la solución maximal del PVI:
+    \[
+        (P) =
+        \begin{cases}
+            u'(t) = f(t, u(t)) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Entonces se debe cumplir una y solo una de las siguientes alternativas:
+    \begin{enumerate}
+        \item $I=J$, en cuyo caso la solución maximal está \textbf{globalmente definida} en todo el intervalo $J$.
+        \item $I = [t_0, T_{\text{max}})$, con $T_{\text{max}} \leq t_0 + T$, y en tal caso:
+        \[
+            \varlimsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty
+        \]
+        En cuto caso se dice que la solución maximal $(I, u)$ \textbf{explota} en tiempo $T_{\text{max}}$.\\
+        Nótese que el limite debe ser superior, ya que si no, la afirmación es \textbf{falsa}.
+    \end{enumerate}
+\end{teorema}
+
+\begin{observación}
+    Nótese que:
+    \[
+        \exists t_n \nearrow T_{\text{max}} \text{ tal que }
+        \lim_{n \to \infty} \| u(t_n) \| = +\infty
+    \]
+    Pero puede ser que por ejemplo, si $N = 2$, se cumpla que:
+    \[
+        \begin{cases}
+            \lim_{n \to \infty} | u_1(t_n) | = +\infty \\
+            \lim_{n \to \infty} | u_2(t_n) | \leq C
+            \forall t \in [t_0, T_{\text{max}})
+        \end{cases}
+        \implies
+        \varlimsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty
+    \]
+    Por lo que debe ser un límite superior.\\
+
+    Otro motivo para usar este límite, es tener una solución que alterne entre explotar y no explotar, pero donde sí exista esa sucesión de puntos dónde explota, observese en la siguiente gráfica:
+
+    \begin{center}
+        \begin{tikzpicture}[scale=1.2, every node/.style={scale=0.9}]
+        % Eje horizontal (tiempo)
+        \draw[thick] (0, 0) -- (8, 0);
+
+        % Marcas y etiquetas en el eje X
+        \draw[thick] (0.5, 0.1) -- (0.5, -0.1) node[below] {$t_0$};
+        \draw[thick] (4.8, 0.1) -- (4.8, -0.1) node[below] {$t_1$};
+        \draw[thick] (5.8, 0.1) -- (5.8, -0.1) node[below] {$t_2$};
+        \draw[thick] (6.5, 0.1) -- (6.5, -0.1) node[below] {$t_3$};
+        \draw[thick] (7.2, 0.1) -- (7.2, -0.1) node[below] {$T_{\max}$};
+
+        % Líneas discontinuas verticales de los límites
+        \draw[dashed, thick, gray] (0.5, -0.2) -- (0.5, 4.5);
+        \draw[dashed, thick, gray] (7.2, -0.2) -- (7.2, 4.8);
+
+        % Líneas discontinuas para los picos t1, t2, t3
+        \draw[dashed, thick, gray] (4.8, 0) -- (4.8, 3.2);
+        \draw[dashed, thick, gray] (5.8, 0) -- (5.8, 3.8);
+        \draw[dashed, thick, gray] (6.5, 0) -- (6.5, 4.6);
+
+        % Etiqueta del valor inicial u0
+        \node[left] at (0, 1) {$u_0$};
+
+        % Curva principal oscilante corregida mediante puntos intermedios (sin efecto globo)
+        \draw[thick, blue!80!black] (0, 1) -- (0.5, 1)
+            plot [smooth, tension=1.0] coordinates {
+            (0.5, 1)
+            (0.85, 1.1)
+            (1.2, 1.3)
+            (1.5, 1.4)
+            (1.8, 1.6)
+            (2.15, 1.9)
+            (2.5, 2.2)
+            (2.8, 1.45)
+            (3.1, 0.7)
+            (3.45, 1.6)
+            (3.8, 2.5)
+            (4.05, 1.6)
+            (4.3, 0.7)
+            (4.55, 1.95)
+            (4.8, 3.2)
+            (5.05, 1.95)
+            (5.3, 0.7)
+            (5.55, 2.25)
+            (5.8, 3.8)
+            (5.95, 2.25)
+            (6.15, 0.7)
+            (6.32, 2.65)
+            (6.5, 4.6)
+            (6.65, 2.7)
+            (7.0, 0.9)
+            };
+
+        % Textos y límites
+        \node at (5.2, 4.4) {$t \nearrow T_{\max}$};
+
+        % El límite superior
+        \node[right] at (7.4, 3.5) {$\displaystyle \limsup_{t \to T_{\max}} u(t) = \infty$};
+
+    \end{tikzpicture}
+    \end{center}
+
+\end{observación}
+
+Probemos ahora el teorema.
+
+\begin{proof}
+    Como hemos visto, tenemos 2 posibles casos.\\
+
+    En el \textbf{primer caso}, si $I = J$, entonces la solución maximal está globalmente definida en todo el intervalo $J$, y por el Teorema de unicidad global, es la única solución de $(P)$ en $J$.\\
+
+    Veamos ahora el \textbf{segundo caso}, que es más interesante, a priori tenemos dos posibilidades:
+    \[
+        \begin{cases}
+            I = [t_0, T_{\text{max}}], \text{ con } T_{\text{max}} < t_0 + T \\
+            \boxed{I = [t_0, T_{\text{max}}), \text{ con } T_{\text{max}} \leq t_0 + T}
+        \end{cases}
+    \]
+
+    Probemos que la primera posibilidad es imposible, y después probemos la segunda
+    \begin{enumerate}
+        \item Supongamos que $I = [t_0, T_{\text{max}}]$, con $T_{\text{max}} < t_0 + T$.\\
+        \item 
+        Sabemos por RELLENAR, $\exists \delta > 0$ tal que el PVI tiene una única solución en el intervalo $[T_{\text{max}}, T_{\text{max}} + \delta]$, y por tanto podemos prolongar estrictamente la solución maximal $(I, u)$ a su derecha, lo cual es una contradicción de que $(I, u)$ sea maximal. Por lo tanto, la primera posibilidad es imposible.\\
+
+        Si se quisiera extender la solución maximal a su derecha, se podría hacer definiendo la función:
+        \[
+            \widetilde{u}(t) =
+            \begin{cases}
+                u(t), & t \in [t_0, T_{\text{max}}] \\
+                w(t), & t \in [T_{\text{max}}, T_{\text{max}} + \delta]
+            \end{cases}
+        \]
+        Donde $w(t)$ es la solución del PVI:
+        \[
+            \begin{cases}
+                w'(t) = f(t, w(t)) \\
+                w(T_{\text{max}}) = u(T_{\text{max}})
+            \end{cases}
+        \]
+        Y por el Teorema de unicidad global, $w(t)$ es la única solución de este PVI en el intervalo $[T_{\text{max}}, T_{\text{max}} + \delta]$, y además $\widetilde{u}(t)$ es continua y derivable en todo el intervalo $[t_0, T_{\text{max}} + \delta]$, por lo que $\widetilde{u}(t)$ es una prolongación estricta de la solución maximal $(I, u)$ a su derecha, lo cual es una contradicción.\\
+
+        \item Ahora veamos el segundo caso, que es el más interesante.\\
+        Supongamos que $I = [t_0, T_{\text{max}})$, con $T_{\text{max}} \leq t_0 + T$.\\
+
+        Definamos además el conjunto:
+        \[
+            \Gamma = \{ u(t) : t \in I \} \text{ denominado órbita de } (I, u)
+        \]
+        
+        Veremos más adelante la prueba de un lema que nos dice que si $\Gamma$ es no acotada, entonces la solución maximal $(I, u)$ explota en tiempo $T_{\text{max}}$.\\
+
+        Ahora razonemos por reducción al absurdo. Supongamos que $\Gamma$ es acotada entonces $\overline{\Gamma}$ es compacto, y por tanto $J \times \overline{\Gamma}$ es compacto en $\mathbb{R} \times \mathbb{R}^N$.\\
+
+        Sea ahora:
+        \[
+            \| f \|_\infty = \max_{\| f(t, x) \| : (t, x) \in J \times \overline{\Gamma}}
+        \]
+        Y sea la sucesión:
+        \[
+            t_n = T_{\text{max}} - \frac{1}{n} \nearrow T_{\text{max}}
+        \]
+        Ahora como $\Gamma$ es acotada, la sucesión $\{ u(t_n) \}_{n \geq 1}$ es acotada, y por, al ser una sucesión acotada en un compacto, podemos aplicar el teorema de Bolzano-Weierstrass, y por tanto existe una subsucesión convergente:
+        \[
+            \exists \mu(t_{n_m}) \to u^* \in \mathbb{R}^N
+        \]
+        Y por lo tanto también se cumple que:
+        \[
+            t_{n_m} \to T_{\text{max}} \implies
+            u(t_{n_m}) \to u^* \in \mathbb{R}^N
+        \]
+        Ahora podemos desarrollar:
+        \[
+            \| u(t_{n_m}) - u(t) \| =
+            \| \int_t^{t_{n_m}} u'(s) ds \| =
+            \| \int_t^{t_{n_m}} f(s, u(s)) ds \| \leq
+            \int_t^{t_{n_m}} \| f(s, u(s)) \| ds \leq
+            \| f \|_\infty | t_{n_m} - t |
+        \]
+        Y por lo tanto, tomando el límite cuando $m \to \infty$:
+        \[
+            \| u^* - u(t) \| = \| f \|_\infty | T_{\text{max}} - t | 
+        \]
+        Prolongando así:
+        \[
+            \boxed{\lim_{t \nearrow T_{\text{max}}} u(t) = u^* \in \mathbb{R}^N}
+        \]
+        Pero esto contradice que la solución maximal $(I, u)$ no es prolongable estrictamente a su derecha, ya que habríamos prolongado la solución un punto.\\
+
+        Nótese además que la derivada está bien definida en $T_{\text{max}}$, ya que:
+        \[
+            u'(t) = f(t, u(t)) \to f(T_{\text{max}}, u^*) \in \mathbb{R}^N
+        \]
+
+        Por tanto sabemos que $\Gamma$ es no acotada, pero falta ver que el punto de explosión es $T_{\text{max}}$.\\
+
+        Sea una sucesión $t_n \in I$ tal que $\| u(t_n) \| \geq n$, como $t_n$ es acotada en un compacto hay una subsucesión convergente $t_{n_m} \to t^* \in [t_0, T_{\text{max}}]$, dónde:
+        \[
+            \| u(t_{n_m}) \| \geq n_m \to +\infty \implies
+            \lim_{m \to \infty} \| u(t_{n_m}) \| = +\infty
+        \]
+
+        Pero ahora debemos probar que $t^* = T_{\text{max}}$, para que así se cumpla que:
+        \[
+            \varlimsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty
+        \]
+        
+        Y así concluir que la solución maximal $(I, u)$ explota en tiempo $T_{\text{max}}$.\\
+        RELLENAR ESTA PARTE
+    \end{enumerate}
+\end{proof}
+
