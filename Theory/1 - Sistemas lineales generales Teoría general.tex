@@ -1294,3 +1294,166 @@ Probemos ahora el teorema.
     \end{enumerate}
 \end{proof}
 
+
+\begin{teorema}[Segundo teorema fundamental de la teoría de Cauchy-Lipschitz]
+    Sean $J = [t_0, +\infty)$, $f \in C(J \times \mathbb{R}^N, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en subintervalos compactos de $J$, y sea $(I, u)$ la solución maximal del PVI:
+    \[
+        (P) =
+        \begin{cases}
+            u'(t) = f(t, u(t)) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Entonces $I = [t_0, T_{\text{max}})$, con $T_{\text{max}} \in (t_0, +\infty]$, y en tal caso:
+    \[
+        \varlimsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty \quad \text{(si } T_{\text{max}} < +\infty \text{)}
+    \]    
+\end{teorema}
+
+\begin{proof}
+    Si $T_{\text{max}} = +\infty$, entonces $I = J = [t_0, +\infty)$, y la solución maximal está globalmente definida en todo el intervalo $J$. En este caso no hay explosión en tiempo finito.
+    
+    Supongamos que $I \subsetneq J$, es decir, $T_{\text{max}} < +\infty$. En principio, el intervalo maximal $I$ podría tener dos formas:
+    \[
+        \begin{cases}
+            I = [t_0, T_{\text{max}}], \text{ con } T_{\text{max}} < +\infty \\
+            I = [t_0, T_{\text{max}}), \text{ con } T_{\text{max}} < +\infty
+        \end{cases}
+    \]
+    Pero el primer caso es imposible. Si $I = [t_0, T_{\text{max}}]$, el valor $u(T_{\text{max}}) \in \mathbb{R}^N$ estaría bien definido. Como $f$ satisface las hipótesis del teorema de existencia y unicidad local (Picard-Lindelöf), podríamos considerar un nuevo PVI tomando como instante inicial $T_{\text{max}}$:
+    \[
+        \begin{cases}
+            w'(t) = f(t, w(t)) \\
+            w(T_{\text{max}}) = u(T_{\text{max}})
+        \end{cases}
+    \]
+    Esto nos garantizaría la existencia de una solución local $w$ definida en un intervalo $[T_{\text{max}}, T_{\text{max}} + \delta)$ con $\delta > 0$. Concatenando $u$ con $w$, obtendríamos una solución al problema original definida en $[t_0, T_{\text{max}} + \delta)$, lo cual contradice directamente la maximalidad del intervalo $I$. Por lo tanto, el intervalo debe ser necesariamente abierto por la derecha: $I = [t_0, T_{\text{max}})$.
+
+    Tenemos que comprobar ahora que la solución $u(t)$ explota al acercarse a $T_{\text{max}}$, es decir, que la órbita:
+    \[
+        \Gamma = \{ u(t) : t \in [t_0, T_{\text{max}}) \} \text{ es no acotada}
+    \]
+    Supongamos por reducción al absurdo que $\Gamma$ es acotada. Entonces, su clausura $\overline{\Gamma}$ es un conjunto cerrado y acotado en $\mathbb{R}^N$, y por el Teorema de Heine-Borel, es compacto. 
+    Definimos el cilindro compacto $K = [t_0, T_{\text{max}}] \times \overline{\Gamma} \subset \mathbb{R} \times \mathbb{R}^N$.
+    
+    Como $f$ es continua en $K$, alcanza un máximo por el teorema de Weierstrass. Podemos acotar su norma:
+    \[
+        \| f \|_\infty = \max_{(t, x) \in K} \| f(t, x) \| < +\infty
+    \]
+    Tomemos una sucesión de tiempos $t_n = T_{\text{max}} - \frac{1}{n}$ de manera que $t_n \nearrow T_{\text{max}}$. La sucesión de puntos correspondientes $\{u(t_n)\}_{n \geq 1} \subset \Gamma$ es acotada por hipótesis. Por el teorema de Bolzano-Weierstrass, existe una subsucesión convergente:
+    \[
+        \exists u(t_{n_m}) \xrightarrow[m \to \infty]{} u^* \in \mathbb{R}^N
+    \]
+    
+    Por el Teorema Fundamental del Cálculo, para cualquier $t \in I$ y para nuestro $t_{n_m}$, se cumple que:
+    \[
+        u(t_{n_m}) - u(t) = \int_t^{t_{n_m}} u'(s) \, ds = \int_t^{t_{n_m}} f(s, u(s)) \, ds
+    \]
+    Tomando normas e introduciendo el valor absoluto en los límites de integración para asegurar que el intervalo es positivo, acotamos usando el supremo de $f$:
+    \[
+        \| u(t_{n_m}) - u(t) \| \leq \left| \int_t^{t_{n_m}} \| f(s, u(s)) \| \, ds \right| \leq \| f \|_\infty | t_{n_m} - t |
+    \]
+    Fijando $t$ y tomando el límite cuando $m \to \infty$ en la desigualdad, dado que $t_{n_m} \to T_{\text{max}}$ y $u(t_{n_m}) \to u^*$, obtenemos:
+    \[
+        \| u^* - u(t) \| \leq \| f \|_\infty | T_{\text{max}} - t |, \quad \forall t \in I
+    \]
+    Si ahora tomamos el límite cuando $t \nearrow T_{\text{max}}$, la parte derecha de la desigualdad tiende a $0$, lo que implica que:
+    \[
+        \lim_{t \nearrow T_{\text{max}}} u(t) = u^* \in \mathbb{R}^N
+    \]
+    Como el límite de $u(t)$ existe y es finito, podemos definir $u(T_{\text{max}}) = u^*$. Esto extiende la solución de forma continua al intervalo cerrado $[t_0, T_{\text{max}}]$, lo cual ya probamos en la primera parte que es imposible porque contradice la maximalidad de la solución.
+    
+    Esta contradicción proviene de suponer que $\Gamma$ es acotada. Por lo tanto, la órbita debe ser no acotada, concluyendo la demostración:
+    \[
+        \varlimsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty
+    \]
+\end{proof}
+
+\[
+    n \geq 1, \quad t_n \in T = [t_0, T_{\text{max}}), \quad \| u(t_n) \| \geq n
+\]
+\[
+    \lim_{n \to \infty} \| u(t_n) \| = +\infty, \quad \{t_n\}_{n \geq 1} \text{ es acotada} 
+\]
+por Bolzano-Weierstrass, $\exists t_{n_m} \to t^* \in [t_0, T_{\text{max}}]$.
+\[
+    \begin{cases}
+        t^* < T_{\text{max}} \\
+        t^* = T_{\text{max}}
+    \end{cases}
+\]
+\[
+    \| u(t_{n_m}) \| \xrightarrow[m \to \infty]{} \| u(t^*) \| 
+\]
+\[
+    \lim_{m \to \infty} \| u(t_{n_m}) \| = \| u(t^*) \| \quad \text{ contradicción}
+\]
+\[
+    t^* = T_{\text{max}}, \quad t_{n_m} \nearrow T_{\text{max}} = t^*
+\]
+\[
+    \| u(t_{n_m}) \| \xrightarrow[m \to \infty]{} +\infty, \quad \limsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty
+\]
+
+
+\begin{teorema} [Tercer teorema fundamental de la teoría de Cauchy-Lipschitz]
+    Sean $J = [t_0, +\infty)$, $\Omega \subsetneq \mathbb{R}^N$ un conjunto abierto, $f \in C(J \times \Omega, \mathbb{R}^N)$ una función localmente Lipschitziana respecto a $u \in \Omega$, uniformemente en subintervalos compactos de $J$, y sea $(I, u)$ la solución maximal del PVI:
+    \[
+        (P) =
+        \begin{cases}
+            u'(t) = f(t, u(t)) \\
+            u(t_0) = u_0
+        \end{cases}
+    \]
+    Entonces $I = [t_0, T_{\text{max}})$ para algún $T_{\text{max}} \in (t_0, +\infty]$. Además, cuando $T_{\text{max}} < +\infty$, se cumple al menos una de las siguientes alternativas:
+    \begin{enumerate}
+        \item Explosión en tiempo $T_{\text{max}}$:
+        \[
+            \varlimsup_{t \nearrow T_{\text{max}}} \| u(t) \| = +\infty
+        \]
+        \item $\exists t\{t_n\}_{n \geq 1} \subset I$ y $u_\omega \in \partial \Omega$ tal que:
+        \[
+            \lim_{n \to \infty} u(t_n) = u_\omega \in \partial \Omega
+        \]
+        (la solución se acerca a la frontera del conjunto abierto $\Omega$)
+    \end{enumerate}
+\end{teorema}
+
+\begin{center}
+\begin{tikzpicture}[thick, >=stealth]
+
+  % Fronteras superior e inferior
+  \draw (-4, 1.5) -- (4, 1.5);
+  \draw (-4, -1.5) -- (4, -1.5);
+
+  % Relleno de lineas (hatching) para representar el exterior del dominio
+  \fill[pattern=north east lines, pattern color=black] (-4, 1.5) rectangle (4, 2.5);
+  \fill[pattern=north east lines, pattern color=black] (-4, -2.5) rectangle (4, -1.5);
+
+  % Etiqueta del dominio Omega a la izquierda
+  \draw[->, thick] (-5.5, 0) -- (-4.5, 0);
+  \node[anchor=east] at (-5.6, 0) {\Large $\Omega$};
+
+  % Punto central u_0
+  \coordinate (U0) at (0, 0);
+  \fill (U0) circle (2pt);
+  \node[anchor=north, yshift=-2pt] at (U0) {$u_0$};
+
+  % Familia de órbitas anidadas (elipses concéntricas)
+  \draw (U0) ellipse (1 and 0.4);
+  \draw (U0) ellipse (1.6 and 0.7);
+  \draw (U0) ellipse (2.2 and 1.0);
+  \draw (U0) ellipse (2.8 and 1.3);
+
+  % Línea punteada azul hacia la frontera superior
+  \draw[cyan, densely dashed, line width=1.5pt] (U0) -- (0, 1.5);
+
+  % Línea discontinua roja hacia la derecha cortando las órbitas
+  \draw[red, dashed, line width=1.5pt] (U0) -- (3.5, 0);
+
+  % Anotaciones de las sucesiones a la derecha
+  \node[anchor=west] at (4.5, 0.6) {$u(s_n), \, n \ge 1 \quad \|u(s_n)\| \xrightarrow{n \to \infty} +\infty$};
+  \node[anchor=west] at (4.5, -0.6) {$u(t_n), \, n \ge 1 \quad u(t_n) \xrightarrow{n \to \infty} u_\omega \in \Omega$};
+
+\end{tikzpicture}
+\end{center}
