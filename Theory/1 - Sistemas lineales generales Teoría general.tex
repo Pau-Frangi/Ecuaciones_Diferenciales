@@ -1534,7 +1534,7 @@ por Bolzano-Weierstrass, $\exists t_{n_m} \to t^* \in [t_0, T_{\text{max}}]$.
 }
 
 \begin{teorema}
-    Sean $J = [t_0, t_0 + T]$, $\Omega = B_R(q)$, $f \in C(J \times \overline{\Omega}, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \overline{\Omega}$, uniformemente en $t \in J$. Entonces para cada $u_0 \in \Omega$, el PVI:
+    Sean $J = [t_0, t_0 + T]$, $\Omega = B_R(q)$, $f \in C(J \times \overline{\Omega}, \mathbb{R}^N)$ una función globalmente Lipschitziana respecto a $u \in \overline{\Omega}$, uniformemente en $t \in J$. Entonces para cada $u_0 \in \Omega$, el Problema de Valor Inicial (PVI):
     \[
         (P) =
         \begin{cases}
@@ -1542,24 +1542,149 @@ por Bolzano-Weierstrass, $\exists t_{n_m} \to t^* \in [t_0, T_{\text{max}}]$.
             u(t_0) = u_0
         \end{cases}
     \]
-    tiene una única solución $(I_{\text{max}}, u_{\text{max}})$ maximal. Además, o bien $I_{\text{max}} = J$, o bien $I_{\text{max}} = [t_0, T_{\text{max}}]$, con $T_{\text{max}} \leq t_0 + T$, y cuando $T_{\text{max}} < t_0 + T$, se cumple que:
+    tiene una única solución maximal $(I_{\text{max}}, u_{\text{max}})$. Además, el intervalo maximal de existencia cumple que o bien $I_{\text{max}} = J$, o bien $I_{\text{max}} = [t_0, T_{\text{max}}]$ con $T_{\text{max}} < t_0 + T$. En este último caso, cuando la solución no alcanza todo el intervalo $J$, se cumple necesariamente que:
     \[
         u_{\text{max}}(T_{\text{max}}) \in \partial \Omega
     \]
 \end{teorema}
 
 \begin{proof}
-    Sea $\Sigma$ el conjunto de soluciones del PVI $(P)$, entonces $\Sigma \neq \emptyset$ por el teorema de Cauchy-Lipschitz local.
+    Sea $\Sigma$ el conjunto de todas las soluciones locales del PVI $(P)$. Es decir, $\Sigma$ está formado por los pares $(I, u_I)$ tales que $I \subset J$ es un intervalo con $t_0 \in I$, $u_I(t_0) = u_0$, $u_I(t) \in \overline{\Omega}$ para todo $t \in I$, y cumplen la ecuación diferencial:
     \[
-        u_I(t) \in \overline{\Omega}, \quad \forall t \in I
+        u_I'(t) = f(t, u_I(t)), \quad \forall t \in I
     \]
+    Por el teorema de Cauchy-Lipschitz (o Picard-Lindelöf) local, dado que $f$ es continua y Lipschitziana, existe al menos una solución local, por lo que $\Sigma \neq \emptyset$.
+
+    Para garantizar un buen comportamiento en la frontera, podemos considerar una función $F : J \times \mathbb{R}^N \to \mathbb{R}^N$ que extiende a $f$. Dado que $\overline{\Omega}$ es un conjunto convexo (una bola cerrada), podemos definir $F$ proyectando los puntos fuera de $\overline{\Omega}$ hacia la frontera $\partial \Omega$. De este modo, $F$ coincide con $f$ en su dominio original:
     \[
-        u_I'(t) = f(t, u_I(t)) \in 
+        F \mid_{J \times \overline{\Omega}} = f
     \]
+    y resulta ser globalmente Lipschitziana respecto a $u \in \mathbb{R}^N$, uniformemente en $t \in J$. Toda solución que se mantenga en $\overline{\Omega}$ será solución del problema original.
+
+    Definimos el intervalo maximal de existencia $I_{\text{max}}$ como la unión de todos los dominios de las soluciones en $\Sigma$:
     \[
         I_{\text{max}} = \bigcup_{(I, u_I) \in \Sigma} I
     \]
+    y definimos la solución maximal como $u_{\text{max}}(t) = u_I(t)$ para $t \in I$. Por la unicidad de soluciones, $u_{\text{max}}$ está bien definida independientemente de la solución local $u_I$ elegida. 
+    
+    A priori, el intervalo $I_{\text{max}}$ puede ser cerrado o semiabierto por la derecha:
     \[
-        u_{\text{max}}(t) = u_I(t), \quad t \in I
+        I_{\text{max}} = 
+        \begin{cases}
+            [t_0, T_{\text{max}}) \\
+            [t_0, T_{\text{max}}]
+        \end{cases}
+    \]
+    Supongamos por reducción al absurdo que $I_{\text{max}} = [t_0, T_{\text{max}})$. Consideremos la trayectoria de la solución:
+    \[
+        \Gamma = \{ u_{\text{max}}(t) : t \in I_{\text{max}} \} \subset \overline{\Omega} = \overline{B}_R(q)
+    \]
+    Como $f$ es continua y $\overline{\Omega}$ es un conjunto compacto, $f$ está uniformemente acotada en $J \times \overline{\Omega}$, digamos por $\| f \|_\infty$. 
+    
+    Tomemos una sucesión $t_n = T_{\text{max}} - \frac{1}{n}$ tal que $t_n \nearrow T_{\text{max}}$. La sucesión $\{ u_{\text{max}}(t_n) \}_{n \geq 1}$ está contenida en $\Gamma$, que es acotada. Por el teorema de Bolzano-Weierstrass, existe una subsucesión convergente:
+    \[
+        u_{\text{max}}(t_{n_m}) \to u^* \in \overline{\Gamma} \subset \overline{\Omega}
+    \]
+    Para cualquier $t \in [t_0, T_{\text{max}})$, podemos estimar la distancia utilizando el Teorema Fundamental del Cálculo:
+    \[
+        \| u_{\text{max}}(t_{n_m}) - u_{\text{max}}(t) \| = \left\| \int_t^{t_{n_m}} u_{\text{max}}'(s) ds \right\| = \left\| \int_t^{t_{n_m}} f(s, u_{\text{max}}(s)) ds \right\| \leq \int_t^{t_{n_m}} \| f(s, u_{\text{max}}(s)) \| ds 
+    \]
+    \[
+        \leq \| f \|_\infty | t_{n_m} - t |, \quad \forall m \geq 1
+    \]
+    Tomando el límite cuando $m \to \infty$, obtenemos:
+    \[
+        \| u^* - u_{\text{max}}(t) \| \leq \| f \|_\infty | T_{\text{max}} - t |
+    \]
+    Esto implica que el límite lateral existe y está en el dominio:
+    \[
+        \lim_{t \nearrow T_{\text{max}}} u_{\text{max}}(t) = u^* \in \overline{\Omega}
+    \]
+    Al existir el límite, la solución se puede extender de forma continua hasta $T_{\text{max}}$, contradiciendo que el intervalo maximal sea semiabierto. Por lo tanto, el intervalo maximal debe ser cerrado:
+    \[
+        I_{\text{max}} = [t_0, T_{\text{max}}], \quad \text{con } T_{\text{max}} \leq t_0 + T
+    \]
+    Finalmente, supongamos que la solución no abarca todo el intervalo $J$, es decir, $T_{\text{max}} < t_0 + T$. Sabemos que $u_{\text{max}}(T_{\text{max}}) \in \overline{\Omega} = \Omega \cup \partial \Omega$. Tenemos dos posibilidades:
+    \[
+        \begin{cases}
+            u_{\text{max}}(T_{\text{max}}) \in \Omega \\
+            u_{\text{max}}(T_{\text{max}}) \in \partial \Omega
+        \end{cases}
+    \]
+    Si ocurriera que $u_{\text{max}}(T_{\text{max}}) \in \Omega$, podríamos plantear un nuevo problema de valor inicial partiendo de este punto:
+    \[
+        \begin{cases}
+            w'(t) = f(t, w(t)) \\
+            w(T_{\text{max}}) = u_{\text{max}}(T_{\text{max}}) \in \Omega
+        \end{cases}
+    \]
+    Dado que $u_{\text{max}}(T_{\text{max}})$ está en el interior del dominio $\Omega$, el teorema de existencia local garantizaría la existencia de una solución $w(t)$ en un intervalo $[T_{\text{max}}, T_{\text{max}} + \delta]$ para algún $\delta > 0$. Concatenando $u_{\text{max}}$ con $w$, la solución podría prolongarse estrictamente a la derecha de $T_{\text{max}}$, lo cual contradice que $(I_{\text{max}}, u_{\text{max}})$ sea la solución maximal.
+    
+    Por lo tanto, la única posibilidad compatible con la maximalidad de la solución es que alcance la frontera del dominio espacial:
+    \[
+        u_{\text{max}}(T_{\text{max}}) \in \partial \Omega
     \]
 \end{proof}
+\begin{observación}
+    Hemos pedido originalmente que $\Omega$ sea una bola abierta para poder definir fácilmente una extensión globalmente Lipschitziana de $f$ a todo el espacio $\mathbb{R}^N$ (por ejemplo, mediante una proyección sobre la bola). Sin embargo, en general, el resultado sigue siendo válido si requerimos únicamente que $\Omega$ sea un conjunto abierto y acotado, lo cual nos garantiza que su clausura $\overline{\Omega}$ sea un conjunto compacto. 
+    
+    Es importante hacer una precisión sobre la extensión de la función: mientras que el teorema de Tietze-Urysohn nos garantiza la existencia de una extensión continua a todo el espacio para funciones continuas definidas en un cerrado, para preservar la condición de Lipschitz global (que es fundamental para aplicar el teorema de Cauchy-Lipschitz), se debe recurrir a resultados más específicos, como el teorema de extensión de McShane-Whitney (o de Kirszbraun). Estos teoremas nos aseguran que toda función Lipschitziana definida en un subconjunto puede extenderse a todo el espacio conservando su constante de Lipschitz.
+\end{observación}
+
+\subsection{Mirar al pasado (Soluciones hacia atrás en el tiempo)}
+
+Hasta ahora hemos analizado el comportamiento de las soluciones hacia el futuro, es decir, para tiempos $t \geq t_0$. Sin embargo, en muchas ocasiones nos interesa conocer el estado del sistema en instantes anteriores. Consideremos el Problema de Valor Inicial (PVI) definido en un intervalo de tiempo hacia el pasado $J = [t_0 - T, t_0]$:
+\[
+    (P) = 
+    \begin{cases}
+        u'(t) = f(t, u(t)) \\
+        u(t_0) = u_0
+    \end{cases}
+\]
+Para resolver este problema, podemos transformarlo en un PVI equivalente que avance hacia el futuro mediante un cambio de variable temporal. Definimos un nuevo tiempo $s$ como la reflexión de $t$ respecto al instante inicial $t_0$:
+\[
+    s = 2t_0 - t 
+\]
+De este modo, cuando $t$ recorre el intervalo al pasado $t_0 - T \leq t \leq t_0$, podemos ver cómo se transforma el rango de $s$. Multiplicando por $-1$ e sumando $2t_0$ obtenemos:
+\[
+    -t_0 + T \geq -t \geq -t_0 \implies t_0 + T \geq 2t_0 - t \geq t_0
+\]
+Por lo tanto, la nueva variable temporal se mueve hacia el futuro:
+\[
+    s \in [t_0, t_0 + T]
+\]
+Ahora, definimos una nueva función incógnita $v(s)$ que representa a $u(t)$ en el nuevo sistema de referencia temporal:
+\[
+    v(s) = u(t) = u(2t_0 - s)
+\]
+Aplicando la regla de la cadena, derivamos $v$ respecto a $s$:
+\[
+    v'(s) = u'(2t_0 - s) \cdot \frac{d}{ds}(2t_0 - s) = - u'(t)
+\]
+Sustituyendo $u'(t)$ por la ecuación diferencial original, tenemos:
+\[
+    v'(s) = - f(t, u(t)) = - f(2t_0 - s, v(s))
+\]
+Si definimos una nueva función para el campo vectorial $g(s, v) = - f(2t_0 - s, v)$, obtenemos la siguiente ecuación diferencial para $v$:
+\[
+    v'(s) = g(s, v(s)), \quad \text{para } s \in [t_0, t_0 + T]
+\]
+En el instante inicial $s = t_0$, tenemos que $v(t_0) = u(t_0) = u_0$. Por lo tanto, el problema hacia el pasado se ha transformado en el siguiente PVI hacia el futuro:
+\[
+    \begin{cases}
+        v'(s) = g(s, v(s)) \\
+        v(t_0) = u_0
+    \end{cases}
+\]
+Como $g$ conserva las propiedades de regularidad de $f$ (continuidad y condición de Lipschitz), este nuevo problema es equivalente al PVI $(P)$ original "mirando al pasado". En consecuencia, todos los teoremas de existencia, unicidad y maximalidad que hemos probado para el futuro se cumplen de manera análoga para el pasado.
+
+\ejemplo{
+    Como aplicación de estos conceptos, consideremos la ecuación logística, que modela el crecimiento de una población con recursos limitados. El PVI está dado por:
+    \[
+        \begin{cases}
+            u'(t) = \lambda u(t) - a u^2(t) \\
+            u(0) = u_0 \in \mathbb{R}
+        \end{cases}   
+    \]
+    con parámetros $\lambda > 0$ (tasa de crecimiento intrínseco) y $a > 0$ (tasa de competencia interespecífica). Este es un problema donde la función $f(t, u) = \lambda u - a u^2$ es localmente Lipschitziana respecto a $u$, lo que nos permite aplicar la teoría desarrollada para estudiar tanto el comportamiento futuro de la población como su historia pasada.
+}
